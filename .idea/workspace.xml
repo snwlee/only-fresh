@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1379d600-8c03-4f3b-ab55-9f205c0edeaa" name="변경" comment="🚦 test: controller test">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="1379d600-8c03-4f3b-ab55-9f205c0edeaa" name="변경" comment="⚙️ chore: .gitignore 세팅" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -214,7 +211,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1660099335521</updated>
-      <workItem from="1660099336817" duration="6213000" />
+      <workItem from="1660099336817" duration="6721000" />
     </task>
     <task id="LOCAL-00001" summary="🎉 init: spring project init">
       <created>1660103202572</created>
@@ -237,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660106543921</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="⚙️ chore: .gitignore 세팅">
+      <created>1660116359283</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660116359283</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,6 +274,7 @@
     <MESSAGE value=" init: spring project init" />
     <MESSAGE value="️ config: RDS 정보 수정" />
     <MESSAGE value=" test: controller test" />
-    <option name="LAST_COMMIT_MESSAGE" value=" test: controller test" />
+    <MESSAGE value="⚙️ chore: .gitignore 세팅" />
+    <option name="LAST_COMMIT_MESSAGE" value="⚙️ chore: .gitignore 세팅" />
   </component>
 </project>

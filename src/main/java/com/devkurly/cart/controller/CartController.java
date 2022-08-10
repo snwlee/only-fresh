@@ -1,4 +1,4 @@
-package com.devcamp.devkurly.cart.controller;
+package com.devkurly.cart.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
