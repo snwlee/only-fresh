@@ -28,7 +28,6 @@
 > Front-end
 >
 - Language : HTML5, CSS3, JavaScript
-- Framework : React
 
 # 💡ERD
 
