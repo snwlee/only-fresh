@@ -9,12 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1379d600-8c03-4f3b-ab55-9f205c0edeaa" name="변경" comment="🎉 init: spring project init">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cart/controller/CartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/order/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/payment/controller/PaymentController.java" afterDir="false" />
+    <list default="true" id="1379d600-8c03-4f3b-ab55-9f205c0edeaa" name="변경" comment="🛠️ config: RDS 정보 수정">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/test.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/db.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cart/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcamp/devkurly/cart/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcamp/devkurly/order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/payment/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devcamp/devkurly/payment/controller/PaymentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -60,6 +63,11 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propDebugger"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -180,7 +188,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1660099335521</updated>
-      <workItem from="1660099336817" duration="3265000" />
+      <workItem from="1660099336817" duration="4672000" />
     </task>
     <task id="LOCAL-00001" summary="🎉 init: spring project init">
       <created>1660103202572</created>
@@ -189,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660103202572</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="🛠️ config: RDS 정보 수정">
+      <created>1660105045689</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1660105045689</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,6 +223,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value=" init: spring project init" />
-    <option name="LAST_COMMIT_MESSAGE" value=" init: spring project init" />
+    <MESSAGE value="️ config: RDS 정보 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="️ config: RDS 정보 수정" />
   </component>
 </project>
