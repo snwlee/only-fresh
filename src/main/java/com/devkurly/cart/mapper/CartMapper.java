@@ -1,4 +1,4 @@
-package com.devkurly.cart.repository;
+package com.devkurly.cart.mapper;
 
 import com.devkurly.cart.domain.Cart;
 import org.apache.ibatis.annotations.Mapper;
@@ -7,12 +7,12 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface CartMapper {
 
-    int insert(Cart cart);
+    Integer insert(Cart cart);
 
     Cart findById(Integer user_id);
 
-    int update(Cart cart);
+    Integer update(Cart cart);
 
-    int delete(@Param("user_id") Integer user_id, @Param("pdt_id") Integer pdt_id);
+    Integer delete(@Param("user_id") Integer user_id, @Param("pdt_id") Integer pdt_id);
 
 }

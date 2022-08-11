@@ -3,24 +3,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.devkurly.cart.mapper.CartMapper">
+<mapper namespace="com.devkurly.payment.mapper.PaymentMapper">
     <insert id="insert" parameterType="Cart">
-        insert into CART_TB(user_id, pdt_id, pdt_qty)
-        values (#{user_id}, #{pdt_id}, #{pdt_qty});
+        insert into PAYMENT_TB(user_id, pdt_id, pdt_qty)
+        values (#{user_id}, #{pdt_id}, #{pdt_qty};
     </insert>
     <select id="select" parameterType="Int" resultType="Cart">
         select *
-        from CART_TB
+        from PAYMENT_TB
         where user_id = #{user_id};
     </select>
     <update id="update" parameterType="Cart">
-        update CART_TB
+        update PAYMENT_TB
         set pdt_qty = #{pdt_qty},
         where user_id = #{user_id};
     </update>
     <delete id="delete" parameterType="Integer">
         delete
-        from CART_TB
+        from PAYMENT_TB
         where user_id = #{user_id}
           and pdt_id = #{pdt_id};
     </delete>

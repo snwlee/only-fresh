@@ -3,24 +3,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.devkurly.cart.mapper.CartMapper">
-    <insert id="insert" parameterType="Cart">
-        insert into CART_TB(user_id, pdt_id, pdt_qty)
+<mapper namespace="com.devkurly.order.mapper.OrderMapper">
+    <insert id="insert" parameterType="Order">
+        insert into ORDER_TB(user_id, pdt_id, pdt_qty)
         values (#{user_id}, #{pdt_id}, #{pdt_qty});
     </insert>
-    <select id="select" parameterType="Int" resultType="Cart">
+    <select id="select" parameterType="Int" resultType="Order">
         select *
-        from CART_TB
+        from ORDER_TB
         where user_id = #{user_id};
     </select>
-    <update id="update" parameterType="Cart">
-        update CART_TB
+    <update id="update" parameterType="Order">
+        update ORDER_TB
         set pdt_qty = #{pdt_qty},
         where user_id = #{user_id};
     </update>
     <delete id="delete" parameterType="Integer">
         delete
-        from CART_TB
+        from ORDER_TB
         where user_id = #{user_id}
           and pdt_id = #{pdt_id};
     </delete>

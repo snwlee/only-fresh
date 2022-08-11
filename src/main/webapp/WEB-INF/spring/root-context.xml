@@ -4,9 +4,22 @@
 	   xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:context="http://www.springframework.org/schema/context"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	   xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	   xsi:schemaLocation="
+	    http://www.springframework.org/schema/mvc
+	    https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  		http://mybatis.org/schema/mybatis-spring
+  		http://mybatis.org/schema/mybatis-spring.xsd
+">
+	<mybatis:scan base-package="com.devkurly.cart.mapper"
+				  annotation="org.apache.ibatis.annotations.Mapper" />
 
 	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:/config/db.properties"/>
 
@@ -17,7 +30,6 @@
 		<property name="username" value="${db.username}"></property>
 		<property name="password" value="${db.password}"></property>
 	</bean>
-
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>

@@ -5,8 +5,7 @@
 <configuration>
         <typeAliases>
                 <typeAlias alias="Cart" type="com.devkurly.cart.domain.Cart"/>
+                <typeAlias alias="Order" type="com.devkurly.cart.domain.Order"/>
+                <typeAlias alias="Cart" type="com.devkurly.cart.domain.Payment"/>
         </typeAliases>
-        <mappers>
-                <mapper resource="CartMapper.xml"/>
-        </mappers>
 </configuration>
