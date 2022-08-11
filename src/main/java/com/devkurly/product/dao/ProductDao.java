@@ -15,9 +15,6 @@ public interface ProductDao {
 
     int delete(Integer pdt_id) throws Exception // int delete(String statement, Object parameter)
     ;
-
-    ProductDto select(int pdt_id) throws Exception;
-
     int insert(ProductDto dto) throws Exception // int insert(String statement, Object parameter)
     ;
 

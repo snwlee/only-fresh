@@ -1,12 +1,12 @@
-package com.devkurly.product.handler;
+package com.devkurly.product.page;
 
-public class handler {
+public class page {
 
     private int totalCnt;
-    private int pageSize;
+    private int pageSize = 10;
     private int naviSize = 10;
     private int totalPage;
-    private int page;
+    private int page = 1;
     private int beginPage;
     private int endPage;
     private boolean showPrev;
@@ -14,12 +14,12 @@ public class handler {
 
     // 페이징 목적이 아닌 Read 출력을 위함
 
-    public handler(int totalCnt, int page) {
+    public page(int totalCnt, int page) {
         this(totalCnt, page, 10);
     }
 
 
-    public handler (int totalCnt, int page, int pageSize) {
+    public page (int totalCnt, int page, int pageSize) {
         this.totalCnt = totalCnt;
         this.page = page;
         this.pageSize = pageSize;

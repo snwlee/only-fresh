@@ -21,8 +21,8 @@ private Date up_date;
 private String up_user;
 
 public ProductDto(){}
-    public ProductDto(String in_user, String title, String sub_title) {
-        this.in_user = in_user;
+    public ProductDto(Integer pdt_id, String title, String sub_title) {
+        this.pdt_id = pdt_id;
         this.title = title;
         this.sub_title = sub_title;
     }

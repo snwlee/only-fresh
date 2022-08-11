@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" session="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -25,8 +26,6 @@
             <th>판매가격</th>
             <th>제목</th>
             <th>소제목</th>
-            <th>테스트</th>
-
         </tr>
         <c:forEach var="product" items="${list}">
         <tr>
@@ -35,6 +34,7 @@
             <td>${product_tb.sel_price}</td>
             <td>${product_tb.title}</td>
             <td>${product_tb.sub_title}</td>
+
         </tr>
         </c:forEach>
     </table>

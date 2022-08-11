@@ -34,11 +34,6 @@ public class ProductDaoImpl implements ProductDao {
     } // int delete(String statement, Object parameter)
 
     @Override
-    public ProductDto select(int pdt_id) throws Exception{
-       return  session.selectOne(namespace+"select", pdt_id);
-    }
-
-    @Override
     public int insert(ProductDto dto) throws Exception {
         return session.insert(namespace+"insert", dto);
     } // int insert(String statement, Object parameter)
