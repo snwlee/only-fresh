@@ -17,7 +17,6 @@ public class EventDaoImplTest {
 
     @Test
     public void countTest() throws Exception {
-        System.out.println("came in");
         assertTrue(eventDao.count() == 1);
     }
 }

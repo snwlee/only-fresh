@@ -2,8 +2,10 @@ package com.devkurly.event.service;
 
 import com.devkurly.event.dao.EventDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class BoardService {
+@Service
+public class EventService {
     @Autowired
     EventDao eventDao;
 
