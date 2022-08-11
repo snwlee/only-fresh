@@ -11,7 +11,7 @@ target/
 *.iws
 *.iml
 *.ipr
-
+.idea/workspace.xml
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -263,3 +263,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+!/.idea/
+!/.idea/
+!/.idea/workspace.xml
