@@ -2,7 +2,7 @@ package com.devkurly.order.service;
 
 import com.devkurly.order.domain.Order;
 import com.devkurly.order.dto.OrderResponseDto;
-import com.devkurly.order.mapper.OrderMapper;
+import com.devkurly.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
 package com.devkurly.cart.mapper;
 
 import com.devkurly.cart.domain.Cart;
+import com.devkurly.mapper.CartMapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,15 +10,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/**/*.xml")
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class CartMapperTest {
 
     @Autowired
-    CartMapper CartMapper;
+    com.devkurly.mapper.CartMapper CartMapper;
 
     @Test
     public void xmlAppContext() {
@@ -33,8 +32,6 @@ public class CartMapperTest {
         cart.setUser_id(1);
         cart.setPdt_id(1);
         cart.setPdt_qty(20);
-        cart.setIn_user("1");
-        cart.setUp_user("1");
 
         // when
         CartMapper.insert(cart);

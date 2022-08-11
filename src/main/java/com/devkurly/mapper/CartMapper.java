@@ -1,4 +1,4 @@
-package com.devkurly.cart.mapper;
+package com.devkurly.mapper;
 
 import com.devkurly.cart.domain.Cart;
 import org.apache.ibatis.annotations.Mapper;

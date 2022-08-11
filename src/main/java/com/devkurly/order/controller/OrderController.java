@@ -21,7 +21,7 @@ public class OrderController {
 
     @GetMapping("/1/{ord_id}")
     public String viewOrder(@PathVariable Integer ord_id) {
-        return "/order/orderResult";
+        return "/order/order";
     }
 
     @PostMapping("/2")

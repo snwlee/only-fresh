@@ -3,7 +3,7 @@ package com.devkurly.payment.service;
 import com.devkurly.payment.dto.PaymentResponseDto;
 import com.devkurly.payment.dto.PaymentSaveRequestDto;
 import com.devkurly.payment.dto.PaymentUpdateRequestDto;
-import com.devkurly.payment.mapper.PaymentMapper;
+import com.devkurly.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

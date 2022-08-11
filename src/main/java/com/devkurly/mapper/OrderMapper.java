@@ -1,4 +1,4 @@
-package com.devkurly.order.mapper;
+package com.devkurly.mapper;
 
 import com.devkurly.order.domain.Order;
 import com.devkurly.order.dto.OrderResponseDto;

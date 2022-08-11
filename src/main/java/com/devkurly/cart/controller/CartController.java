@@ -18,16 +18,22 @@ public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/1")
-    public String viewCart(HttpSession session) {
-        cartService.viewCart((Integer) session.getAttribute("user_id"));
-        return "/cart/viewCart";
+    @GetMapping("/start")
+    public String start(HttpSession session) {
+        session.setAttribute("user_id", 1);
+        return "/start";
     }
 
-    @PostMapping("/2")
+    @GetMapping("/1")
     public String firstAddCart(CartSaveRequestDto requestDto) {
         cartService.addCart(requestDto);
         return "redirect:/carts";
+    }
+
+    @GetMapping("/2")
+    public String viewCart(HttpSession session) {
+        cartService.viewCart((Integer) session.getAttribute("user_id"));
+        return "/cart/cart";
     }
 
     @PostMapping("/3")
