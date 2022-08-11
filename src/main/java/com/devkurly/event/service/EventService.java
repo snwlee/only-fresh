@@ -1,15 +1,8 @@
 package com.devkurly.event.service;
 
-import com.devkurly.event.dao.EventDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.devkurly.event.domain.EventDto;
 
-@Service
-public class EventService {
-    @Autowired
-    EventDao eventDao;
-
-    public int getCount() throws Exception {
-        return eventDao.count();
-    }
+public interface EventService {
+    int insert(EventDto dto) throws Exception;
+    int getCount() throws Exception;
 }

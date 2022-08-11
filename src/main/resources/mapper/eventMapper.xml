@@ -3,8 +3,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devkurly.event.dao.EventMapper">
+    <!--C-->
+    <insert id="insert" parameterType="EventDto" >
+        insert into EVENT_TB (nm, des, photo, photo_alt, mft, setl_methd_cd, stpt_dd, expi_dd, early_end_stus,
+                              ds_rate)
+        values (#{nm},#{des},#{photo},#{photo_alt},#{mft},#{setl_methd_cd},#{stpt_dd},#{expi_dd},#{early_end_stus}, #{ds_rate});
+    </insert>
+
+    <!--R-->
     <select id="count" resultType="int">
         select count(*)
         from EVENT_TB;
     </select>
+    <select id="select" parameterType="int" resultType="EventDto">
+        select *
+        from EVENT_TB
+        where event_id = ${event_id}
+    </select>
+    <select id="selectAll" resultType="EventDto">
+        select *
+        from EVENT_TB
+    </select>
+    <!--U-->
+
+    <!--D-->
+    <delete id="deleteAll">
+        delete
+        from EVENT_TB
+    </delete>
+    <delete id="delete" parameterType="int">
+        delete
+        from EVENT_TB
+        where event_id = ${event_id}
+    </delete>
+
 </mapper>
