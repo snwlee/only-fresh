@@ -3,17 +3,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
-    <insert id="insert" parameterType="Member">
-        insert into CART_TB()
-        values(#{birth});
+<mapper namespace="com.devkurly.cart.repository.CartMapper">
+    <insert id="insert" parameterType="Cart">
+        insert into CART_TB(user_id, pdt_id, pdt_qty, in_user, up_user)
+        values(#{user_id}, #{pdt_id}, #{pdt_qty}, #{in_user}, #{up_user});
     </insert>
-    <select id="findById" parameterType="Long" resultType="Member">
-        select * from members where member_id = #{member_id};
+    <select id="findById" parameterType="Int" resultType="Cart">
+        select * from CART_TB where user_id = #{user_id};
     </select>
-    <update id="update" parameterType="Member">
-        update members
-        set name = #{name}, phone = #{phone}, address = #{address}, birth = #{birth}
-        where member_id = #{member_id};
+    <update id="update" parameterType="Cart">
+        update CART_TB
+        set pdt_qty = #{pdt_qty}, up_date = now(), up_user = #{up_user}
+        where user_id = #{user_id};
     </update>
+    <delete id="delete" parameterType="Integer">
+        delete from CART_TB where user_id = #{user_id} and pdt_id = #{pdt_id};
+    </delete>
 </mapper>
