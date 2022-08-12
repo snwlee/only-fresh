@@ -31,10 +31,11 @@
 - Language : HTML5, CSS3, JavaScript
 
 # 💡ERD
-
+![devkurly-erd-2](https://user-images.githubusercontent.com/82517133/184456688-2ce2251d-81e6-4659-8f5c-b8aeeedf0c4d.png)
+<img width="1084" alt="image" src="https://user-images.githubusercontent.com/82517133/184456575-c5a8e341-5b0d-4e5d-b9b6-722ae01bfb10.png">
 ## 📝 구현 기능 명세
 
-### 김형민 (노예)
+### 김형민
 
 > Mission 1 | 상품 목록
 >
