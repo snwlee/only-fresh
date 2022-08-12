@@ -7,7 +7,6 @@
         select pdt_id,
                cat_code,
                price,
-               image,
                ds_rate,
                sel_price,
                title,
@@ -41,16 +40,15 @@
 
     <insert id="insert" parameterType="ProductDto">
         INSERT INTO PRODUCT_TB
-        (pdt_id, price, sel_price, title, sub_title)
+        (pdt_id, title, ds_rate, sel_price, price, sub_title)
         VALUES
-            (#{pdt_id},#{price},#{sel_price}, #{title}, #{sub_title})
+            (#{pdt_id},#{price},#{ds_rate},#{sel_price}, #{title}, #{sub_title})
     </insert>
 
     <select id="selectAll" resultType="ProductDto">
         select pdt_id,
                cat_code,
                price,
-               image,
                ds_rate,
                sel_price,
                title,
@@ -70,7 +68,6 @@
         select pdt_id,
                cat_code,
                price,
-               image,
                ds_rate,
                sel_price,
                title,
@@ -91,7 +88,6 @@
         select pdt_id,
                cat_code,
                price,
-               image,
                ds_rate,
                sel_price,
                title,
@@ -110,8 +106,10 @@
         UPDATE PRODUCT_TB
         SET   price = #{price},
               ds_rate = #{ds_rate},
+              sel_price =#{sel_price},
               title = #{title},
-              sub_title = #{sub_title}
+              sub_title = #{sub_title},
+              up_date = now()
         WHERE pdt_id = #{pdt_id}
         ORDER BY title DESC
     </update>
