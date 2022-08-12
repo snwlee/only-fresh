@@ -40,10 +40,9 @@ public class EventDaoImpl implements EventDao {
     public int deleteAll() throws Exception {
         return session.delete(namespace + "deleteAll");
     }
-
     @Override
     public int delete(Integer event_id) throws Exception {
-        return session.delete(namespace + "deleteSingle", event_id);
+        return session.delete(namespace + "delete", event_id);
     }
 
 }

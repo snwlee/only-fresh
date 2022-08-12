@@ -38,7 +38,11 @@ public class EventServiceImpl implements  EventService {
 
 //    D
     @Override
-    public void removeAll() throws Exception{
-        eventDao.deleteAll();
+    public int removeAll() throws Exception{
+        return eventDao.deleteAll();
+    }
+    @Override
+    public int remove(Integer event_id) throws Exception {
+        return eventDao.delete(event_id);
     }
 }

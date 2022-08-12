@@ -26,6 +26,9 @@
     </select>
 
     <!--U-->
+    <update id="update" parameterType="int">
+        
+    </update>
 
     <!--D-->
     <delete id="deleteAll">

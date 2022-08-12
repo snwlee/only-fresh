@@ -16,5 +16,6 @@ public interface EventService {
 //    U
 
 //    D
-    void removeAll() throws Exception;
+    int removeAll() throws Exception;
+    int remove(Integer event_id) throws Exception;
 }

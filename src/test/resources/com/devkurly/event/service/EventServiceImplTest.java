@@ -37,6 +37,7 @@ public class EventServiceImplTest {
 
         assertTrue(eventService.getCount() == 1);
     }
+
     @Test
     public void getEventTest() throws Exception {
         eventService.removeAll();
@@ -50,20 +51,46 @@ public class EventServiceImplTest {
 
         assertTrue(eventDto.equals(eventDto2));
     }
+
     @Test
     public void getEventListTest() throws Exception {
         eventService.removeAll();
         assertTrue(eventService.getEventList().size() == 0);
 
         eventService.insert(new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30));
-        assertTrue(eventService.getEventList().size()==1);
+        assertTrue(eventService.getEventList().size() == 1);
 
         eventService.insert(new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30));
-        assertTrue(eventService.getEventList().size()==2);
+        assertTrue(eventService.getEventList().size() == 2);
     }
 
 //    U
 
+    //new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30)
 //    D
+    @Test
+    public void deleteAllTest() throws Exception {
+        eventService.removeAll();
+        assertTrue(eventService.getCount() == 0);
 
+        eventService.insert(new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30));
+        assertTrue(eventService.getCount() == 1);
+
+        eventService.removeAll();
+        assertTrue(eventService.getCount() == 0);
+    }
+
+    @Test
+    public void deleteTest() throws Exception {
+        eventService.removeAll();
+        assertTrue(eventService.getCount() == 0);
+
+        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
+        eventService.insert(eventDto);
+        assertTrue(eventService.getCount() == 1);
+
+        Integer event_id = eventService.getEventList().get(0).getEvent_id();
+        eventService.remove(event_id);
+        assertTrue(eventService.getCount() == 0);
+    }
 }

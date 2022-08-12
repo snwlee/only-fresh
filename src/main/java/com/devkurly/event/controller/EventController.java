@@ -58,4 +58,20 @@ public class EventController {
             return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+//    U
+
+//    D
+    @DeleteMapping("/{event_id}")
+    public ResponseEntity<String> deleteEvent(@PathVariable Integer event_id) {
+        try {
+           int rowCnt = service.remove(event_id);
+           if(rowCnt != 1) throw new Exception("Delete Failed");
+
+            return new ResponseEntity<>("Delete Succeeded", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Delete Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
