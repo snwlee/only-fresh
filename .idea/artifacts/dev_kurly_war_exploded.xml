@@ -47,6 +47,7 @@
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-test:5.0.7.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

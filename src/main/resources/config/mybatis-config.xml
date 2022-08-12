@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE configuration
-                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
         <typeAliases>
+<<<<<<< HEAD
                 <typeAlias alias="EventDto" type="com.devkurly.event.domain.EventDto" />
         </typeAliases>
+=======
+                <typeAlias alias="Cart" type="com.devkurly.cart.domain.Cart"/>
+                <typeAlias alias="Order" type="com.devkurly.order.domain.Order"/>
+                <typeAlias alias="Payment" type="com.devkurly.payment.domain.Payment"/>
+                <typeAlias alias="ProductDto" type="com.devkurly.product.dto.ProductDto"/>
+       </typeAliases>
+>>>>>>> upstream/main
 </configuration>
