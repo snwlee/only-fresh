@@ -15,8 +15,8 @@ public class OrderService {
         return orderMapper.findById(ord_id);
     }
 
-    public Integer addOrder(Order order) {
-        return orderMapper.insert(order);
+    public Integer addOrder(Integer user_id) {
+        return orderMapper.insert(user_id);
     }
 
     public Integer modifyOrder(Order order) {

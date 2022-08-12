@@ -17,7 +17,11 @@ public class CartService {
     private final CartMapper cartMapper;
 
     public Cart viewCart(Cart cart) {
-        return cartMapper.findById(cart);
+        return cartMapper.findByCart(cart);
+    }
+
+    public List<Cart> viewAllCart(Integer user_id) {
+        return cartMapper.findAllById(user_id);
     }
 
     public List<CartResponseDto> viewCartProduct(Integer user_id) {
