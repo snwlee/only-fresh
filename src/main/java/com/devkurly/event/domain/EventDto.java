@@ -1,5 +1,6 @@
 package com.devkurly.event.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -18,17 +19,23 @@ public class EventDto {
 
     public EventDto() {
     }
-    public EventDto(String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, Date stpt_dd, Date expi_dd, Integer early_end_stus, Integer ds_rate) {
+
+    public EventDto(String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
         this.nm = nm;
         this.des = des;
         this.photo = photo;
         this.photo_alt = photo_alt;
         this.mft = mft;
         this.setl_methd_cd = setl_methd_cd;
-        this.stpt_dd = stpt_dd;
-        this.expi_dd = expi_dd;
+        this.stpt_dd = dateFormatter(stpt_dd);
+        this.expi_dd = dateFormatter(expi_dd);
         this.early_end_stus = early_end_stus;
         this.ds_rate = ds_rate;
+    }
+
+    private Date dateFormatter(String yyyymmdd) throws Exception {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        return dateFormat.parse(yyyymmdd);
     }
 
 
@@ -76,16 +83,24 @@ public class EventDto {
         return stpt_dd;
     }
 
-    public void setStpt_dd(Date stpt_dd) {
-        this.stpt_dd = stpt_dd;
+    public void setStpt_dd(String stpt_dd) {
+        try {
+            this.stpt_dd = dateFormatter(stpt_dd);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Date getExpi_dd() {
         return expi_dd;
     }
 
-    public void setExpi_dd(Date expi_dd) {
-        this.expi_dd = expi_dd;
+    public void setExpi_dd(String expi_dd) {
+            try {
+                this.expi_dd = dateFormatter(expi_dd);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
     }
 
     public Integer getEarly_end_stus() {
@@ -131,5 +146,22 @@ public class EventDto {
 
     public void setPhoto_alt(String photo_alt) {
         this.photo_alt = photo_alt;
+    }
+
+    @Override
+    public String toString() {
+        return "EventDto{" +
+                "event_id=" + event_id +
+                ", nm='" + nm + '\'' +
+                ", des='" + des + '\'' +
+                ", photo='" + photo + '\'' +
+                ", photo_alt='" + photo_alt + '\'' +
+                ", mft='" + mft + '\'' +
+                ", setl_methd_cd='" + setl_methd_cd + '\'' +
+                ", stpt_dd=" + stpt_dd +
+                ", expi_dd=" + expi_dd +
+                ", early_end_stus=" + early_end_stus +
+                ", ds_rate=" + ds_rate +
+                '}';
     }
 }
