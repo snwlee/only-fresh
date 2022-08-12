@@ -70,6 +70,21 @@ public class EventDaoImplTest {
     }
 
     //    U
+    @Test
+    public void updateTest() throws Exception {
+        eventDao.deleteAll();
+        assertTrue(eventDao.count() == 0);
+
+        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
+
+        eventDao.insert(eventDto);
+        assertTrue(eventDao.count() == 1);
+
+        EventDto eventDto2 = new EventDto("2", "2", "2", "2", "2", "2", "20100226", "20200812", 1, 90);
+        eventDao.update(eventDto2);
+        String updated_nm= eventDao.selectAll().get(0).getNm();
+        assertTrue(eventDto.getNm().equals(updated_nm));
+    }
 
     //    D
     @Test

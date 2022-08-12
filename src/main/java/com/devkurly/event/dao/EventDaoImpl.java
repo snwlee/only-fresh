@@ -34,6 +34,10 @@ public class EventDaoImpl implements EventDao {
     }
 
 //    U
+    @Override
+    public int update(EventDto eventDto) throws Exception {
+        return session.update(namespace + "update", eventDto);
+    }
 
     //    D
     @Override

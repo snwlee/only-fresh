@@ -60,6 +60,17 @@ public class EventController {
     }
 
 //    U
+    @PatchMapping("/{event_id}")
+    public ResponseEntity<String> modify(@RequestBody EventDto eventDto){
+        System.out.println("eventDto = " + eventDto);
+        try {
+            service.modify(eventDto);
+            return new ResponseEntity<>("Modify Successful", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Modify Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 //    D
     @DeleteMapping("/{event_id}")

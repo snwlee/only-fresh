@@ -14,6 +14,7 @@ public interface EventDao {
     List<EventDto> selectAll() throws Exception;
 
 //    U
+    int update(EventDto eventDto) throws Exception;
 
 //    D
     int deleteAll() throws Exception;

@@ -35,6 +35,10 @@ public class EventServiceImpl implements  EventService {
     }
 
 //    U
+    @Override
+    public int modify(EventDto eventDto) throws Exception{
+        return eventDao.update(eventDto);
+    }
 
 //    D
     @Override

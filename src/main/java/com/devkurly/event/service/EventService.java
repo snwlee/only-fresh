@@ -14,6 +14,7 @@ public interface EventService {
     List<EventDto> getEventList() throws Exception;
 
 //    U
+    int modify(EventDto eventDto) throws Exception;
 
 //    D
     int removeAll() throws Exception;
