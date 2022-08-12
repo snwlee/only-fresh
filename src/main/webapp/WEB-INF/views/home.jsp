@@ -15,5 +15,6 @@
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
 <a href="/carts/login">유저 1로 로그인하기</a>
 <a href="/carts/view">장바구니 보기</a>
+<a href="product/list">상품 보기</a>
 </body>
 </html>

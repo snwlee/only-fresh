@@ -19,7 +19,7 @@
         <li><a href=""><i class="fas fa-search small"></i></a></li>
     </ul>
 </div><div style="text-align:center">
-    <h2>화면테스트</h2>
+    <h2>상품 리스트</h2>
     <form action="" id="form">
 
     </form>
