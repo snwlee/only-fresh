@@ -10,7 +10,7 @@ public interface ProductDao {
     ;
 
 
-    int deleteAll(); // int delete(String statement)
+    int deleteAll() throws Exception; // int delete(String statement)
 
 
     int delete(Integer pdt_id) throws Exception // int delete(String statement, Object parameter)

@@ -9,24 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1379d600-8c03-4f3b-ab55-9f205c0edeaa" name="변경" comment="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper 작성">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/controller/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dao/ProductDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dao/ProductDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dto/ProductDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/handler/handler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/service/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/service/ProductServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/productMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/productlist.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/devkurly/product/dao/ProductDaoImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/devkurly/product/handler/handlerTest.java" afterDir="false" />
+    <list default="true" id="1379d600-8c03-4f3b-ab55-9f205c0edeaa" name="변경" comment="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper, page 작성">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/testMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devkurly/product/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dao/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dao/ProductDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dao/ProductDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/dto/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devkurly/product/page/page.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devkurly/product/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/devkurly/product/service/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/productMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/ProductMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/productlist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/productlist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/devkurly/product/dao/ProductDaoImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/devkurly/product/dao/ProductDaoImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,10 +34,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="JUnit4 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="CSS File" />
+        <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -97,49 +93,53 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/DevCamp&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propDebugger&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;f19e85d6c117cf92be9d81f01359de93&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "create.test.in.the.same.root": "true",
+    "last_opened_file_path": "C:/DevCamp",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propDebugger",
+    "spring.configuration.checksum": "f19e85d6c117cf92be9d81f01359de93"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\DevCamp\src\main\webapp\WEB-INF\views" />
       <recent name="$PROJECT_DIR$/src/test" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\DevCamp\src\main\java\com\devkurly\product" />
+      <recent name="C:\DevCamp\src\main\java\com\devkurly" />
+      <recent name="C:\DevCamp\src\main\resources" />
       <recent name="C:\DevCamp\src\main\webapp\WEB-INF\views" />
       <recent name="C:\DevCamp\src\main\webapp\WEB-INF\views\" />
-      <recent name="$PROJECT_DIR$/src/main/resources/sql" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
-      <recent name="com.devkurly.product.service" />
       <recent name="com.devkurly.product.dao" />
+      <recent name="com.devkurly.product.service" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.devkurly.product.dao" />
@@ -201,7 +201,7 @@
       <module name="dev-kurly" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.devkurly.product.handler.*" />
+          <option name="PATTERN" value="com.devkurly.product.pagehandler.page" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -217,7 +217,7 @@
       <module name="dev-kurly" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.devkurly.product.handler.*" />
+          <option name="PATTERN" value="com.devkurly.product.pagehandler.page" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -229,7 +229,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 9.0.52" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.52" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 9.0.52" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.64" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -330,9 +330,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ProductDaoImplTest.insertTestData" />
+        <item itemvalue="JUnit.ProductDaoImplTest.select" />
         <item itemvalue="JUnit.handlerTest.test2" />
         <item itemvalue="JUnit.handlerTest.test" />
-        <item itemvalue="JUnit.ProductDaoImplTest.select" />
         <item itemvalue="JUnit.ProductDaoImplTest" />
       </list>
     </recent_temporary>
@@ -348,7 +348,11 @@
       <workItem from="1660099336817" duration="14567000" />
       <workItem from="1660143765467" duration="13667000" />
       <workItem from="1660179293876" duration="1209000" />
-      <workItem from="1660180515461" duration="190000" />
+      <workItem from="1660180515461" duration="23755000" />
+      <workItem from="1660221407258" duration="3129000" />
+      <workItem from="1660224560541" duration="365000" />
+      <workItem from="1660224943392" duration="9185000" />
+      <workItem from="1660265176656" duration="6669000" />
     </task>
     <task id="LOCAL-00001" summary="🎉 init: spring project init">
       <created>1660103202572</created>
@@ -399,7 +403,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660136321032</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper 작성">
+      <created>1660180900441</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1660180900441</updated>
+    </task>
+    <task id="LOCAL-00009" summary="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper, page 작성">
+      <created>1660191337427</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1660191337427</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,6 +445,21 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value=" init: spring project init" />
@@ -437,6 +470,7 @@
     <MESSAGE value="⚙️ chore: sql 추가" />
     <MESSAGE value="️ config: xml 패키지 경로 수정" />
     <MESSAGE value="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper 작성" />
-    <option name="LAST_COMMIT_MESSAGE" value="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper 작성" />
+    <MESSAGE value="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper, page 작성" />
+    <option name="LAST_COMMIT_MESSAGE" value="⭐ feat : Product Dao, Dto, Service, Controller ,Mapper, page 작성" />
   </component>
 </project>

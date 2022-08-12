@@ -21,10 +21,21 @@ private Date up_date;
 private String up_user;
 
 public ProductDto(){}
-    public ProductDto(Integer pdt_id, String title, String sub_title) {
-        this.pdt_id = pdt_id;
+    public ProductDto (String cat_code, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user) {
+        // this.pdt_id = pdt_id;
+        this.cat_code = cat_code;
         this.title = title;
+        this.price = price;
+        this.sel_price = sel_price;
         this.sub_title = sub_title;
+      //  this.rec_info = rec_info;
+      //  this.adt_sts = adt_sts;
+      //  this.stock   = stock;
+      //  this.in_date = in_date;
+        this.in_user = in_user;
+      //  this.up_date = up_date;
+        this.up_user = up_user;
+
     }
 
     @Override

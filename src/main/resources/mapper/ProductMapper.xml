@@ -41,9 +41,9 @@
 
     <insert id="insert" parameterType="ProductDto">
         INSERT INTO product_tb
-        (price, sel_price, title, sub_title)
+        (pdt_id, price, sel_price, title, sub_title)
         VALUES
-            (#{price},#{sel_price}, #{title}, #{sub_title})
+            (#{pdt_id},#{price},#{sel_price}, #{title}, #{sub_title})
     </insert>
 
     <select id="selectAll" resultType="ProductDto">

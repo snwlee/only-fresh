@@ -1,12 +1,12 @@
-package com.devkurly.product.page;
+package com.devkurly.product.pagehandler;
 
-public class page {
+public class PageHandler {
 
     private int totalCnt;
-    private int pageSize = 10;
-    private int naviSize = 10;
+    private int pageSize;
+    private int naviSize;
     private int totalPage;
-    private int page = 1;
+    private int page;
     private int beginPage;
     private int endPage;
     private boolean showPrev;
@@ -14,32 +14,19 @@ public class page {
 
     // 페이징 목적이 아닌 Read 출력을 위함
 
-    public page(int totalCnt, int page) {
-        this(totalCnt, page, 10);
+    public PageHandler(int totalCnt, int page) {
+        this(page);
     }
 
 
-    public page (int totalCnt, int page, int pageSize) {
-        this.totalCnt = totalCnt;
+    public PageHandler(int page) {
         this.page = page;
-        this.pageSize = pageSize;
 
-        totalPage = (int)Math.ceil(totalCnt /(double)pageSize);
-        beginPage = page / naviSize * naviSize + 1;
-        endPage = Math.min(beginPage + naviSize -1, totalPage);
-        showPrev = beginPage != 1;
-        showNext = endPage != totalPage;
+
 
     }
 
-
-    void print() {
-        System.out.println("page = " + page);
-        System.out.print(showPrev ? "[PREV] " : "");
-        for( int i = beginPage; i<= endPage; i++) {
-            System.out.print(i + " ");
-        }
-        System.out.println(showNext ? "[NEXT]" : "");
+    public PageHandler(int totalCnt, Integer page, Integer pageSize) {
     }
 
 
