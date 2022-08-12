@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/event")
+@CrossOrigin(origins = "*")
 public class EventController {
     @Autowired
     EventService service;
@@ -45,8 +46,8 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/{event_id}")
-    public ResponseEntity<List<EventDto>> getEvent(@PathVariable Integer event_id){
+    @GetMapping("/list")
+    public ResponseEntity<List<EventDto>> getEvent(){
         List<EventDto> list = null;
 
         try {
