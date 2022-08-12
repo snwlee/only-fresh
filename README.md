@@ -1,11 +1,12 @@
-# Dev Kurly
-
----
-
 # 🛍️ Dev Kurly
 
-- 프로젝트 설명
+- 쇼핑몰 프로젝트
 
+## 구성원 👨‍👩‍👧‍👧
+| [김형민](https://github.com/dr94406) | [이선우](https://github.com/PGRRR) | [박채훈](https://github.com/xpmxf4) | [김경빈](https://github.com/didqksrla) | [김영준](https://github.com/narlae) | [정여경](https://github.com/Riiver-J) |
+| --- | --- | --- | --- | --- | --- |
+| ![MIN](https://avatars.githubusercontent.com/u/98224004?v=4) | ![iseon_u](https://avatars.githubusercontent.com/u/82517133?v=4) | ![Dev_Park](https://avatars.githubusercontent.com/u/68197907?v=4) | ![didqksrla](https://avatars.githubusercontent.com/u/103868639?v=4) | ![narlae](https://avatars.githubusercontent.com/u/107486308?v=4) | ![River J](https://avatars.githubusercontent.com/u/108123321?v=4) |
+| 백엔드 담당 | 백엔드 담당 | 풀스택 담당 | 백엔드 담당 | 백엔드 담당 | 백엔드 담당 |
 ## 📋 개요
 
 > 프로젝트 명 : Dev Kurly
