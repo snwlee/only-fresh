@@ -12,10 +12,8 @@ import java.util.List;
 public interface CartMapper {
 
     Integer insert(Cart cart);
-    Cart findById(Integer user_id);
-    List<Cart> findAllById(Integer user_id);
-    Integer updateAdd(@Param("user_id") Integer user_id, @Param("pdt_id") Integer pdt_id);
-    Integer updateRemove(@Param("user_id") Integer user_id, @Param("pdt_id") Integer pdt_id);
+    Cart findById(Cart cart);
+    Integer update(Cart cart);
     Integer delete(Integer user_id);
     Integer deleteOne(@Param("user_id") Integer user_id, @Param("pdt_id") Integer pdt_id);
     List<CartResponseDto> joinCartProduct(Integer user_id);

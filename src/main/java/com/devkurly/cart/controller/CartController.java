@@ -16,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.IntToDoubleFunction;
 
 @Controller
@@ -26,14 +27,20 @@ public class CartController {
     private final CartService cartService;
     private final ProductService productService;
 
+    /*
+     * temp
+     */
     @GetMapping("login")
     public String start(HttpSession session) {
         session.setAttribute("user_id", 1);
         return "/home";
     }
 
+    /*
+     * temp
+     */
     @GetMapping("/add/{pdt_id}")
-    public String firstAddCart(CartSaveRequestDto requestDto, @PathVariable Integer pdt_id, HttpSession session) {
+    public String addCart(CartSaveRequestDto requestDto, @PathVariable Integer pdt_id, HttpSession session) {
         Integer user_id = (Integer) session.getAttribute("user_id");
         try {
             requestDto.setUser_id(user_id);
@@ -41,7 +48,9 @@ public class CartController {
             requestDto.setPdt_qty(1);
             cartService.addCart(requestDto);
         } catch (Exception e) {
-            cartService.modifyAddCart(user_id, pdt_id);
+            Cart cart = cartService.viewCart(requestDto.toEntity());
+            cart.setPdt_qty(cart.getPdt_qty() + 1);
+            cartService.modifyCart(cart);
             return "redirect:/carts/view";
         }
         return "redirect:/carts/view";
@@ -59,18 +68,6 @@ public class CartController {
         return "/cart/cart";
     }
 
-    @GetMapping("/up/{pdt_id}")
-    public String cartUp(@PathVariable Integer pdt_id, HttpSession session) {
-        cartService.modifyAddCart((Integer) session.getAttribute("user_id"), pdt_id);
-        return "redirect:/carts/view";
-    }
-
-    @GetMapping("/down/{pdt_id}")
-    public String cartDown(@PathVariable Integer pdt_id, HttpSession session) {
-        cartService.modifyRemoveCart((Integer) session.getAttribute("user_id"), pdt_id);
-        return "redirect:/carts/view";
-    }
-
     @GetMapping("/delete")
     public String deleteCart(HttpSession session) {
         cartService.removeCart((Integer) session.getAttribute("user_id"));
@@ -81,5 +78,21 @@ public class CartController {
     public String deleteOneCart(@PathVariable Integer ptd_id, HttpSession session) {
         cartService.removeOneCart((Integer) session.getAttribute("user_id"), ptd_id);
         return "redirect:/carts/view";
+    }
+
+    @PostMapping("/plus")
+    @ResponseBody
+    public Cart cartPlus(@RequestBody Cart cart) {
+        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() + 1);
+        cartService.modifyCart(cart);
+        return cart;
+    }
+
+    @PostMapping("/minus")
+    @ResponseBody
+    public Cart cartMinus(@RequestBody Cart cart) {
+        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() - 1);
+        cartService.modifyCart(cart);
+        return cart;
     }
 }
