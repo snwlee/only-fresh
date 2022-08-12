@@ -1,11 +1,12 @@
 package com.devkurly.product.controller;
 
 import com.devkurly.product.dto.ProductDto;
-import com.devkurly.product.pagehandler.PageHandler;
+import com.devkurly.product.page.ProductPage;
 import com.devkurly.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@CrossOrigin(origins = "*")
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
@@ -31,7 +33,7 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-            return "product";
+            return "product/product";
         }
 
     @GetMapping("/list")
@@ -42,19 +44,19 @@ public class ProductController {
 
         try {
             int totalCnt = productService.getCount();
-            PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+            ProductPage pageHandler = new ProductPage(totalCnt, page, pageSize);
             Map map = new HashMap();
             map.put("offset", (page - 1) * pageSize);
             map.put("pageSize", pageSize);
 
             List<ProductDto> list = productService.getPage(map);
             m.addAttribute("list", list);
-            m.addAttribute("ph",pageHandler);
+            System.out.println("list = " + list);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "productlist";
+        return "product/productlist";
     }
 
 

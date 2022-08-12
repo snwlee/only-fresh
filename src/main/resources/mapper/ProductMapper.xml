@@ -32,7 +32,7 @@
     </delete>
 
     <!-- 관리자 권한으로 삭제 매퍼 delete id="deleteForAdmin">
-        DELETE FROM product_Tb WHERE pdt_id = #{pdt_id}
+        DELETE FROM PRODUCT_TB WHERE pdt_id = #{pdt_id}
     </delete-->
 
     <delete id="delete" parameterType="map">
