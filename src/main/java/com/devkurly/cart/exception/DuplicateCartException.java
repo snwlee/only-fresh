@@ -3,10 +3,10 @@ package com.devkurly.cart.exception;
 import lombok.Getter;
 
 @Getter
-public class OutOfStockException extends RuntimeException{
+public class DuplicateCartException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public OutOfStockException(String message, ErrorCode errorCode) {
+    public DuplicateCartException(String message, ErrorCode errorCode) {
         super(errorCode.getMessage() + message);
         this.errorCode = errorCode;
     }

@@ -9,11 +9,8 @@ import org.apache.ibatis.annotations.Param;
 public interface OrderMapper {
 
     Integer insert(Order order);
-
     OrderResponseDto findById(Integer ord_id);
-
     Integer update(Order order);
-
     Integer delete(@Param("user_id") Integer user_id, @Param("ord_id") Integer ord_id);
 
 }

@@ -8,7 +8,7 @@
         insert into PAYMENT_TB(ord_id, user_id, setl_cd, setl_stus_cd, all_amt, all_dc_amt, dlvr_amt)
         values (#{ord_id}, #{user_id}, #{setl_cd}, #{setl_stus_cd}, #{all_amt}, #{all_dc_amt}, #{dlvr_amt});
     </insert>
-    <select id="select" parameterType="Int" resultType="Payment">
+    <select id="findById" parameterType="Int" resultType="Payment">
         select *
         from PAYMENT_TB
         where ord_id = #{ord_id};

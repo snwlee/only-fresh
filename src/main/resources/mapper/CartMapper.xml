@@ -8,8 +8,8 @@
         insert into CART_TB(user_id, pdt_id, pdt_qty)
         values (#{user_id}, #{pdt_id}, #{pdt_qty});
     </insert>
-    <select id="select" parameterType="Int" resultType="Cart">
-        select *
+    <select id="findById" parameterType="int" resultType="Cart">
+        select user_id, pdt_id, pdt_qty
         from CART_TB
         where user_id = #{user_id};
     </select>
@@ -18,7 +18,7 @@
         set pdt_qty = #{pdt_qty}
         where user_id = #{user_id};
     </update>
-    <delete id="delete" parameterType="Integer">
+    <delete id="delete" parameterType="int">
         delete
         from CART_TB
         where user_id = #{user_id}

@@ -4,8 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
-    PRODUCT_OUT_OF_STOCK(400, "POOS1", "제품이 품절 되었습니다.");
-
+    DUPLICATE_CART_PRODUCT(200, "DCP1", "이미 장바구니에 제품이 있습니다.");
 
     private final int status;
     private final String code;
