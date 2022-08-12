@@ -3,5 +3,8 @@
                 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
                 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+        <typeAliases>
+                <typeAlias alias="ProductDetail" type="com.devkurly.productDetail.domain.ProductDetailDto" />
+                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />
+        </typeAliases>
 </configuration>
