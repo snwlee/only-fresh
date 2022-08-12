@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto read(Integer pdt_id) throws Exception {
         ProductDto productDto = productDao.select(pdt_id);
-       // productDao.increaseViewCnt(pdt_id);
+//        productDao.increaseViewCnt(pdt_id);
 
         return productDto;
     }

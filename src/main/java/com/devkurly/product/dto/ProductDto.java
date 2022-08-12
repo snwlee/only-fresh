@@ -21,8 +21,8 @@ private Date up_date;
 private String up_user;
 
 public ProductDto(){}
-    public ProductDto (String cat_code, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user) {
-        // this.pdt_id = pdt_id;
+    public ProductDto (Integer pdt_id, String cat_code, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user) {
+         this.pdt_id = pdt_id;
         this.cat_code = cat_code;
         this.title = title;
         this.price = price;
@@ -190,6 +190,9 @@ public ProductDto(){}
 
     public void setUp_user(String up_user) {
         this.up_user = up_user;
+    }
+
+    public void pdt_id(Integer pdt_id) {
     }
 }
 

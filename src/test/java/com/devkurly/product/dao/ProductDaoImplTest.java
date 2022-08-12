@@ -31,7 +31,7 @@ public class ProductDaoImplTest {
     public void insertTestData() throws Exception {
         productDao.deleteAll();
         for(int i = 1; i <= 200; i++) {
-            ProductDto productDto = new ProductDto("ab","dd",3000,2000,"da","gg","gf");
+            ProductDto productDto = new ProductDto(1,"ab","dd",3000,2000,"da","gg","gf");
             productDao.insert(productDto);
         }
     }
