@@ -19,15 +19,17 @@
         select *
         from EVENT_TB
         where event_id = ${event_id}
+        ORDER BY stpt_dd DESC
     </select>
     <select id="selectAll" resultType="EventDto">
         select *
         from EVENT_TB
     </select>
 
+
     <!--U-->
     <update id="update" parameterType="int">
-        
+
     </update>
 
     <!--D-->
