@@ -6,7 +6,6 @@ public class ProductPage {
     private int pageSize;
     private int page;
 
-    // 페이징 목적이 아닌 Read 출력을 위함
 
     public ProductPage(int totalCnt, int page) {
         this(page);
