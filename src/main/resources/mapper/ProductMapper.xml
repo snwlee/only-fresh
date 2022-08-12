@@ -113,8 +113,4 @@
         WHERE pdt_id = #{pdt_id}
         ORDER BY title DESC
     </update>
-
-
-
-
 </mapper>
