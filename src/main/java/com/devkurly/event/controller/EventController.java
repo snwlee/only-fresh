@@ -21,7 +21,6 @@ public class EventController {
 //    C
     @PostMapping()
     public ResponseEntity<String> add(@RequestBody EventDto eventDto, HttpSession session){
-        System.out.println("eventDto = " + eventDto.toString());
         try {
             if(service.insert(eventDto) != 1)
                 throw new Exception("Write failed");
@@ -79,7 +78,7 @@ public class EventController {
            int rowCnt = service.remove(event_id);
            if(rowCnt != 1) throw new Exception("Delete Failed");
 
-            return new ResponseEntity<>("Delete Succeeded", HttpStatus.OK);
+           return new ResponseEntity<>("Delete Succeeded", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("Delete Error", HttpStatus.INTERNAL_SERVER_ERROR);
