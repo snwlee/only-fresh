@@ -19,16 +19,16 @@
                in_user,
                up_date,
                up_user
-        from product_tb
+        from PRODUCT_TB
         where pdt_id =#{pdt_id}
     </select>
 
     <select id="count" resultType="int">
-        SELECT count(*) FROM product_Tb
+        SELECT count(*) FROM PRODUCT_TB
     </select>
 
     <delete id="deleteAll">
-        DELETE FROM product_Tb
+        DELETE FROM PRODUCT_TB
     </delete>
 
     <!-- 관리자 권한으로 삭제 매퍼 delete id="deleteForAdmin">
@@ -36,11 +36,11 @@
     </delete-->
 
     <delete id="delete" parameterType="map">
-        DELETE FROM product_tb WHERE pdt_id = #{pdt_id}
+        DELETE FROM PRODUCT_TB WHERE pdt_id = #{pdt_id}
     </delete>
 
     <insert id="insert" parameterType="ProductDto">
-        INSERT INTO product_tb
+        INSERT INTO PRODUCT_TB
         (pdt_id, price, sel_price, title, sub_title)
         VALUES
             (#{pdt_id},#{price},#{sel_price}, #{title}, #{sub_title})
@@ -62,7 +62,7 @@
                in_user,
                up_date,
                up_user
-        from product_tb
+        from PRODUCT_TB
         ORDER BY in_date DESC, up_date DESC
     </select>
 
@@ -82,7 +82,7 @@
                in_user,
                up_date,
                up_user
-        from product_tb
+        from PRODUCT_TB
         ORDER BY in_date DESC, up_date DESC
         LIMIT #{offset}, #{pageSize}
     </select>
@@ -103,11 +103,11 @@
                in_user,
                up_date,
                up_user
-            FROM product_tb
+            FROM PRODUCT_TB
     </sql>
 
     <update id="update" parameterType="ProductDto">
-        UPDATE product_tb
+        UPDATE PRODUCT_TB
         SET   price = #{price},
               ds_rate = #{ds_rate},
               title = #{title},
@@ -115,8 +115,4 @@
         WHERE pdt_id = #{pdt_id}
         ORDER BY title DESC
     </update>
-
-
-
-
 </mapper>
