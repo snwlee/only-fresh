@@ -83,7 +83,7 @@ public class CartController {
     @PostMapping("/plus")
     @ResponseBody
     public Cart cartPlus(@RequestBody Cart cart) {
-        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() + 1);
+//        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() + 1);
         cartService.modifyCart(cart);
         return cart;
     }
