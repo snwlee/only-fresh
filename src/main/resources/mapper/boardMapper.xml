@@ -29,7 +29,7 @@
 
     <select id="selectCn" parameterType="int" resultType="BoardDto">
         select bbs_cn, in_user, up_user
-        from board_content_tb
+        from BOARD_CONTENT_TB
         where bbs_id=#{bbs_id}
     </select>
 
@@ -40,10 +40,10 @@
     </select>
 
     <select id="selectReviewPage" parameterType="map" resultType="BoardDto">
-        select review_board_tb.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd
-        from review_board_tb
-                 right join board_tb
-                           on review_board_tb.bbs_id = board_tb.bbs_id
+        select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd
+        from REVIEW_BOARD_TB
+                 right join BOARD_TB
+                           on REVIEW_BOARD_TB.bbs_id = BOARD_TB.bbs_id
         where pdt_id = #{pdt_id} and #{bbs_clsf_cd}='1'
         order by bbs_id desc, wrt_dt desc
             limit #{offset}, #{pageSize}
@@ -51,17 +51,17 @@
     </select>
 
     <insert id="insert" parameterType="BoardDto">
-        insert into board_tb (pdt_id, user_id, bbs_title, user_nm, bbs_clsf_cd, in_user,  up_user)
+        insert into BOARD_TB (pdt_id, user_id, bbs_title, user_nm, bbs_clsf_cd, in_user,  up_user)
         values (#{pdt_id}, #{user_id},#{bbs_title}, #{user_nm},#{bbs_clsf_cd}, #{user_id}, #{user_id})
     </insert>
 
     <insert id="insertReview" parameterType="int">
-        insert into review_board_tb (bbs_id, in_user, up_user)
+        insert into REVIEW_BOARD_TB (bbs_id, in_user, up_user)
         values (#{bbs_id}, #{user_id}, #{user_id})
     </insert>
 
     <insert id="insertCn" parameterType="BoardDto">
-        insert into board_content_tb (bbs_id, bbs_cn, in_user, up_user)
+        insert into BOARD_CONTENT_TB (bbs_id, bbs_cn, in_user, up_user)
         values (#{bbs_id}, #{bbs_cn}, #{user_id},#{user_id})
     </insert>
 
