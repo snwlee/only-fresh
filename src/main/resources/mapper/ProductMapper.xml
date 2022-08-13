@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.product.dao.ProductMapper">
+    <select id="select" parameterType="int" resultType="ProductDto">
+        select pdt_id,
+               cat_code,
+               price,
+               ds_rate,
+               sel_price,
+               title,
+               sub_title,
+               rec_info,
+               adt_sts,
+               stock,
+               in_date,
+               in_user,
+               up_date,
+               up_user
+        from PRODUCT_TB
+        where pdt_id =#{pdt_id}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM PRODUCT_TB
+    </select>
+
+    <delete id="deleteAll">
+        DELETE FROM PRODUCT_TB
+    </delete>
+
+    <!-- 관리자 권한으로 삭제 매퍼 delete id="deleteForAdmin">
+        DELETE FROM PRODUCT_TB WHERE pdt_id = #{pdt_id}
+    </delete-->
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM PRODUCT_TB WHERE pdt_id = #{pdt_id}
+    </delete>
+
+    <insert id="insert" parameterType="ProductDto">
+        INSERT INTO PRODUCT_TB
+        (pdt_id, title, ds_rate, sel_price, price, sub_title)
+        VALUES
+            (#{pdt_id},#{price},#{ds_rate},#{sel_price}, #{title}, #{sub_title})
+    </insert>
+
+    <select id="selectAll" resultType="ProductDto">
+        select pdt_id,
+               cat_code,
+               price,
+               ds_rate,
+               sel_price,
+               title,
+               sub_title,
+               rec_info,
+               adt_sts,
+               stock,
+               in_date,
+               in_user,
+               up_date,
+               up_user
+        from PRODUCT_TB
+        ORDER BY in_date DESC, up_date DESC
+    </select>
+
+    <select id="selectPage"  parameterType="map"  resultType="ProductDto">
+        select pdt_id,
+               cat_code,
+               price,
+               ds_rate,
+               sel_price,
+               title,
+               sub_title,
+               rec_info,
+               adt_sts,
+               stock,
+               in_date,
+               in_user,
+               up_date,
+               up_user
+        from PRODUCT_TB
+        ORDER BY in_date DESC, up_date DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <sql id="selectFromProduct">
+        select pdt_id,
+               cat_code,
+               price,
+               ds_rate,
+               sel_price,
+               title,
+               sub_title,
+               rec_info,
+               adt_sts,
+               stock,
+               in_date,
+               in_user,
+               up_date,
+               up_user
+            FROM PRODUCT_TB
+    </sql>
+
+    <update id="update" parameterType="ProductDto">
+        UPDATE PRODUCT_TB
+        SET   price = #{price},
+              ds_rate = #{ds_rate},
+              sel_price =#{sel_price},
+              title = #{title},
+              sub_title = #{sub_title},
+              up_date = now()
+        WHERE pdt_id = #{pdt_id}
+        ORDER BY title DESC
+    </update>
+</mapper>

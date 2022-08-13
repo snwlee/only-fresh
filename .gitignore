@@ -120,9 +120,6 @@ cmake-build-*/
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
-# File-based project format
-*.iws
-
 # IntelliJ
 out/
 
@@ -174,9 +171,6 @@ local.properties
 
 # CDT- autotools
 .autotools
-
-# Java annotation processor (APT)
-.factorypath
 
 # PDT-specific (PHP Development Tools)
 .buildpath
@@ -261,4 +255,9 @@ Icon
 .AppleDesktop
 Network Trash Folder
 Temporary Items
+<<<<<<< HEAD
 .apdisk
+=======
+.apdisk
+
+>>>>>>> upstream/main

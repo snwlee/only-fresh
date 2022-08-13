@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< HEAD
     <data-source source="LOCAL" name="@dev-kurly.c5mzabztmn4b.ap-northeast-2.rds.amazonaws.com" uuid="94081afb-2459-42db-8547-869638e4a664">
+=======
+    <data-source source="LOCAL" name="@dev-kurly.c5mzabztmn4b.ap-northeast-2.rds.amazonaws.com" uuid="1b680c66-a5d1-4bde-bf75-af8dd5331816">
+>>>>>>> upstream/main
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://dev-kurly.c5mzabztmn4b.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+<<<<<<< HEAD
     <data-source source="LOCAL" name="@localhost" uuid="7c9e35d6-9052-4800-9f44-d122ab68cafa">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
@@ -15,5 +20,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+=======
+>>>>>>> upstream/main
   </component>
 </project>
