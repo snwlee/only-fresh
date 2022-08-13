@@ -20,14 +20,14 @@
 ">
 	<mybatis:scan base-package="com.devkurly.mapper"
 				  annotation="org.apache.ibatis.annotations.Mapper" />
-	<!--RDS 사용을 위한 주석
+
 	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:/config/db.properties"/>
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${db.driverClassName}"></property>
 		<property name="url" value="${db.url}"></property>
 		<property name="username" value="${db.username}"></property>
 		<property name="password" value="${db.password}"></property>
-	</bean> -->
+	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
