@@ -1,5 +1,4 @@
 package com.devkurly.board.controller;
-
 import com.devkurly.board.domain.BoardDto;
 import com.devkurly.board.domain.PageHandler;
 import com.devkurly.board.service.BoardService;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +18,6 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-
     @GetMapping("/boardlist")
     public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
         try {
@@ -30,6 +27,8 @@ public class BoardController {
             PageHandler ph = new PageHandler(totalCnt, page, pageSize);
             m.addAttribute("totalCnt", totalCnt);
             m.addAttribute("ph", ph);
+            m.addAttribute("pdt_id", pdt_id);
+            m.addAttribute("bbs_clsf_cd", bbs_clsf_cd);
 
         } catch (Exception e) {
             e.printStackTrace();

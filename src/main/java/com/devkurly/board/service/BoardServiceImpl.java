@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(BoardDto boardDto) throws Exception {
-        //1. 먼저 board_tb를 채운다.
+        //1. 먼저 BOARD_TB를 채운다.
         boardDao.insert(boardDto);
         //2. selectReviewPage를 한다.
         List<BoardDto> list = boardDao.selectAll();
@@ -43,9 +43,9 @@ public class BoardServiceImpl implements BoardService {
         Integer bbs_id = list.get(0).getBbs_id();
         //4. bbs_id를 boardDto에 추가한다.
         boardDto.setBbs_id(bbs_id);
-        //5. insertReview를 한다.
+        //5. REVIEW_BOARD_TB를 채운다.
         boardDao.insertReview(bbs_id);
-        //5. insertCn를 한다.
+        //5. BOARD_CONTENT_TB를 채운다.
         return boardDao.insertCn(boardDto);
     }
 

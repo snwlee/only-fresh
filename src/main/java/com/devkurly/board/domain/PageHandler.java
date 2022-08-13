@@ -21,7 +21,7 @@ public class PageHandler {
     public void doPaging(int totalCnt, int page, int pageSize) {
         this.totalCnt = totalCnt;
         totalPage = (int)Math.ceil((totalCnt) / (double)pageSize);
-        beginPage = (page - 1 / naviSize) * naviSize + 1;
+        beginPage = (page - 1 )/ naviSize * naviSize + 1;
         endPage = Math.min(beginPage + naviSize - 1, totalPage);
         showNext = totalPage != endPage;
         showPrev = beginPage != 1;
@@ -97,5 +97,20 @@ public class PageHandler {
 
     public void setNaviSize(int naviSize) {
         this.naviSize = naviSize;
+    }
+
+    @Override
+    public String toString() {
+        return "PageHandler{" +
+                "page=" + page +
+                ", pageSize=" + pageSize +
+                ", totalCnt=" + totalCnt +
+                ", totalPage=" + totalPage +
+                ", beginPage=" + beginPage +
+                ", endPage=" + endPage +
+                ", showPrev=" + showPrev +
+                ", showNext=" + showNext +
+                ", naviSize=" + naviSize +
+                '}';
     }
 }
