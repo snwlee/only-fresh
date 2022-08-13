@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public String catcher(HttpServletResponse response, Exception e) throws IOException {
         System.out.println("이미 장바구니에 제품이 있습니다.");
-        response.sendRedirect("/members?error=1");
-        return "/member/signIn";
+        response.sendRedirect("/carts?error=1");
+        return "/cart/cart";
     }
 }

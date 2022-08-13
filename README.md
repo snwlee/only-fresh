@@ -3,10 +3,10 @@
 - 쇼핑몰 프로젝트
 
 ## 구성원 👨‍👩‍👧‍👧
-| Backend | Backend | Frontend | Backend | Backend | Backend |
-| --- | --- | --- | --- | --- | --- |
+| Backend | Backend | Backend                                                           | Backend | Backend | Backend |
+| --- | --- |-------------------------------------------------------------------| --- | --- | --- |
 | ![MIN](https://avatars.githubusercontent.com/u/98224004?v=4) | ![iseon_u](https://avatars.githubusercontent.com/u/82517133?v=4) | ![Dev_Park](https://avatars.githubusercontent.com/u/68197907?v=4) | ![didqksrla](https://avatars.githubusercontent.com/u/103868639?v=4) | ![narlae](https://avatars.githubusercontent.com/u/107486308?v=4) | ![River J](https://avatars.githubusercontent.com/u/108123321?v=4) |
-| [김형민](https://github.com/dr94406) | [이선우](https://github.com/PGRRR) | [박채훈](https://github.com/xpmxf4) | [김경빈](https://github.com/didqksrla) | [김영준](https://github.com/narlae) | [정여경](https://github.com/Riiver-J) |
+| [김형민](https://github.com/dr94406) | [이선우](https://github.com/PGRRR) | [박채훈](https://github.com/xpmxf4)                                  | [김경빈](https://github.com/didqksrla) | [김영준](https://github.com/narlae) | [정여경](https://github.com/Riiver-J) |
 ## 📋 개요
 
 > 프로젝트 명 : Dev Kurly
@@ -15,35 +15,31 @@
 ## 🏗️ 개발 인원 및 기간
 
 - 개발 기간 : 2022/08/01 ~ 2022/09/02 (5주간)
-- 개발 인원 : Back-end 5명 & Front-end 1명
+- 개발 인원 : Back-end 6명 (Front-end 1명 포함)
 
 ## 🛠️ 기술 스택
 
 > Back-end
 >
+[![Java11](https://img.shields.io/badge/Java11-007396.svg?&style=for-the-badge&logo=java&logoColor=white)](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_(%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D_%EC%96%B8%EC%96%B4))
+![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
+![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF.svg?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
 - Language : Java 11
-
-  [![Java11](https://img.shields.io/badge/Java11-007396.svg?&style=for-the-badge&logo=java&logoColor=white)](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_(%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D_%EC%96%B8%EC%96%B4))
 
 
 - Framework : Spring
 
-    ![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
-
 
 - Database : MySQL, Amazon RDS
 
-    ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
-    ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF.svg?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
-
-
-> Front-end [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white)](https://developer.mozilla.org/ko/docs/Web/HTML)
+> Front-end
+>
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white)](https://developer.mozilla.org/ko/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)](https://developer.mozilla.org/ko/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black)](https://www.javascript.com/)
->
-- Language : HTML5, CSS3, JavaScript
 
-  
+- Language : HTML5, CSS3, JavaScript
 
 
 # 💡ERD

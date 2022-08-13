@@ -49,6 +49,7 @@ public class OrderController {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
         model.addAttribute("sum", sum);
+        model.addAttribute("order_id", order_id);
         model.addAttribute("cart", viewCartProduct);
         model.addAttribute("order", orderResponseDto);
         return "order/order";
