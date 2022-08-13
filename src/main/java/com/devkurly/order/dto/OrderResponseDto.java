@@ -18,6 +18,8 @@ public class OrderResponseDto {
     private String req_dtls;
     private Integer used_acamt;
     private Boolean dlvr_yn;
+    private Integer pdt_id;
+    private Integer pdt_qty;
 
     public OrderResponseDto(Order order) {
         this.ord_id = order.getOrd_id();

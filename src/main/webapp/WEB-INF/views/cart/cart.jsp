@@ -97,5 +97,6 @@
 </c:forEach>
 <div id="cart-sum">총 장바구니 가격 : ${sum}</div>
 user_id, CT.pdt_id, pdt_qty, image, sel_price, title, stock
+<a class="btn" href="/orders">주문하기</a>
 </body>
 </html>
