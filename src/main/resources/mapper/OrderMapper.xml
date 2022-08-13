@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.mapper.OrderMapper">
+    <!--    <insert id="insert" parameterType="Order">-->
+    <!--        insert into ORDER_TB(user_id, addr_id, coupn_id, stus_cd, req_plc_cd, req_dtls, used_acamt, dlvr_yn)-->
+    <!--        values (#{user_id}, #{addr_id}, #{coupn_id}, #{stus_cd}, #{req_plc_cd}, #{req_dtls}, #{used_acamt}, #{dlvr_yn});-->
+    <!--    </insert>-->
+    <insert id="insert" parameterType="int">
+        insert into ORDER_TB(user_id)
+        values (#{user_id});
+    </insert>
+    <select id="findById" parameterType="Int" resultType="Order">
+        select *
+        from ORDER_TB
+        where ord_id = #{ord_id};
+    </select>
+    <select id="findById" parameterType="Int" resultType="Order">
+        select *
+        from ORDER_TB
+        where ord_id = #{ord_id};
+    </select>
+    <update id="update" parameterType="Order">
+        update ORDER_TB
+        set addr_id    = #{addr_id},
+            coupn_id   = #{coupn_id},
+            stus_cd    = #{stus_cd},
+            req_plc_cd = #{req_plc_cd},
+            req_dtls   = #{req_dtls},
+            used_acamt = #{used_acamt},
+            dlvr_yn    = #{dlvr_yn}
+        where ord_id = #{ord_id};
+    </update>
+    <delete id="delete" parameterType="Integer">
+        delete
+        from ORDER_TB
+        where user_id = #{user_id}
+          and ord_id = #{ord_id};
+    </delete>
+</mapper>
