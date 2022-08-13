@@ -7,16 +7,29 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 로컬에서 DataBase를 Connection 하기위한 주석 -->
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!--property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property-->
+		<!--property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/springbasic?useUnicode=true&amp;characterEncoding=utf8"></property-->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/dev_kurly?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="username" value="narlae"></property>
+		<property name="password" value="a123123"></property>
+	</bean>
 
+
+
+	<!--RDS 사용을 위한 주석
 	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:/config/db.properties"/>
 
-	<!-- RDS 연결 설정 -->
+	- RDS 연결 설정
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${db.driverClassName}"></property>
 		<property name="url" value="${db.url}"></property>
 		<property name="username" value="${db.username}"></property>
 		<property name="password" value="${db.password}"></property>
-	</bean>
+	</bean> -->
 
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
