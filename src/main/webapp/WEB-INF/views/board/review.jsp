@@ -6,6 +6,6 @@
     <title>Title</title>
 </head>
 <body>
-<button type="button" onclick="location.href='<c:url value="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=${param.bbs_clsf_cd}&page=${param.page}&pageSize=${param.pageSize}"/>'">리뷰게시판</button>
+<button type="button" onclick="location.href='<c:url value="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${page}&pageSize=${pageSize}"/>'">리뷰게시판</button>
 </body>
 </html>
