@@ -38,15 +38,19 @@ public class BoardController {
 
     @GetMapping("/board")
     @ResponseBody
-    public ResponseEntity<List<BoardDto>> list(Integer pdt_id, Integer page, Integer pageSize) {
+    public ResponseEntity<List<BoardDto>> list(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, String sortType) {
         Map map = new HashMap();
         map.put("offset", (page - 1) * pageSize);
         map.put("pageSize", pageSize);
         map.put("pdt_id", pdt_id);
-        map.put("bbs_clsf_cd", "1");
+        map.put("bbs_clsf_cd", bbs_clsf_cd);
         List<BoardDto> list = null;
         try {
-            list = boardService.selectReviewPage(map);
+            if(sortType.equals("like")){
+                list = boardService.selectReviewPageLike(map);
+            }
+            else{list = boardService.selectReviewPage(map);}
+
             return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

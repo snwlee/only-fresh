@@ -80,13 +80,12 @@
 <div class="review_board">
     <div class="board">
         <div class="title"></div>
-        <form action="/board" class="search-form" method="get">
-            <select class="sort-option" name="option">
-                <!--검색한 뒤 페이지에 선택한 옵션으로 남기기위해서 m에서 값을 가져옴 -->
-                <option value="latest" selected>최근등록순</option>
-                <option value="like">추천</option>
-            </select>
-        </form>
+        <%--        <form action="<c:url value="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=${param.bbs_clsf_cd}&page=${param.page}&pageSize=${param.pageSize}"/>" class="search-form" method="get">--%>
+        <select id="sort-option" name="option">
+            <option value="latest" selected>최근등록순</option>
+            <option value="like">추천</option>
+        </select>
+        <%--        </form>--%>
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <colgroup>
                 <col style="width:70px;">
@@ -176,10 +175,10 @@
     <%--let user_id = ${sessionScope.user_id};--%>
     let user_id = 1; //임시 하드코딩
 
-    let showList = function(pdt_id){
+    let showList = function(pdt_id, sortType){
         $.ajax({
             type:'GET',
-            url: '/dev_kurly/board?pdt_id='+pdt_id+'&page='+page+'&pageSize='+pageSize,
+            url: '/dev_kurly/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType='+sortType,
             success : function(result){
                 $("#board").html(toHtml(result));
             },
@@ -255,6 +254,12 @@
     $(document).ready(function(){
         showList(pdt_id);
         let readStatus = false;
+
+        $("#sort-option").change(function(){
+            console.log(this.value);
+            let sortType = this.value;
+            showList(pdt_id, sortType);
+        });
 
         $(".modal_write").click(function(){
             $(".modal").css("display","block");

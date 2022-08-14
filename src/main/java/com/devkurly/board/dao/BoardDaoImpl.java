@@ -52,6 +52,13 @@ public class BoardDaoImpl implements BoardDao {
     }
 
     @Override
+    public List<BoardDto> selectReviewPageLike(Map map) throws Exception {
+//        List<BoardDto> result = session.selectList(namespace + "selectReviewPageLike", map);
+//        return result;
+        return session.selectList(namespace + "selectReviewPageLike", map);
+    }
+
+    @Override
     public BoardDto selectCn(Integer bbs_id) throws Exception {
         return session.selectOne(namespace + "selectCn", bbs_id);
     }
