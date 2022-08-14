@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devkurly.product.dao.ProductMapper">
-    <select id="select" parameterType="int" resultType="ProductDto">
+    <select id="select" parameterType="int" resultType="Product">
         select pdt_id,
                cat_code,
                price,
@@ -38,17 +38,18 @@
         DELETE FROM PRODUCT_TB WHERE pdt_id = #{pdt_id}
     </delete>
 
-    <insert id="insert" parameterType="ProductDto">
+    <insert id="insert" parameterType="Product">
         INSERT INTO PRODUCT_TB
         (pdt_id, title, ds_rate, sel_price, price, sub_title)
         VALUES
             (#{pdt_id},#{price},#{ds_rate},#{sel_price}, #{title}, #{sub_title})
     </insert>
 
-    <select id="selectAll" resultType="ProductDto">
+    <select id="selectAll" resultType="Product">
         select pdt_id,
                cat_code,
                price,
+               image,
                ds_rate,
                sel_price,
                title,
@@ -64,24 +65,12 @@
         ORDER BY in_date DESC, up_date DESC
     </select>
 
-    <select id="selectPage"  parameterType="map"  resultType="ProductDto">
-        select pdt_id,
-               cat_code,
-               price,
-               ds_rate,
-               sel_price,
-               title,
-               sub_title,
-               rec_info,
-               adt_sts,
-               stock,
-               in_date,
-               in_user,
-               up_date,
-               up_user
-        from PRODUCT_TB
-        ORDER BY in_date DESC, up_date DESC
-        LIMIT #{offset}, #{pageSize}
+    <select id="selectPage"  parameterType="map"  resultType="Product">
+        Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,D.de_type
+        FROM PRODUCT_TB P
+        RIGHT OUTER JOIN PRODUCT_DETAIL_TB D
+        ON D.pdt_id = P.pdt_id
+        ORDER BY pdt_id DESC
     </select>
 
     <sql id="selectFromProduct">
@@ -102,7 +91,7 @@
             FROM PRODUCT_TB
     </sql>
 
-    <update id="update" parameterType="ProductDto">
+    <update id="update" parameterType="Product">
         UPDATE PRODUCT_TB
         SET   price = #{price},
               ds_rate = #{ds_rate},
