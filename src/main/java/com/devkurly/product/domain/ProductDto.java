@@ -1,4 +1,4 @@
-package com.devkurly.product.dto;
+package com.devkurly.product.domain;
 
 import java.util.Date;
 import java.util.Objects;
@@ -19,9 +19,10 @@ private Date in_date;
 private String in_user;
 private Date up_date;
 private String up_user;
+private boolean de_type;
 
 public ProductDto(){}
-    public ProductDto (Integer pdt_id, String cat_code, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user) {
+    public ProductDto (Integer pdt_id, String cat_code, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user, boolean de_type) {
          this.pdt_id = pdt_id;
         this.cat_code = cat_code;
         this.title = title;
@@ -56,6 +57,7 @@ public ProductDto(){}
                 ", in_user='" + in_user + '\'' +
                 ", up_date=" + up_date +
                 ", up_user='" + up_user + '\'' +
+                ", de_type='" + de_type + '\'' +
                 '}';
     }
 
@@ -193,6 +195,14 @@ public ProductDto(){}
     }
 
     public void pdt_id(Integer pdt_id) {
+    }
+
+    public boolean isDe_type() {
+        return de_type;
+    }
+
+    public void setDe_type(boolean de_type) {
+        this.de_type = de_type;
     }
 }
 

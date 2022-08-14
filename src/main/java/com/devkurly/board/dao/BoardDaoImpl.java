@@ -82,7 +82,15 @@ public class BoardDaoImpl implements BoardDao {
     }
 
     @Override
-    public int increaseLike(int bbs_id) throws Exception {
+    public int increaseLike(Integer bbs_id) throws Exception {
         return session.update(namespace + "increaseLike", bbs_id);
+    }
+    @Override
+    public int selectUserLike(Map map) throws Exception {
+        return session.selectOne(namespace + "selectUserLike", map);
+    }
+    @Override
+    public int userLikeNo(BoardDto boardDto) throws Exception {
+        return session.insert(namespace + "UserLikeNo", boardDto);
     }
 }

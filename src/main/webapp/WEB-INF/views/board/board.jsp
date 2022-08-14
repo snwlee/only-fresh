@@ -128,13 +128,13 @@
         </c:if>
         <c:if test="${totalCnt!=null && totalCnt!=0}">
             <c:if test="${ph.showPrev}">
-                <a class="page" href="<c:url value=''/>"><</a>
+                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>"><</a>
             </c:if>
             <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value=""/>">${i}</a>
+                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${i}&pageSize=${ph.pageSize}"/>">${i}</a>
             </c:forEach>
             <c:if test="${ph.showNext}">
-                <a class="page" href="<c:url value=''/>">&gt;</a>
+                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
             </c:if>
         </c:if>
     </div></div>
@@ -173,6 +173,8 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
+    <%--let user_id = ${sessionScope.user_id};--%>
+    let user_id = 1; //임시 하드코딩
 
     let showList = function(pdt_id){
         $.ajax({
@@ -184,10 +186,6 @@
             error   : function(){ alert("error") }
         });
     }
-
-    <%--    <c:out value='${boardDto.title}'/>--%>
-    <%--    '+BoardDto.bbs_title+'--%>
-    <%--    <c:out value='+BoardDto.bbs_title+'/>--%>
 
     let toHtml =function(lists){
         let tmp = "";
@@ -236,11 +234,16 @@
         return yyyy+"."+mm+"."+dd;
     }
 
-    let reLocationReview = function () {
+    let relocateCn = function(){
         $("#review_view").css("display", "none");
-        $(".review_content").val('');
+        $(".review_content").text('');
         $("#review_view").appendTo(".p_write_btn");
     };
+
+    let locateCn = function(bbs_id){
+        $("#review_view").appendTo($("div[data-bbs_id=" + bbs_id + "]"));
+        $("#review_view").css("display", "block");
+    }
 
     let deleteModalValue = function () {
         $("#myModal #bbs_title").val('');
@@ -274,7 +277,8 @@
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
                 success : function(result){
                     alert(result);
-                    reLocationReview();
+                    relocateCn();
+                    readStatus = false;
                     showList(pdt_id);
                     deleteModalValue();
                 },
@@ -306,18 +310,15 @@
                         $(".review_content").text(result.bbs_cn);
                         $(".del_btn").attr("data-bbs_id", bbs_id);
                         $(".mod_btn").attr("data-bbs_id", bbs_id);
+                        $(".like_button").attr("data-bbs_id", bbs_id);
                     },
                     error: function () {
                         alert("error")
                     }
                 });
-                let contentView = $("#review_view");
-                contentView.appendTo($("div[data-bbs_id=" + bbs_id + "]"));
-                contentView.css("display", "block");
+                locateCn(bbs_id);
             } else {
-                let contentView = $("#review_view");
-                contentView.css("display", "none");
-                contentView.appendTo($(".p_write_btn"));
+                relocateCn();
                 readStatus = false;
             }
         })
@@ -325,17 +326,13 @@
         $("#board").on("click", ".del_btn", function(){
             let bbs_id = $(this).attr("data-bbs_id");
             if(!confirm("정말로 글을 삭제하시겠습니까?")) return;
-
-            let contentView = $("#review_view");
-            contentView.appendTo($("body"));
-            contentView.css("display", "none");
-
             $.ajax({
                 type:'DELETE',
                 url: '/dev_kurly/board/'+bbs_id+'?pdt_id='+pdt_id,
                 success : function(result){
                     alert(result)
-                    reLocationReview();
+                    relocateCn();
+                    readStatus = false;
                     showList(pdt_id);
                 },
                 error   : function(){ alert("error") }
@@ -378,7 +375,8 @@
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
                 success : function(result){
                     alert(result);
-                    reLocationReview();
+                    relocateCn();
+                    readStatus = false;
                     showList(pdt_id);
                 },
                 error   : function(){ alert("error") }
@@ -386,11 +384,20 @@
             $(".close").trigger("click");
         });
 
-
-
+        $("#board").on("click", ".like_button", function(){
+            let bbs_id = $(this).attr("data-bbs_id");
+            $.ajax({
+                type:'PATCH',
+                url: '/dev_kurly/like/'+bbs_id+'?user_id='+user_id,
+                success : function(result){
+                    relocateCn();
+                    readStatus = false;
+                    showList(pdt_id);
+                },
+                error : function(){ alert("you pushed like-btn in this review already.")}
+            });
+        });
     });
-
-
 </script>
 </body>
 </html>

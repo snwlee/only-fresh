@@ -1,6 +1,6 @@
 package com.devkurly.product.service;
 
-import com.devkurly.product.dto.ProductDto;
+import com.devkurly.product.domain.ProductDto;
 
 import java.util.List;
 import java.util.Map;

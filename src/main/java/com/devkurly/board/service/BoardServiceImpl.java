@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(BoardDto boardDto) throws Exception {
-        //1. 먼저 board_tb를 채운다.
+        //1. 먼저 BOARD_TB를 채운다.
         boardDao.insert(boardDto);
         //2. selectReviewPage를 한다.
         List<BoardDto> list = boardDao.selectAll();
@@ -43,9 +43,9 @@ public class BoardServiceImpl implements BoardService {
         Integer bbs_id = list.get(0).getBbs_id();
         //4. bbs_id를 boardDto에 추가한다.
         boardDto.setBbs_id(bbs_id);
-        //5. insertReview를 한다.
+        //5. REVIEW_BOARD_TB를 채운다.
         boardDao.insertReview(bbs_id);
-        //5. insertCn를 한다.
+        //5. BOARD_CONTENT_TB를 채운다.
         return boardDao.insertCn(boardDto);
     }
 
@@ -59,11 +59,27 @@ public class BoardServiceImpl implements BoardService {
         Map map = new HashMap();
         map.put("bbs_clsf_cd", bbs_clsf_cd);
         map.put("pdt_id", pdt_id);
-
         return boardDao.count(map);
     }
     @Override
     public int increaseLike(Integer bbs_id) throws Exception {
         return boardDao.increaseLike(bbs_id);
+    }
+    @Override
+    public int userLikeNo(BoardDto boardDto) throws Exception {
+        return boardDao.userLikeNo(boardDto);
+    }
+    @Transactional
+    public int reviewLike(BoardDto boardDto) throws Exception {
+        Map map = new HashMap<>();
+        map.put("user_id",boardDto.getUser_id());
+        map.put("bbs_id",boardDto.getBbs_id());
+        if(boardDao.selectUserLike(map)==1) {
+            throw new Exception();
+        }else{
+            boardDto.setLike_no(1);
+            boardDao.userLikeNo(boardDto);
+            return boardDao.increaseLike(boardDto.getBbs_id());
+        }
     }
 }
