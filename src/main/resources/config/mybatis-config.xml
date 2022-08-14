@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE configuration
-                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
         <typeAliases>
+                <typeAlias alias="BoardDto" type="com.devkurly.board.domain.BoardDto"/>
+                <typeAlias alias="EventDto" type="com.devkurly.event.domain.EventDto" />
+                <typeAlias alias="Cart" type="com.devkurly.cart.domain.Cart"/>
+                <typeAlias alias="Order" type="com.devkurly.order.domain.Order"/>
+                <typeAlias alias="OrderProduct" type="com.devkurly.order.domain.OrderProduct"/>
+                <typeAlias alias="Payment" type="com.devkurly.payment.domain.Payment"/>
+                <typeAlias alias="ProductDto" type="com.devkurly.product.dto.ProductDto"/>
                 <typeAlias alias="ProductDetail" type="com.devkurly.productDetail.domain.ProductDetailDto" />
                 <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />
-        </typeAliases>
+       </typeAliases>
 </configuration>
