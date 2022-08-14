@@ -10,6 +10,8 @@ public class BoardDto {
     private String bbs_title;
     private String bbs_cn;
     private Integer revw_like;
+
+    private Integer like_no;
     private String revw_img;
     private Date wrt_dt;
     private String user_nm;
@@ -20,7 +22,7 @@ public class BoardDto {
     private String up_user;
 
     public BoardDto(){}
-    public BoardDto(Integer pdt_id, Integer user_id, String bbs_title, String bbs_cn, Integer revw_like, String revw_img, String user_nm, String bbs_clsf_cd, String in_user, String up_user) {
+    public BoardDto(Integer pdt_id, Integer user_id, String bbs_title, String bbs_cn, Integer revw_like, Integer like_no, String revw_img, String user_nm, String bbs_clsf_cd, String in_user, String up_user) {
         this.pdt_id = pdt_id;
         this.user_id = user_id;
         this.bbs_title = bbs_title;
@@ -31,6 +33,7 @@ public class BoardDto {
         this.bbs_clsf_cd = bbs_clsf_cd;
         this.in_user = in_user;
         this.up_user = up_user;
+        this.like_no = like_no;
     }
 
     public Integer getBbs_id() {
@@ -80,7 +83,13 @@ public class BoardDto {
     public void setRevw_like(Integer revw_like) {
         this.revw_like = revw_like;
     }
+    public Integer getLike_no() {
+        return like_no;
+    }
 
+    public void setLike_no(Integer like_no) {
+        this.like_no = like_no;
+    }
     public String getRevw_img() {
         return revw_img;
     }
@@ -154,6 +163,7 @@ public class BoardDto {
                 ", bbs_title='" + bbs_title + '\'' +
                 ", bbs_cn='" + bbs_cn + '\'' +
                 ", revw_like=" + revw_like +
+                ", like_no=" + like_no +
                 ", revw_img='" + revw_img + '\'' +
                 ", wrt_dt=" + wrt_dt +
                 ", user_nm='" + user_nm + '\'' +

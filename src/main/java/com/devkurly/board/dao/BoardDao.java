@@ -30,5 +30,10 @@ public interface BoardDao {
 
     int updateCn(BoardDto boardDto) throws Exception;
 
-    int increaseLike(int bbs_id) throws Exception;
-}
+    int increaseLike(Integer bbs_id) throws Exception;
+
+    int selectUserLike(Map map) throws Exception;
+
+    int userLikeNo(BoardDto boardDto) throws Exception;
+
+    }

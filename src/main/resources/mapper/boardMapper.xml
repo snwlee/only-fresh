@@ -83,6 +83,17 @@
         where bbs_id = #{bbs_id}
     </update>
 
+    <select id="selectUserLike" parameterType="map" resultType="int">
+        select count(*)
+        from USER_LIKE_NO
+        where user_id = #{user_id} and bbs_id = #{bbs_id}
+    </select>
+
+    <insert id="UserLikeNo" parameterType="BoardDto">
+        insert into USER_LIKE_NO (user_id, bbs_id, like_no, in_user, up_user)
+        values (#{user_id}, #{bbs_id}, #{like_no}, #{user_id}, #{user_id})
+    </insert>
+
 
 
 </mapper>

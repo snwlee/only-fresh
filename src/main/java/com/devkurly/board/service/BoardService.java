@@ -18,4 +18,8 @@ public interface BoardService {
     int getCount(String bbs_clsf_cd, Integer pdt_id) throws Exception;
 
     int increaseLike(Integer bbs_id) throws Exception;
+
+    int userLikeNo(BoardDto boardDto) throws Exception;
+
+    int reviewLike(BoardDto boardDto)throws Exception;
 }
