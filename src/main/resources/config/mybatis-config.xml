@@ -5,6 +5,7 @@
 <configuration>
         <typeAliases>
                 <typeAlias alias="EventDto" type="com.devkurly.event.domain.EventDto" />
+                <typeAlias alias="EventIdDto" type="com.devkurly.event.domain.EventIdDto" />
                 <typeAlias alias="Cart" type="com.devkurly.cart.domain.Cart"/>
                 <typeAlias alias="Order" type="com.devkurly.order.domain.Order"/>
                 <typeAlias alias="Payment" type="com.devkurly.payment.domain.Payment"/>
