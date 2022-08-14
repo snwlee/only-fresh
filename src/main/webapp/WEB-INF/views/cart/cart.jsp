@@ -43,7 +43,7 @@
     <div>장바구니 제품 이름 : ${cart.title}</div>
     <div>장바구니 제품 가격 : ${cart.sel_price}</div>
     <div id="cart-${status.count}">장바구니 제품 개수 : ${cart.pdt_qty}</div>
-    <input type="number" id="test-${status.count}" value="${cart.pdt_qty}">
+    <input type="number" id="cart-qty-${status.count}" value="${cart.pdt_qty}">
     <button type="button" id="add-test-btn-${status.count}">+</button>
     <button type="button" id="minus-test-btn-${status.count}">-</button>
     <div id="cart-sum-${status.count}">장바구니 제품 총 가격 : ${cart.sel_price * cart.pdt_qty}</div>
@@ -52,24 +52,28 @@
     <a class="btn" id="minus-${status.count}">상품 제거 -</a>
     <br>
     <script>
-            <%--$("#add-test-btn-${status.count}").click(function () {--%>
-            <%--    let qty = $('#test-${status.count}').val();--%>
-            <%--    let val = $('#test-${status.count}').val(qty - 1 + 2);--%>
-            <%--});--%>
-            $("#minus-test-btn-${status.count}").click(function () {
-                let qty = $('#test-${status.count}').val();
-                let val1 = $('#test-${status.count}').val(qty - 1);
-            });
+        <%--$("#add-test-btn-${status.count}").click(function () {--%>
+        <%--    let qty = $('#test-${status.count}').val();--%>
+        <%--    let val = $('#test-${status.count}').val(qty - 1 + 2);--%>
+        <%--});--%>
+        <%--$("#minus-test-btn-${status.count}").click(function () {--%>
+        <%--    let qty = $('#test-${status.count}').val();--%>
+        <%--    let val1 = $('#test-${status.count}').val(qty - 1);--%>
+        <%--});--%>
     </script>
     <script>
         $(document).ready(function () {
             $("#add-test-btn-${status.count}").click(function () {
-                let val = $('#test-${status.count}').val($('#test-${status.count}').val() - 1 + 2);
-                let cart = {user_id:${sessionScope.user_id}, pdt_id:${cart.pdt_id}, pdt_qty: $('#test-${status.count}').val()};
+                let val = $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1 + 2);
+                let cart = {
+                    user_id:${sessionScope.user_id},
+                    pdt_id:${cart.pdt_id},
+                    pdt_qty: $('#cart-qty-${status.count}').val()
+                };
                 let cartJs = {};
                 $.ajax({
                     type: 'POST',
-                    url: '/carts/plus',
+                    url: '/carts/qty',
                     headers: {"content-type": "application/json"},
                     dataType: 'text',
                     data: JSON.stringify(cart),
@@ -85,12 +89,17 @@
                 });
                 // alert("the request is sent")
             });
-            $("#minus-${status.count}").click(function () {
-                let cart = {user_id:${sessionScope.user_id}, pdt_id:${cart.pdt_id}, pdt_qty:${cart.pdt_qty}};
+            $("#minus-test-btn-${status.count}").click(function () {
+                let val = $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1);
+                let cart = {
+                    user_id:${sessionScope.user_id},
+                    pdt_id:${cart.pdt_id},
+                    pdt_qty: $('#cart-qty-${status.count}').val()
+                };
                 let cartJs = {};
                 $.ajax({
                     type: 'POST',
-                    url: '/carts/minus',
+                    url: '/carts/qty',
                     headers: {"content-type": "application/json"},
                     dataType: 'text',
                     data: JSON.stringify(cart),
