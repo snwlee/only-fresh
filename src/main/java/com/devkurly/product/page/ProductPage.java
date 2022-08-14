@@ -2,9 +2,9 @@ package com.devkurly.product.page;
 
 public class ProductPage {
 
-    private int totalCnt;
-    private int pageSize;
-    private int page;
+    private int totalCnt = 10000;
+    private int pageSize = 1000;
+    private int page = 100;
 
 
     public ProductPage(int totalCnt, int page) {

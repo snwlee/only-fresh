@@ -20,11 +20,11 @@
     <h2>상품 상세정보 ${mode=="new" ? "상품 등록" : "상품 확인"}</h2>
 <form action="" id="form" >
     <input type="hidden" name="pdt_id" value="${ProductDto.pdt_id}"}>
-    <input type="text" name="title" value="${ProductDto.title}"${ mode=="new" ? '' : 'readonly="readonly"'}>
-    <input type="text" name="ds_rate" value="${ProductDto.ds_rate}"${ mode=="new" ? '' : 'readonly="readonly"'}>
-    <input type="text" name="sel_price" value="${ProductDto.sel_price}"${ mode=="new" ? '' : 'readonly="readonly"'}>
-    <input type="text" name="price" value="${ProductDto.price}"${ mode=="new" ? '' : 'readonly="readonly"'}>
-    <input type="text" name="sub_title" value="${ProductDto.sub_title}"${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="title" value="${ProductDto.title}" placeholder="제품이름 입력" ${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="ds_rate" value="${ProductDto.ds_rate}" placeholder="제품할인율 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="sel_price" value="${ProductDto.sel_price}" placeholder="제품판매가 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="price" value="${ProductDto.price}"placeholder="제품실제가 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="sub_title" value="${ProductDto.sub_title}" placeholder="제품 소제목 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
 
     <button type="button" id="writeBtn" class="btn">등록</button>
     <button type="button" id="modifyBtn" class="btn">수정</button>
