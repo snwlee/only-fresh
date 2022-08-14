@@ -10,6 +10,20 @@
 <head>
 	<title>메인화면</title>
 	<style>
+		#contents_container {
+			display: flex;
+			flex-wrap: wrap;
+			margin-top: 20px;
+		}
+		.content_box {
+			display: flex;
+			justify-content: center;
+			width: 400px;
+			height: 300px;
+			border: 1px solid #5F0080;
+			margin-top: 20px;
+			margin-right: 10px;
+		}
 		.btn {
 			cursor: pointer;
 			width: 380px;
@@ -31,8 +45,22 @@
 <body>
 <h1>메인화면</h1>
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
-<a class="btn" href="/carts/login">유저 'user_id = 1' 로 로그인하기</a>
-<a class="btn" href="/carts/view">장바구니 보기</a>
-<a class="btn" href="/product/list">상품 보기</a>
+<a class="btn" href="/dev_kurly/carts/login">유저 'user_id = 1' 로 로그인하기</a>
+<div id="contents_container" >
+	<div class="content_box">
+		<a class="btn" href="/dev_kurly/carts/view">장바구니 보기</a>
+	</div>
+	<div class="content_box">
+		<a class="btn" href="/dev_kurly/event/test">이벤트 CRUD 페이지</a>
+	</div>
+	<div class="content_box">
+		<a class="btn" href="/dev_kurly/boardlist?pdt_id=&bbs_clsf_cd=1&page=1&pageSize=10">게시판 CRUD 페이지</a>
+	</div>
+	<div class="content_box">
+		<a class="btn" href="/dev_kurly/product/list">상품 보기</a>
+	</div>
+	<div class="content_box">
+	</div>
+</div>>
 </body>
 </html>

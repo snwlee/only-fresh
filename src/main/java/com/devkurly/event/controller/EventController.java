@@ -24,7 +24,7 @@ public class EventController {
     }
 
     //    C
-    @PostMapping(value = "/add", consumes = "application/json")
+    @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody EventDto eventDto) {
         try {
             if (service.insert(eventDto) != 1) throw new Exception("Write failed");
