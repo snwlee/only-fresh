@@ -22,7 +22,6 @@
 				  annotation="org.apache.ibatis.annotations.Mapper" />
 
 	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:/config/db.properties"/>
-	<!-- RDS 연결 설정 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${db.driverClassName}"></property>
 		<property name="url" value="${db.url}"></property>

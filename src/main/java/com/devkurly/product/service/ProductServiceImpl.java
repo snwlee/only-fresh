@@ -1,10 +1,9 @@
 package com.devkurly.product.service;
 
 import com.devkurly.product.dao.*;
-import com.devkurly.product.dto.ProductDto;
+import com.devkurly.product.domain.ProductDto;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -25,7 +24,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int write(ProductDto productDto) throws Exception {
-//        throw new Exception("test");
         return productDao.insert(productDto);
     }
 
@@ -37,14 +35,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto read(Integer pdt_id) throws Exception {
         ProductDto productDto = productDao.select(pdt_id);
-        //productDao.increaseViewCnt(pdt_id);
 
         return productDto;
     }
 
     @Override
-    public List<ProductDto> getPage(Map map) throws Exception {
-        return productDao.selectPage(map);
+    public List<ProductDto> getPage(Map map) throws Exception { // 상품 리스트
+        return productDao.selectPage(map); // 흐름을 자세히 보자.
     }
 
     @Override

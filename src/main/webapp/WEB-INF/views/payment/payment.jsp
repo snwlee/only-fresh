@@ -10,10 +10,27 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>결제</title>
+    <style>
+        .btn {
+            cursor: pointer;
+            width: 380px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            background-color: #5F0080;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-<div>주문</div>
+<div>결제</div>
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.devkurly.product.dao;
 
-import com.devkurly.product.dto.ProductDto;
+import com.devkurly.product.domain.ProductDto;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +58,6 @@ public class ProductDaoImpl implements ProductDao {
         return session.update(namespace+"update", dto);
     } // int update(String statement, Object parameter)
 
-    @Override
-    public int increaseViewCnt(Integer pdt_id) throws Exception {
-        return session.update(namespace+"increaseViewCnt", pdt_id);
-    } // int update(String statement, Object parameter)
 
 
 

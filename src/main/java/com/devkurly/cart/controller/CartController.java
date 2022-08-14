@@ -1,15 +1,13 @@
 package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
+import com.devkurly.cart.dto.CartResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
-import com.devkurly.cart.dto.CartUpdateRequestDto;
 import com.devkurly.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -21,22 +19,30 @@ public class CartController {
 
     private final CartService cartService;
 
+    /*
+     * temp
+     */
     @GetMapping("login")
     public String start(HttpSession session) {
         session.setAttribute("user_id", 1);
         return "/home";
     }
 
-    @GetMapping("/add")
-    public String firstAddCart(CartSaveRequestDto requestDto) {
+    /*
+     * temp
+     */
+    @GetMapping("/add/{pdt_id}")
+    public String addCart(CartSaveRequestDto requestDto, @PathVariable Integer pdt_id, HttpSession session) {
+        Integer user_id = (Integer) session.getAttribute("user_id");
         try {
-            requestDto.setUser_id(1);
-            requestDto.setPdt_id(2);
+            requestDto.setUser_id(user_id);
+            requestDto.setPdt_id(pdt_id);
             requestDto.setPdt_qty(1);
             cartService.addCart(requestDto);
         } catch (Exception e) {
-            requestDto.setPdt_qty(requestDto.getPdt_qty() + 1);
-            cartService.modifyCart(requestDto);
+            Cart cart = cartService.viewCart(requestDto.toEntity());
+            cart.setPdt_qty(cart.getPdt_qty() + 1);
+            cartService.modifyCart(cart);
             return "redirect:/carts/view";
         }
         return "redirect:/carts/view";
@@ -44,21 +50,32 @@ public class CartController {
 
     @GetMapping("/view")
     public String viewCart(HttpSession session, Model model) {
-        List<Cart> cartList = cartService.viewCart((Integer) session.getAttribute("user_id"));
-        model.addAttribute(cartList);
+        List<CartResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
+        int sum = 0;
+        for (CartResponseDto responseDto : cartList) {
+            sum += responseDto.getSel_price() * responseDto.getPdt_qty();
+        }
+        model.addAttribute("sum", sum);
+        model.addAttribute("cart", cartList);
         return "/cart/cart";
     }
 
-    @GetMapping("/update")
-    public String secondAddCart(CartSaveRequestDto requestDto) {
-        requestDto.setPdt_qty(2020);
-        cartService.modifyCart(requestDto);
+    @GetMapping("/delete")
+    public String deleteCart(HttpSession session) {
+        cartService.removeCart((Integer) session.getAttribute("user_id"));
         return "redirect:/carts/view";
     }
 
-    @GetMapping("/delete")
-    public String deleteCart(HttpSession session, Integer ptd_id) {
-        cartService.removeCart((Integer) session.getAttribute("user_id"), ptd_id);
+    @GetMapping("/delete/{ptd_id}")
+    public String deleteOneCart(@PathVariable Integer ptd_id, HttpSession session) {
+        cartService.removeOneCart((Integer) session.getAttribute("user_id"), ptd_id);
         return "redirect:/carts/view";
+    }
+
+    @PostMapping("/qty")
+    @ResponseBody
+    public Cart cartPlus(@RequestBody Cart cart) {
+        cartService.modifyCart(cart);
+        return cart;
     }
 }

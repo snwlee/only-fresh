@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.board.dao.boardMapper">
+    <delete id="deleteAll">
+        delete from BOARD_TB
+    </delete>
+
+    <delete id="delete" parameterType="map">
+        delete
+        from BOARD_TB
+        where bbs_id=#{bbs_id} and pdt_id=#{pdt_id} and user_id = #{user_id}
+    </delete>
+
+    <select id="boardCount" parameterType="map" resultType="int">
+        select count(*) from BOARD_TB
+        where bbs_clsf_cd = #{bbs_clsf_cd} and pdt_id = #{pdt_id}
+    </select>
+
+    <select id="select" parameterType="int">
+        select bbs_id,
+               bbs_title,
+               wrt_dt,
+               user_nm
+        from BOARD_TB
+        where bbs_id=#{bbs_id}
+    </select>
+
+    <select id="selectCn" parameterType="int" resultType="BoardDto">
+        select bbs_cn, in_user, up_user
+        from BOARD_CONTENT_TB
+        where bbs_id=#{bbs_id}
+    </select>
+
+    <select id="selectAll" resultType="BoardDto">
+        select bbs_id, pdt_id, user_id, bbs_title, wrt_dt, user_nm
+        from BOARD_TB
+        ORDER BY wrt_dt DESC , bbs_id DESC
+    </select>
+
+    <select id="selectReviewPage" parameterType="map" resultType="BoardDto">
+        select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd
+        from REVIEW_BOARD_TB
+                 right join BOARD_TB
+                           on REVIEW_BOARD_TB.bbs_id = BOARD_TB.bbs_id
+        where pdt_id = #{pdt_id} and #{bbs_clsf_cd}='1'
+        order by bbs_id desc, wrt_dt desc
+            limit #{offset}, #{pageSize}
+
+    </select>
+
+    <insert id="insert" parameterType="BoardDto">
+        insert into BOARD_TB (pdt_id, user_id, bbs_title, user_nm, bbs_clsf_cd, in_user,  up_user)
+        values (#{pdt_id}, #{user_id},#{bbs_title}, #{user_nm},#{bbs_clsf_cd}, #{user_id}, #{user_id})
+    </insert>
+
+    <insert id="insertReview" parameterType="int">
+        insert into REVIEW_BOARD_TB (bbs_id, in_user, up_user)
+        values (#{bbs_id}, #{user_id}, #{user_id})
+    </insert>
+
+    <insert id="insertCn" parameterType="BoardDto">
+        insert into BOARD_CONTENT_TB (bbs_id, bbs_cn, in_user, up_user)
+        values (#{bbs_id}, #{bbs_cn}, #{user_id},#{user_id})
+    </insert>
+
+    <update id="update" parameterType="BoardDto">
+        update BOARD_TB
+        set bbs_title=#{bbs_title}, wrt_dt=now()
+        where bbs_id =#{bbs_id} and user_id=#{user_id} and pdt_id = #{pdt_id}
+    </update>
+
+    <update id="updateCn" parameterType="BoardDto">
+        update BOARD_CONTENT_TB
+        set bbs_cn = #{bbs_cn}
+        where bbs_id = #{bbs_id}
+    </update>
+
+    <update id="increaseLike" parameterType="int">
+        update REVIEW_BOARD_TB
+        set revw_like = revw_like + 1
+        where bbs_id = #{bbs_id}
+    </update>
+
+    <select id="selectUserLike" parameterType="map" resultType="int">
+        select count(*)
+        from USER_LIKE_NO
+        where user_id = #{user_id} and bbs_id = #{bbs_id}
+    </select>
+
+    <insert id="UserLikeNo" parameterType="BoardDto">
+        insert into USER_LIKE_NO (user_id, bbs_id, like_no, in_user, up_user)
+        values (#{user_id}, #{bbs_id}, #{like_no}, #{user_id}, #{user_id})
+    </insert>
+
+
+
+</mapper>
