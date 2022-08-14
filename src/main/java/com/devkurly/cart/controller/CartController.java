@@ -3,21 +3,14 @@ package com.devkurly.cart.controller;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
-import com.devkurly.cart.dto.CartUpdateRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.product.dto.ProductDto;
-import com.devkurly.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.IntToDoubleFunction;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +18,6 @@ import java.util.function.IntToDoubleFunction;
 public class CartController {
 
     private final CartService cartService;
-    private final ProductService productService;
 
     /*
      * temp
@@ -80,18 +72,9 @@ public class CartController {
         return "redirect:/carts/view";
     }
 
-    @PostMapping("/plus")
+    @PostMapping("/qty")
     @ResponseBody
     public Cart cartPlus(@RequestBody Cart cart) {
-        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() + 1);
-        cartService.modifyCart(cart);
-        return cart;
-    }
-
-    @PostMapping("/minus")
-    @ResponseBody
-    public Cart cartMinus(@RequestBody Cart cart) {
-        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() - 1);
         cartService.modifyCart(cart);
         return cart;
     }
