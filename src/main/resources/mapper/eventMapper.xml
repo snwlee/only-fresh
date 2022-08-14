@@ -20,10 +20,14 @@
         select *
         from EVENT_TB
         where event_id = ${event_id}
-        ORDER BY stpt_dd DESC
     </select>
     <select id="selectAll" resultType="EventDto">
         select *
+        from EVENT_TB
+        ORDER BY stpt_dd DESC
+    </select>
+    <select id="selectIds" resultType="EventIdDto">
+        select event_id
         from EVENT_TB
     </select>
 
