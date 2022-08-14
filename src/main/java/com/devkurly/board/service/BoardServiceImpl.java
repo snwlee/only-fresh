@@ -59,11 +59,27 @@ public class BoardServiceImpl implements BoardService {
         Map map = new HashMap();
         map.put("bbs_clsf_cd", bbs_clsf_cd);
         map.put("pdt_id", pdt_id);
-
         return boardDao.count(map);
     }
     @Override
     public int increaseLike(Integer bbs_id) throws Exception {
         return boardDao.increaseLike(bbs_id);
+    }
+    @Override
+    public int userLikeNo(BoardDto boardDto) throws Exception {
+        return boardDao.userLikeNo(boardDto);
+    }
+    @Transactional
+    public int reviewLike(BoardDto boardDto) throws Exception {
+        Map map = new HashMap<>();
+        map.put("user_id",boardDto.getUser_id());
+        map.put("bbs_id",boardDto.getBbs_id());
+        if(boardDao.selectUserLike(map)==1) {
+            throw new Exception();
+        }else{
+            boardDto.setLike_no(1);
+            boardDao.userLikeNo(boardDto);
+            return boardDao.increaseLike(boardDto.getBbs_id());
+        }
     }
 }

@@ -21,7 +21,7 @@ public class BoardController {
     @GetMapping("/boardlist")
     public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
         try {
-            if(!bbs_clsf_cd.equals("1"))
+            if (!bbs_clsf_cd.equals("1"))
                 throw new Exception("not review board");
             int totalCnt = boardService.getCount(bbs_clsf_cd, pdt_id);
             PageHandler ph = new PageHandler(totalCnt, page, pageSize);
@@ -65,13 +65,13 @@ public class BoardController {
 
         try {
             int rowCnt = boardService.write(boardDto);
-            if(rowCnt!=1)
+            if (rowCnt != 1)
                 throw new Exception("write error");
 
             return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<String>("WRT_ERR",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("WRT_ERR", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -82,11 +82,9 @@ public class BoardController {
         boardDto.setUser_id(1); //임시 하드코딩
         boardDto.setBbs_id(bbs_id);
         boardDto.setPdt_id(pdt_id);
-        System.out.println("boardDto = " + boardDto);
-
         try {
             int rowCnt = boardService.modify(boardDto);
-            if(rowCnt!=1)
+            if (rowCnt != 1)
                 throw new Exception("modify error");
 
             return new ResponseEntity<String>("MOD_OK", HttpStatus.OK);
@@ -104,13 +102,13 @@ public class BoardController {
 
         try {
             int rowCnt = boardService.remove(bbs_id, pdt_id, user_id);
-            if(rowCnt!=1)
+            if (rowCnt != 1)
                 throw new Exception("delete error");
 
             return new ResponseEntity<String>("DEL_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<String>("DEL_ERR",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -127,4 +125,18 @@ public class BoardController {
         }
     }
 
+    @PatchMapping("/like/{bbs_id}")
+    @ResponseBody
+    public ResponseEntity<String> likeUp(@PathVariable Integer bbs_id, Integer user_id) {
+        BoardDto boardDto = new BoardDto();
+        boardDto.setUser_id(user_id);
+        boardDto.setBbs_id(bbs_id);
+        try {
+            int rowCnt = boardService.reviewLike(boardDto);
+            return new ResponseEntity<String>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("like_ERR",HttpStatus.BAD_REQUEST);
+        }
+    }
 }
