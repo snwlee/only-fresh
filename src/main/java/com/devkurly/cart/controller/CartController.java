@@ -50,14 +50,14 @@ public class CartController {
 
     @GetMapping("/view")
     public String viewCart(HttpSession session, Model model) {
-        List<CartResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
-        int sum = 0;
-        for (CartResponseDto responseDto : cartList) {
-            sum += responseDto.getSel_price() * responseDto.getPdt_qty();
-        }
-        model.addAttribute("sum", sum);
-        model.addAttribute("cart", cartList);
-        return "/cart/cart";
+//        List<CartResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
+//        int sum = 0;
+//        for (CartResponseDto responseDto : cartList) {
+//            sum += responseDto.getSel_price() * responseDto.getPdt_qty();
+//        }
+//        model.addAttribute("sum", sum);
+//        model.addAttribute("cart", cartList);
+        return "/cart/cartRestApi";
     }
 
     @GetMapping("/delete")
