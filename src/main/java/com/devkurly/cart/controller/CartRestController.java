@@ -2,7 +2,6 @@ package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
-import com.devkurly.cart.exception.ErrorCode;
 import com.devkurly.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,11 +26,8 @@ public class CartRestController {
 
     @PostMapping("/qty")
     public Cart modifyCartQty(@RequestBody Cart cart) {
-        System.out.println("TEST1");
         cartService.checkCartProductStock(cart);
-        System.out.println("TEST2");
         cartService.modifyCart(cart);
-        System.out.println("TEST3");
         return cart;
     }
 }

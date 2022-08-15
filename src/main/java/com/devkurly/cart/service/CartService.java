@@ -37,13 +37,9 @@ public class CartService {
     }
 
     public CartProductResponseDto checkCartProductStock(Cart cart) {
-        System.out.println("TEST 1-11");
         CartProductResponseDto cartProductResponseDto = Optional.ofNullable(cartMapper.joinCartProductByCart(cart)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
-        System.out.println("TEST 1-1");
         Integer stock = cartProductResponseDto.getStock();
-        System.out.println("TEST 1-2");
         if (cart.getPdt_qty() > stock) {
-            System.out.println("TEST 1-3");
             throw new OutOfStockException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
         }
         return cartProductResponseDto;

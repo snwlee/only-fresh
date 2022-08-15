@@ -1,7 +1,6 @@
 package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
-import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
