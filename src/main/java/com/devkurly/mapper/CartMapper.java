@@ -2,7 +2,7 @@ package com.devkurly.mapper;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartResponseDto;
-import com.devkurly.product.dto.ProductDto;
+import com.devkurly.product.domain.ProductDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
