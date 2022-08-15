@@ -33,6 +33,9 @@
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
 <a class="btn" href="/carts/login">유저 'user_id = 1' 로 로그인하기</a>
 <a class="btn" href="/product/list">상품 보기</a>
+<a class="btn" href="/product/newlist">신상품 보기</a>
+<a class="btn" href="/product/bestlist">베스트 상품 보기</a>
+<a class="btn" href="/product/list">알뜰쇼핑</a>
 <a class="btn" href="/carts/view">장바구니 보기</a>
 </body>
 </html>
