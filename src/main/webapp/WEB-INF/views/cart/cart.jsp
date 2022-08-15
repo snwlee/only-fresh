@@ -52,19 +52,9 @@
     <a class="btn" id="minus-${status.count}">상품 제거 -</a>
     <br>
     <script>
-        <%--$("#add-test-btn-${status.count}").click(function () {--%>
-        <%--    let qty = $('#test-${status.count}').val();--%>
-        <%--    let val = $('#test-${status.count}').val(qty - 1 + 2);--%>
-        <%--});--%>
-        <%--$("#minus-test-btn-${status.count}").click(function () {--%>
-        <%--    let qty = $('#test-${status.count}').val();--%>
-        <%--    let val1 = $('#test-${status.count}').val(qty - 1);--%>
-        <%--});--%>
-    </script>
-    <script>
         $(document).ready(function () {
             $("#add-test-btn-${status.count}").click(function () {
-                let val = $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1 + 2);
+                $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1 + 2);
                 let cart = {
                     user_id:${sessionScope.user_id},
                     pdt_id:${cart.pdt_id},
@@ -79,7 +69,6 @@
                     data: JSON.stringify(cart),
                     success: function (result) {
                         cartJs = JSON.parse(result);
-                        // alert("received=" + result);
                         $("#cart-${status.count}").html("장바구니 제품 개수 : " + cartJs.pdt_qty);
                         $("#cart-sum-${status.count}").html("장바구니 제품 총 가격 : " + cartJs.pdt_qty * ${cart.sel_price});
                     },
@@ -87,10 +76,9 @@
                         alert("error")
                     }
                 });
-                // alert("the request is sent")
             });
             $("#minus-test-btn-${status.count}").click(function () {
-                let val = $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1);
+                $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1);
                 let cart = {
                     user_id:${sessionScope.user_id},
                     pdt_id:${cart.pdt_id},
@@ -105,7 +93,6 @@
                     data: JSON.stringify(cart),
                     success: function (result) {
                         cartJs = JSON.parse(result);
-                        // alert("received=" + result);
                         $("#cart-${status.count}").html("장바구니 제품 개수 : " + cartJs.pdt_qty);
                         $("#cart-sum-${status.count}").html("장바구니 제품 총 가격 : " + cartJs.pdt_qty * ${cart.sel_price});
                     },
@@ -113,13 +100,11 @@
                         alert("error")
                     }
                 });
-                // alert("the request is sent")
             });
         });
     </script>
 </c:forEach>
 <div id="cart-sum">총 장바구니 가격 : ${sum}</div>
-user_id, CT.pdt_id, pdt_qty, image, sel_price, title, stock
 <a class="btn" href="/orders">주문하기</a>
 </body>
 </html>
