@@ -62,6 +62,9 @@
 <%--상품 보기--%>
 	<div class="content_box">
 		<a class="btn" href="/dev_kurly/product/list">상품 보기</a>
+		<a class="btn" href="/dev_kurly/product/newlist">신상품 보기</a>
+		<a class="btn" href="/dev_kurly/product/bestlist">베스트 상품 보기</a>
+		<a class="btn" href="/dev_kurly/product/list">알뜰쇼핑</a>
 	</div>
 <%--배송지--%>
 	<div class="content_box">

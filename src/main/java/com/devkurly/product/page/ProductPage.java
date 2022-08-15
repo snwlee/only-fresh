@@ -18,35 +18,16 @@ public class ProductPage {
 
     }
 
-    public ProductPage(int totalCnt, Integer page, Integer pageSize) {
+    public ProductPage(Integer page) {
     }
 
 
     @Override
     public String toString() {
-        return "PageHandler{" +
-                "totalCnt=" + totalCnt +
-                ", pageSize=" + pageSize +
-                ", page=" + page +
+        return ", page=" + page +
                 '}';
     }
 
-
-    public int getTotalCnt() {
-        return totalCnt;
-    }
-
-    public void setTotalCnt(int totalCnt) {
-        this.totalCnt = totalCnt;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
 
     public int getPage() {
         return page;
