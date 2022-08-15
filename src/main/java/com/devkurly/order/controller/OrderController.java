@@ -28,7 +28,7 @@ public class OrderController {
 
     @GetMapping("")
     public String requestOrder(Model model, HttpSession session) {
-        Integer user_id = (Integer) session.getAttribute("user_id");
+        String user_id = (String) session.getAttribute("user_id");
         // 유저 기반 주문 생성
         orderService.addOrder(user_id);
 

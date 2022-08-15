@@ -9,6 +9,7 @@ import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.mapper.CartMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,21 +22,25 @@ public class CartService {
     /**
      * temp
      */
+    @Transactional
     public Cart viewCart(Cart cart) {
         return cartMapper.findByCart(cart);
     }
 
     /**
-    * temp
-    */
-    public List<Cart> viewAllCart(Integer user_id) {
+     * temp
+     */
+    @Transactional
+    public List<Cart> viewAllCart(String user_id) {
         return cartMapper.findAllByUserId(user_id);
     }
 
-    public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
+    @Transactional
+    public List<CartProductResponseDto> viewCartProduct(String user_id) {
         return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
     }
 
+    @Transactional
     public CartProductResponseDto checkCartProductStock(Cart cart) {
         CartProductResponseDto cartProductResponseDto = Optional.ofNullable(cartMapper.joinCartProductByCart(cart)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
         Integer stock = cartProductResponseDto.getStock();
@@ -48,19 +53,30 @@ public class CartService {
     /**
      * temp
      */
+    @Transactional
     public Integer addCart(CartSaveRequestDto requestDto) {
         return cartMapper.insert(requestDto.toEntity());
     }
 
+    @Transactional
     public Integer modifyCart(Cart cart) {
         return cartMapper.update(cart);
     }
 
-    public Integer removeOneCart(Integer user_id, Integer pdt_id) {
-        return cartMapper.deleteOne(user_id, pdt_id);
+    @Transactional
+    public Integer removeOneCart(Cart cart) {
+        return cartMapper.deleteOne(cart);
     }
 
-    public Integer removeCart(Integer user_id) {
+    @Transactional
+    public void removeCheckedCart(List<Cart> cartList) {
+        for (Cart cart : cartList) {
+            cartMapper.deleteOne(cart);
+        }
+    }
+
+    @Transactional
+    public Integer removeCart(String user_id) {
         return cartMapper.delete(user_id);
     }
 

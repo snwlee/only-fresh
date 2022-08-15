@@ -10,12 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CartSaveRequestDto {
-    private Integer user_id;
+    private String user_id;
     private Integer pdt_id;
     private Integer pdt_qty;
 
     @Builder
-    public CartSaveRequestDto(Integer user_id, Integer pdt_id, Integer pdt_qty) {
+    public CartSaveRequestDto(String user_id, Integer pdt_id, Integer pdt_qty) {
         this.user_id = user_id;
         this.pdt_id = pdt_id;
         this.pdt_qty = pdt_qty;

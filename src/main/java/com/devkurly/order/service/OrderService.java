@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderService {
     private final OrderMapper orderMapper;
 
-    public Integer checkRecentOrderId(Integer user_id) {
+    public Integer checkRecentOrderId(String user_id) {
         return orderMapper.findById(user_id);
     }
     public Integer insertOrderProduct(OrderProduct orderProduct) {
@@ -24,7 +24,7 @@ public class OrderService {
     public List<OrderResponseDto> viewOrderProduct(Integer order_id) {
         return orderMapper.joinOrderProduct(order_id);
     }
-    public Integer addOrder(Integer user_id) {
+    public Integer addOrder(String user_id) {
         return orderMapper.insert(user_id);
     }
 

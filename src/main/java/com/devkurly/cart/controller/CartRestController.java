@@ -19,8 +19,9 @@ public class CartRestController {
     private final CartService cartService;
 
     @GetMapping("/rest/view")
-    public ResponseEntity<List<CartProductResponseDto>> viewCart(HttpSession session) {
-        List<CartProductResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
+    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue("JSESSIONID") String sessionId, HttpSession session) {
+        System.out.println("sessionId2 = " + sessionId);
+        List<CartProductResponseDto> cartList = cartService.viewCartProduct(sessionId);
         return new ResponseEntity<>(cartList, HttpStatus.OK);
     }
 
