@@ -5,7 +5,6 @@ import com.devkurly.cart.dto.CartResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.dto.CartUpdateRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.product.dto.ProductDto;
 import com.devkurly.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
