@@ -2,6 +2,7 @@ package com.devkurly.event.service;
 
 import com.devkurly.event.dao.EventDao;
 import com.devkurly.event.domain.EventDto;
+import com.devkurly.event.domain.EventIdDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,10 @@ public class EventServiceImpl implements  EventService {
     @Override
     public List<EventDto> getEventList() throws Exception {
         return eventDao.selectAll();
+    }
+
+    public List<EventIdDto> getEventIds() throws Exception {
+        return eventDao.selectIds();
     }
 
 //    U

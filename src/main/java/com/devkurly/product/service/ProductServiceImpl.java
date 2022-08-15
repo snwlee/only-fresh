@@ -1,10 +1,9 @@
 package com.devkurly.product.service;
 
 import com.devkurly.product.dao.*;
-import com.devkurly.product.dto.ProductDto;
+import com.devkurly.product.domain.ProductDto;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -23,32 +22,55 @@ public class ProductServiceImpl implements ProductService {
         return productDao.delete(pdt_id);
     }
 
+
     @Override
     public int write(ProductDto productDto) throws Exception {
-//        throw new Exception("test");
         return productDao.insert(productDto);
     }
 
-    @Override
-    public List<ProductDto> getList() throws Exception {
-        return productDao.selectAll();
-    }
 
     @Override
     public ProductDto read(Integer pdt_id) throws Exception {
         ProductDto productDto = productDao.select(pdt_id);
-//        productDao.increaseViewCnt(pdt_id);
 
         return productDto;
     }
 
-    @Override
-    public List<ProductDto> getPage(Map map) throws Exception {
-        return productDao.selectPage(map);
-    }
 
     @Override
     public int modify(ProductDto productDto) throws Exception {
         return productDao.update(productDto);
     }
+
+
+    @Override
+    public List<ProductDto> ProductList(Map map) throws Exception { // 상품 리스트
+        return productDao.ProductList(map); // 흐름을 자세히 보자.
+    }
+
+    @Override
+    public List<ProductDto> ProductThriftylist(Map map) throws Exception { // 상품 리스트
+        return productDao.ProductThriftylist(map); // 흐름을 자세히 보자.
+    }
+
+    @Override
+    public List<ProductDto> ProductBestlist(Map map) throws Exception { // 상품 리스트
+        return productDao.ProductBestlist(map); // 흐름을 자세히 보자.
+    }
+
+    @Override
+    public List<ProductDto> ProductNewList(Map map) throws Exception {
+        return productDao.ProductNewList(map);
+    }
+//
+//  @Override
+//  public List<ProductDto> ProductListAsc(Map map) {
+//       return productDao.ProductListAsc(map);
+//   }
+
+    @Override
+    public List<ProductDto> ProductListDESC(Map map) {
+        return productDao.ProductListDESC(map);
+    }
 }
+

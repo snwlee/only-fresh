@@ -1,4 +1,4 @@
-package com.devkurly.product.dto;
+package com.devkurly.product.domain;
 
 import java.util.Date;
 import java.util.Objects;
@@ -19,9 +19,12 @@ private Date in_date;
 private String in_user;
 private Date up_date;
 private String up_user;
+private Integer sales_rate;
+private boolean de_type;
+
 
 public ProductDto(){}
-    public ProductDto (Integer pdt_id, String cat_code, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user) {
+    public ProductDto (Integer pdt_id, String cat_code, Integer stock, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user, boolean de_type, Integer sales_rate) {
          this.pdt_id = pdt_id;
         this.cat_code = cat_code;
         this.title = title;
@@ -30,8 +33,8 @@ public ProductDto(){}
         this.sub_title = sub_title;
       //  this.rec_info = rec_info;
       //  this.adt_sts = adt_sts;
-      //  this.stock   = stock;
-      //  this.in_date = in_date;
+        this.stock   = stock;
+        this.in_date = in_date;
         this.in_user = in_user;
       //  this.up_date = up_date;
         this.up_user = up_user;
@@ -56,6 +59,9 @@ public ProductDto(){}
                 ", in_user='" + in_user + '\'' +
                 ", up_date=" + up_date +
                 ", up_user='" + up_user + '\'' +
+                ", sales_rate='" +sales_rate + '\''+
+                ", de_type='" + de_type + '\'' +
+
                 '}';
     }
 
@@ -194,5 +200,24 @@ public ProductDto(){}
 
     public void pdt_id(Integer pdt_id) {
     }
+
+    public boolean isDe_type() {
+        return de_type;
+    }
+
+    public void setDe_type(boolean de_type) {
+        this.de_type = de_type;
+    }
+
+    public Integer getSales_rate() {
+        return sales_rate;
+    }
+
+    public void setSales_rate(Integer sales_rate) {
+        this.sales_rate = sales_rate;
+    }
+
+
+
 }
 

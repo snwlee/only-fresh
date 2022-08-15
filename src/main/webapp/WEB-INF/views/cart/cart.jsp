@@ -43,6 +43,9 @@
     <div>장바구니 제품 이름 : ${cart.title}</div>
     <div>장바구니 제품 가격 : ${cart.sel_price}</div>
     <div id="cart-${status.count}">장바구니 제품 개수 : ${cart.pdt_qty}</div>
+    <input type="number" id="cart-qty-${status.count}" value="${cart.pdt_qty}">
+    <button type="button" id="add-test-btn-${status.count}">+</button>
+    <button type="button" id="minus-test-btn-${status.count}">-</button>
     <div id="cart-sum-${status.count}">장바구니 제품 총 가격 : ${cart.sel_price * cart.pdt_qty}</div>
     <a class="btn" href="/carts/delete/${cart.pdt_id}">장바구니에서 제거</a>
     <a class="btn" id="plus-${status.count}">상품 추가 +</a>
@@ -50,18 +53,22 @@
     <br>
     <script>
         $(document).ready(function () {
-            $("#plus-${status.count}").click(function () {
-                let cart = {user_id:${sessionScope.user_id}, pdt_id:${cart.pdt_id}, pdt_qty: ${cart.pdt_qty}};
+            $("#add-test-btn-${status.count}").click(function () {
+                $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1 + 2);
+                let cart = {
+                    user_id:${sessionScope.user_id},
+                    pdt_id:${cart.pdt_id},
+                    pdt_qty: $('#cart-qty-${status.count}').val()
+                };
                 let cartJs = {};
                 $.ajax({
                     type: 'POST',
-                    url: '/carts/plus',
+                    url: '/carts/qty',
                     headers: {"content-type": "application/json"},
                     dataType: 'text',
                     data: JSON.stringify(cart),
                     success: function (result) {
                         cartJs = JSON.parse(result);
-                        // alert("received=" + result);
                         $("#cart-${status.count}").html("장바구니 제품 개수 : " + cartJs.pdt_qty);
                         $("#cart-sum-${status.count}").html("장바구니 제품 총 가격 : " + cartJs.pdt_qty * ${cart.sel_price});
                     },
@@ -69,20 +76,23 @@
                         alert("error")
                     }
                 });
-                // alert("the request is sent")
             });
-            $("#minus-${status.count}").click(function () {
-                let cart = {user_id:${sessionScope.user_id}, pdt_id:${cart.pdt_id}, pdt_qty:${cart.pdt_qty}};
+            $("#minus-test-btn-${status.count}").click(function () {
+                $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1);
+                let cart = {
+                    user_id:${sessionScope.user_id},
+                    pdt_id:${cart.pdt_id},
+                    pdt_qty: $('#cart-qty-${status.count}').val()
+                };
                 let cartJs = {};
                 $.ajax({
                     type: 'POST',
-                    url: '/carts/minus',
+                    url: '/carts/qty',
                     headers: {"content-type": "application/json"},
                     dataType: 'text',
                     data: JSON.stringify(cart),
                     success: function (result) {
                         cartJs = JSON.parse(result);
-                        // alert("received=" + result);
                         $("#cart-${status.count}").html("장바구니 제품 개수 : " + cartJs.pdt_qty);
                         $("#cart-sum-${status.count}").html("장바구니 제품 총 가격 : " + cartJs.pdt_qty * ${cart.sel_price});
                     },
@@ -90,12 +100,11 @@
                         alert("error")
                     }
                 });
-                // alert("the request is sent")
             });
         });
     </script>
 </c:forEach>
 <div id="cart-sum">총 장바구니 가격 : ${sum}</div>
-user_id, CT.pdt_id, pdt_qty, image, sel_price, title, stock
+<a class="btn" href="/orders">주문하기</a>
 </body>
 </html>

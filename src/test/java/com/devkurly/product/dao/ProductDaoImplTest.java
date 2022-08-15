@@ -1,12 +1,14 @@
 package com.devkurly.product.dao;
 
 
-import com.devkurly.product.dto.ProductDto;
+import com.devkurly.product.domain.ProductDto;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.junit.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertTrue;
 
@@ -31,7 +33,7 @@ public class ProductDaoImplTest {
     public void insertTestData() throws Exception {
         productDao.deleteAll();
         for(int i = 1; i <= 200; i++) {
-            ProductDto productDto = new ProductDto(1,"ab","dd",3000,2000,"da","gg","gf");
+            ProductDto productDto = new ProductDto(1,"ab",1,"hi",2000,1,"gg","gf","true",true,1);
             productDao.insert(productDto);
         }
     }
