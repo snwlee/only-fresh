@@ -59,7 +59,7 @@
                         <button type="button" id="add-btn-` + index + `">+</button>
                         <button type="button" id="minus-btn-` + index + `">-</button>
                         <div id="cart-sum-` + index + `">장바구니 제품 총 가격 : ` + CartResponseDto.sel_price * CartResponseDto.pdt_qty + `</div>
-                        <a class="btn" href="/carts/delete/` + CartResponseDto.pdt_id + `">장바구니에서 제거</a>
+                        <a class="btn" href="/carts/` + CartResponseDto.pdt_id + `">장바구니에서 제거</a>
                         <a class="btn" id="plus-` + index + `">상품 추가 +</a>
                         <a class="btn" id="minus-` + index + `">상품 제거 -</a>
                         <br>`;
@@ -89,6 +89,9 @@
                         });
                     });
                     $('#minus-btn-' + index).click(function () {
+                        if ($('#cart-qty-' + index).val() <= 1) {
+                            $('#minus-btn-' + index).css(disabled);
+                        }
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
                         let cart = {
                             user_id: ${sessionScope.user_id},

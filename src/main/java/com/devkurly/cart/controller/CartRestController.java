@@ -1,14 +1,12 @@
 package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
-import com.devkurly.cart.dto.CartResponseDto;
-import com.devkurly.cart.dto.CartSaveRequestDto;
+import com.devkurly.cart.dto.CartProductResponseDto;
+import com.devkurly.cart.exception.ErrorCode;
 import com.devkurly.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -22,14 +20,18 @@ public class CartRestController {
     private final CartService cartService;
 
     @GetMapping("/rest/view")
-    public ResponseEntity<List<CartResponseDto>> viewCart(HttpSession session) {
-        List<CartResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
-//        int sum = 0;
-//        for (CartResponseDto responseDto : cartList) {
-//            sum += responseDto.getSel_price() * responseDto.getPdt_qty();
-//        }
-//        model.addAttribute("sum", sum);
-//        model.addAttribute("cart", cartList);
+    public ResponseEntity<List<CartProductResponseDto>> viewCart(HttpSession session) {
+        List<CartProductResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
         return new ResponseEntity<>(cartList, HttpStatus.OK);
+    }
+
+    @PostMapping("/qty")
+    public Cart modifyCartQty(@RequestBody Cart cart) {
+        System.out.println("TEST1");
+        cartService.checkCartProductStock(cart);
+        System.out.println("TEST2");
+        cartService.modifyCart(cart);
+        System.out.println("TEST3");
+        return cart;
     }
 }
