@@ -13,8 +13,6 @@
 <style>
     p {
         display: inline;
-        justify-content: center;
-        align-items: center;
         margin-top: 20px;
 
     }
@@ -47,21 +45,7 @@
         justify-content: center;
         align-items: center;
     }
-    .cart_btn {
-        cursor: pointer;
-        width: 100px;
-        height: 50px;
-        border-radius: 5px;
-        border: none;
-        background-color: #5F0080;
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: 100;
-        margin-top: 300px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
 
 
 </style>
@@ -90,6 +74,7 @@
                        원가 :     ${ProductDto.price}원
                        소제목 :     ${ProductDto.sub_title}
                        배송타입 :     ${ProductDto.de_type}</p>
+                <br>
 <%--                       판매율 :     ${ProductDto.sales_rate}--%>
 <%--                       재고 : ${ProductDto.stock}</p>--%>
             </c:forEach>

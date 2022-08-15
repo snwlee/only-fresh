@@ -129,7 +129,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return "product/productNewlist";
+        return "productNewlist";
     }
 
     @GetMapping("/bestlist")
@@ -150,7 +150,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return "product/productBestlist";
+        return "productBestlist";
     }
 
 
@@ -173,7 +173,7 @@ public class ProductController {
             e.printStackTrace();
         }
 
-        return "product/productThriftylist";
+        return "productThriftylist";
     }
 
     @PostMapping("/modify")
