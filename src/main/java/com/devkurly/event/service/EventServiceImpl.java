@@ -9,17 +9,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EventServiceImpl implements  EventService {
+public class EventServiceImpl implements EventService {
     @Autowired
     EventDao eventDao;
 
-//    C
+    //    C
     @Override
     public int insert(EventDto dto) throws Exception {
-        return eventDao.insert(dto);
+        try {
+            int res = eventDao.insert(dto);
+            if (res != 1) throw new Exception("error putting event in DB");
+            return res;
+        } catch (Exception e) {
+            // Controller 의 catch 로 가게 되는 에러
+            throw new Exception("error occured");
+        }
     }
 
-//    R
+    //    R
     @Override
     public int getCount() throws Exception {
         return eventDao.count();
@@ -39,17 +46,18 @@ public class EventServiceImpl implements  EventService {
         return eventDao.selectIds();
     }
 
-//    U
+    //    U
     @Override
-    public int modify(EventDto eventDto) throws Exception{
+    public int modify(EventDto eventDto) throws Exception {
         return eventDao.update(eventDto);
     }
 
-//    D
+    //    D
     @Override
-    public int removeAll() throws Exception{
+    public int removeAll() throws Exception {
         return eventDao.deleteAll();
     }
+
     @Override
     public int remove(Integer event_id) throws Exception {
         return eventDao.delete(event_id);
