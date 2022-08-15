@@ -86,7 +86,7 @@ public class ProductController {
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", defaultValue = "10") Integer page,
                        @RequestParam(value = "pageSize", defaultValue = "1000") Integer pageSize, Model m,
-                       HttpServletRequest request,String order_sc) throws Exception{
+                       HttpServletRequest request, HttpSession session, String order_sc) throws Exception{
         Map map = new HashMap();
         if(order_sc==null || order_sc == ""){
             int totalCnt = productService.getCount();
