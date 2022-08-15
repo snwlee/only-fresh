@@ -16,50 +16,80 @@ public class ProductDaoImpl implements ProductDao {
     private SqlSession session;
     private static String namespace="com.devkurly.product.dao.ProductMapper.";
 
+    // C
+    @Override
+    public int insert(ProductDto dto) throws Exception {
+        return session.insert(namespace+"insert", dto);
+    }
+
+
+    // R
+    @Override
+    public List<ProductDto> ProductBestlist(Map map) throws Exception {
+        return session.selectList(namespace+"ProductBestlist",map);
+    }
+
+    @Override
+    public List<ProductDto> ProductNewList(Map map) throws Exception {
+        return session.selectList(namespace+"ProductNewList",map);
+    }
+    @Override
+    public List<ProductDto> ProductList(Map map) throws Exception {
+        return session.selectList(namespace+"ProductList", map);
+    }
+
+
+    @Override
+    public List<ProductDto> ProductThriftylist(Map map) throws Exception {
+        return session.selectList(namespace+"ProductThriftylist",map);
+    }
+
+
+    @Override
+    public ProductDto select(Integer pdt_id) throws Exception {
+        return session.selectOne(namespace + "select", pdt_id);
+    }
+
     @Override
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
-    } // T selectOne(String statement)
+    }
 
+
+
+    // U
+
+
+    @Override
+    public int update(ProductDto dto) throws Exception {
+        return session.update(namespace+"update", dto);
+    }
+
+
+
+    // D
     @Override
     public int deleteAll() {
         return session.delete(namespace+"deleteAll");
-    } // int delete(String statement)
+    }
 
     @Override
     public int delete(Integer pdt_id) throws Exception {
         Map map = new HashMap();
         map.put("pdt_id", pdt_id);
         return session.delete(namespace+"delete", map);
-    } // int delete(String statement, Object parameter)
+    }
 
     @Override
-    public int insert(ProductDto dto) throws Exception {
-        return session.insert(namespace+"insert", dto);
-    } // int insert(String statement, Object parameter)
+    public List<ProductDto> ProductListAsc(Map map) {
+        return session.selectList(namespace+"ProductListAsc",map);
+    }
 
-    @Override
-    public List<ProductDto> selectAll() throws Exception {
-        return session.selectList(namespace+"selectAll");
-    } // List<E> selectList(String statement)
-
-    @Override
-    public ProductDto select(Integer pdt_id) throws Exception {
-        return session.selectOne(namespace + "select", pdt_id);
-    } // T selectOne(String statement, Object parameter)
-
-    @Override
-    public List<ProductDto> selectPage(Map map) throws Exception {
-        return session.selectList(namespace+"selectPage", map);
-    } // List<E> selectList(String statement, Object parameter)
-
-    @Override
-    public int update(ProductDto dto) throws Exception {
-        return session.update(namespace+"update", dto);
-    } // int update(String statement, Object parameter)
+ //   @Override
+    //   public List<ProductDto> ProductListDESC(Map map) {
+    //    return session.selectList(namespace+"ProductListDESC",map);
+    }
 
 
 
 
-
-}

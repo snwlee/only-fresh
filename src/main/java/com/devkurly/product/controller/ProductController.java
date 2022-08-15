@@ -6,9 +6,7 @@ import com.devkurly.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,27 +82,97 @@ public class ProductController {
             return "product/product";
         }
 
+
     @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String list(@RequestParam(value = "page", defaultValue = "10") Integer page,
+                       @RequestParam(value = "pageSize", defaultValue = "1000") Integer pageSize, Model m,
+                       HttpServletRequest request,String order_sc) throws Exception{
+        Map map = new HashMap();
+        if(order_sc==null || order_sc == ""){
+            int totalCnt = productService.getCount();
+            ProductPage pageHandler = new ProductPage(totalCnt, page);
+
+            map.put("pageSize", pageSize);
+
+            List<ProductDto> list = productService.ProductList(map);
+            m.addAttribute("list", list);
+            return "product/productlist";
+        }else{
+            map.put("order_sc",order_sc);
+            List<ProductDto> list = productService.ProductListAsc(map);
+            m.addAttribute("list",list);
+            return "product/productlist";
+
+        }
+
+    }
+
+
+
+    @GetMapping("/newlist")
+    public String newlist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
 
         try {
             int totalCnt = productService.getCount();
-            ProductPage pageHandler = new ProductPage(totalCnt, page, pageSize);
+            ProductPage pageHandler = new ProductPage(totalCnt, page);
             Map map = new HashMap();
             map.put("pageSize", pageSize);
 
-            List<ProductDto> list = productService.getPage(map);
+            List<ProductDto> list = productService.ProductNewList(map);
             m.addAttribute("list", list);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "product/productlist";
+        return "product/productNewlist";
     }
 
+    @GetMapping("/bestlist")
+    public String bestlist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+
+        if(page==null) page=10;
+        if(pageSize==null) pageSize=1000;
+
+        try {
+            int totalCnt = productService.getCount();
+            ProductPage pageHandler = new ProductPage(totalCnt,page);
+            Map map = new HashMap();
+            map.put("pageSize", pageSize);
+
+            List<ProductDto> list = productService.ProductBestlist(map);
+            m.addAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "product/productBestlist";
+    }
+
+
+
+    @GetMapping("/thriftylist")
+    public String thriftylist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+
+        if(page==null) page=10;
+        if(pageSize==null) pageSize=1000;
+
+        try {
+            int totalCnt = productService.getCount();
+            ProductPage pageHandler = new ProductPage(page);
+            Map map = new HashMap();
+            map.put("pageSize", pageSize);
+
+            List<ProductDto> list = productService.ProductThriftylist(map);
+            m.addAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "product/productThriftylist";
+    }
 
     @PostMapping("/modify")
     public String modify(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
@@ -123,7 +191,7 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(productDto);
-            m.addAttribute("msg", "WRT_ERR");
+            m.addAttribute("msg", "MOD_ERR");
             return "product/product";
         }
 
