@@ -27,7 +27,11 @@ public class EventController {
     @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody EventDto eventDto) {
         try {
+//            1. service 에서 이렇게 에러 핸들링 하는 거다. 이게 service 의 방식
             if (service.insert(eventDto) != 1) throw new Exception("Write failed");
+
+//            2. 예외 되던지기로, 알아서 catch block 으로 가게 된다. 이게 더 나은 코드이다. 이게 Controller 의 방식
+            service.insert(eventDto);
 
             return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
@@ -79,7 +83,7 @@ public class EventController {
     @GetMapping("/{event_id}")
     public ResponseEntity<EventDto> getEvent(@PathVariable Integer event_id) {
         EventDto res = null;
-        
+
         try {
             res = service.getEvent(event_id);
             return new ResponseEntity<>(res, HttpStatus.OK);
