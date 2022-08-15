@@ -137,7 +137,7 @@
     function bringEventOptions() {
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/dev_kurly/event/id_list',  // 요청 URI
+            url: '/event/id_list',  // 요청 URI
             success: function (result) {
                 $(".events").html(toOptionTags(result));
             },
@@ -155,7 +155,7 @@
             let event_id = $("#events_to_delete option:selected").val();
             $.ajax({
                 type: 'DELETE',       // 요청 메서드
-                url: '/dev_kurly/event/' + event_id,  // 요청 URI
+                url: '/event/' + event_id,  // 요청 URI
                 success: function () {
                     bringEventOptions();
                     alert("delete success");
@@ -169,7 +169,7 @@
         $("#select_button").click(function () {
             $.ajax({
                 type: 'GET',       // 요청 메서드
-                url: '/dev_kurly/event/list',  // 요청 URI
+                url: '/event/list',  // 요청 URI
                 success: function (result) {
                     result.forEach((el) => {
                         $("#select_result").html(toLiTags(result));
@@ -191,7 +191,7 @@
 
             $.ajax({
                 type: 'POST',       // 요청 메서드
-                url: '/dev_kurly/event/add',  // 요청 URI
+                url: '/event/add',  // 요청 URI
                 dataType: 'text',
                 data: JSON.stringify(obj),
                 contentType: "application/json",
@@ -217,7 +217,7 @@
 
             $.ajax({
                 type: 'PATCH',
-                url: '/dev_kurly/event/' + event_id,
+                url: '/event/' + event_id,
                 dataType: 'text',
                 data: JSON.stringify(obj),
                 contentType: "application/json",
@@ -235,7 +235,7 @@
 
             $.ajax({
                 type: 'GET',       // 요청 메서드
-                url: '/dev_kurly/event/' + this.value,  // 요청 URI
+                url: '/event/' + this.value,  // 요청 URI
                 success: function (result) {
                     modifyValues(result);
                 },
@@ -248,7 +248,7 @@
         // new_to_top button 을 유저가 click 했을 때
         $("#new_to_top").click(function(){
             $.ajax({
-                url: "/dev_kurly/product_list/new"
+                url: "/product_list/new"
             })
         })
 
