@@ -1,11 +1,10 @@
 package com.devkurly.order.controller;
 
 import com.devkurly.cart.domain.Cart;
-import com.devkurly.cart.dto.CartResponseDto;
+import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
-import com.devkurly.order.dto.OrderSaveRequestDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
 import com.devkurly.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +42,9 @@ public class OrderController {
 
         // 생성한 주문 기반으로 주문서 출력
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(order_id);
-        List<CartResponseDto> viewCartProduct = cartService.viewCartProduct(user_id);
+        List<CartProductResponseDto> viewCartProduct = cartService.viewCartProduct(user_id);
         int sum = 0;
-        for (CartResponseDto responseDto : viewCartProduct) {
+        for (CartProductResponseDto responseDto : viewCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
         model.addAttribute("sum", sum);
