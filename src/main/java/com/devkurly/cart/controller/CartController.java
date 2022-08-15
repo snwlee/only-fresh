@@ -4,10 +4,6 @@ import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
-<<<<<<< HEAD
-import com.devkurly.product.service.ProductService;
-=======
->>>>>>> upstream/main
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

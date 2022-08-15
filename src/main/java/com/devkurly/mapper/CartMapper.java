@@ -1,11 +1,7 @@
 package com.devkurly.mapper;
 
 import com.devkurly.cart.domain.Cart;
-<<<<<<< HEAD
-import com.devkurly.cart.dto.CartResponseDto;
-=======
 import com.devkurly.cart.dto.CartProductResponseDto;
->>>>>>> upstream/main
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
