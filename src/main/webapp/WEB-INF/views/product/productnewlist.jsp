@@ -78,20 +78,20 @@
 
 
     </ul>
-    <h2>상품 리스트</h2>
+    <h2>신상품 리스트</h2>
     <form action="" id="form">
 
         <table border="1">
             <c:forEach var="ProductDto" items="${list}">
-                  <a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a>
-                <p>제품명 :<a href="<c:url value="/product/read?pdt_id=${ProductDto.pdt_id}"/>"> <c:out value="${ProductDto.title}"/></a>
-                       할인율 :   ${ProductDto.ds_rate}%
-                       판매가 :     ${ProductDto.sel_price}원
-                       원가 :     ${ProductDto.price}원
-                       소제목 :     ${ProductDto.sub_title}
-                       배송타입 :     ${ProductDto.de_type}</p>
-<%--                       판매율 :     ${ProductDto.sales_rate}--%>
-<%--                       재고 : ${ProductDto.stock}</p>--%>
+            <a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a>
+            <p>제품명 :<a href="<c:url value="/product/read?pdt_id=${ProductDto.pdt_id}"/>"> <c:out value="${ProductDto.title}"/></a>
+                할인율 :   ${ProductDto.ds_rate}%
+                판매가 :     ${ProductDto.sel_price}원
+                원가 :     ${ProductDto.price}원
+                소제목 :     ${ProductDto.sub_title}
+                배송타입 :     ${ProductDto.de_type}</p>
+                <%--                       판매율 :     ${ProductDto.sales_rate}--%>
+                <%--                       재고 : ${ProductDto.stock}</p>--%>
             </c:forEach>
 
 </div>
@@ -109,12 +109,12 @@
 
 
     $(document).ready(function (){
-       $('#ascBtn').on("click",function (){
-          window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
-           window.location.href = "<c:url value='/product/list?order_sc=ds_rate'/>";
-           window.location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
-           window.location.href = "<c:url value='/product/list?order_sc=in_date'/>";
-       });
+        $('#ascBtn').on("click",function (){
+            window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
+            window.location.href = "<c:url value='/product/list?order_sc=ds_rate'/>";
+            window.location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
+            window.location.href = "<c:url value='/product/list?order_sc=in_date'/>";
+        });
 
     });
 </script>
