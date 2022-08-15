@@ -1,6 +1,7 @@
 package com.devkurly.event.service;
 
 import com.devkurly.event.domain.EventDto;
+import com.devkurly.event.domain.EventIdDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,23 @@ public class EventServiceImplTest {
 
         eventService.insert(new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30));
         assertTrue(eventService.getCount() == 2);
+    }
+
+    @Test
+    public void getEventIdsTest() throws Exception {
+        eventService.removeAll();
+        assertTrue(eventService.getEventIds().size() == 0);
+
+        eventService.insert(new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30));
+        assertTrue(eventService.getCount() == 1);
+
+        EventDto eventDto = eventService.getEventList().get(0);
+        int eventDto_id = eventDto.getEvent_id();
+
+        EventIdDto eventIdDto = eventService.getEventIds().get(0);
+        int eventIdDto_id = eventIdDto.getEvent_id();
+
+        assertTrue(eventDto_id == eventIdDto_id);
     }
 
 //    U

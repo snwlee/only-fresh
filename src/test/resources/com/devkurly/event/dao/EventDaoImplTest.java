@@ -1,6 +1,7 @@
 package com.devkurly.event.dao;
 
 import com.devkurly.event.domain.EventDto;
+import com.devkurly.event.domain.EventIdDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,25 @@ public class EventDaoImplTest {
 
         assertTrue(eventDao.insert(eventDto) == 1);
         list = eventDao.selectAll();
+        assertTrue(list.size() == 2);
+    }
+
+    @Test
+    public void selectIdsTest() throws Exception {
+        eventDao.deleteAll();
+        assertTrue(eventDao.count() == 0);
+
+        List<EventIdDto> list = eventDao.selectIds();
+        assertTrue(list.size() == 0);
+
+        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
+        assertTrue(eventDao.insert(eventDto) == 1);
+
+        list = eventDao.selectIds();
+        assertTrue(list.size() == 1);
+
+        assertTrue(eventDao.insert(eventDto) == 1);
+        list = eventDao.selectIds();
         assertTrue(list.size() == 2);
     }
 

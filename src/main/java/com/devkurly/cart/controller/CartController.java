@@ -1,22 +1,19 @@
 package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
-import com.devkurly.cart.dto.CartResponseDto;
+import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
-import com.devkurly.cart.dto.CartUpdateRequestDto;
 import com.devkurly.cart.service.CartService;
+<<<<<<< HEAD
 import com.devkurly.product.service.ProductService;
+=======
+>>>>>>> upstream/main
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.IntToDoubleFunction;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,9 +21,8 @@ import java.util.function.IntToDoubleFunction;
 public class CartController {
 
     private final CartService cartService;
-    private final ProductService productService;
 
-    /*
+    /**
      * temp
      */
     @GetMapping("login")
@@ -35,7 +31,7 @@ public class CartController {
         return "/home";
     }
 
-    /*
+    /**
      * temp
      */
     @GetMapping("/add/{pdt_id}")
@@ -57,41 +53,25 @@ public class CartController {
 
     @GetMapping("/view")
     public String viewCart(HttpSession session, Model model) {
-        List<CartResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
-        int sum = 0;
-        for (CartResponseDto responseDto : cartList) {
-            sum += responseDto.getSel_price() * responseDto.getPdt_qty();
-        }
-        model.addAttribute("sum", sum);
-        model.addAttribute("cart", cartList);
-        return "/cart/cart";
+//        List<CartResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
+//        int sum = 0;
+//        for (CartResponseDto responseDto : cartList) {
+//            sum += responseDto.getSel_price() * responseDto.getPdt_qty();
+//        }
+//        model.addAttribute("sum", sum);
+//        model.addAttribute("cart", cartList);
+        return "/cart/cartRestApi";
     }
 
     @GetMapping("/delete")
-    public String deleteCart(HttpSession session) {
+    public String removeAllCart(HttpSession session) {
         cartService.removeCart((Integer) session.getAttribute("user_id"));
         return "redirect:/carts/view";
     }
 
-    @GetMapping("/delete/{ptd_id}")
-    public String deleteOneCart(@PathVariable Integer ptd_id, HttpSession session) {
+    @GetMapping("/{ptd_id}")
+    public String removeOneCart(@PathVariable Integer ptd_id, HttpSession session) {
         cartService.removeOneCart((Integer) session.getAttribute("user_id"), ptd_id);
         return "redirect:/carts/view";
-    }
-
-    @PostMapping("/plus")
-    @ResponseBody
-    public Cart cartPlus(@RequestBody Cart cart) {
-        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() + 1);
-        cartService.modifyCart(cart);
-        return cart;
-    }
-
-    @PostMapping("/minus")
-    @ResponseBody
-    public Cart cartMinus(@RequestBody Cart cart) {
-        cart.setPdt_qty(cartService.viewCart(cart).getPdt_qty() - 1);
-        cartService.modifyCart(cart);
-        return cart;
     }
 }
