@@ -35,9 +35,9 @@ public interface ProductService {
     int remove(Integer pdt_id) throws Exception;
 
 
-//    List<ProductDto> ProductListDESC(Map map);
+    List<ProductDto> ProductListDESC(Map map);
 
-    List<ProductDto> ProductListAsc(Map map);
+//    List<ProductDto> ProductListAsc(Map map2);
 }
 
 

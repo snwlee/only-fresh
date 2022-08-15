@@ -91,24 +91,24 @@
         FROM PRODUCT_TB P
         RIGHT OUTER JOIN PRODUCT_DETAIL_TB D
         ON D.pdt_id = P.pdt_id
-        ORDER BY pdt_id asc, sel_price desc
+        ORDER BY  sel_price ASC
     </select>
 
-   <select id="ProductListAsc" parameterType="map" resultType="Product">
-       Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,P.sales_rate,D.de_type,P.sales_rate,P.stock
-       FROM PRODUCT_TB P
-                 RIGHT OUTER JOIN PRODUCT_DETAIL_TB D
-                                 ON D.pdt_id = P.pdt_id
-       ORDER BY #{order_sc} ASC
-   </select>
+<!--   <select id="ProductListAsc" parameterType="map" resultType="Product">-->
+<!--       Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,P.sales_rate,D.de_type,P.sales_rate,P.stock-->
+<!--       FROM PRODUCT_TB P-->
+<!--                 RIGHT OUTER JOIN PRODUCT_DETAIL_TB D-->
+<!--                                 ON D.pdt_id = P.pdt_id-->
+<!--       ORDER BY #{order_sc} ASC-->
+<!--   </select>-->
 
-<!--    <select id="ProductListDESC" parameterType="map" resultType="Product">                              -->
-<!--        Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,P.sales_rate,D.de_type        -->
-<!--        FROM PRODUCT_TB P                                                                               -->
-<!--                 RIGHT OUTER JOIN PRODUCT_DETAIL_TB D                                                   -->
-<!--                                  ON D.pdt_id = P.pdt_id                                                -->
-<!--        ORDER BY #{order_sc} DESC                                                                       -->
-<!--    </select>                                                                                           -->
+    <select id="ProductListDESC" parameterType="map" resultType="Product">
+        Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,P.sales_rate,D.de_type,P.in_date
+        FROM PRODUCT_TB P
+                 RIGHT OUTER JOIN PRODUCT_DETAIL_TB D
+                                  ON D.pdt_id = P.pdt_id
+        ORDER BY ${order_sc} DESC
+    </select>
 
     <select id="ProductBestlist" parameterType="map" resultType="Product">
         select pdt_id,

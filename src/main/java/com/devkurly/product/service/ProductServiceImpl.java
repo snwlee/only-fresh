@@ -43,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
     @Override
     public List<ProductDto> ProductList(Map map) throws Exception { // 상품 리스트
         return productDao.ProductList(map); // 흐름을 자세히 보자.
@@ -53,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> ProductThriftylist(Map map) throws Exception { // 상품 리스트
         return productDao.ProductThriftylist(map); // 흐름을 자세히 보자.
     }
+
     @Override
     public List<ProductDto> ProductBestlist(Map map) throws Exception { // 상품 리스트
         return productDao.ProductBestlist(map); // 흐름을 자세히 보자.
@@ -63,13 +63,14 @@ public class ProductServiceImpl implements ProductService {
         return productDao.ProductNewList(map);
     }
 //
-  @Override
-  public List<ProductDto> ProductListAsc(Map map) {
-       return productDao.ProductListAsc(map);
-   }
+//  @Override
+//  public List<ProductDto> ProductListAsc(Map map) {
+//       return productDao.ProductListAsc(map);
+//   }
 
-    // @Override
-   // public List<ProductDto> ProductListDESC(Map map) {
-    //  return productDao.ProductListDESC(map);
+    @Override
+    public List<ProductDto> ProductListDESC(Map map) {
+        return productDao.ProductListDESC(map);
     }
+}
 

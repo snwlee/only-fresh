@@ -71,7 +71,7 @@
         <li><a class="btn" href="<c:url value='/'/>">Home</a></li>
         <li><a href=""><i class="fas fa-search small"></i></a></li>
         <li><button type="button" id="writeBtn" class= "btn" onclick="location.href='<c:url value="/product/write"/>'">상품등록</button></li>
-        <li><a class="btn" href="<c:url value='/product/list?order_sc=sel_price'/>">낮은 가격순</a></li>
+        <li><a class="btn" href="<c:url value='/product/list?order_sc=sel_price'/>">높은 가격순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=ds_rate'/>">혜택순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=sales_rate'/>">판매량순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=in_date'/>">신상품순</a></li>
@@ -107,6 +107,7 @@
     if (msg == "DEL_OK") alert("성공적으로 삭제되었습니다.");
     if (msg == "DEL_ERR") alert("삭제에 실패했습니다.")
 
+
     $(document).ready(function (){
        $('#ascBtn').on("click",function (){
           window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
@@ -114,6 +115,7 @@
            window.location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
            window.location.href = "<c:url value='/product/list?order_sc=in_date'/>";
        });
+
     });
 </script>
 </body>

@@ -99,7 +99,9 @@ public class ProductController {
             return "product/productlist";
         }else{
             map.put("order_sc",order_sc);
-            List<ProductDto> list = productService.ProductListAsc(map);
+            System.out.println("map = " + map);
+            List<ProductDto> list = productService.ProductListDESC(map);
+            System.out.println("list = " + list);
             m.addAttribute("list",list);
             return "product/productlist";
 
