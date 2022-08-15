@@ -19,6 +19,10 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardDto> selectReviewPage(Map map) throws Exception {
         return boardDao.selectReviewPage(map);
     }
+    @Override
+    public List<BoardDto> selectReviewPageLike(Map map) throws Exception {
+        return boardDao.selectReviewPageLike(map);
+    }
 
     @Override
     public int remove(Integer bbs_id, Integer pdt_id, Integer user_id) throws Exception {

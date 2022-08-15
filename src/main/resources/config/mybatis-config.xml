@@ -6,6 +6,7 @@
         <typeAliases>
                 <typeAlias alias="BoardDto" type="com.devkurly.board.domain.BoardDto"/>
                 <typeAlias alias="EventDto" type="com.devkurly.event.domain.EventDto" />
+                <typeAlias alias="EventIdDto" type="com.devkurly.event.domain.EventIdDto" />
                 <typeAlias alias="Cart" type="com.devkurly.cart.domain.Cart"/>
                 <typeAlias alias="Order" type="com.devkurly.order.domain.Order"/>
                 <typeAlias alias="OrderProduct" type="com.devkurly.order.domain.OrderProduct"/>

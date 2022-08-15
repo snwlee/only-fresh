@@ -38,16 +38,24 @@
         from BOARD_TB
         ORDER BY wrt_dt DESC , bbs_id DESC
     </select>
-
-    <select id="selectReviewPage" parameterType="map" resultType="BoardDto">
+    <sql id="selectReview">
         select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd
         from REVIEW_BOARD_TB
                  right join BOARD_TB
-                           on REVIEW_BOARD_TB.bbs_id = BOARD_TB.bbs_id
-        where pdt_id = #{pdt_id} and #{bbs_clsf_cd}='1'
-        order by bbs_id desc, wrt_dt desc
-            limit #{offset}, #{pageSize}
+                            on REVIEW_BOARD_TB.bbs_id = BOARD_TB.bbs_id
+        where pdt_id = #{pdt_id} and bbs_clsf_cd = #{bbs_clsf_cd}
+    </sql>
 
+    <select id="selectReviewPage" parameterType="map" resultType="BoardDto">
+        <include refid="selectReview"/>
+        order by bbs_id desc, wrt_dt desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectReviewPageLike" parameterType="map" resultType="BoardDto">
+        <include refid="selectReview"/>
+        order by revw_like desc, bbs_id desc
+            limit #{offset}, #{pageSize}
     </select>
 
     <insert id="insert" parameterType="BoardDto">

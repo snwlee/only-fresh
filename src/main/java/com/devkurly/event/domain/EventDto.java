@@ -2,6 +2,7 @@ package com.devkurly.event.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EventDto {
@@ -20,6 +21,7 @@ public class EventDto {
     public EventDto() {
     }
 
+    // event_id 를 AUTO INCREMENT 로 적용되게
     public EventDto(String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
         this.nm = nm;
         this.des = des;
@@ -33,8 +35,37 @@ public class EventDto {
         this.ds_rate = ds_rate;
     }
 
+    // event_id 를 직접 지정해서 집어넣기
+    public EventDto(Integer event_id, String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
+        this.event_id = event_id;
+        this.nm = nm;
+        this.des = des;
+        this.photo = photo;
+        this.photo_alt = photo_alt;
+        this.mft = mft;
+        this.setl_methd_cd = setl_methd_cd;
+        this.stpt_dd = dateFormatter(stpt_dd);
+        this.expi_dd = dateFormatter(expi_dd);
+        this.early_end_stus = early_end_stus;
+        this.ds_rate = ds_rate;
+    }
+
+    public EventDto(Integer event_id, String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, Date stpt_dd, Date expi_dd, Integer early_end_stus, Integer ds_rate) {
+        this.event_id = event_id;
+        this.nm = nm;
+        this.des = des;
+        this.photo = photo;
+        this.photo_alt = photo_alt;
+        this.mft = mft;
+        this.setl_methd_cd = setl_methd_cd;
+        this.stpt_dd = stpt_dd;
+        this.expi_dd = expi_dd;
+        this.early_end_stus = early_end_stus;
+        this.ds_rate = ds_rate;
+    }
+
     private Date dateFormatter(String yyyymmdd) throws Exception {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
         return dateFormat.parse(yyyymmdd);
     }
 
@@ -91,16 +122,24 @@ public class EventDto {
         }
     }
 
+    public void setStpt_dd(Date stpt_dd) {
+        this.stpt_dd = stpt_dd;
+    }
+
     public Date getExpi_dd() {
         return expi_dd;
     }
 
     public void setExpi_dd(String expi_dd) {
-            try {
-                this.expi_dd = dateFormatter(expi_dd);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            this.expi_dd = dateFormatter(expi_dd);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setExpi_dd(Date expi_dd) {
+        this.expi_dd = expi_dd;
     }
 
     public Integer getEarly_end_stus() {
