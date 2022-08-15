@@ -33,5 +33,8 @@
 <a class="btn" href="/carts/login">유저 'user_id = 1' 로 로그인하기</a>
 <a class="btn" href="/carts/view">장바구니 보기</a>
 <a href="product/list">상품 보기</a>
+<a href="login/in">로그인</a>
+<a href="register/add">회원가입</a>
+<a href="user/list">회원정보 수정</a>
 </body>
 </html>
