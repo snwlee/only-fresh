@@ -47,18 +47,23 @@
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
 <a class="btn" href="/dev_kurly/carts/login">유저 'user_id = 1' 로 로그인하기</a>
 <div id="contents_container" >
+<%--장바구니--%>
 	<div class="content_box">
 		<a class="btn" href="/dev_kurly/carts/view">장바구니 보기</a>
 	</div>
+<%--이벤트--%>
 	<div class="content_box">
 		<a class="btn" href="/dev_kurly/event/test">이벤트 CRUD 페이지</a>
 	</div>
+<%--게시판--%>
 	<div class="content_box">
 		<a class="btn" href="/dev_kurly/boardlist?pdt_id=&bbs_clsf_cd=1&page=1&pageSize=10">게시판 CRUD 페이지</a>
 	</div>
+<%--상품 보기--%>
 	<div class="content_box">
 		<a class="btn" href="/dev_kurly/product/list">상품 보기</a>
 	</div>
+<%--배송지--%>
 	<div class="content_box">
 	</div>
 </div>>
