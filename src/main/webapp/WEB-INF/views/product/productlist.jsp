@@ -22,13 +22,14 @@
     }
 
     a {
-        color: #ffffff;
+        color: cornflowerblue;
         text-decoration: none;
     }
 
+
     a:visited {
         text-decoration: none;
-        color: #ffffff;
+        color: white;
     }
     .btn {
         cursor: pointer;
@@ -37,7 +38,7 @@
         border-radius: 5px;
         border: none;
         background-color: #5F0080;
-        color: #ffffff;
+        color: white;
         font-size: 16px;
         font-weight: 400;
         margin-top: 10px;
@@ -45,6 +46,8 @@
         justify-content: center;
         align-items: center;
     }
+
+
 
 
 
@@ -68,12 +71,18 @@
         <table border="1">
             <c:forEach var="ProductDto" items="${list}">
                   <a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a>
-                <p>제품명 :<a href="<c:url value="/product/read?pdt_id=${ProductDto.pdt_id}"/>"> <c:out value="${ProductDto.title}"/></a>
-                       할인율 :   ${ProductDto.ds_rate}%
-                       판매가 :     ${ProductDto.sel_price}원
-                       원가 :     ${ProductDto.price}원
+                <p>태그 이름: ${ProductDto.tag_name}
+
+                제품명 :<a href="<c:url value="/product/read?pdt_id=${ProductDto.pdt_id}"/>"> <c:out value="${ProductDto.title}"/></a>
                        소제목 :     ${ProductDto.sub_title}
-                       배송타입 :     ${ProductDto.de_type}</p>
+                       할인율 :   ${ProductDto.ds_rate}%
+                       원가 :     ${ProductDto.price}원
+                       판매가 :     ${ProductDto.sel_price}원
+                       판매량 : ${ProductDto.sales_rate}
+                       배송타입 :     ${ProductDto.de_type}
+                       제조사 : ${ProductDto.company}
+                       재고 : ${ProductDto.stock}
+                </p>
                 <br>
 <%--                       판매율 :     ${ProductDto.sales_rate}--%>
 <%--                       재고 : ${ProductDto.stock}</p>--%>
