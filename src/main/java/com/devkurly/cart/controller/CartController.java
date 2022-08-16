@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,8 +27,16 @@ public class CartController {
      * temp
      */
     @GetMapping("login")
-    public String start(HttpSession session) {
+    public String start(@CookieValue("JSESSIONID") String sessionId,CartSaveRequestDto requestDto, HttpSession session) {
         session.setAttribute("user_id", 1);
+        List<Cart> carts = cartService.viewAllCart(sessionId);
+        for (Cart cart : carts) {
+            String user_id = session.getAttribute("user_id").toString();
+            cart.setUser_id(user_id);
+            requestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
+            cartService.addCart(requestDto);
+            cartService.removeCart(sessionId);
+        }
         return "/home";
     }
 
@@ -44,30 +54,28 @@ public class CartController {
      */
     @GetMapping("/add/{pdt_id}")
     public String addCart(@PathVariable Integer pdt_id, @CookieValue("JSESSIONID") String sessionId, CartSaveRequestDto requestDto, HttpSession session) {
-//        String user_id = (String) session.getAttribute("user_id");
-//        try {
-//            requestDto.setUser_id(user_id);
-//            requestDto.setPdt_id(pdt_id);
-//            requestDto.setPdt_qty(1);
-//            cartService.addCart(requestDto);
-//        } catch (Exception e) {
-//            Cart cart = cartService.viewCart(requestDto.toEntity());
-//            cart.setPdt_qty(cart.getPdt_qty() + 1);
-//            cartService.modifyCart(cart);
-//            return "redirect:/carts/view";
-//        }
-        requestDto.setUser_id(sessionId);
-        requestDto.setPdt_id(pdt_id);
-        requestDto.setPdt_qty(1);
+        Object user_id = session.getAttribute("user_id");
+        if (Optional.ofNullable(user_id).isPresent()) {
+            requestDto.saveCart(user_id.toString(), pdt_id, 1);
+        } else {
+            requestDto.saveCart(sessionId, pdt_id, 1);
+        }
+        cartService.checkProductStock(requestDto.toEntity());
         cartService.addCart(requestDto);
         return "redirect:/carts/view";
     }
 
     @GetMapping("/view")
-    public String viewCart(@CookieValue("JSESSIONID") String sessionId, Model model) {
-        System.out.println("sessionId1 = " + sessionId);
-        model.addAttribute("sessionId", sessionId);
-        cartService.viewCartProduct(sessionId);
+    public String viewCart(@CookieValue("JSESSIONID") String sessionId, HttpSession session, Model model) {
+        String id;
+        Object user_id = session.getAttribute("user_id");
+        if (Optional.ofNullable(user_id).isPresent()) {
+            id = user_id.toString();
+        } else {
+            id = sessionId;
+            model.addAttribute("sessionId", sessionId);
+        }
+        cartService.viewCartProduct(id);
         return "/cart/cartRestApi";
     }
 

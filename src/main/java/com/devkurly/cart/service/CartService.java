@@ -3,10 +3,12 @@ package com.devkurly.cart.service;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
+import com.devkurly.cart.exception.DuplicateCartException;
 import com.devkurly.cart.exception.EmptyCartException;
 import com.devkurly.cart.exception.ErrorCode;
 import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.mapper.CartMapper;
+import com.devkurly.product.domain.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,21 +43,29 @@ public class CartService {
     }
 
     @Transactional
-    public CartProductResponseDto checkCartProductStock(Cart cart) {
-        CartProductResponseDto cartProductResponseDto = Optional.ofNullable(cartMapper.joinCartProductByCart(cart)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
-        Integer stock = cartProductResponseDto.getStock();
+    public ProductDto checkProductStock(Cart cart) {
+        ProductDto productDto = cartMapper.findProductByPdtId(cart.getPdt_id());
+        Integer stock = productDto.getStock();
         if (cart.getPdt_qty() > stock) {
             throw new OutOfStockException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
         }
-        return cartProductResponseDto;
+        return productDto;
     }
 
-    /**
-     * temp
-     */
     @Transactional
     public Integer addCart(CartSaveRequestDto requestDto) {
-        return cartMapper.insert(requestDto.toEntity());
+        try {
+            Optional.ofNullable(cartMapper.findByCart(requestDto.toEntity()))
+                    .ifPresent((cart -> {
+                        throw new DuplicateCartException("이미 장바구니에 제품이 있습니다.", ErrorCode.DUPLICATE_CART_PRODUCT);
+                    }));
+            return cartMapper.insert(requestDto.toEntity());
+        } catch (DuplicateCartException e) {
+            requestDto.setPdt_qty(cartMapper.findByCart(requestDto.toEntity()).getPdt_qty() + 1);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return cartMapper.update(requestDto.toEntity());
     }
 
     @Transactional

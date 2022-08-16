@@ -2,6 +2,7 @@ package com.devkurly.mapper;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
+import com.devkurly.product.domain.ProductDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +19,6 @@ public interface CartMapper {
     Integer deleteOne(Cart cart);
     List<CartProductResponseDto> joinCartProductByUserId(String user_id);
     CartProductResponseDto joinCartProductByCart(Cart cart);
-
+    ProductDto findProductByPdtId(Integer pdt_id);
 
 }

@@ -19,6 +19,11 @@
         from CART_TB
         where user_id = #{user_id};
     </select>
+    <select id="findProductByPdtId" parameterType="int" resultType="Product">
+        select stock
+        from PRODUCT_TB
+        where pdt_id = #{pdt_id};
+    </select>
     <select id="joinCartProductByUserId" parameterType="String" resultType="com.devkurly.cart.dto.CartProductResponseDto">
         select user_id, CT.pdt_id, pdt_qty, sel_price, title, stock
         from CART_TB CT
