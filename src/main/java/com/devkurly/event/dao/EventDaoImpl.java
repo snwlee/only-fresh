@@ -11,8 +11,13 @@ import java.util.List;
 
 @Repository
 public class EventDaoImpl implements EventDao {
-    @Autowired
     private SqlSession session;
+
+    @Autowired
+    public EventDaoImpl(SqlSession session) {
+        this.session = session;
+    }
+
     private static String namespace = "com.devkurly.event.dao.EventMapper.";
 
     //    C
