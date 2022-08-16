@@ -107,11 +107,15 @@
 <!--   </select>-->
 
     <select id="ProductListDESC" parameterType="map" resultType="Product">
-        Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,P.sales_rate,D.de_type,P.in_date
+        Select TG.tag_name,P.title,P.sub_title,P.ds_rate,P.price,P.sel_price,P.pdt_id,P.sales_rate,D.de_type,D.company,P.stock
         FROM PRODUCT_TB P
                  RIGHT OUTER JOIN PRODUCT_DETAIL_TB D
                                   ON D.pdt_id = P.pdt_id
-        ORDER BY ${order_sc} DESC , ${order_sc} ASC
+                 RIGHT OUTER JOIN PRODUCT_TAG_TB T
+                                  ON T.pdt_id = P.pdt_id
+                 RIGHT OUTER JOIN TAG_TB TG
+                                  ON TG.tag_id = T.tag_id
+        ORDER BY ${order_sc} DESC , ${order_Asc} ASC
     </select>
 
     <select id="ProductBestlist" parameterType="map" resultType="Product">
