@@ -59,6 +59,7 @@
         <li><a href=""><i class="fas fa-search small"></i></a></li>
         <li><button type="button" id="writeBtn" class= "btn" onclick="location.href='<c:url value="/product/write"/>'">상품등록</button></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=sel_price'/>">높은 가격순</a></li>
+        <li><a class="btn" href="<c:url value='/product/list?order_Asc=sel_price'/>">낮은 가격순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=ds_rate'/>">혜택순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=sales_rate'/>">판매량순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?order_sc=in_date'/>">신상품순</a></li>
@@ -66,31 +67,29 @@
 
     </ul>
     <h2>상품 리스트</h2>
-    <form action="" id="form">
-
         <table border="1">
             <c:forEach var="ProductDto" items="${list}">
-                  <a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a>
+                <form action="carts/add/${ProductDto.pdt_id}" id="form">
+                <a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a>
+                <input type="number" value=1 name="count">
                 <p>태그 이름: ${ProductDto.tag_name}
-
                 제품명 :<a href="<c:url value="/product/read?pdt_id=${ProductDto.pdt_id}"/>"> <c:out value="${ProductDto.title}"/></a>
                        소제목 :     ${ProductDto.sub_title}
-                       할인율 :   ${ProductDto.ds_rate}%
-                       원가 :     ${ProductDto.price}원
+                       할인율 :     ${ProductDto.ds_rate}%
+                       원가 :       ${ProductDto.price}원
                        판매가 :     ${ProductDto.sel_price}원
-                       판매량 : ${ProductDto.sales_rate}
-                       배송타입 :     ${ProductDto.de_type}
-                       제조사 : ${ProductDto.company}
-                       재고 : ${ProductDto.stock}
+                       판매량 :     ${ProductDto.sales_rate} 개
+                       배송타입 :    ${ProductDto.de_type}
+                       제조사 :     ${ProductDto.company}
+                       재고 :       ${ProductDto.stock}개
+                       재고 : ${ProductDto.stock}</p>
                 </p>
                 <br>
-<%--                       판매율 :     ${ProductDto.sales_rate}--%>
-<%--                       재고 : ${ProductDto.stock}</p>--%>
+
+            </form>
             </c:forEach>
 
-</div>
 </table>
-</form>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
     let msg = "${param.msg}"
@@ -104,7 +103,8 @@
 
     $(document).ready(function (){
        $('#ascBtn').on("click",function (){
-          window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
+           window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
+           window.location.href = "<c:url value='/product/list?order_Asc=sel_price'/>";
            window.location.href = "<c:url value='/product/list?order_sc=ds_rate'/>";
            window.location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
            window.location.href = "<c:url value='/product/list?order_sc=in_date'/>";
