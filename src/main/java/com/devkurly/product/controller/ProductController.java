@@ -85,21 +85,16 @@ public class ProductController {
 
     @GetMapping("/list")
     public String list(@RequestParam(value = "page", defaultValue = "10") Integer page,
-                       @RequestParam(value = "pageSize", defaultValue = "1000") Integer pageSize, Model m,
-                       HttpServletRequest request, HttpSession session, String order_sc) throws Exception{
+                     Model m, HttpServletRequest request, HttpSession session, String order_sc) throws Exception{
         Map map = new HashMap();
         if(order_sc==null || order_sc == ""){
-            int totalCnt = productService.getCount();
-            ProductPage pageHandler = new ProductPage(totalCnt, page);
-
-            map.put("pageSize", pageSize);
-
+            ProductPage pageHandler = new ProductPage(page);
             List<ProductDto> list = productService.ProductList(map);
             m.addAttribute("list", list);
             return "product/productlist";
         }else{
-            map.put("order_sc",order_sc);
-            System.out.println("map = " + map);
+            map.put("order_sc",order_sc); // 정렬순 생성을 위한 map 생성
+            System.out.println("map = " + map); // map이 어떤 값으로 찍히는지 확인
             List<ProductDto> list = productService.ProductListDESC(map);
             System.out.println("list = " + list);
             m.addAttribute("list",list);

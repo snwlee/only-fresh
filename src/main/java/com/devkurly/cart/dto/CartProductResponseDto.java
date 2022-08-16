@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CartProductResponseDto {
-    private String user_id;
+    private Integer user_id;
     private Integer pdt_id;
     private Integer pdt_qty;
     private Integer price;
