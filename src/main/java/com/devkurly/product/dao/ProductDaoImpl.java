@@ -78,7 +78,7 @@ public class ProductDaoImpl implements ProductDao {
         map.put("pdt_id", pdt_id);
         return session.delete(namespace + "delete", map);
     }
-
+//
 //    @Override
 //    public List<ProductDto> ProductListAsc(Map map) {
 //        return session.selectList(namespace+"ProductListAsc",map);

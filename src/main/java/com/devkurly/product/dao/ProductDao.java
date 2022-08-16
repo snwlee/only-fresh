@@ -41,7 +41,6 @@ public interface ProductDao {
 
     int delete(Integer pdt_id) throws Exception;
 
-//    List<ProductDto> ProductListAsc(Map map);
 
-     List<ProductDto> ProductListDESC(Map map2);
+    List<ProductDto> ProductListDESC(Map map);
 }
