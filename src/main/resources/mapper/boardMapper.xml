@@ -130,8 +130,8 @@
 
     <update id="updateAnswer" parameterType="CommentDto">
         update ANSWER_TB
-        set inq_ans = #{inq_ans}
-        where bbs_id = #{bbs_id}
+        set inq_ans = #{inq_ans}, ans_dt = now()
+        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}
     </update>
 
     <delete id="deleteAnswer" parameterType="map">

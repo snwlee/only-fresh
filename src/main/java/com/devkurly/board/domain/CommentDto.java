@@ -8,6 +8,7 @@ public class CommentDto {
     private Integer bbs_id;
     private String gd_cd;
     private Date ans_dt;
+    private Integer user_id;
     private Date in_date;
     private String in_user;
     private Date up_date;
@@ -15,11 +16,12 @@ public class CommentDto {
 
     CommentDto(){}
 
-    public CommentDto(String inq_ans, Integer bbs_id, String gd_cd, Date ans_dt, Date in_date, String in_user, Date up_date, String up_user) {
+    public CommentDto(String inq_ans, Integer bbs_id, String gd_cd, Date ans_dt, Integer user_id, Date in_date, String in_user, Date up_date, String up_user) {
         this.inq_ans = inq_ans;
         this.bbs_id = bbs_id;
         this.gd_cd = gd_cd;
         this.ans_dt = ans_dt;
+        this.user_id = user_id;
         this.in_date = in_date;
         this.in_user = in_user;
         this.up_date = up_date;
@@ -58,6 +60,14 @@ public class CommentDto {
         this.ans_dt = ans_dt;
     }
 
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
     public Date getIn_date() {
         return in_date;
     }
@@ -91,29 +101,30 @@ public class CommentDto {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CommentDto that = (CommentDto) o;
+        return Objects.equals(inq_ans, that.inq_ans) && Objects.equals(bbs_id, that.bbs_id) && Objects.equals(gd_cd, that.gd_cd) && Objects.equals(ans_dt, that.ans_dt) && Objects.equals(user_id, that.user_id) && Objects.equals(in_date, that.in_date) && Objects.equals(in_user, that.in_user) && Objects.equals(up_date, that.up_date) && Objects.equals(up_user, that.up_user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inq_ans, bbs_id, gd_cd, ans_dt, user_id, in_date, in_user, up_date, up_user);
+    }
+
+    @Override
     public String toString() {
-        return "AnswerDto{" +
+        return "CommentDto{" +
                 "inq_ans='" + inq_ans + '\'' +
                 ", bbs_id=" + bbs_id +
                 ", gd_cd='" + gd_cd + '\'' +
                 ", ans_dt=" + ans_dt +
+                ", user_id=" + user_id +
                 ", in_date=" + in_date +
                 ", in_user='" + in_user + '\'' +
                 ", up_date=" + up_date +
                 ", up_user='" + up_user + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CommentDto commentDto = (CommentDto) o;
-        return Objects.equals(inq_ans, commentDto.inq_ans) && Objects.equals(bbs_id, commentDto.bbs_id) && Objects.equals(gd_cd, commentDto.gd_cd) && Objects.equals(ans_dt, commentDto.ans_dt) && Objects.equals(in_date, commentDto.in_date) && Objects.equals(in_user, commentDto.in_user) && Objects.equals(up_date, commentDto.up_date) && Objects.equals(up_user, commentDto.up_user);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(inq_ans, bbs_id, gd_cd, ans_dt, in_date, in_user, up_date, up_user);
     }
 }

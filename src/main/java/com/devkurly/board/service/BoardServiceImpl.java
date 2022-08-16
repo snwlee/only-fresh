@@ -13,8 +13,11 @@ import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-    @Autowired
-    BoardDao boardDao;
+    private final BoardDao boardDao;
+
+    public BoardServiceImpl(BoardDao boardDao) {
+        this.boardDao = boardDao;
+    }
 
     @Override
     public List<BoardDto> selectReviewPage(Map map) throws Exception {
@@ -51,7 +54,9 @@ public class BoardServiceImpl implements BoardService {
         if(boardDto.getBbs_clsf_cd().equals("2")) {
             boardDao.insertInq(bbs_id, boardDto.getUser_id());
             //비밀글 작성을 눌렀으면
-            boardDao.isSecretStatus(bbs_id);
+            if(boardDto.isIs_secret()==true)
+                boardDao.isSecretStatus(bbs_id);
+            return boardDao.insertCn(boardDto);
         }
         boardDao.insertReview(bbs_id, boardDto.getUser_id());
         return boardDao.insertCn(boardDto);
@@ -59,6 +64,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDto readCn(Integer bbs_id) throws Exception {
+
         return boardDao.selectCn(bbs_id);
     }
 

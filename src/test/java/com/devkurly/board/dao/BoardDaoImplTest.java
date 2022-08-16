@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class BoardDaoImplTest {
         return new Random().nextInt(max - min + 1) + min;
     }
     @Test
+    @Transactional
     public void insert()throws Exception {
         boardDao.deleteAll();
         assertTrue(boardDao.boardAllCnt()==0);
@@ -42,7 +44,7 @@ public class BoardDaoImplTest {
         Integer user_id = 1;
 
         for (int i = 0; i < insertBoardCnt; i++) {
-            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
+            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1");
             boardDao.insert(boardDto); //BOARD_TB 생성
             Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
             boardDto.setBbs_id(bbs_id);
@@ -79,7 +81,7 @@ public class BoardDaoImplTest {
         Integer user_id = 1;
 
         for (int i = 0; i < insertBoardCnt; i++) {
-            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
+            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1");
             boardDao.insert(boardDto); //BOARD_TB 생성
             Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
             boardDto.setBbs_id(bbs_id);
