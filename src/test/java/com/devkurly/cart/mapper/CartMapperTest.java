@@ -29,7 +29,7 @@ public class CartMapperTest {
     public void insert() {
         // given
         Cart cart = new Cart();
-        cart.setUser_id(1);
+        cart.setUser_id("1");
         cart.setPdt_id(1);
         cart.setPdt_qty(20);
 

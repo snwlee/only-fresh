@@ -14,12 +14,12 @@
         where user_id = #{user_id}
         and pdt_id = #{pdt_id};
     </select>
-    <select id="findAllByUserId" parameterType="int" resultType="Cart">
+    <select id="findAllByUserId" parameterType="String" resultType="Cart">
         select user_id, pdt_id, pdt_qty
         from CART_TB
         where user_id = #{user_id};
     </select>
-    <select id="joinCartProductByUserId" parameterType="int" resultType="com.devkurly.cart.dto.CartProductResponseDto">
+    <select id="joinCartProductByUserId" parameterType="String" resultType="com.devkurly.cart.dto.CartProductResponseDto">
         select user_id, CT.pdt_id, pdt_qty, sel_price, title, stock
         from CART_TB CT
         join PRODUCT_TB PT
@@ -42,12 +42,12 @@
         where user_id = #{user_id}
           and pdt_id = #{pdt_id};
     </update>
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="String">
         delete
         from CART_TB
         where user_id = #{user_id};
     </delete>
-    <delete id="deleteOne" parameterType="int">
+    <delete id="deleteOne" parameterType="Cart">
         delete
         from CART_TB
         where user_id = #{user_id}

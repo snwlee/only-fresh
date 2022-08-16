@@ -2,7 +2,6 @@ package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
-import com.devkurly.cart.exception.ErrorCode;
 import com.devkurly.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,18 +19,16 @@ public class CartRestController {
     private final CartService cartService;
 
     @GetMapping("/rest/view")
-    public ResponseEntity<List<CartProductResponseDto>> viewCart(HttpSession session) {
-        List<CartProductResponseDto> cartList = cartService.viewCartProduct((Integer) session.getAttribute("user_id"));
+    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue("JSESSIONID") String sessionId, HttpSession session) {
+        System.out.println("sessionId2 = " + sessionId);
+        List<CartProductResponseDto> cartList = cartService.viewCartProduct(sessionId);
         return new ResponseEntity<>(cartList, HttpStatus.OK);
     }
 
     @PostMapping("/qty")
     public Cart modifyCartQty(@RequestBody Cart cart) {
-        System.out.println("TEST1");
         cartService.checkCartProductStock(cart);
-        System.out.println("TEST2");
         cartService.modifyCart(cart);
-        System.out.println("TEST3");
         return cart;
     }
 }
