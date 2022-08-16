@@ -17,8 +17,7 @@ public class EventDaoImpl implements EventDao {
 
     //    C
     @Override
-    public int insert(EventDto eventDto) throws Exception {
-
+    public int create(EventDto eventDto) throws Exception {
         return session.insert(namespace + "insert", eventDto);
     }
 

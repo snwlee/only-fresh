@@ -5,9 +5,9 @@
 <mapper namespace="com.devkurly.event.dao.EventMapper">
     <!--C-->
     <insert id="insert" parameterType="EventDto">
-        insert into EVENT_TB (nm, des, photo, photo_alt, mft, setl_methd_cd, stpt_dd, expi_dd, early_end_stus,
+        insert into EVENT_TB (nm, des, photo, photo_alt, cat_cd, setl_methd_cd, stpt_dd, expi_dd, early_end_stus,
                               ds_rate)
-        values (#{nm}, #{des}, #{photo}, #{photo_alt}, #{mft}, #{setl_methd_cd}, #{stpt_dd}, #{expi_dd},
+        values (#{nm}, #{des}, #{photo}, #{photo_alt}, #{cat_cd}, #{setl_methd_cd}, #{stpt_dd}, #{expi_dd},
                 #{early_end_stus}, #{ds_rate});
     </insert>
 
@@ -39,7 +39,7 @@
             des            = #{des},
             photo          = #{photo},
             photo_alt      = #{photo_alt},
-            mft            = #{mft},
+            cat_cd            = #{cat_cd},
             setl_methd_cd  = #{setl_methd_cd},
             stpt_dd        = #{stpt_dd},
             expi_dd        = #{expi_dd},

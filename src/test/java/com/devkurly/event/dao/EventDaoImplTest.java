@@ -22,10 +22,10 @@ public class EventDaoImplTest {
 
     //   C
     @Test
-    public void insertTest() throws Exception {
+    public void createTest() throws Exception {
         eventDao.deleteAll();
-        EventDto testDto = new EventDto("test nm", "test desc", "product-image.kurly.com/cdn-cgi/image/format=auto/banner/event/8622ba29-6cbf-438e-8865-880838ec3d7a.jpg", "test alt", "test mft", "A001", "19970226", "20200812", 0, 10);
-        assertTrue(eventDao.insert(testDto) == 1);
+        EventDto testDto = new EventDto("test nm", "test desc", "product-image.kurly.com/cdn-cgi/image/format=auto/banner/event/8622ba29-6cbf-438e-8865-880838ec3d7a.jpg", "test alt", 1, "A001", "19970226", "20200812", 0, 10);
+        assertTrue(eventDao.create(testDto) == 1);
         eventDao.deleteAll();
     }
 
@@ -40,8 +40,8 @@ public class EventDaoImplTest {
         eventDao.deleteAll();
         assertTrue(eventDao.count() == 0);
 
-        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
-        assertTrue(eventDao.insert(eventDto) == 1);
+        EventDto eventDto = new EventDto("1", "1", "1", "1", 1, "1", "19970226", "19960227", 0, 30);
+        assertTrue(eventDao.create(eventDto) == 1);
 
         Integer event_id = eventDao.selectAll().get(0).getEvent_id();
         eventDto.setEvent_id(event_id);
@@ -59,13 +59,13 @@ public class EventDaoImplTest {
         List<EventDto> list = eventDao.selectAll();
         assertTrue(list.size() == 0);
 
-        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
-        assertTrue(eventDao.insert(eventDto) == 1);
+        EventDto eventDto = new EventDto("1", "1", "1", "1", 1, "1", "19970226", "19960227", 0, 30);
+        assertTrue(eventDao.create(eventDto) == 1);
 
         list = eventDao.selectAll();
         assertTrue(list.size() == 1);
 
-        assertTrue(eventDao.insert(eventDto) == 1);
+        assertTrue(eventDao.create(eventDto) == 1);
         list = eventDao.selectAll();
         assertTrue(list.size() == 2);
     }
@@ -78,13 +78,13 @@ public class EventDaoImplTest {
         List<EventIdDto> list = eventDao.selectIds();
         assertTrue(list.size() == 0);
 
-        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
-        assertTrue(eventDao.insert(eventDto) == 1);
+        EventDto eventDto = new EventDto("1", "1", "1", "1", 1, "1", "19970226", "19960227", 0, 30);
+        assertTrue(eventDao.create(eventDto) == 1);
 
         list = eventDao.selectIds();
         assertTrue(list.size() == 1);
 
-        assertTrue(eventDao.insert(eventDto) == 1);
+        assertTrue(eventDao.create(eventDto) == 1);
         list = eventDao.selectIds();
         assertTrue(list.size() == 2);
     }
@@ -95,12 +95,12 @@ public class EventDaoImplTest {
         eventDao.deleteAll();
         assertTrue(eventDao.count() == 0);
 
-        EventDto eventDto = new EventDto("1", "1", "1", "1", "1", "1", "19970226", "19960227", 0, 30);
+        EventDto eventDto = new EventDto("1", "1", "1", "1", 1, "1", "19970226", "19960227", 0, 30);
 
-        eventDao.insert(eventDto);
+        eventDao.create(eventDto);
         assertTrue(eventDao.count() == 1);
 
-        EventDto eventDto2 = new EventDto("2", "2", "2", "2", "2", "2", "20100226", "20200812", 1, 90);
+        EventDto eventDto2 = new EventDto("2", "2", "2", "2", 2, "2", "20100226", "20200812", 1, 90);
         eventDao.update(eventDto2);
         String updated_nm= eventDao.selectAll().get(0).getNm();
         assertTrue(eventDto.getNm().equals(updated_nm));
@@ -118,7 +118,7 @@ public class EventDaoImplTest {
         eventDao.deleteAll();
         assertTrue(eventDao.count() == 0);
 
-        eventDao.insert(new EventDto("test nm", "test desc", "product-image.kurly.com/cdn-cgi/image/format=auto/banner/event/8622ba29-6cbf-438e-8865-880838ec3d7a.jpg", "test alt", "test mft", "A001", "19970226", "20200812", 0, 10));
+        eventDao.create(new EventDto("test nm", "test desc", "product-image.kurly.com/cdn-cgi/image/format=auto/banner/event/8622ba29-6cbf-438e-8865-880838ec3d7a.jpg", "test alt", 1, "A001", "19970226", "20200812", 0, 10));
         assertTrue(eventDao.count()==1);
         Integer event_id = eventDao.selectAll().get(0).getEvent_id();
 

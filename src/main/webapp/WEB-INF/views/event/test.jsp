@@ -200,6 +200,8 @@
                     bringEventOptions();
                 },
                 error: function () {
+                    if(HttpStatus.code == 404)
+                        // alert(this.error.message());
                     alert("error")
                 }, // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()

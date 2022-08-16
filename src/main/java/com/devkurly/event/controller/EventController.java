@@ -18,7 +18,7 @@ public class EventController {
     @Autowired
     EventService service;
 
-    @RequestMapping("/test")
+    @RequestMapping("/admin")
     public String test() {
         return "event/test";
     }
@@ -36,7 +36,9 @@ public class EventController {
             return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            // 1. httpstatus 종류 나눠야 함
+            
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
