@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -27,15 +25,15 @@ public class CartController {
      * temp
      */
     @GetMapping("login")
-    public String start(@CookieValue("JSESSIONID") String sessionId,CartSaveRequestDto requestDto, HttpSession session) {
+    public String start(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
         session.setAttribute("user_id", 1);
-        List<Cart> carts = cartService.viewAllCart(sessionId);
+        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
         for (Cart cart : carts) {
-            String user_id = session.getAttribute("user_id").toString();
+            Integer user_id = (Integer) session.getAttribute("user_id");
             cart.setUser_id(user_id);
             requestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
             cartService.addCart(requestDto);
-            cartService.removeCart(sessionId);
+            cartService.removeCart(cartService.getCookieId(tempCart, response));
         }
         return "/home";
     }
@@ -53,12 +51,12 @@ public class CartController {
      * temp
      */
     @GetMapping("/add/{pdt_id}")
-    public String addCart(@PathVariable Integer pdt_id, @CookieValue("JSESSIONID") String sessionId, CartSaveRequestDto requestDto, HttpSession session) {
-        Object user_id = session.getAttribute("user_id");
+    public String addCart(@PathVariable Integer pdt_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
+        Integer user_id = (Integer) session.getAttribute("user_id");
         if (Optional.ofNullable(user_id).isPresent()) {
-            requestDto.saveCart(user_id.toString(), pdt_id, 1);
+            requestDto.saveCart(user_id, pdt_id, 1);
         } else {
-            requestDto.saveCart(sessionId, pdt_id, 1);
+            requestDto.saveCart(cartService.getCookieId(tempCart, response), pdt_id, 1);
         }
         cartService.checkProductStock(requestDto.toEntity());
         cartService.addCart(requestDto);
@@ -66,14 +64,14 @@ public class CartController {
     }
 
     @GetMapping("/view")
-    public String viewCart(@CookieValue("JSESSIONID") String sessionId, HttpSession session, Model model) {
-        String id;
-        Object user_id = session.getAttribute("user_id");
+    public String viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session, Model model) {
+        int id;
+        Integer user_id = (Integer) session.getAttribute("user_id");
         if (Optional.ofNullable(user_id).isPresent()) {
-            id = user_id.toString();
+            id = user_id;
         } else {
-            id = sessionId;
-            model.addAttribute("sessionId", sessionId);
+            id = cartService.getCookieId(tempCart, response);
+            model.addAttribute("id", id);
         }
         cartService.viewCartProduct(id);
         return "/cart/cartRestApi";
@@ -81,13 +79,13 @@ public class CartController {
 
     @GetMapping("/delete")
     public String removeAllCart(HttpSession session) {
-        cartService.removeCart((String) session.getAttribute("user_id"));
+        cartService.removeCart((Integer) session.getAttribute("user_id"));
         return "redirect:/carts/view";
     }
 
     @GetMapping("/{ptd_id}")
     public String removeOneCart(@PathVariable Integer ptd_id, Cart cart, HttpSession session) {
-        cart.updateCart((String) session.getAttribute("user_id"), ptd_id);
+        cart.updateCart((Integer) session.getAttribute("user_id"), ptd_id);
         cartService.removeOneCart(cart);
         return "redirect:/carts/view";
     }
@@ -95,7 +93,7 @@ public class CartController {
     @GetMapping("/delete/checked")
     public String removeCheckedCart(List<Cart> cartList, HttpSession session) {
         for (Cart cart : cartList) {
-            cart.setUser_id((String) session.getAttribute("user_id"));
+            cart.setUser_id((Integer) session.getAttribute("user_id"));
         }
         cartService.removeCheckedCart(cartList);
         return "redirect:/carts/view";

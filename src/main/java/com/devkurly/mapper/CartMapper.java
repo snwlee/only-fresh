@@ -13,12 +13,12 @@ public interface CartMapper {
 
     Integer insert(Cart cart);
     Cart findByCart(Cart cart);
-    List<Cart> findAllByUserId(String user_id);
+    List<Cart> findAllByUserId(Integer user_id);
     ProductDto findProductByPdtId(Integer pdt_id);
     Integer update(Cart cart);
-    Integer delete(String user_id);
+    Integer delete(Integer user_id);
     Integer deleteOne(Cart cart);
-    List<CartProductResponseDto> joinCartProductByUserId(String user_id);
+    List<CartProductResponseDto> joinCartProductByUserId(Integer user_id);
     CartProductResponseDto joinCartProductByCart(Cart cart);
 
 }

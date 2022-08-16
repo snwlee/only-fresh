@@ -10,12 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CartUpdateRequestDto {
-    private String user_id;
+    private Integer user_id;
     private Integer pdt_id;
     private Integer pdt_qty;
 
     @Builder
-    public CartUpdateRequestDto(String user_id, Integer pdt_id, Integer pdt_qty) {
+    public CartUpdateRequestDto(Integer user_id, Integer pdt_id, Integer pdt_qty) {
         this.user_id = user_id;
         this.pdt_id = pdt_id;
         this.pdt_qty = pdt_qty;

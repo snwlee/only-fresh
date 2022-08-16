@@ -13,8 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -33,12 +36,12 @@ public class CartService {
      * temp
      */
     @Transactional
-    public List<Cart> viewAllCart(String user_id) {
+    public List<Cart> viewAllCart(Integer user_id) {
         return cartMapper.findAllByUserId(user_id);
     }
 
     @Transactional
-    public List<CartProductResponseDto> viewCartProduct(String user_id) {
+    public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
         return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
     }
 
@@ -68,6 +71,21 @@ public class CartService {
         return cartMapper.update(requestDto.toEntity());
     }
 
+    public int getCookieId(Cookie tempCart, HttpServletResponse response) {
+        int id;
+        if (tempCart == null) {
+            Random random = new Random();
+            int randomNumber = random.nextInt(10000);
+            // (예정) 중복 확인 후 재랜덤 결정
+            Cookie newTempCart = new Cookie("tempCart", Integer.toString(randomNumber));
+            response.addCookie(newTempCart);
+            id = Integer.parseInt(newTempCart.getValue());
+        } else {
+            id = Integer.parseInt(tempCart.getValue());
+        }
+        return id;
+    }
+
     @Transactional
     public Integer modifyCart(Cart cart) {
         return cartMapper.update(cart);
@@ -86,7 +104,7 @@ public class CartService {
     }
 
     @Transactional
-    public Integer removeCart(String user_id) {
+    public Integer removeCart(Integer user_id) {
         return cartMapper.delete(user_id);
     }
 
