@@ -17,7 +17,7 @@
     </script>
 </head>
 <body>
-    <h2>상품 상세정보 ${mode=="new" ? "상품 등록" : "상품 확인"}</h2>
+    <h2>상품 정보 ${mode=="new" ? "상품 등록" : "상품 확인"}</h2>
 <form action="" id="form" >
     <input type="hidden" name="pdt_id" value="${ProductDto.pdt_id}"}>
     <input type="text" name="title" value="${ProductDto.title}" placeholder="제품이름 입력" ${ mode=="new" ? '' : 'readonly="readonly"'}>
