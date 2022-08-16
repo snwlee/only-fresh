@@ -1,5 +1,6 @@
 package com.devkurly.board.service;
 
+import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.domain.BoardDto;
 
 import java.util.List;
@@ -25,4 +26,9 @@ public interface BoardService {
     int userLikeNo(BoardDto boardDto) throws Exception;
 
     int reviewLike(BoardDto boardDto)throws Exception;
+    int writeAnswer(CommentDto commentDto)throws Exception;
+    int modifyAnswer(CommentDto commentDto)throws Exception;
+    int deleteAnswer(Integer bbs_id, String gd_cd) throws Exception;
+    CommentDto readAnswer(Integer bbs_id)throws Exception;
+
 }

@@ -39,14 +39,15 @@ public class BoardDaoImplTest {
         int insertBoardCnt = rand(1,30);
         Integer pdt_id = rand(1, 1000);
         String bbs_clsf_cd = String.valueOf(rand(1, 30));
+        Integer user_id = 1;
 
         for (int i = 0; i < insertBoardCnt; i++) {
-            BoardDto boardDto = new BoardDto(pdt_id, 1, "title"+i, "bbs_cn"+i, 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
+            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
             boardDao.insert(boardDto); //BOARD_TB 생성
             Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
             boardDto.setBbs_id(bbs_id);
             assertTrue(boardDao.insertCn(boardDto)==1); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 BOARD_CN_TB 생성
-            boardDao.insertReview(bbs_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
+            boardDao.insertReview(bbs_id, user_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
         }
 
         assertTrue(boardDao.boardAllCnt()==insertBoardCnt);
@@ -58,12 +59,12 @@ public class BoardDaoImplTest {
         System.out.println("insertBoardCnt = "+insertBoardCnt+" bbs_clsf_cd = "+bbs_clsf_cd+" pdt_id = "+pdt_id);
         System.out.println("boardDao.count(map) = " + boardDao.count(map));
 
+        assertTrue(boardDao.deleteAll()==insertBoardCnt);
 
 //        BoardDto boardDto = new BoardDto(pdt_id, 1, "title", "", 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
 //        BoardDto boardDto = new BoardDto(pdt_id, 1, "", "bbs_cn", 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
 //        boardService.write(boardDto);
 //        boardDao.insert(boardDto);
-        assertTrue(boardDao.deleteAll()==insertBoardCnt);
 
     }
 
@@ -75,14 +76,15 @@ public class BoardDaoImplTest {
         int insertBoardCnt = rand(30,100);
         Integer pdt_id = 1;
         String bbs_clsf_cd = "1";
+        Integer user_id = 1;
 
         for (int i = 0; i < insertBoardCnt; i++) {
-            BoardDto boardDto = new BoardDto(pdt_id, 1, "title"+i, "bbs_cn"+i, 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
+            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
             boardDao.insert(boardDto); //BOARD_TB 생성
             Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
             boardDto.setBbs_id(bbs_id);
             assertTrue(boardDao.insertCn(boardDto)==1); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 BOARD_CN_TB 생성
-            boardDao.insertReview(bbs_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
+            boardDao.insertReview(bbs_id, user_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
         }
     }
     @Test

@@ -67,8 +67,13 @@
         values (#{pdt_id}, #{user_id},#{bbs_title}, #{user_nm},#{bbs_clsf_cd}, #{user_id}, #{user_id})
     </insert>
 
-    <insert id="insertReview" parameterType="int">
+    <insert id="insertReview" parameterType="map">
         insert into REVIEW_BOARD_TB (bbs_id, in_user, up_user)
+        values (#{bbs_id}, #{user_id}, #{user_id})
+    </insert>
+
+    <insert id="insertInq" parameterType="map">
+        insert into INQ_BOARD_TB(bbs_id, int_user, up_user)
         values (#{bbs_id}, #{user_id}, #{user_id})
     </insert>
 
@@ -89,6 +94,18 @@
         where bbs_id = #{bbs_id}
     </update>
 
+    <update id="IsRepliedStatus" parameterType="int">
+        update INQ_BOARD_TB
+        set is_replied = 1
+        where bbs_id = #{bbs_id}
+    </update>
+
+    <update id="IsSecretStatus" parameterType="int">
+        update INQ_BOARD_TB
+        set is_secret = 1
+        where bbs_id = #{bbs_id}
+    </update>
+
     <update id="increaseLike" parameterType="int">
         update REVIEW_BOARD_TB
         set revw_like = revw_like + 1
@@ -105,6 +122,29 @@
         insert into USER_LIKE_NO (user_id, bbs_id, like_no, in_user, up_user)
         values (#{user_id}, #{bbs_id}, #{like_no}, #{user_id}, #{user_id})
     </insert>
+
+    <insert id="insertAnswer" parameterType="CommentDto">
+        insert into ANSWER_TB (bbs_id, inq_ans, gd_cd, int_user, up_user)
+        values(#{bbs_id}, #{inq_ans}, #{gd_cd}, #{user_id}, #{user_id})
+    </insert>
+
+    <update id="updateAnswer" parameterType="CommentDto">
+        update ANSWER_TB
+        set inq_ans = #{inq_ans}
+        where bbs_id = #{bbs_id}
+    </update>
+
+    <delete id="deleteAnswer" parameterType="map">
+        delete
+        from ANSWER_TB
+        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}
+    </delete>
+
+    <select id="selectAnswer" parameterType="int" resultType="CommentDto">
+        select bbs_id ,inq_ans, ans_dt
+        from ANSWER_TB
+        where bbs_id = #{bbs_id}
+    </select>
 
 
 

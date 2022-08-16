@@ -1,5 +1,6 @@
 package com.devkurly.board.dao;
 
+import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.domain.BoardDto;
 
 import java.util.List;
@@ -27,16 +28,23 @@ public interface BoardDao {
 
     int insertCn(BoardDto boardDto) throws Exception;
 
-    int insertReview(Integer bbs_id) throws Exception;
+    int insertReview(Integer bbs_id, Integer user_id) throws Exception;
+    int insertInq(Integer bbs_id, Integer user_id) throws Exception;
 
     int update(BoardDto boardDto) throws Exception;
 
     int updateCn(BoardDto boardDto) throws Exception;
+    int isRepliedStatus(Integer bbs_id)throws Exception;
+    int isSecretStatus(Integer bbs_id) throws Exception;
 
     int increaseLike(Integer bbs_id) throws Exception;
 
     int selectUserLike(Map map) throws Exception;
 
     int userLikeNo(BoardDto boardDto) throws Exception;
+    int insertAnswer(CommentDto commentDto)throws Exception;
+    int updateAnswer(CommentDto commentDto)throws Exception;
+    int deleteAnswer(Integer bbs_id, String gd_cd)throws Exception;
+    CommentDto selectAnswer(Integer bbs_id) throws Exception;
 
     }

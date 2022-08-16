@@ -10,7 +10,6 @@ public class BoardDto {
     private String bbs_title;
     private String bbs_cn;
     private Integer revw_like;
-
     private Integer like_no;
     private String revw_img;
     private Date wrt_dt;
