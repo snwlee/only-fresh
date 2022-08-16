@@ -68,10 +68,7 @@ public class BoardController {
         boardDto.setUser_nm("youngjun"); //임시 하드코딩
 
         try {
-            int rowCnt = boardService.write(boardDto);
-            if (rowCnt != 1)
-                throw new Exception("write error");
-
+            boardService.write(boardDto);
             return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

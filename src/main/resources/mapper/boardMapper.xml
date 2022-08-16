@@ -13,6 +13,10 @@
         where bbs_id=#{bbs_id} and pdt_id=#{pdt_id} and user_id = #{user_id}
     </delete>
 
+    <select id="boardAllCnt" resultType="int">
+        select count(*) from BOARD_TB
+    </select>
+
     <select id="boardCount" parameterType="map" resultType="int">
         select count(*) from BOARD_TB
         where bbs_clsf_cd = #{bbs_clsf_cd} and pdt_id = #{pdt_id}
@@ -28,7 +32,7 @@
     </select>
 
     <select id="selectCn" parameterType="int" resultType="BoardDto">
-        select bbs_cn, in_user, up_user
+        select bbs_id, bbs_cn, in_user, up_user
         from BOARD_CONTENT_TB
         where bbs_id=#{bbs_id}
     </select>
@@ -36,7 +40,7 @@
     <select id="selectAll" resultType="BoardDto">
         select bbs_id, pdt_id, user_id, bbs_title, wrt_dt, user_nm
         from BOARD_TB
-        ORDER BY wrt_dt DESC , bbs_id DESC
+        ORDER BY bbs_id DESC ,wrt_dt DESC
     </select>
     <sql id="selectReview">
         select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd

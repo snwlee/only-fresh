@@ -28,6 +28,10 @@ public class BoardServiceImpl implements BoardService {
     public int remove(Integer bbs_id, Integer pdt_id, Integer user_id) throws Exception {
         return boardDao.delete(bbs_id, pdt_id, user_id);
     }
+    @Override
+    public int deleteAll()throws Exception {
+        return boardDao.deleteAll();
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

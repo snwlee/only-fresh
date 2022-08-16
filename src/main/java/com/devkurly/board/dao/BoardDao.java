@@ -12,6 +12,8 @@ public interface BoardDao {
 
     int count(Map map) throws Exception;
 
+    int boardAllCnt() throws Exception;
+
     BoardDto select(int bbs_id) throws Exception;
 
     List<BoardDto> selectReviewPage(Map map) throws Exception;

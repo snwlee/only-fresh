@@ -10,6 +10,8 @@ public interface BoardService {
     List<BoardDto> selectReviewPageLike(Map map) throws Exception;
 
     int remove(Integer bbs_id, Integer pdt_id, Integer user_id) throws Exception;
+
+    int deleteAll() throws Exception;
     int modify(BoardDto boardDto) throws Exception;
 
     int write(BoardDto boardDto) throws Exception;

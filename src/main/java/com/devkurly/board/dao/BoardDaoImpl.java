@@ -35,6 +35,10 @@ public class BoardDaoImpl implements BoardDao {
     public int count(Map map) throws Exception {
         return session.selectOne(namespace + "boardCount", map);
     }
+    @Override
+    public int boardAllCnt() throws Exception {
+        return session.selectOne(namespace + "boardAllCnt");
+    }
 
     @Override
     public BoardDto select(int bbs_id) throws Exception {
@@ -53,8 +57,6 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public List<BoardDto> selectReviewPageLike(Map map) throws Exception {
-//        List<BoardDto> result = session.selectList(namespace + "selectReviewPageLike", map);
-//        return result;
         return session.selectList(namespace + "selectReviewPageLike", map);
     }
 
@@ -65,11 +67,17 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int insert(BoardDto boardDto) throws Exception {
+        int cnLength = boardDto.getBbs_title().length();
+        if(cnLength>60||cnLength==0)
+            throw new Exception("제목에 적절하지 않은 글자수입니다.");
         return session.insert(namespace + "insert", boardDto);
     }
 
     @Override
     public int insertCn(BoardDto boardDto) throws Exception {
+        int cnLength = boardDto.getBbs_cn().length();
+        if(cnLength>2000||cnLength==0)
+            throw new Exception("내용에 적절하지 않은 글자수입니다.");
         return session.insert(namespace + "insertCn", boardDto);
     }
 
@@ -80,11 +88,17 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int update(BoardDto boardDto) throws Exception {
+        int cnLength = boardDto.getBbs_title().length();
+        if(cnLength>60||cnLength==0)
+            throw new Exception("제목에 적절하지 않은 글자수입니다.");
         return session.update(namespace + "update", boardDto);
     }
 
     @Override
     public int updateCn(BoardDto boardDto) throws Exception {
+        int cnLength = boardDto.getBbs_cn().length();
+        if(cnLength>2000||cnLength==0)
+            throw new Exception("내용에 적절하지 않은 글자수입니다.");
         return session.update(namespace + "updateCn", boardDto);
     }
 

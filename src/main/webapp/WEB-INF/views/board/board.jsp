@@ -270,8 +270,8 @@
             let bbs_title = $("#myModal #bbs_title").val();
             let bbs_cn = $("#myModal #contents").val();
 
-            if(bbs_cn.trim()==''){
-                alert("내용을 입력해주세요.");
+            if(bbs_cn.trim()==''|bbs_title.trim()==''){
+                alert("제목 또는 내용을 입력해주세요.");
                 $("#myModal #contents").focus()
                 return;
             }
