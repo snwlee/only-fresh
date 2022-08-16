@@ -97,8 +97,10 @@ public class BoardServiceImpl implements BoardService {
             return boardDao.increaseLike(boardDto.getBbs_id());
         }
     }
+    @Transactional
     @Override
     public int writeAnswer(CommentDto commentDto)throws Exception {
+        boardDao.isRepliedStatus(commentDto.getBbs_id());
         return boardDao.insertAnswer(commentDto);
     }
     @Override

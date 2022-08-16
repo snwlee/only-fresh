@@ -36,6 +36,7 @@ public class CommentController {
         String gd_cd = "2";
         commentDto.setUser_id(user_id);
         commentDto.setGd_cd(gd_cd);
+        commentDto.setBbs_id(bbs_id);
         try {
             boardService.writeAnswer(commentDto);
             return new ResponseEntity<>("WRT_OK", HttpStatus.OK);
