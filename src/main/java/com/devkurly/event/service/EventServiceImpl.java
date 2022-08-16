@@ -13,7 +13,6 @@ public class EventServiceImpl implements EventService {
     // 생성자 주입으로 바꿔라
     EventDao eventDao;
 
-    @Autowired
     public EventServiceImpl(EventDao eventDao) {
         this.eventDao = eventDao;
     }

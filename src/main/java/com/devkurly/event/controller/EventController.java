@@ -17,7 +17,6 @@ import java.util.List;
 public class EventController {
     EventService service;
 
-    @Autowired
     public EventController(EventService service) {
         this.service = service;
     }

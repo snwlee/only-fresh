@@ -13,7 +13,6 @@ import java.util.List;
 public class EventDaoImpl implements EventDao {
     private SqlSession session;
 
-    @Autowired
     public EventDaoImpl(SqlSession session) {
         this.session = session;
     }
