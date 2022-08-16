@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="id" value="${sessionScope.user_id==null ? id : sessionScope.user_id}"/>
 <html>
 <head>
     <title>장바구니</title>
@@ -55,8 +55,8 @@
                             type="checkbox"
                             id="cart-select` + CartResponseDto.pdt_id + `"
                             name="cart-select` + CartResponseDto.pdt_id + `"
-                            value="`+CartResponseDto.title+`"
-                            /><label class="payment" for="cart-select` + CartResponseDto.pdt_id + `">`+CartResponseDto.title+`</label>
+                            value="` + CartResponseDto.title + `"
+                            /><label class="payment" for="cart-select` + CartResponseDto.pdt_id + `">` + CartResponseDto.title + `</label>
                         <div>장바구니 제품 번호 : ` + CartResponseDto.pdt_id + `</div>
                         <div>장바구니 제품 이름 : ` + CartResponseDto.title + `</div>
                         <div>장바구니 제품 가격 : ` + CartResponseDto.sel_price + `</div>
@@ -83,7 +83,7 @@
                     $('#add-btn-' + index).click(function () {
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1 + 2);
                         let cart = {
-                            user_id: 1,
+                            user_id: '${id}',
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };
@@ -111,7 +111,7 @@
                         }
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
                         let cart = {
-                            user_id: 1,
+                            user_id: '${id}',
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };

@@ -47,21 +47,7 @@
     justify-content: center;
     align-items: center;
   }
-  .cart_btn {
-    cursor: pointer;
-    width: 100px;
-    height: 50px;
-    border-radius: 5px;
-    border: none;
-    background-color: #5F0080;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 100;
-    margin-top: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
 
 
 </style>
@@ -71,10 +57,10 @@
     <li><a class="btn" href="<c:url value='/'/>">Home</a></li>
     <li><a href=""><i class="fas fa-search small"></i></a></li>
     <li><button type="button" id="writeBtn" class= "btn" onclick="location.href='<c:url value="/product/write"/>'">상품등록</button></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=sel_price'/>">높은 가격순</a></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=ds_rate'/>">혜택순</a></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=sales_rate'/>">판매량순</a></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=in_date'/>">신상품순</a></li>
+    <li><a class="btn" href="<c:url value='/product/thriftylist?order_sc=sel_price'/>">높은 가격순</a></li>
+    <li><a class="btn" href="<c:url value='/product/thriftylist?order_sc=ds_rate'/>">혜택순</a></li>
+    <li><a class="btn" href="<c:url value='/product/thriftylist?order_sc=sales_rate'/>">판매량순</a></li>
+    <li><a class="btn" href="<c:url value='/product/thriftylist?order_sc=in_date'/>">신상품순</a></li>
 
 
   </ul>
@@ -90,6 +76,7 @@
         원가 :     ${ProductDto.price}원
         소제목 :     ${ProductDto.sub_title}
         배송타입 :     ${ProductDto.de_type}</p>
+        <br>
         <%--                       판매율 :     ${ProductDto.sales_rate}--%>
         <%--                       재고 : ${ProductDto.stock}</p>--%>
       </c:forEach>
@@ -110,10 +97,10 @@
 
   $(document).ready(function (){
     $('#ascBtn').on("click",function (){
-      window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
-      window.location.href = "<c:url value='/product/list?order_sc=ds_rate'/>";
-      window.location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
-      window.location.href = "<c:url value='/product/list?order_sc=in_date'/>";
+      window.location.href = "<c:url value='/product/thriftylist?order_sc=sel_price'/>";
+      window.location.href = "<c:url value='/product/thriftylist?order_sc=ds_rate'/>";
+      window.location.href = "<c:url value='/product/thriftylist?order_sc=sales_rate'/>";
+      window.location.href = "<c:url value='/product/thriftylist?order_sc=in_date'/>";
     });
 
   });
