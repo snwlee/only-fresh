@@ -37,7 +37,6 @@ public interface ProductService {
 
     List<ProductDto> ProductListDESC(Map map);
 
-//    List<ProductDto> ProductListAsc(Map map2);
 }
 
 

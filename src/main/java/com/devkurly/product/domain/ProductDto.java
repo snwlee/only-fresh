@@ -21,23 +21,34 @@ private Date up_date;
 private String up_user;
 private Integer sales_rate;
 private boolean de_type;
+private String tag_name;
+private String company;
 
 
 public ProductDto(){}
-    public ProductDto (Integer pdt_id, String cat_code, Integer stock, String title, Integer price, Integer sel_price, String sub_title, String in_user, String up_user, boolean de_type, Integer sales_rate) {
-         this.pdt_id = pdt_id;
+    public ProductDto (Integer pdt_id, String cat_code, String title, Integer price, String image, Integer sel_price,
+                       String sub_title, String rec_info, boolean adt_sts,Integer stock, Date in_date,
+                       String in_user, Date up_date, String up_user, boolean de_type, Integer sales_rate,
+                       String tag_name, String company) {
+
+        this.pdt_id = pdt_id;
         this.cat_code = cat_code;
         this.title = title;
         this.price = price;
+        this.image = image;
         this.sel_price = sel_price;
         this.sub_title = sub_title;
-      //  this.rec_info = rec_info;
-      //  this.adt_sts = adt_sts;
+        this.rec_info = rec_info;
+        this.adt_sts = adt_sts;
         this.stock   = stock;
         this.in_date = in_date;
         this.in_user = in_user;
-      //  this.up_date = up_date;
+        this.up_date = up_date;
         this.up_user = up_user;
+        this.de_type = de_type;
+        this.sales_rate = sales_rate;
+        this.tag_name = tag_name;
+        this.company = company;
 
     }
 
@@ -46,36 +57,38 @@ public ProductDto(){}
         return "ProductDto{" +
                 "pdt_id=" + pdt_id +
                 ", cat_code='" + cat_code + '\'' +
-                ", price=" + price +
+                ", price=" + price + '\'' +
                 ", image='" + image + '\'' +
                 ", ds_rate=" + ds_rate +
                 ", sel_price=" + sel_price +
                 ", title='" + title + '\'' +
                 ", sub_title='" + sub_title + '\'' +
                 ", rec_info='" + rec_info + '\'' +
-                ", adt_sts=" + adt_sts +
-                ", stock=" + stock +
-                ", in_date=" + in_date +
+                ", adt_sts=" + adt_sts + '\'' +
+                ", stock=" + stock + '\'' +
+                ", in_date=" + in_date + '\'' +
                 ", in_user='" + in_user + '\'' +
-                ", up_date=" + up_date +
+                ", up_date=" + up_date + '\'' +
                 ", up_user='" + up_user + '\'' +
-                ", sales_rate='" +sales_rate + '\''+
                 ", de_type='" + de_type + '\'' +
-
+                ", sales_rate='" +sales_rate + '\''+
+                ", tag_name='" + tag_name + '\'' +
+                ", company='" + company + '\'' +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductDto that = (ProductDto) o;
-        return Objects.equals(pdt_id, that.pdt_id) && Objects.equals(in_user, that.in_user) && Objects.equals(title, that.title) && Objects.equals(sub_title, that.sub_title);
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                ProductDto that = (ProductDto) o;
+                return Objects.equals(pdt_id, that.pdt_id) && Objects.equals(in_user, that.in_user)
+                && Objects.equals(title, that.title) && Objects.equals(sub_title, that.sub_title) && Objects.equals(tag_name, that.tag_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pdt_id, in_user, title, sub_title);
+        return Objects.hash(pdt_id, in_user, title, sub_title, tag_name);
     }
 
     public Integer getPdt_id() {
@@ -198,7 +211,12 @@ public ProductDto(){}
         this.up_user = up_user;
     }
 
-    public void pdt_id(Integer pdt_id) {
+    public Integer getSales_rate() {
+        return sales_rate;
+    }
+
+    public void setSales_rate(Integer sales_rate) {
+        this.sales_rate = sales_rate;
     }
 
     public boolean isDe_type() {
@@ -209,15 +227,20 @@ public ProductDto(){}
         this.de_type = de_type;
     }
 
-    public Integer getSales_rate() {
-        return sales_rate;
+    public String getTag_name() {
+        return tag_name;
     }
 
-    public void setSales_rate(Integer sales_rate) {
-        this.sales_rate = sales_rate;
+    public void setTag_name(String tag_name) {
+        this.tag_name = tag_name;
     }
 
+    public String getCompany() {
+        return company;
+    }
 
-
+    public void setCompany(String company) {
+        this.company = company;
+    }
 }
 

@@ -29,12 +29,11 @@ public class ProductDaoImplTest {
 
 
 
-    @Test
-    public void insertTestData() throws Exception {
-        productDao.deleteAll();
-        for(int i = 1; i <= 200; i++) {
-            ProductDto productDto = new ProductDto(1,"ab",1,"hi",2000,1,"gg","gf","true",true,1);
-            productDao.insert(productDto);
+//    @Test
+//    public void insertTestData() throws Exception {
+//        productDao.deleteAll();
+//        for(int i = 1; i <= 200; i++) {
+//            ProductDto productDto = new ProductDto(1,"ab",1,"hi",2000,1,"gg","gf","true",true,1,);
+//            productDao.insert(productDto);
         }
-    }
-}
+

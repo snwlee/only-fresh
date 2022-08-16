@@ -70,6 +70,6 @@
 <%--배송지--%>
 	<div class="content_box">
 	</div>
-</div>>
+</div>
 </body>
 </html>
