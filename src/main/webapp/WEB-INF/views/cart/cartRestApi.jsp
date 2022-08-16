@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="id" value="${sessionScope.user_id==null ? sessionId : sessionScope.user_id}"/>
 <html>
 <head>
     <title>장바구니</title>
@@ -37,7 +37,8 @@
 <a class="btn" href="/carts/${pdt_id}">~~장바구니 제품 선택 삭제~~</a>
 <a class="btn" href="/carts/update">~~예)상품에서 장바구니 제품 1, 10개 추가~~</a>
 <a class="btn" href="/carts/rest/view">JSON</a>
-<div id="cart">장바구니에 담긴 상품이 없습니다</div>
+<div id="cart"></div>
+<div id="cart-empty">장바구니에 담긴 상품이 없습니다</div>
 <div id="cart-sum"></div>
 <a class="btn" href="/orders">주문하기</a>
 <script>
@@ -54,8 +55,8 @@
                             type="checkbox"
                             id="cart-select` + CartResponseDto.pdt_id + `"
                             name="cart-select` + CartResponseDto.pdt_id + `"
-                            value="`+CartResponseDto.title+`"
-                            /><label class="payment" for="cart-select` + CartResponseDto.pdt_id + `">`+CartResponseDto.title+`</label>
+                            value="` + CartResponseDto.title + `"
+                            /><label class="payment" for="cart-select` + CartResponseDto.pdt_id + `">` + CartResponseDto.title + `</label>
                         <div>장바구니 제품 번호 : ` + CartResponseDto.pdt_id + `</div>
                         <div>장바구니 제품 이름 : ` + CartResponseDto.title + `</div>
                         <div>장바구니 제품 가격 : ` + CartResponseDto.sel_price + `</div>
@@ -67,7 +68,7 @@
                         <a class="btn" href="/carts/` + CartResponseDto.pdt_id + `">장바구니에서 제거</a>
                         <br>
                         `;
-                    $('#cart').html('');
+                    $('#cart-empty').html('');
                     $('#cart').append(cart);
 
                     let cart_sum = function (pdt_qty) {
@@ -82,7 +83,7 @@
                     $('#add-btn-' + index).click(function () {
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1 + 2);
                         let cart = {
-                            user_id: ${sessionScope.user_id},
+                            user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };
@@ -110,7 +111,7 @@
                         }
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
                         let cart = {
-                            user_id: ${sessionScope.user_id},
+                            user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };
