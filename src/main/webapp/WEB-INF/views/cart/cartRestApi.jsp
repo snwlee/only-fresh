@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="id" value="${sessionScope.user_id==null ? sessionId : sessionScope.user_id}"/>
+<c:set var="id" value="${sessionScope.user_id==null ? id : sessionScope.user_id}"/>
 <html>
 <head>
     <title>장바구니</title>
@@ -83,7 +83,7 @@
                     $('#add-btn-' + index).click(function () {
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1 + 2);
                         let cart = {
-                            user_id: '${id}',
+                            user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };
@@ -111,7 +111,7 @@
                         }
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
                         let cart = {
-                            user_id: '${id}',
+                            user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };

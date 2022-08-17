@@ -1,15 +1,12 @@
-package com.devkurly.cart.dto;
+package com.devkurly.member.dto;
 
 import com.devkurly.cart.domain.Cart;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-
 @Getter
 @NoArgsConstructor
-public class CartProductResponseDto {
+public class MemberResponseDto {
     private Integer user_id;
     private Integer pdt_id;
     private Integer pdt_qty;
@@ -19,7 +16,7 @@ public class CartProductResponseDto {
     private String title;
     private Integer stock;
 
-    public CartProductResponseDto(Cart cart) {
+    public MemberResponseDto(Cart cart) {
         this.user_id = cart.getUser_id();
         this.pdt_id = cart.getPdt_id();
         this.pdt_qty = cart.getPdt_qty();

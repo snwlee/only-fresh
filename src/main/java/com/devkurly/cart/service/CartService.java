@@ -5,18 +5,22 @@ import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.exception.DuplicateCartException;
 import com.devkurly.cart.exception.EmptyCartException;
-import com.devkurly.cart.exception.ErrorCode;
 import com.devkurly.cart.exception.OutOfStockException;
+import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.CartMapper;
 import com.devkurly.product.domain.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CartService {
     private final CartMapper cartMapper;
@@ -24,7 +28,7 @@ public class CartService {
     /**
      * temp
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public Cart viewCart(Cart cart) {
         return cartMapper.findByCart(cart);
     }
@@ -32,17 +36,17 @@ public class CartService {
     /**
      * temp
      */
-    @Transactional
-    public List<Cart> viewAllCart(String user_id) {
+    @Transactional(readOnly = true)
+    public List<Cart> viewAllCart(Integer user_id) {
         return cartMapper.findAllByUserId(user_id);
     }
 
-    @Transactional
-    public List<CartProductResponseDto> viewCartProduct(String user_id) {
+    @Transactional(readOnly = true)
+    public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
         return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductDto checkProductStock(Cart cart) {
         ProductDto productDto = cartMapper.findProductByPdtId(cart.getPdt_id());
         Integer stock = productDto.getStock();
@@ -52,14 +56,13 @@ public class CartService {
         return productDto;
     }
 
-    @Transactional
     public Integer addCart(CartSaveRequestDto requestDto) {
         try {
             Optional.ofNullable(cartMapper.findByCart(requestDto.toEntity()))
                     .ifPresent((cart -> {
                         throw new DuplicateCartException("이미 장바구니에 제품이 있습니다.", ErrorCode.DUPLICATE_CART_PRODUCT);
                     }));
-            return cartMapper.insert(requestDto.toEntity());
+            return cartMapper.save(requestDto.toEntity());
         } catch (DuplicateCartException e) {
             requestDto.setPdt_qty(cartMapper.findByCart(requestDto.toEntity()).getPdt_qty() + 1);
         } catch (Exception e) {
@@ -68,25 +71,37 @@ public class CartService {
         return cartMapper.update(requestDto.toEntity());
     }
 
-    @Transactional
+    public int getCookieId(Cookie tempCart, HttpServletResponse response) {
+        int id;
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            id = Integer.parseInt(tempCart.getValue());
+        } else {
+            Random random = new Random();
+            int randomNumber = random.nextInt(100000);
+            // (예정) 중복 확인 후 재랜덤 결정
+            Cookie newTempCart = new Cookie("tempCart", Integer.toString(randomNumber));
+            newTempCart.setPath("/");
+            response.addCookie(newTempCart);
+            id = Integer.parseInt(newTempCart.getValue());
+        }
+        return id;
+    }
+
     public Integer modifyCart(Cart cart) {
         return cartMapper.update(cart);
     }
 
-    @Transactional
     public Integer removeOneCart(Cart cart) {
         return cartMapper.deleteOne(cart);
     }
 
-    @Transactional
     public void removeCheckedCart(List<Cart> cartList) {
         for (Cart cart : cartList) {
             cartMapper.deleteOne(cart);
         }
     }
 
-    @Transactional
-    public Integer removeCart(String user_id) {
+    public Integer removeCart(Integer user_id) {
         return cartMapper.delete(user_id);
     }
 

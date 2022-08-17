@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PaymentMapper {
 
-    Integer insert(Payment payment);
+    Integer save(Payment payment);
     Payment findById(Integer ord_id);
     Integer update(Payment payment);
     Integer delete(@Param("user_id") Integer user_id, @Param("ord_id") Integer ord_id);

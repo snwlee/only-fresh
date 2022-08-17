@@ -7,9 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +22,10 @@ public class CartMapperTest {
     @Transactional
     public void 유저장바구니추가() {
         // given
-        Cart cart = new Cart("1", 1, 20);
+        Cart cart = new Cart(1, 1, 20);
 
         // when
-        cartMapper.insert(cart);
+        cartMapper.save(cart);
 
         // then
         Assert.assertSame(20, cart.getPdt_qty());
@@ -38,8 +35,8 @@ public class CartMapperTest {
     @Transactional
     public void 유저장바구니보기() {
         // given
-        Cart cart = new Cart("1", 1, 20);
-        cartMapper.insert(cart);
+        Cart cart = new Cart(1, 1, 20);
+        cartMapper.save(cart);
 
         // when
         CartProductResponseDto cartProductResponseDto = cartMapper.joinCartProductByCart(cart);
@@ -54,8 +51,8 @@ public class CartMapperTest {
     @Transactional
     public void 유저장바구니수량변경() {
         // given
-        Cart cart = new Cart("1", 1, 20);
-        cartMapper.insert(cart);
+        Cart cart = new Cart(1, 1, 20);
+        cartMapper.save(cart);
         cart.setPdt_qty(20);
 
         // when
@@ -69,13 +66,14 @@ public class CartMapperTest {
     @Transactional
     public void 유저장바구니제거() {
         // given
-        Cart cart = new Cart("1", 1, 20);
+        Cart cart = new Cart(1, 1, 20);
+        Integer insert = cartMapper.save(cart);
 
         // when
         Integer delete = cartMapper.delete(cart.getUser_id());
 
         // then
-        Assert.assertEquals(1, (int) delete);
+        Assert.assertEquals(insert, delete);
     }
 
     @Test
@@ -83,14 +81,14 @@ public class CartMapperTest {
     public void 쿠키장바구니추가() {
         // given
         Cart cart = new Cart();
-        cart.setUser_id("26B400AC025815AACDDAAD8444BDA2F6");
+        cart.setUser_id(123452);
         cart.setPdt_id(1);
         cart.setPdt_qty(20);
 
         // when
-        cartMapper.insert(cart);
+        cartMapper.save(cart);
 
         // then
-        Assert.assertSame("26B400AC025815AACDDAAD8444BDA2F6", cart.getUser_id());
+        Assert.assertTrue(123452 == cart.getUser_id());
     }
 }

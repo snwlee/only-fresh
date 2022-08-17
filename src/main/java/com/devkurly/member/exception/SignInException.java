@@ -1,13 +1,13 @@
-package com.devkurly.cart.exception;
+package com.devkurly.member.exception;
 
 import com.devkurly.global.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class EmptyCartException extends RuntimeException{
+public class SignInException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public EmptyCartException(String message, ErrorCode errorCode) {
+    public SignInException(String message, ErrorCode errorCode) {
         super(errorCode.getMessage() + message);
         this.errorCode = errorCode;
     }

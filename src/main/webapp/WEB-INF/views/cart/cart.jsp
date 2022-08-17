@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>장바구니</title>
+    <title>DevKurly :: 장바구니</title>
     <style>
         .btn {
             cursor: pointer;
