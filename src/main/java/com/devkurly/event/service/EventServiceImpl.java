@@ -113,6 +113,8 @@ public class EventServiceImpl implements EventService {
     //    D
     @Override
     public int removeAll() throws Exception {
+        // cascading delete 가 제대로 되는 지에 대한 검사가 필요하다.
+        // event_id 가 1 인 이벤트를 지우면, coupon 테이블에 event_id 가 1 인 얘는 없을 것이다.
         return eventDao.deleteAll();
     }
 
