@@ -54,7 +54,7 @@
 	</div>
 <%--이벤트--%>
 	<div class="content_box">
-		<a class="btn" href="/event/test">이벤트 CRUD 페이지</a>
+		<a class="btn" href="/event/admin">이벤트 CRUD 페이지</a>
 	</div>
 <%--게시판--%>
 	<div class="content_box">

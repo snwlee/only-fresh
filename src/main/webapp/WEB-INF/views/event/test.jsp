@@ -54,7 +54,7 @@
             <p>설명 :<input class="create_input" name="des"></p>
             <p>사진(설명x) :<input class="create_input" name="photo"></p>
             <p>사진 대체 설명<input class="create_input" name="photo_alt"></p>
-            <p>제조업체<input class="create_input" name="mft"></p>
+            <p>카테고리코드<input class="create_input" name="cat_cd"></p>
             <p>결제방식<input class="create_input" name="setl_methd_cd"></p>
             <p>시작일<input class="create_input" name="stpt_dd"></p>
             <p>종료일<input class="create_input" name="expi_dd"></p>
@@ -73,7 +73,7 @@
                 <p>설명 :<input class="update_input" name="des"></p>
                 <p>사진(설명x) :<input class="update_input" name="photo"></p>
                 <p>사진 대체 설명<input class="update_input" name="photo_alt"></p>
-                <p>제조업체<input class="update_input" name="mft"></p>
+                <p>카테고리코드<input class="update_input" name="cat_cd"></p>
                 <p>결제방식<input class="update_input" name="setl_methd_cd"></p>
                 <p>시작일<input class="update_input" name="stpt_dd"></p>
                 <p>종료일<input class="update_input" name="expi_dd"></p>
@@ -196,7 +196,7 @@
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 success: function () {
-                    alert("success");
+                    alert("success");CART_TB
                     bringEventOptions();
                 },
                 error: function () {

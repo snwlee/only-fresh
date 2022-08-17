@@ -35,16 +35,13 @@
     <!--U-->
     <update id="update" parameterType="EventDto">
         update EVENT_TB
-        set nm             = #{nm},
-            des            = #{des},
-            photo          = #{photo},
-            photo_alt      = #{photo_alt},
-            cat_cd            = #{cat_cd},
-            setl_methd_cd  = #{setl_methd_cd},
-            stpt_dd        = #{stpt_dd},
-            expi_dd        = #{expi_dd},
-            early_end_stus = #{early_end_stus},
-            ds_rate        = #{ds_rate}
+        set nm                  = #{nm},
+            ds_max_posbl_amt    = #{ds_max_posbl_amt},
+            use_cnd             = #{use_cnd},
+            lmtt_cnd            = #{lmtt_cnd},
+            func                = #{fucn},
+            rate                = #{rate},
+            expi_dd             = #{expi_dd}
         where event_id = #{event_id}
     </update>
 

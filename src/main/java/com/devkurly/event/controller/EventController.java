@@ -26,6 +26,7 @@ public class EventController {
         return "event/test";
     }
 
+
     //    C
     @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody EventDto eventDto) {
@@ -40,7 +41,7 @@ public class EventController {
         } catch (Exception e) {
             e.printStackTrace();
             // 1. httpstatus 종류 나눠야 함
-            if(e.getMessage().contains("invalid field"))
+            if (e.getMessage().contains("invalid field"))
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

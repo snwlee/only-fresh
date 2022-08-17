@@ -14,6 +14,7 @@
                 <typeAlias alias="Payment" type="com.devkurly.payment.domain.Payment"/>
                 <typeAlias alias="ProductDetail" type="com.devkurly.productDetail.domain.ProductDetailDto" />
                 <typeAlias alias="Product" type="com.devkurly.product.domain.ProductDto"/>
+                <typeAlias alias="CouponDto" type="com.devkurly.coupon.domain.CouponDto"/>
                 <typeAlias alias="UserDto" type="com.devkurly.admin.UserDto"/>
                 <typeAlias alias="Member" type="com.devkurly.member.domain.Member"/>
 <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
