@@ -10,32 +10,20 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 public class CommentController {
     private final BoardService boardService;
 
     public CommentController(BoardService boardService) {
         this.boardService = boardService;
     }
-    @GetMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<CommentDto> getComment(@PathVariable Integer bbs_id) {
-        try {
 
-            CommentDto commentDto = boardService.readAnswer(bbs_id);
-            return new ResponseEntity<>(commentDto, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<CommentDto>(HttpStatus.BAD_REQUEST);
-        }
-    }
     @PostMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, CommentDto commentDto, HttpSession session) {
+    public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, @RequestBody CommentDto commentDto, HttpSession session) {
 //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
         Integer user_id = 1;
-        String gd_cd = "2";
         commentDto.setUser_id(user_id);
-        commentDto.setGd_cd(gd_cd);
         commentDto.setBbs_id(bbs_id);
         try {
             boardService.writeAnswer(commentDto);
@@ -51,7 +39,6 @@ public class CommentController {
         //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
         String gd_cd = "2";
-        commentDto.setGd_cd(gd_cd);
         try {
             boardService.modifyAnswer(commentDto);
             return new ResponseEntity<>("MOD_OK", HttpStatus.OK);

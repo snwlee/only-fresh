@@ -19,6 +19,7 @@ public interface BoardDao {
 
     List<BoardDto> selectReviewPage(Map map) throws Exception;
     List<BoardDto> selectReviewPageLike(Map map) throws Exception;
+    List<BoardDto> selectInqPage(Map map) throws Exception;
 
     List<BoardDto> selectAll() throws Exception;
 

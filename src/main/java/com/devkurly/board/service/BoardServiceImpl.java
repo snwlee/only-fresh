@@ -21,15 +21,13 @@ public class BoardServiceImpl implements BoardService {
         this.boardDao = boardDao;
         this.productDao = productDao;
     }
-
-    private String isValidPdt(Integer value)throws Exception{
+    @Override
+    public String isValidPdt(Integer value)throws Exception{
         List<ProductDto> list = productDao.selectProductId();
-        Integer[] pdt_id_arr = new Integer[list.size()];
         for (int i = 0; i < list.size(); i++) {
             Integer Pdt_id = list.get(i).getPdt_id();
             if(value==Pdt_id)
                 return "PDT_OK";
-            pdt_id_arr[i] = Pdt_id;
         }
         return "PDT_ERR";
     }
@@ -41,6 +39,10 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDto> selectReviewPageLike(Map map) throws Exception {
         return boardDao.selectReviewPageLike(map);
+    }
+    @Override
+    public List<BoardDto> selectInqPage(Map map) throws Exception {
+        return boardDao.selectInqPage(map);
     }
 
     @Override

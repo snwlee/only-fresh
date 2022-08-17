@@ -1,6 +1,7 @@
 package com.devkurly.board.dao;
 
 import com.devkurly.board.domain.BoardDto;
+import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.service.BoardService;
 import com.devkurly.product.dao.ProductDao;
 import com.devkurly.product.domain.ProductDto;
@@ -110,22 +111,19 @@ public class BoardDaoImplTest {
 //        boardDao.delete();
 
     }
-
+    @Transactional
     @Test
     public void selectCn() throws Exception {
         Map map = new HashMap();
-        map.put("pdt_id", 1);
+        Integer pdt_id = rand(1, 30);
         map.put("bbs_clsf_cd", "1");
         map.put("offset", 0);
         map.put("pageSize", 10);
+        map.put("pdt_id", pdt_id);
 
-        Integer bbs_id = boardDao.selectReviewPage(map).get(0).getBbs_id();
-        System.out.println("bbs_id = " + bbs_id);
-        BoardDto boardDto = boardDao.selectCn(bbs_id);
-        String bbs_cn = boardDto.getBbs_cn();
-        System.out.println("bbs_cn = " + bbs_cn);
+        boardService.isValidPdt(pdt_id);
+
     }
-
 
     @Test
     public void count() throws Exception{
@@ -147,6 +145,8 @@ public class BoardDaoImplTest {
         map.put("offset", (page - 1) * pageSize);
         map.put("pageSize", pageSize);
         map.put("pdt_id", pdt_id);
+
+
         List list = boardDao.selectReviewPage(map);
         System.out.println("list = " + list);
 
@@ -156,7 +156,9 @@ public class BoardDaoImplTest {
 
 
     @Test
-    public void select() {
+    public void select() throws Exception{
+         CommentDto commentDto= boardDao.selectAnswer(3682);
+        System.out.println("commentDto = " + commentDto);
     }
 
     @Test
