@@ -11,7 +11,7 @@ public class EventDto {
     private String des;
     private String photo;
     private String photo_alt;
-    private String mft;
+    private Integer cat_cd;
     private String setl_methd_cd;
     private Date stpt_dd;
     private Date expi_dd;
@@ -22,12 +22,12 @@ public class EventDto {
     }
 
     // event_id 를 AUTO INCREMENT 로 적용되게
-    public EventDto(String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
+    public EventDto(String nm, String des, String photo, String photo_alt, Integer cat_cd, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
         this.nm = nm;
         this.des = des;
         this.photo = photo;
         this.photo_alt = photo_alt;
-        this.mft = mft;
+        this.cat_cd = cat_cd;
         this.setl_methd_cd = setl_methd_cd;
         this.stpt_dd = dateFormatter(stpt_dd);
         this.expi_dd = dateFormatter(expi_dd);
@@ -36,13 +36,13 @@ public class EventDto {
     }
 
     // event_id 를 직접 지정해서 집어넣기
-    public EventDto(Integer event_id, String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
+    public EventDto(Integer event_id, String nm, String des, String photo, String photo_alt, Integer cat_cd, String setl_methd_cd, String stpt_dd, String expi_dd, Integer early_end_stus, Integer ds_rate) throws Exception {
         this.event_id = event_id;
         this.nm = nm;
         this.des = des;
         this.photo = photo;
         this.photo_alt = photo_alt;
-        this.mft = mft;
+        this.cat_cd = cat_cd;
         this.setl_methd_cd = setl_methd_cd;
         this.stpt_dd = dateFormatter(stpt_dd);
         this.expi_dd = dateFormatter(expi_dd);
@@ -50,13 +50,13 @@ public class EventDto {
         this.ds_rate = ds_rate;
     }
 
-    public EventDto(Integer event_id, String nm, String des, String photo, String photo_alt, String mft, String setl_methd_cd, Date stpt_dd, Date expi_dd, Integer early_end_stus, Integer ds_rate) {
+    public EventDto(Integer event_id, String nm, String des, String photo, String photo_alt, Integer cat_cd, String setl_methd_cd, Date stpt_dd, Date expi_dd, Integer early_end_stus, Integer ds_rate) {
         this.event_id = event_id;
         this.nm = nm;
         this.des = des;
         this.photo = photo;
         this.photo_alt = photo_alt;
-        this.mft = mft;
+        this.cat_cd = cat_cd;
         this.setl_methd_cd = setl_methd_cd;
         this.stpt_dd = stpt_dd;
         this.expi_dd = expi_dd;
@@ -94,12 +94,12 @@ public class EventDto {
         this.des = des;
     }
 
-    public String getMft() {
-        return mft;
+    public Integer getCat_cd() {
+        return cat_cd;
     }
 
-    public void setMft(String mft) {
-        this.mft = mft;
+    public void setCat_cd(Integer cat_cd) {
+        this.cat_cd = cat_cd;
     }
 
     public String getSetl_methd_cd() {
@@ -195,7 +195,7 @@ public class EventDto {
                 ", des='" + des + '\'' +
                 ", photo='" + photo + '\'' +
                 ", photo_alt='" + photo_alt + '\'' +
-                ", mft='" + mft + '\'' +
+                ", cat_cd='" + cat_cd + '\'' +
                 ", setl_methd_cd='" + setl_methd_cd + '\'' +
                 ", stpt_dd=" + stpt_dd +
                 ", expi_dd=" + expi_dd +

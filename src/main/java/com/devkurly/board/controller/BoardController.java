@@ -15,8 +15,11 @@ import java.util.Map;
 
 @Controller
 public class BoardController {
-    @Autowired
-    BoardService boardService;
+    private final BoardService boardService;
+
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping("/boardlist")
     public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
@@ -60,18 +63,18 @@ public class BoardController {
 
     @PostMapping("/board")
     @ResponseBody
-    public ResponseEntity<String> write(Integer pdt_id, String bbs_clsf_cd, @RequestBody BoardDto boardDto, HttpSession session) {
+    public ResponseEntity<String> write(Integer pdt_id, String bbs_clsf_cd, boolean is_secret, @RequestBody BoardDto boardDto, HttpSession session) {
 //        int user_id = (int) session.getAttribute("user_id");
         boardDto.setUser_id(1); //임시 하드코딩
         boardDto.setPdt_id(pdt_id);
         boardDto.setBbs_clsf_cd(bbs_clsf_cd);
         boardDto.setUser_nm("youngjun"); //임시 하드코딩
+        boardDto.setIs_secret(is_secret);
+        if(is_secret==true)
+            boardDto.setBbs_title("비밀글 입니다."); //board_answer.jsp에서 회색&링크없애기
 
         try {
-            int rowCnt = boardService.write(boardDto);
-            if (rowCnt != 1)
-                throw new Exception("write error");
-
+            boardService.write(boardDto);
             return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,15 +120,19 @@ public class BoardController {
     }
 
     @GetMapping("/board/{bbs_id}")
-    public ResponseEntity<BoardDto> read(@PathVariable Integer bbs_id) {
+    public ResponseEntity<BoardDto> read(@PathVariable Integer bbs_id, String gd_cd, boolean is_secret) {
         try {
+            if(is_secret==true){
+                if(!gd_cd.equals("2"))
+                    throw new Exception("잘못된 요청입니다.");
+                BoardDto boardDto = boardService.readCn(bbs_id);
+                return new ResponseEntity<BoardDto>(boardDto, HttpStatus.OK);
+            }
             BoardDto boardDto = boardService.readCn(bbs_id);
             return new ResponseEntity<BoardDto>(boardDto, HttpStatus.OK);
-
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<BoardDto>(HttpStatus.BAD_REQUEST);
-
         }
     }
 

@@ -1,6 +1,7 @@
 package com.devkurly.board.service;
 
 import com.devkurly.board.dao.BoardDao;
+import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.domain.BoardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,11 @@ import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-    @Autowired
-    BoardDao boardDao;
+    private final BoardDao boardDao;
+
+    public BoardServiceImpl(BoardDao boardDao) {
+        this.boardDao = boardDao;
+    }
 
     @Override
     public List<BoardDto> selectReviewPage(Map map) throws Exception {
@@ -28,6 +32,10 @@ public class BoardServiceImpl implements BoardService {
     public int remove(Integer bbs_id, Integer pdt_id, Integer user_id) throws Exception {
         return boardDao.delete(bbs_id, pdt_id, user_id);
     }
+    @Override
+    public int deleteAll()throws Exception {
+        return boardDao.deleteAll();
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -39,22 +47,24 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(BoardDto boardDto) throws Exception {
-        //1. 먼저 BOARD_TB를 채운다.
         boardDao.insert(boardDto);
-        //2. selectReviewPage를 한다.
         List<BoardDto> list = boardDao.selectAll();
-        //3. 첫번째 글의 bbs_id를 수집한다.
         Integer bbs_id = list.get(0).getBbs_id();
-        //4. bbs_id를 boardDto에 추가한다.
         boardDto.setBbs_id(bbs_id);
-        //5. REVIEW_BOARD_TB를 채운다.
-        boardDao.insertReview(bbs_id);
-        //5. BOARD_CONTENT_TB를 채운다.
+        if(boardDto.getBbs_clsf_cd().equals("2")) {
+            boardDao.insertInq(bbs_id, boardDto.getUser_id());
+            //비밀글 작성을 눌렀으면
+            if(boardDto.isIs_secret()==true)
+                boardDao.isSecretStatus(bbs_id);
+            return boardDao.insertCn(boardDto);
+        }
+        boardDao.insertReview(bbs_id, boardDto.getUser_id());
         return boardDao.insertCn(boardDto);
     }
 
     @Override
     public BoardDto readCn(Integer bbs_id) throws Exception {
+
         return boardDao.selectCn(bbs_id);
     }
 
@@ -73,6 +83,7 @@ public class BoardServiceImpl implements BoardService {
     public int userLikeNo(BoardDto boardDto) throws Exception {
         return boardDao.userLikeNo(boardDto);
     }
+    @Override
     @Transactional
     public int reviewLike(BoardDto boardDto) throws Exception {
         Map map = new HashMap<>();
@@ -85,5 +96,23 @@ public class BoardServiceImpl implements BoardService {
             boardDao.userLikeNo(boardDto);
             return boardDao.increaseLike(boardDto.getBbs_id());
         }
+    }
+    @Transactional
+    @Override
+    public int writeAnswer(CommentDto commentDto)throws Exception {
+        boardDao.isRepliedStatus(commentDto.getBbs_id());
+        return boardDao.insertAnswer(commentDto);
+    }
+    @Override
+    public int modifyAnswer(CommentDto commentDto)throws Exception {
+        return boardDao.updateAnswer(commentDto);
+    }
+    @Override
+    public int deleteAnswer(Integer bbs_id, String gd_cd) throws Exception {
+        return boardDao.deleteAnswer(bbs_id, gd_cd);
+    }
+    @Override
+    public CommentDto readAnswer(Integer bbs_id)throws Exception {
+        return boardDao.selectAnswer(bbs_id);
     }
 }
