@@ -5,6 +5,7 @@
 <configuration>
         <typeAliases>
                 <typeAlias alias="BoardDto" type="com.devkurly.board.domain.BoardDto"/>
+                <typeAlias alias="CommentDto" type="com.devkurly.board.domain.CommentDto"/>
                 <typeAlias alias="EventDto" type="com.devkurly.event.domain.EventDto" />
                 <typeAlias alias="EventIdDto" type="com.devkurly.event.domain.EventIdDto" />
                 <typeAlias alias="Cart" type="com.devkurly.cart.domain.Cart"/>
