@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devkurly.mapper.CartMapper">
-    <insert id="insert" parameterType="Cart">
+    <insert id="save" parameterType="Cart">
         insert into CART_TB(user_id, pdt_id, pdt_qty)
         values (#{user_id}, #{pdt_id}, #{pdt_qty});
     </insert>
@@ -14,7 +14,7 @@
         where user_id = #{user_id}
         and pdt_id = #{pdt_id};
     </select>
-    <select id="findAllByUserId" parameterType="String" resultType="Cart">
+    <select id="findAllByUserId" parameterType="int" resultType="Cart">
         select user_id, pdt_id, pdt_qty
         from CART_TB
         where user_id = #{user_id};
@@ -24,7 +24,7 @@
         from PRODUCT_TB
         where pdt_id = #{pdt_id};
     </select>
-    <select id="joinCartProductByUserId" parameterType="String" resultType="com.devkurly.cart.dto.CartProductResponseDto">
+    <select id="joinCartProductByUserId" parameterType="int" resultType="com.devkurly.cart.dto.CartProductResponseDto">
         select user_id, CT.pdt_id, pdt_qty, sel_price, title, stock
         from CART_TB CT
         join PRODUCT_TB PT
@@ -47,7 +47,7 @@
         where user_id = #{user_id}
           and pdt_id = #{pdt_id};
     </update>
-    <delete id="delete" parameterType="String">
+    <delete id="delete" parameterType="int">
         delete
         from CART_TB
         where user_id = #{user_id};

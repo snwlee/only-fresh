@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EventDao {
 //    C
-    int insert(EventDto eventDto) throws Exception;
+    int create(EventDto eventDto) throws Exception;
 
 //    R
     int count() throws Exception;

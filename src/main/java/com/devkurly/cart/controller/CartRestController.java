@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -21,12 +23,14 @@ public class CartRestController {
     private final CartService cartService;
 
     @GetMapping("/rest/view")
-    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue("JSESSIONID") String sessionId, HttpSession session) {
+    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue(value="tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
         List<CartProductResponseDto> cartList;
-        if (Optional.ofNullable(session.getAttribute("user_id")).isPresent()) {
-            cartList = cartService.viewCartProduct(session.getAttribute("user_id").toString());
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        if (Optional.ofNullable(user_id).isPresent()) {
+            cartList = cartService.viewCartProduct(user_id);
         } else {
-            cartList = cartService.viewCartProduct(sessionId);
+            cartList = cartService.viewCartProduct(cartService.getCookieId(tempCart, response));
+            System.out.println("rest");
         }
         return new ResponseEntity<>(cartList, HttpStatus.OK);
     }

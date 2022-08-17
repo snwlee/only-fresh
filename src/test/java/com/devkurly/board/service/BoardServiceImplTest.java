@@ -15,6 +15,7 @@ public class BoardServiceImplTest {
 BoardService boardService;
     @Test
     public void write() throws Exception{
+        boardService.deleteAll();
         BoardDto boardDto = new BoardDto();
         boardDto.setUser_id(1);
         boardDto.setPdt_id(1);
@@ -26,6 +27,8 @@ BoardService boardService;
             boardDto.setBbs_cn(String.valueOf(i));
             boardService.write(boardDto);
         }
+        assertTrue(boardService.getCount("1",1)==200);
+
 
 
     }

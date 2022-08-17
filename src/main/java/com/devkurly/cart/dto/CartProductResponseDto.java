@@ -4,10 +4,13 @@ import com.devkurly.cart.domain.Cart;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @NoArgsConstructor
 public class CartProductResponseDto {
-    private String user_id;
+    private Integer user_id;
     private Integer pdt_id;
     private Integer pdt_qty;
     private Integer price;
