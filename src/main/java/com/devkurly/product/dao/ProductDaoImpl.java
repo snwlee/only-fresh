@@ -88,6 +88,10 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductDto> ProductListDESC(Map map) {
         return session.selectList(namespace + "ProductListDESC", map);
     }
+    @Override
+    public List<ProductDto> selectProductId() throws Exception{
+        return session.selectList(namespace + "selectProductId");
+    }
 }
 
 

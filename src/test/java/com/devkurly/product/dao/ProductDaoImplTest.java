@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class ProductDaoImplTest {
     @Autowired
     ProductDao  productDao;
-    
+
     @Test
     public void select() throws Exception{
         assertTrue(productDao != null);
@@ -27,13 +27,11 @@ public class ProductDaoImplTest {
         assertTrue(productDto.getPdt_id().equals(1));
     }
 
-
-
 //    @Test
 //    public void insertTestData() throws Exception {
 //        productDao.deleteAll();
 //        for(int i = 1; i <= 200; i++) {
 //            ProductDto productDto = new ProductDto(1,"ab",1,"hi",2000,1,"gg","gf","true",true,1,);
 //            productDao.insert(productDto);
-        }
+}
 

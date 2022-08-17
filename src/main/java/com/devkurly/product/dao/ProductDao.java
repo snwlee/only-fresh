@@ -43,4 +43,6 @@ public interface ProductDao {
 
 
     List<ProductDto> ProductListDESC(Map map);
+
+    List<ProductDto> selectProductId() throws Exception;
 }

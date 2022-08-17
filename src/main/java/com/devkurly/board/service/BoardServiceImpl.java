@@ -3,7 +3,8 @@ package com.devkurly.board.service;
 import com.devkurly.board.dao.BoardDao;
 import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.domain.BoardDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.devkurly.product.dao.ProductDao;
+import com.devkurly.product.domain.ProductDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +14,24 @@ import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-    private final BoardDao boardDao;
+    private BoardDao boardDao;
+    private ProductDao productDao;
 
-    public BoardServiceImpl(BoardDao boardDao) {
+    public BoardServiceImpl(BoardDao boardDao, ProductDao productDao) {
         this.boardDao = boardDao;
+        this.productDao = productDao;
+    }
+
+    private String isValidPdt(Integer value)throws Exception{
+        List<ProductDto> list = productDao.selectProductId();
+        Integer[] pdt_id_arr = new Integer[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            Integer Pdt_id = list.get(i).getPdt_id();
+            if(value==Pdt_id)
+                return "PDT_OK";
+            pdt_id_arr[i] = Pdt_id;
+        }
+        return "PDT_ERR";
     }
 
     @Override
@@ -47,6 +62,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(BoardDto boardDto) throws Exception {
+        if(!boardDto.getBbs_clsf_cd().equals("1")&!boardDto.getBbs_clsf_cd().equals("2"))
+            throw new Exception("잘못된 게시판 접근입니다.");
+
+        if(isValidPdt(boardDto.getPdt_id()).equals("PDT_ERR"))
+            throw new Exception("없는 상품 ID입니다.");
+
         boardDao.insert(boardDto);
         List<BoardDto> list = boardDao.selectAll();
         Integer bbs_id = list.get(0).getBbs_id();

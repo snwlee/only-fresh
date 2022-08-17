@@ -52,13 +52,13 @@
 
     <select id="selectReviewPage" parameterType="map" resultType="BoardDto">
         <include refid="selectReview"/>
-        order by bbs_id desc, wrt_dt desc
+        order by notice desc, bbs_id desc, wrt_dt desc
         limit #{offset}, #{pageSize}
     </select>
 
     <select id="selectReviewPageLike" parameterType="map" resultType="BoardDto">
         <include refid="selectReview"/>
-        order by revw_like desc, bbs_id desc
+        order by notice desc, revw_like desc, bbs_id desc
             limit #{offset}, #{pageSize}
     </select>
 

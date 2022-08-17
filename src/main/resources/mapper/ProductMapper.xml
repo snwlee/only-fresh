@@ -156,6 +156,11 @@
             FROM PRODUCT_TB
     </sql>
 
+    <select id="selectProductId" resultType="Product">
+        select pdt_id
+        from PRODUCT_TB
+    </select>
+
     <update id="update" parameterType="Product">
         UPDATE PRODUCT_TB
         SET   price = #{price},
