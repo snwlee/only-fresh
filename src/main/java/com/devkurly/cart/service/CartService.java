@@ -5,8 +5,8 @@ import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.exception.DuplicateCartException;
 import com.devkurly.cart.exception.EmptyCartException;
-import com.devkurly.cart.exception.ErrorCode;
 import com.devkurly.cart.exception.OutOfStockException;
+import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.CartMapper;
 import com.devkurly.product.domain.ProductDto;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
@@ -63,7 +62,7 @@ public class CartService {
                     .ifPresent((cart -> {
                         throw new DuplicateCartException("이미 장바구니에 제품이 있습니다.", ErrorCode.DUPLICATE_CART_PRODUCT);
                     }));
-            return cartMapper.insert(requestDto.toEntity());
+            return cartMapper.save(requestDto.toEntity());
         } catch (DuplicateCartException e) {
             requestDto.setPdt_qty(cartMapper.findByCart(requestDto.toEntity()).getPdt_qty() + 1);
         } catch (Exception e) {
@@ -76,7 +75,6 @@ public class CartService {
         int id;
         if (Optional.ofNullable(tempCart).isPresent()) {
             id = Integer.parseInt(tempCart.getValue());
-            System.out.println("oldCookie " + id);
         } else {
             Random random = new Random();
             int randomNumber = random.nextInt(100000);
@@ -85,7 +83,6 @@ public class CartService {
             newTempCart.setPath("/");
             response.addCookie(newTempCart);
             id = Integer.parseInt(newTempCart.getValue());
-            System.out.println("newCookie " + id);
         }
         return id;
     }

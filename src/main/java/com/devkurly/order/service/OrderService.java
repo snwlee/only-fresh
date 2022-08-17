@@ -25,7 +25,7 @@ public class OrderService {
         return orderMapper.joinOrderProduct(order_id);
     }
     public Integer addOrder(Integer user_id) {
-        return orderMapper.insert(user_id);
+        return orderMapper.save(user_id);
     }
 
     public Integer modifyOrder(Order order) {

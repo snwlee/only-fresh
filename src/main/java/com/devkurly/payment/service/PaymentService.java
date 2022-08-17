@@ -18,7 +18,7 @@ public class PaymentService {
     }
 
     public Integer addPayment(PaymentSaveRequestDto requestDto) {
-        return paymentMapper.insert(requestDto.toEntity());
+        return paymentMapper.save(requestDto.toEntity());
     }
 
     public Integer modifyPayment(PaymentUpdateRequestDto requestDto) {
