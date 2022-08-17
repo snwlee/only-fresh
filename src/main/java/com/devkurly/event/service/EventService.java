@@ -6,7 +6,7 @@ import com.devkurly.event.domain.EventIdDto;
 import java.util.List;
 
 public interface EventService {
-    String isValid(EventDto dto);
+    void isValid(EventDto dto) throws Exception;
 //    C
     int insert(EventDto dto) throws Exception;
 

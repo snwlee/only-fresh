@@ -4,7 +4,20 @@
 
 <mapper namespace="com.devkurly.event.dao.EventMapper">
     <!--C-->
+    <insert id="create" parameterType="couponDto">
+        insert into COUPON_TB
+        values (#{event_id}, #{nm}, #{ds_max_posbl_amt}, #{use_cnd}, #{lmtt_cnd}, #{func}, ${rate}, ${expi_dd})
+    </insert>
     <!--R-->
+    <select id="read" parameterType="int">
+        select *
+        from COUPON_TB
+        where event_id = #{event_id}
+    </select>
+    <select id="readAll">
+        select *
+        from COUPON_TB
+    </select>
     <!--U-->
     <!--D-->
 </mapper>
