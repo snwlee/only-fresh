@@ -25,8 +25,8 @@ public class ProductDaoImpl implements ProductDao {
 
     // R
     @Override
-    public List<ProductDto> ProductBestlist(Map map) throws Exception {
-        return session.selectList(namespace + "ProductBestlist", map);
+    public List<ProductDto> ProductBestList(Map map) throws Exception {
+        return session.selectList(namespace + "ProductBestList", map);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class ProductDaoImpl implements ProductDao {
 
 
     @Override
-    public List<ProductDto> ProductThriftylist(Map map) throws Exception {
-        return session.selectList(namespace + "ProductThriftylist", map);
+    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
+        return session.selectList(namespace + "ProductThriftyList", map);
     }
 
 
@@ -88,6 +88,11 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductDto> ProductListDESC(Map map) {
         return session.selectList(namespace + "ProductListDESC", map);
     }
+
+
+
+
+
 }
 
 

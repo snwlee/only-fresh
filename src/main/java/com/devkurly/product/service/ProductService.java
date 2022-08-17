@@ -1,5 +1,6 @@
 package com.devkurly.product.service;
 
+import com.devkurly.board.domain.BoardDto;
 import com.devkurly.product.domain.ProductDto;
 
 import java.util.List;
@@ -15,16 +16,17 @@ public interface ProductService {
     // R
     int getCount() throws Exception;
 
+
+
     ProductDto read(Integer pdt_id) throws Exception;
 
     List<ProductDto> ProductList(Map map) throws Exception;
 
-    List<ProductDto> ProductThriftylist(Map map) throws Exception;
+    List<ProductDto> ProductThriftyList(Map map) throws Exception;
 
-    List<ProductDto> ProductBestlist(Map map) throws Exception;
+    List<ProductDto> ProductBestList(Map map) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
-
 
 
     // U
