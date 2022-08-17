@@ -12,5 +12,6 @@
                 <typeAlias alias="OrderProduct" type="com.devkurly.order.domain.OrderProduct"/>
                 <typeAlias alias="Payment" type="com.devkurly.payment.domain.Payment"/>
                 <typeAlias alias="Product" type="com.devkurly.product.domain.ProductDto"/>
+                <typeAlias alias="UserDto" type="com.devkurly.admin.UserDto"/>
        </typeAliases>
 </configuration>
