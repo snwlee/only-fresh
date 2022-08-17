@@ -15,24 +15,36 @@ import java.util.List;
 @Controller
 @RequestMapping("/event")
 public class EventController {
-    @Autowired
     EventService service;
 
-    @RequestMapping("/test")
+    public EventController(EventService service) {
+        this.service = service;
+    }
+
+    @RequestMapping("/admin")
     public String test() {
         return "event/test";
     }
 
+
     //    C
-    @PostMapping(value = "/add", consumes = "application/json")
+    @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody EventDto eventDto) {
         try {
-            if (service.insert(eventDto) != 1) throw new Exception("Write failed");
+//            1. service 에서 이렇게 에러 핸들링 하는 거다. 이게 service 의 방식
+//            if (service.insert(eventDto) != 1) throw new Exception("Write failed");
+
+//            2. 예외 되던지기로, 알아서 catch block 으로 가게 된다. 이게 더 나은 코드이다. 이게 Controller 의 방식
+            service.insert(eventDto);
 
             return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            // 1. httpstatus 종류 나눠야 함
+            if (e.getMessage().contains("invalid field"))
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -79,7 +91,7 @@ public class EventController {
     @GetMapping("/{event_id}")
     public ResponseEntity<EventDto> getEvent(@PathVariable Integer event_id) {
         EventDto res = null;
-        
+
         try {
             res = service.getEvent(event_id);
             return new ResponseEntity<>(res, HttpStatus.OK);

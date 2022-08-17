@@ -25,7 +25,7 @@ public class CartMapperTest {
         Cart cart = new Cart(1, 1, 20);
 
         // when
-        cartMapper.insert(cart);
+        cartMapper.save(cart);
 
         // then
         Assert.assertSame(20, cart.getPdt_qty());
@@ -36,7 +36,7 @@ public class CartMapperTest {
     public void 유저장바구니보기() {
         // given
         Cart cart = new Cart(1, 1, 20);
-        cartMapper.insert(cart);
+        cartMapper.save(cart);
 
         // when
         CartProductResponseDto cartProductResponseDto = cartMapper.joinCartProductByCart(cart);
@@ -52,7 +52,7 @@ public class CartMapperTest {
     public void 유저장바구니수량변경() {
         // given
         Cart cart = new Cart(1, 1, 20);
-        cartMapper.insert(cart);
+        cartMapper.save(cart);
         cart.setPdt_qty(20);
 
         // when
@@ -67,7 +67,7 @@ public class CartMapperTest {
     public void 유저장바구니제거() {
         // given
         Cart cart = new Cart(1, 1, 20);
-        Integer insert = cartMapper.insert(cart);
+        Integer insert = cartMapper.save(cart);
 
         // when
         Integer delete = cartMapper.delete(cart.getUser_id());
@@ -86,7 +86,7 @@ public class CartMapperTest {
         cart.setPdt_qty(20);
 
         // when
-        cartMapper.insert(cart);
+        cartMapper.save(cart);
 
         // then
         Assert.assertTrue(123452 == cart.getUser_id());

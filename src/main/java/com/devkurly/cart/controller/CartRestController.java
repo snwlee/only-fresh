@@ -30,6 +30,7 @@ public class CartRestController {
             cartList = cartService.viewCartProduct(user_id);
         } else {
             cartList = cartService.viewCartProduct(cartService.getCookieId(tempCart, response));
+            System.out.println("rest");
         }
         return new ResponseEntity<>(cartList, HttpStatus.OK);
     }

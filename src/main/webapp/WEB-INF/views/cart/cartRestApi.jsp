@@ -83,7 +83,7 @@
                     $('#add-btn-' + index).click(function () {
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1 + 2);
                         let cart = {
-                            user_id: '${id}',
+                            user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };
@@ -111,7 +111,7 @@
                         }
                         $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
                         let cart = {
-                            user_id: '${id}',
+                            user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
                             pdt_qty: $('#cart-qty-' + index).val()
                         };

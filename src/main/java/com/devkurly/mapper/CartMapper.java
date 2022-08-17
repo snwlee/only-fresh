@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface CartMapper {
 
-    Integer insert(Cart cart);
+    Integer save(Cart cart);
     Cart findByCart(Cart cart);
     List<Cart> findAllByUserId(Integer user_id);
     ProductDto findProductByPdtId(Integer pdt_id);

@@ -54,7 +54,7 @@
             <p>설명 :<input class="create_input" name="des"></p>
             <p>사진(설명x) :<input class="create_input" name="photo"></p>
             <p>사진 대체 설명<input class="create_input" name="photo_alt"></p>
-            <p>제조업체<input class="create_input" name="mft"></p>
+            <p>카테고리코드<input class="create_input" name="cat_cd"></p>
             <p>결제방식<input class="create_input" name="setl_methd_cd"></p>
             <p>시작일<input class="create_input" name="stpt_dd"></p>
             <p>종료일<input class="create_input" name="expi_dd"></p>
@@ -73,7 +73,7 @@
                 <p>설명 :<input class="update_input" name="des"></p>
                 <p>사진(설명x) :<input class="update_input" name="photo"></p>
                 <p>사진 대체 설명<input class="update_input" name="photo_alt"></p>
-                <p>제조업체<input class="update_input" name="mft"></p>
+                <p>카테고리코드<input class="update_input" name="cat_cd"></p>
                 <p>결제방식<input class="update_input" name="setl_methd_cd"></p>
                 <p>시작일<input class="update_input" name="stpt_dd"></p>
                 <p>종료일<input class="update_input" name="expi_dd"></p>
@@ -137,7 +137,7 @@
     function bringEventOptions() {
         $.ajax({
             type: 'GET',       // 요청 메서드
-            url: '/dev_kurly/event/id_list',  // 요청 URI
+            url: '/event/id_list',  // 요청 URI
             success: function (result) {
                 $(".events").html(toOptionTags(result));
             },
@@ -155,7 +155,7 @@
             let event_id = $("#events_to_delete option:selected").val();
             $.ajax({
                 type: 'DELETE',       // 요청 메서드
-                url: '/dev_kurly/event/' + event_id,  // 요청 URI
+                url: '/event/' + event_id,  // 요청 URI
                 success: function () {
                     bringEventOptions();
                     alert("delete success");
@@ -169,7 +169,7 @@
         $("#select_button").click(function () {
             $.ajax({
                 type: 'GET',       // 요청 메서드
-                url: '/dev_kurly/event/list',  // 요청 URI
+                url: '/event/list',  // 요청 URI
                 success: function (result) {
                     result.forEach((el) => {
                         $("#select_result").html(toLiTags(result));
@@ -191,15 +191,17 @@
 
             $.ajax({
                 type: 'POST',       // 요청 메서드
-                url: '/dev_kurly/event/add',  // 요청 URI
+                url: '/event/add',  // 요청 URI
                 dataType: 'text',
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 success: function () {
-                    alert("success");
+                    alert("success");CART_TB
                     bringEventOptions();
                 },
                 error: function () {
+                    if(HttpStatus.code == 404)
+                        // alert(this.error.message());
                     alert("error")
                 }, // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
@@ -217,7 +219,7 @@
 
             $.ajax({
                 type: 'PATCH',
-                url: '/dev_kurly/event/' + event_id,
+                url: '/event/' + event_id,
                 dataType: 'text',
                 data: JSON.stringify(obj),
                 contentType: "application/json",
@@ -235,7 +237,7 @@
 
             $.ajax({
                 type: 'GET',       // 요청 메서드
-                url: '/dev_kurly/event/' + this.value,  // 요청 URI
+                url: '/event/' + this.value,  // 요청 URI
                 success: function (result) {
                     modifyValues(result);
                 },
@@ -248,7 +250,7 @@
         // new_to_top button 을 유저가 click 했을 때
         $("#new_to_top").click(function(){
             $.ajax({
-                url: "/dev_kurly/product_list/new"
+                url: "/product_list/new"
             })
         })
 
