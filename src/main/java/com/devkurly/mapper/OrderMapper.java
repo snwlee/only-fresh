@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    Integer insert(Integer user_id);
+    Integer save(Integer user_id);
     Integer findById(Integer user_id);
     Integer insertOrderProduct(OrderProduct orderProduct);
     List<OrderResponseDto> joinOrderProduct(Integer order_id);

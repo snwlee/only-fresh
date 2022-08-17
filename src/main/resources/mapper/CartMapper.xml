@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devkurly.mapper.CartMapper">
-    <insert id="insert" parameterType="Cart">
+    <insert id="save" parameterType="Cart">
         insert into CART_TB(user_id, pdt_id, pdt_qty)
         values (#{user_id}, #{pdt_id}, #{pdt_qty});
     </insert>

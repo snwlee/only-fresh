@@ -6,12 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class CartSaveRequestDto {
+    @NotBlank
     private Integer user_id;
+    @NotBlank
     private Integer pdt_id;
+    @NotBlank
     private Integer pdt_qty;
 
     public void saveCart(Integer user_id, Integer pdt_id, Integer pdt_qty) {
