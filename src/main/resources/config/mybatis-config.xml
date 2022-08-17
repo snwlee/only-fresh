@@ -14,5 +14,6 @@
                 <typeAlias alias="ProductDetail" type="com.devkurly.productDetail.domain.ProductDetailDto" />
 <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
                 <typeAlias alias="Product" type="com.devkurly.product.domain.ProductDto"/>
+                <typeAlias alias="CouponDto" type="com.devkurly.coupon.domain.CouponDto"/>
        </typeAliases>
 </configuration>

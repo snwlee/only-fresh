@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class EventServiceImpl implements EventService {
-    // 생성자 주입으로 바꿔라
     EventDao eventDao;
 
     public EventServiceImpl(EventDao eventDao) {
@@ -19,7 +18,7 @@ public class EventServiceImpl implements EventService {
     }
 
 
-    public void isValid(EventDto dto) throws Exception {
+    public boolean isValid(EventDto dto) throws Exception {
         // FrontEnd 에서 잘못된 값이 넘어오는 경우 -> 400
         // event_id 는 AI 인데 값이 담아서 온 경우
 //        nm 의 값이 50자 이상 들어왔을 때
@@ -31,7 +30,7 @@ public class EventServiceImpl implements EventService {
 //        stpt_dd 가 not null 인데 null 이 넘어오는 경우
 //        expi_dd 가 not null 인데 null 이 넘어오는 경우
         if(dto.getEvent_id() != null || dto.getNm().length() > 50|| dto.getDes().length() > 200 || dto.getPhoto().length()> 1000 || dto.getPhoto_alt().length()>100 || dto.getCat_cd() == null || dto.getStpt_dd() == null || dto.getExpi_dd() == null){
-            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
+            return false;
         }
 
 
@@ -43,13 +42,14 @@ public class EventServiceImpl implements EventService {
 //        expi_dd 가 stpt_dd 보다 과거의 날짜인 경우
 //        expi_dd 의 year, month, day domain 체크
 
+        return true;
     }
 
     //    C
     @Override
     public int insert(EventDto dto) throws Exception {
         // 들어온 값의 유효성 검사
-        isValid(dto);
+        if(!isValid(dto)) throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
 
         try {
             int res = eventDao.create(dto);
