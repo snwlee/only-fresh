@@ -5,12 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class Cart {
+    @NotBlank
     private Integer user_id;
+    @NotBlank
     private Integer pdt_id;
+    @NotBlank
     private Integer pdt_qty;
 
     public void updateCart(Integer user_id, Integer pdt_id) {

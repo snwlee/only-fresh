@@ -16,10 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CartService {
     private final CartMapper cartMapper;
@@ -27,7 +29,7 @@ public class CartService {
     /**
      * temp
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public Cart viewCart(Cart cart) {
         return cartMapper.findByCart(cart);
     }
@@ -35,17 +37,17 @@ public class CartService {
     /**
      * temp
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Cart> viewAllCart(Integer user_id) {
         return cartMapper.findAllByUserId(user_id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
         return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductDto checkProductStock(Cart cart) {
         ProductDto productDto = cartMapper.findProductByPdtId(cart.getPdt_id());
         Integer stock = productDto.getStock();
@@ -55,7 +57,6 @@ public class CartService {
         return productDto;
     }
 
-    @Transactional
     public Integer addCart(CartSaveRequestDto requestDto) {
         try {
             Optional.ofNullable(cartMapper.findByCart(requestDto.toEntity()))
@@ -73,37 +74,36 @@ public class CartService {
 
     public int getCookieId(Cookie tempCart, HttpServletResponse response) {
         int id;
-        if (tempCart == null) {
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            id = Integer.parseInt(tempCart.getValue());
+            System.out.println("oldCookie " + id);
+        } else {
             Random random = new Random();
-            int randomNumber = random.nextInt(10000);
+            int randomNumber = random.nextInt(100000);
             // (예정) 중복 확인 후 재랜덤 결정
             Cookie newTempCart = new Cookie("tempCart", Integer.toString(randomNumber));
+            newTempCart.setPath("/");
             response.addCookie(newTempCart);
             id = Integer.parseInt(newTempCart.getValue());
-        } else {
-            id = Integer.parseInt(tempCart.getValue());
+            System.out.println("newCookie " + id);
         }
         return id;
     }
 
-    @Transactional
     public Integer modifyCart(Cart cart) {
         return cartMapper.update(cart);
     }
 
-    @Transactional
     public Integer removeOneCart(Cart cart) {
         return cartMapper.deleteOne(cart);
     }
 
-    @Transactional
     public void removeCheckedCart(List<Cart> cartList) {
         for (Cart cart : cartList) {
             cartMapper.deleteOne(cart);
         }
     }
 
-    @Transactional
     public Integer removeCart(Integer user_id) {
         return cartMapper.delete(user_id);
     }

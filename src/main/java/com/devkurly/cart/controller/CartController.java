@@ -26,6 +26,11 @@ public class CartController {
      */
     @GetMapping("login")
     public String start(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            tempCart.setPath("/");
+            tempCart.setMaxAge(0);
+            response.addCookie(tempCart);
+        }
         session.setAttribute("user_id", 1);
         List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
         for (Cart cart : carts) {
@@ -56,7 +61,9 @@ public class CartController {
         if (Optional.ofNullable(user_id).isPresent()) {
             requestDto.saveCart(user_id, pdt_id, 1);
         } else {
-            requestDto.saveCart(cartService.getCookieId(tempCart, response), pdt_id, 1);
+            int cookieId = cartService.getCookieId(tempCart, response);
+            System.out.println("add" + cookieId);
+            requestDto.saveCart(cookieId, pdt_id, 1);
         }
         cartService.checkProductStock(requestDto.toEntity());
         cartService.addCart(requestDto);
