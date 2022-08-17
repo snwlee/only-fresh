@@ -18,8 +18,8 @@ public class ProductDaoImpl implements ProductDao {
 
     // C
     @Override
-    public int insert(ProductDto dto) throws Exception {
-        return session.insert(namespace + "insert", dto);
+    public int create(ProductDto dto) throws Exception {
+        return session.insert(namespace + "create", dto);
     }
 
 

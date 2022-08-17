@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devkurly.product.dao.ProductMapper">
-    <select id="select" parameterType="int" resultType="Product">
+    <select id="create" parameterType="int" resultType="Product">
         select pdt_id,
                price,
                ds_rate,

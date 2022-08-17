@@ -11,7 +11,7 @@ public interface ProductDao {
 
     // C
 
-    int insert(ProductDto dto) throws Exception;
+    int create(ProductDto dto) throws Exception;
 
 
 
@@ -43,6 +43,6 @@ public interface ProductDao {
     int delete(Integer pdt_id) throws Exception;
 
 
-    List<ProductDto> ProductListDESC(Map map);
+    List<ProductDto> ProductListDESC(Map map); // 정렬
 
 }

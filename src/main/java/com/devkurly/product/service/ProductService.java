@@ -1,12 +1,12 @@
 package com.devkurly.product.service;
 
-import com.devkurly.board.domain.BoardDto;
 import com.devkurly.product.domain.ProductDto;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
+    String isValid(ProductDto productDto) throws Exception;
 
     // C
     int write(ProductDto productDto) throws Exception;
