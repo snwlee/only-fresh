@@ -22,23 +22,29 @@ public class CartRestController {
 
     private final CartService cartService;
 
-    @GetMapping("/rest/view")
-    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue(value="tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
+    @GetMapping("/view")
+    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
         List<CartProductResponseDto> cartList;
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        if (Optional.ofNullable(user_id).isPresent()) {
-            cartList = cartService.viewCartProduct(user_id);
-        } else {
-            cartList = cartService.viewCartProduct(cartService.getCookieId(tempCart, response));
-            System.out.println("rest");
-        }
+        int id = getId(tempCart, response, session);
+        cartList = cartService.viewCartProduct(id);
         return new ResponseEntity<>(cartList, HttpStatus.OK);
     }
 
     @PostMapping("/qty")
-    public Cart modifyCartQty(@RequestBody Cart cart) {
-        cartService.checkProductStock(cart);
-        cartService.modifyCart(cart);
-        return cart;
+    public CartProductResponseDto modifyCartQty(@RequestBody CartProductResponseDto responseDto) {
+        cartService.checkProductStock(responseDto.toEntity());
+        cartService.modifyCart(responseDto.toEntity());
+        return responseDto;
+    }
+
+    private int getId(Cookie tempCart, HttpServletResponse response, HttpSession session) {
+        int id;
+        Integer user_id = (Integer) session.getAttribute("user_id");
+        if (Optional.ofNullable(user_id).isPresent()) {
+            id = user_id;
+        } else {
+            id = cartService.getCookieId(tempCart, response);
+        }
+        return id;
     }
 }

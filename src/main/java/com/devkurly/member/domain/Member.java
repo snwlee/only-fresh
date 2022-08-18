@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ public class Member {
     private String user_nm;
     private String user_email;
     private String pwd;
-    private Integer telno;
+    private String telno;
     private Date subs_dt;
     private String gender;
     private Date bryr;
@@ -33,7 +34,7 @@ public class Member {
 //    }
 
     @Builder
-    public Member(Integer user_id, String user_nm, String user_email, String pwd, Integer telno, Date subs_dt, String gender, Date bryr, Character prvc_arge, Character user_cls_cd, String rcmdr_email, Integer pnt) {
+    public Member(Integer user_id, String user_nm, String user_email, String pwd, String telno, Date subs_dt, String gender, Date bryr, Character prvc_arge, Character user_cls_cd, String rcmdr_email, Integer pnt) {
         this.user_id = user_id;
         this.user_nm = user_nm;
         this.user_email = user_email;

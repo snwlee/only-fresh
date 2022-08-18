@@ -7,10 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="id" value="${sessionScope.user_id==null ? id : sessionScope.user_id}"/>
 <html>
 <head>
-    <title>DevKurly :: 장바구니</title>
+    <title>장바구니</title>
     <style>
         .btn {
             cursor: pointer;
@@ -33,78 +33,113 @@
 <body>
 <div>장바구니</div>
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
-<a class="btn" href="/carts/add/1">장바구니 제품 1 추가</a>
-<a class="btn" href="/carts/add/2">장바구니 제품 2 추가</a>
-<a class="btn" href="/carts/add/3">장바구니 제품 3 추가</a>
-<a class="btn" href="/carts/update">~~장바구니 제품 1 개수 10개 추가~~</a>
-<a class="btn" href="/carts/delete">~~장바구니 제품 전체 삭제~~</a>
-<c:forEach var="cart" items="${cart}" varStatus="status">
-    <div>장바구니 제품 번호 : ${cart.pdt_id}</div>
-    <div>장바구니 제품 이름 : ${cart.title}</div>
-    <div>장바구니 제품 가격 : ${cart.sel_price}</div>
-    <div id="cart-${status.count}">장바구니 제품 개수 : ${cart.pdt_qty}</div>
-    <input type="number" id="cart-qty-${status.count}" value="${cart.pdt_qty}">
-    <button type="button" id="add-test-btn-${status.count}">+</button>
-    <button type="button" id="minus-test-btn-${status.count}">-</button>
-    <div id="cart-sum-${status.count}">장바구니 제품 총 가격 : ${cart.sel_price * cart.pdt_qty}</div>
-    <a class="btn" href="/carts/delete/${cart.pdt_id}">장바구니에서 제거</a>
-    <a class="btn" id="plus-${status.count}">상품 추가 +</a>
-    <a class="btn" id="minus-${status.count}">상품 제거 -</a>
-    <br>
-    <script>
-        $(document).ready(function () {
-            $("#add-test-btn-${status.count}").click(function () {
-                $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1 + 2);
-                let cart = {
-                    user_id:${sessionScope.user_id},
-                    pdt_id:${cart.pdt_id},
-                    pdt_qty: $('#cart-qty-${status.count}').val()
-                };
-                let cartJs = {};
-                $.ajax({
-                    type: 'POST',
-                    url: '/carts/qty',
-                    headers: {"content-type": "application/json"},
-                    dataType: 'text',
-                    data: JSON.stringify(cart),
-                    success: function (result) {
-                        cartJs = JSON.parse(result);
-                        $("#cart-${status.count}").html("장바구니 제품 개수 : " + cartJs.pdt_qty);
-                        $("#cart-sum-${status.count}").html("장바구니 제품 총 가격 : " + cartJs.pdt_qty * ${cart.sel_price});
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-            });
-            $("#minus-test-btn-${status.count}").click(function () {
-                $('#cart-qty-${status.count}').val($('#cart-qty-${status.count}').val() - 1);
-                let cart = {
-                    user_id:${sessionScope.user_id},
-                    pdt_id:${cart.pdt_id},
-                    pdt_qty: $('#cart-qty-${status.count}').val()
-                };
-                let cartJs = {};
-                $.ajax({
-                    type: 'POST',
-                    url: '/carts/qty',
-                    headers: {"content-type": "application/json"},
-                    dataType: 'text',
-                    data: JSON.stringify(cart),
-                    success: function (result) {
-                        cartJs = JSON.parse(result);
-                        $("#cart-${status.count}").html("장바구니 제품 개수 : " + cartJs.pdt_qty);
-                        $("#cart-sum-${status.count}").html("장바구니 제품 총 가격 : " + cartJs.pdt_qty * ${cart.sel_price});
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-            });
-        });
-    </script>
-</c:forEach>
-<div id="cart-sum">총 장바구니 가격 : ${sum}</div>
+<a class="btn" href="/carts/delete">장바구니 제품 전체 삭제</a>
+<a class="btn" href="/carts/${pdt_id}">~~장바구니 제품 선택 삭제~~</a>
+<a class="btn" href="/carts/update">~~예)상품에서 장바구니 제품 1, 10개 추가~~</a>
+<a class="btn" href="/carts/view">JSON</a>
+<div id="cart"></div>
+<div id="cart-empty">장바구니에 담긴 상품이 없습니다</div>
+<div id="cart-sum"></div>
 <a class="btn" href="/orders">주문하기</a>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/carts/view',
+            datatype: 'json',
+            success: function (result) {
+                $.each(result, function (index, CartResponseDto) {
+                    let cart =
+                        `
+                         <input
+                            type="checkbox"
+                            id="cart-select` + CartResponseDto.pdt_id + `"
+                            name="cart-select` + CartResponseDto.pdt_id + `"
+                            value="` + CartResponseDto.title + `"
+                            /><label class="payment" for="cart-select` + CartResponseDto.pdt_id + `">` + CartResponseDto.title + `</label>
+                        <div>장바구니 제품 번호 : ` + CartResponseDto.pdt_id + `</div>
+                        <div>장바구니 제품 이름 : ` + CartResponseDto.title + `</div>
+                        <div>장바구니 제품 가격 : ` + CartResponseDto.sel_price + `</div>
+                        <div id="cart-` + index + `">장바구니 제품 개수 : ` + CartResponseDto.pdt_qty + `</div>
+                        <input type="number" id="cart-qty-` + index + `" value="` + CartResponseDto.pdt_qty + `">
+                        <button type="button" id="minus-btn-` + index + `">-</button>
+                        <button type="button" id="add-btn-` + index + `">+</button>
+                        <div id="cart-sum-` + index + `">장바구니 제품 총 가격 : ` + CartResponseDto.sel_price * CartResponseDto.pdt_qty + `</div>
+                        <a class="btn" href="/carts/` + CartResponseDto.pdt_id + `">장바구니에서 제거</a>
+                        <br>
+                        `;
+                    $('#cart-empty').html('');
+                    $('#cart').append(cart);
+                    let sum = 0;
+                    let cart_sum = function (pdt_qty) {
+                        $.each(result, function (index, CartResponseDto) {
+                            sum += pdt_qty * CartResponseDto.sel_price;
+                        });
+                        $('#cart-sum').html('총 장바구니 가격 : ' + sum);
+                    };
+                    cart_sum(CartResponseDto.pdt_qty);
+
+                    $('#add-btn-' + index).click(function () {
+                        $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1 + 2);
+                        let cart = {
+                            user_id: ${id},
+                            pdt_id: CartResponseDto.pdt_id,
+                            pdt_qty: $('#cart-qty-' + index).val(),
+                            sel_price: CartResponseDto.sel_price
+                        };
+                        let cartJs = {};
+                        $.ajax({
+                            type: 'POST',
+                            url: '/carts/qty',
+                            headers: {'content-type': 'application/json'},
+                            dataType: 'text',
+                            data: JSON.stringify(cart),
+                            success: function (result) {
+                                cartJs = JSON.parse(result);
+                                $('#cart-' + index).html('장바구니 제품 개수 : ' + cartJs.pdt_qty);
+                                $('#cart-sum-' + index).html('장바구니 제품 총 가격 : ' + cartJs.pdt_qty * CartResponseDto.sel_price);
+                            },
+                            error: function () {
+                                $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
+                                alert('제품의 재고가 부족합니다.');
+                            }
+                        });
+                    });
+                    $('#minus-btn-' + index).click(function () {
+                        if ($('#cart-qty-' + index).val() <= 1) {
+                            $('#minus-btn-' + index).css(disabled);
+                        }
+                        $('#cart-qty-' + index).val($('#cart-qty-' + index).val() - 1);
+                        let cart = {
+                            user_id: ${id},
+                            pdt_id: CartResponseDto.pdt_id,
+                            pdt_qty: $('#cart-qty-' + index).val(),
+                            sel_price: CartResponseDto.sel_price
+                        };
+                        let cartJs = {};
+                        $.ajax({
+                            type: 'POST',
+                            url: '/carts/qty',
+                            headers: {'content-type': 'application/json'},
+                            dataType: 'text',
+                            data: JSON.stringify(cart),
+                            success: function (result) {
+                                cartJs = JSON.parse(result);
+                                $('#cart-' + index).html('장바구니 제품 개수 : ' + cartJs.pdt_qty);
+                                $('#cart-sum-' + index).html('장바구니 제품 총 가격 : ' + cartJs.pdt_qty * CartResponseDto.sel_price);
+                            },
+                            error: function () {
+                                alert('error')
+                            }
+                        });
+                    });
+                });
+            },
+            error: function () {
+                alert('error')
+            }
+        });
+    });
+</script>
 </body>
 </html>
