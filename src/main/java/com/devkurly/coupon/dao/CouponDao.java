@@ -11,9 +11,9 @@ public interface CouponDao {
     int createWithId(CouponDto couponDto) throws Exception;
 
     // R
-    CouponDto read(int coupn_id) throws Exception;
-
+    CouponDto read(Integer coupn_id) throws Exception;
     List<CouponDto> readAll() throws Exception;
+    List<CouponDto> readUserCoupons(Integer user_id) throws Exception;
 
     // U
     int update(CouponDto couponDto) throws Exception;

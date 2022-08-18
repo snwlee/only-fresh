@@ -24,6 +24,13 @@
         select *
         from COUPON_TB
     </select>
+    <select id="readUserCoupons" parameterType="int" resultType="CouponDto">
+        select u.coupn_id, event_id, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        from USER_COUPON_TB as u
+                 join COUPON_TB as c
+                      on user_id = #{user_id} and u.coupn_id = c.coupn_id;
+    </select>
+
     <!--U-->
     <update id="update" parameterType="CouponDto">
         update COUPON_TB

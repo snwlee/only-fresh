@@ -1,6 +1,7 @@
 package com.devkurly.coupon.dao;
 
 import com.devkurly.coupon.domain.CouponDto;
+import com.devkurly.event.dao.EventDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,18 @@ public class CouponDaoImplTest {
     @Autowired
     CouponDao couponDao;
 
+    @Autowired
+    EventDao eventDao;
+
     @Test
     public void isValidTest() throws Exception {
 
     }
 
+    // C
     @Test
     @Transactional
-    public void create() throws Exception {
+    public void createTest() throws Exception {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
@@ -32,9 +37,10 @@ public class CouponDaoImplTest {
         assertTrue(couponDao.create(dto) == 1);
     }
 
+    // R
     @Test
     @Transactional
-    public void read() throws Exception {
+    public void readTest() throws Exception {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
@@ -47,7 +53,7 @@ public class CouponDaoImplTest {
     }
 
     @Test
-    public void readAll() throws Exception {
+    public void readAllTest() throws Exception {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
@@ -62,7 +68,13 @@ public class CouponDaoImplTest {
     }
 
     @Test
-    public void update() throws Exception {
+    @Transactional
+    public void readUsersCoupons() throws Exception {
+    }
+
+    // U
+    @Test
+    public void updateTest() throws Exception {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
@@ -79,8 +91,9 @@ public class CouponDaoImplTest {
     }
 
 
+    // D
     @Test
-    public void delete() throws Exception {
+    public void deleteTest() throws Exception {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
