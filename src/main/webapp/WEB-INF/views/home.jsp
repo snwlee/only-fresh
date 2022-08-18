@@ -62,7 +62,7 @@
 	</div>
 <%--상품 보기--%>
 	<div class="content_box">
-		<a class="btn" href="/product/list">상품 보기</a>
+		<a class="btn" href="/product/list?page=1&pageSize=10"/>상품 보기</a>
 		<a class="btn" href="/product/newlist">신상품 보기</a>
 		<a class="btn" href="/product/bestlist">베스트 상품 보기</a>
 		<a class="btn" href="/product/list">알뜰쇼핑</a>

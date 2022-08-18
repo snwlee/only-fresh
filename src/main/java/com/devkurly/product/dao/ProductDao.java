@@ -1,5 +1,6 @@
 package com.devkurly.product.dao;
 
+import com.devkurly.board.domain.BoardDto;
 import com.devkurly.product.domain.ProductDto;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface ProductDao {
 
     // C
 
-    int insert(ProductDto dto) throws Exception;
+    int create(ProductDto dto) throws Exception;
 
 
 
@@ -18,10 +19,10 @@ public interface ProductDao {
 
     List<ProductDto> ProductList(Map map) throws Exception;// 상품 리스트
 
-    List<ProductDto> ProductThriftylist(Map map) throws Exception;
+    List<ProductDto> ProductThriftyList(Map map) throws Exception;
 
     // R
-    List<ProductDto> ProductBestlist(Map map) throws Exception;
+    List<ProductDto> ProductBestList(Map map) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
 
@@ -42,5 +43,6 @@ public interface ProductDao {
     int delete(Integer pdt_id) throws Exception;
 
 
-    List<ProductDto> ProductListDESC(Map map);
+    List<ProductDto> ProductListDESC(Map map); // 정렬
+
 }
