@@ -121,8 +121,11 @@ public class BoardDaoImpl implements BoardDao {
         return session.update(namespace + "updateCn", boardDto);
     }
     @Override
-    public int isRepliedStatus(Integer bbs_id) throws Exception {
-        return session.update(namespace + "IsRepliedStatus", bbs_id);
+    public int isRepliedStatus(Integer bbs_id , int replyst) throws Exception {
+        Map map = new HashMap<>();
+        map.put("bbs_id", bbs_id);
+        map.put("replyst", replyst);
+        return session.update(namespace + "IsRepliedStatus", map);
     }
     @Override
     public int isSecretStatus(Integer bbs_id) throws Exception {
@@ -149,11 +152,9 @@ public class BoardDaoImpl implements BoardDao {
         return session.update(namespace + "updateAnswer", commentDto);
     }
     @Override
-    public int deleteAnswer(Integer bbs_id, String gd_cd)throws Exception {
-        Map map = new HashMap<>();
-        map.put("bbs_id", bbs_id);
-        map.put("gd_cd", gd_cd);
-        return session.delete(namespace + "deleteAnswer", map);
+    public int deleteAnswer(Integer bbs_id)throws Exception {
+
+        return session.delete(namespace + "deleteAnswer", bbs_id);
     }
     @Override
     public CommentDto selectAnswer(Integer bbs_id) throws Exception {

@@ -355,13 +355,14 @@
 
                         if(result.commentDto!=null){
                             $(".Inq_answer").text(result.commentDto.inq_ans);
+                            $(".rep_btn").attr("style", "display:none");
                             $(".aw_mod_btn").attr("style", "display:block");
                             $(".aw_del_btn").attr("style", "display:block");
                         }else{
                             $(".Inq_answer").text("");
+                            $(".aw_mod_btn").attr("style", "display:none");
+                            $(".aw_del_btn").attr("style", "display:none");
                         }
-
-
                     },
                     error: function () {
                         alert("error")
@@ -444,6 +445,7 @@
             $(".aw_wrt_btn").click(function(){
                 let inq_ans = $("#rep_textarea").val()
                 let bbs_id = $(this).attr("data-bbs_id");
+                let replyst = 1;
 
                 if(inq_ans.trim()==''){
                     alert("답변을 입력해주세요.");
@@ -452,22 +454,35 @@
                 }
                 $.ajax({
                     type:'POST',
-                    url: '/dev_kurly/board/comment/'+bbs_id,
+                    url: '/dev_kurly/board/comment/'+bbs_id+'?replyst='+replyst,
                     headers : { "content-type": "application/json"},
                     data : JSON.stringify({inq_ans: inq_ans}),
                     success : function(result){
                         alert(result);
                         relocateCmt();
-
                         relocateCn();
                         readStatus = false;
-
-
                     },
                     error   : function(){ alert("error") }
                 });
             });
-        })
+        });
+
+        $("#board").on("click", ".aw_del_btn", function(){
+            let bbs_id = $(this).attr("data-bbs_id");
+            let replyst = 0;
+            if(!confirm("정말로 답변을 삭제하시겠습니까?")) return;
+            $.ajax({
+                type:'DELETE',
+                url: '/dev_kurly/board/comment/'+bbs_id+'?replyst='+replyst,
+                success : function(result){
+                    alert(result)
+                    relocateCn();
+                    readStatus = false;
+                },
+                error   : function(){ alert("error") }
+            });
+        });
 
 
 

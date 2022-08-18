@@ -30,7 +30,7 @@ public interface BoardService {
     int reviewLike(BoardDto boardDto)throws Exception;
     int writeAnswer(CommentDto commentDto)throws Exception;
     int modifyAnswer(CommentDto commentDto)throws Exception;
-    int deleteAnswer(Integer bbs_id, String gd_cd) throws Exception;
+    int deleteAnswer(Integer bbs_id, int replyst) throws Exception;
     CommentDto readAnswer(Integer bbs_id)throws Exception;
 
 }

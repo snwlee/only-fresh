@@ -123,16 +123,18 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public int writeAnswer(CommentDto commentDto)throws Exception {
-        boardDao.isRepliedStatus(commentDto.getBbs_id());
+        boardDao.isRepliedStatus(commentDto.getBbs_id(),commentDto.getReplyst());
         return boardDao.insertAnswer(commentDto);
     }
     @Override
     public int modifyAnswer(CommentDto commentDto)throws Exception {
         return boardDao.updateAnswer(commentDto);
     }
+    @Transactional
     @Override
-    public int deleteAnswer(Integer bbs_id, String gd_cd) throws Exception {
-        return boardDao.deleteAnswer(bbs_id, gd_cd);
+    public int deleteAnswer(Integer bbs_id, int replyst) throws Exception {
+        boardDao.isRepliedStatus(bbs_id, replyst);
+        return boardDao.deleteAnswer(bbs_id);
     }
     @Override
     public CommentDto readAnswer(Integer bbs_id)throws Exception {

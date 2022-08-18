@@ -106,7 +106,7 @@
 
     <update id="IsRepliedStatus" parameterType="int">
         update INQ_BOARD_TB
-        set is_replied = 1
+        set is_replied = #{replyst}
         where bbs_id = #{bbs_id}
     </update>
 
@@ -144,11 +144,11 @@
 <!--        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}-->
 <!--    </update>-->
 
-<!--    <delete id="deleteAnswer" parameterType="map">-->
-<!--        delete-->
-<!--        from ANSWER_TB-->
-<!--        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}-->
-<!--    </delete>-->
+    <delete id="deleteAnswer" parameterType="int">
+        delete
+        from ANSWER_TB
+        where bbs_id = #{bbs_id}
+    </delete>
 
     <select id="selectAnswer" parameterType="int" resultType="CommentDto">
         select bbs_id ,inq_ans, ans_dt

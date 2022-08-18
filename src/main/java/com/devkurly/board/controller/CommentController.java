@@ -19,12 +19,13 @@ public class CommentController {
     }
 
     @PostMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, @RequestBody CommentDto commentDto, HttpSession session) {
+    public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, int replyst, @RequestBody CommentDto commentDto, HttpSession session) {
 //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
         Integer user_id = 1;
         commentDto.setUser_id(user_id);
         commentDto.setBbs_id(bbs_id);
+        commentDto.setReplyst(replyst);
         try {
             boardService.writeAnswer(commentDto);
             return new ResponseEntity<>("WRT_OK", HttpStatus.OK);
@@ -49,12 +50,12 @@ public class CommentController {
     }
 
     @DeleteMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> deleteComment(@PathVariable Integer bbs_id, HttpSession session) {
+    public ResponseEntity<String> deleteComment(@PathVariable Integer bbs_id, int replyst, String bbs_clsf_cd, HttpSession session) {
         //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
-        String gd_cd = "2";
+
         try {
-            boardService.deleteAnswer(bbs_id, gd_cd);
+            boardService.deleteAnswer(bbs_id, replyst);
             return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
