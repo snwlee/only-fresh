@@ -7,16 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ValidOrderForm
 public class OrderSaveRequestDto {
 
+    @NotNull
     private Integer ord_id;
+    @NotNull
     private Integer user_id;
+    @NotNull
     private Integer addr_id;
+    @NotNull
     private Integer coupn_id;
     private String stus_cd;
     private String req_plc_cd;

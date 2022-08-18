@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.admin.dao.UserMapper">
+
+    <!--회원목록-->
+    <select id="userList" resultType="UserDto">
+        select (user_id, user_nm, user_email, subs_dt, gender, bryr)
+        from USER_TB
+        ORDER BY subs_dt DESC
+    </select>
+
+    <!--회원등록-->
+    <insert id="insertUser">
+        INSERT INTO USER_TB(user_id,pwd,user_nm,user_email)
+        VALUES (#{user_id}, #{pwd}, #{user_nm},#{user_email})
+    </insert>
+
+    <!--회원정보 상세조회-->
+    <select id="viewUser" resultType="UserDto">
+        select (user_id, user_nm, user_email, subs_dt, gender, bryr, in_date, in_user, up_date, up_user)
+        from USER_TB
+        WHERE user_id = #{user_id}
+    </select>
+
+    <!--회원정보 수정-->
+    <update id="updateUser">
+        UPDATE USER_TB
+        SET pwd = #{pwd},
+            user_nm = #{user_nm},
+            user_email = #{user_email},
+            up_date = #{up_date}
+        WHERE user_id = #{user_id}
+    </update>
+
+</mapper>
