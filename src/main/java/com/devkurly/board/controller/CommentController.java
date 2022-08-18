@@ -36,13 +36,13 @@ public class CommentController {
     }
 
     @PatchMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> modifyComment(@PathVariable Integer bbs_id, CommentDto commentDto, HttpSession session) {
+    public ResponseEntity<String> modifyComment(@PathVariable Integer bbs_id, @RequestBody CommentDto commentDto, HttpSession session) {
         //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
-        String gd_cd = "2";
+        commentDto.setBbs_id(bbs_id);
         try {
             boardService.modifyAnswer(commentDto);
-            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
+            return new ResponseEntity<String>("MOD_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);

@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Review Board</title>
+    <title>문의 게시판</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         .title {
@@ -83,7 +83,7 @@
     </style>
 </head>
 <body>
-<div class="review_board">
+<div class="inquiry_board">
     <div class="board">
         <div class="title"></div>
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -212,6 +212,11 @@
     let toHtml =function(lists){
         let tmp = "";
         lists.forEach(function(BoardDto){
+            if(BoardDto.is_replied==true){
+                BoardDto.is_replied = "답변완료";
+            } else{
+                BoardDto.is_replied = "답변대기";
+            }
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -443,7 +448,7 @@
             });
 
             $(".aw_wrt_btn").click(function(){
-                let inq_ans = $("#rep_textarea").val()
+                let inq_ans = $("#rep_textarea").val();
                 let bbs_id = $(this).attr("data-bbs_id");
                 let replyst = 1;
 
@@ -462,6 +467,8 @@
                         relocateCmt();
                         relocateCn();
                         readStatus = false;
+                        showList(pdt_id);
+
                     },
                     error   : function(){ alert("error") }
                 });
@@ -477,12 +484,58 @@
                 url: '/dev_kurly/board/comment/'+bbs_id+'?replyst='+replyst,
                 success : function(result){
                     alert(result)
+                    relocateCmt();
                     relocateCn();
                     readStatus = false;
+                    showList(pdt_id);
                 },
                 error   : function(){ alert("error") }
             });
         });
+
+        $("#board").on("click", ".aw_mod_btn", function(){
+            let bbs_id = $(this).attr("data-bbs_id");
+            let inq_ans = $(".Inq_answer").text();
+            $(".Inq_answer").text("");
+            $("#rep_textarea").val(inq_ans);
+            $("#rep_textarea").attr("style", "display:block");
+            $(".aw_mod_btn").attr("style", "display:none");
+            $(".aw_wrt_btn").attr("style", "display:block");
+            $(".area_close").attr("style", "display:block");
+
+            $(".aw_wrt_btn").click(function(){
+                let inq_ans = $("#rep_textarea").val();
+
+                if(inq_ans.trim()==''){
+                    alert("답변을 입력해주세요.");
+                    $("#rep_textarea").focus()
+                    return;
+                }
+                $.ajax({
+                    type:'PATCH',
+                    url: '/dev_kurly/board/comment/'+bbs_id,
+                    headers : { "content-type": "application/json"},
+                    data : JSON.stringify({inq_ans: inq_ans}),
+                    success : function(result){
+                        alert(result);
+                        relocateCmt();
+                        relocateCn();
+                        readStatus = false;
+                        showList(pdt_id);
+                    },
+                    error : function(){ alert("error")}
+                });
+            })
+
+
+
+
+
+
+        });
+
+
+
 
 
 

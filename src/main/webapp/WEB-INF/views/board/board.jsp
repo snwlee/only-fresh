@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Review Board</title>
+    <title>리뷰 게시판</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         .title {

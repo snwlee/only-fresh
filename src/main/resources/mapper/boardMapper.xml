@@ -138,11 +138,11 @@
         values(#{bbs_id}, #{inq_ans}, #{user_id}, #{user_id})
     </insert>
 
-<!--    <update id="updateAnswer" parameterType="CommentDto">-->
-<!--        update ANSWER_TB-->
-<!--        set inq_ans = #{inq_ans}, ans_dt = now()-->
-<!--        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}-->
-<!--    </update>-->
+    <update id="updateAnswer" parameterType="CommentDto">
+        update ANSWER_TB
+        set inq_ans = #{inq_ans}, ans_dt = now()
+        where bbs_id = #{bbs_id}
+    </update>
 
     <delete id="deleteAnswer" parameterType="int">
         delete
