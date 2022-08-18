@@ -32,7 +32,7 @@ public class CouponController {
 
     // R
     @GetMapping("/list")
-    public ResponseEntity<List<CouponDto>> getEvents() throws Exception{
+    public ResponseEntity<List<CouponDto>> getCoupons() throws Exception{
         List<CouponDto> list = null;
 
         try {
@@ -44,7 +44,7 @@ public class CouponController {
         }
     }
     @GetMapping("/{coupn_id}")
-    public ResponseEntity<CouponDto> getEvent(@PathVariable Integer coupn_id) {
+    public ResponseEntity<CouponDto> getCoupon(@PathVariable Integer coupn_id) {
         CouponDto res = null;
 
         try {
@@ -53,6 +53,18 @@ public class CouponController {
         } catch (Exception e) {
             if(e.getMessage().equals("" + 400)) return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/user/{user_id}")
+    public ResponseEntity<List<CouponDto>> getUserCoupons(@PathVariable Integer user_id){
+        List<CouponDto> list = null;
+
+        try {
+            list = service.selectUserCoupons(user_id);
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            if(e.getMessage().equals("" + 400)) return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
