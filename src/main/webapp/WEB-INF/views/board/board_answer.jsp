@@ -526,23 +526,7 @@
                     error : function(){ alert("error")}
                 });
             })
-
-
-
-
-
-
         });
-
-
-
-
-
-
-
-
-
-
     });
 </script>
 </body>
