@@ -25,6 +25,8 @@
     <input type="text" name="sel_price" value="${ProductDto.sel_price}" placeholder="제품판매가 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
     <input type="text" name="price" value="${ProductDto.price}"placeholder="제품실제가 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
     <input type="text" name="sub_title" value="${ProductDto.sub_title}" placeholder="제품 소제목 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="company" value="${ProductDto.company}" placeholder="제품 제조사 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
+    <input type="text" name="de_type" value="${ProductDto.de_type}" placeholder="제품 배송타입 입력"${ mode=="new" ? '' : 'readonly="readonly"'}>
 
     <button type="button" id="writeBtn" class="btn">등록</button>
     <button type="button" id="modifyBtn" class="btn">수정</button>
@@ -34,7 +36,7 @@
 <script>
     $(document).ready(function() {
         $("#listBtn").on("click", function () {
-            location.href = "<c:url value='/product/list'/>";
+            location.href = "<c:url value='/product/list?page=1&pageSize=10'/>";
         });
 
 
@@ -64,6 +66,8 @@
                 $("input[name=sel_price]").attr('readonly', false);
                 $("input[name=price]").attr('readonly', false);
                 $("input[name=sub_title]").attr('readonly', false);
+                $("input[name=company]").attr('readonly', false);
+                $("input[name=de_type]").attr('readonly', false);
                 $("#modifyBtn").html("수정");
                 $("h2").html("상품 상세정보 상품 수정");
                 return;

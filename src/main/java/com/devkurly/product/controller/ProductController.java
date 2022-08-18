@@ -1,9 +1,10 @@
 package com.devkurly.product.controller;
 
+import com.devkurly.product.domain.Paging;
 import com.devkurly.product.domain.ProductDto;
-import com.devkurly.product.page.ProductPage;
+
 import com.devkurly.product.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-    @Autowired
-    ProductService productService;
+//    @Autowired
+//    ProductService productService; 필드주입 -> 생성자 주입 변경.
 
 
     @PostMapping("/write")
-    public String write(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
+    public String write(ProductService productService, ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
         String in_user = (String)session.getAttribute("id");
         productDto.setIn_user(in_user);
 
@@ -50,29 +51,28 @@ public class ProductController {
     }
 
     @PostMapping("/remove")
-    public String remove(Integer pdt_id, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+    public String remove(ProductService productService,Integer pdt_id, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
         String in_user = (String) session.getAttribute("id");
         try {
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
             int rowCnt = productService.remove(pdt_id);
-            if (rowCnt != 1)
+            if (rowCnt == 1)
                 throw new Exception("product remove error");
             rattr.addFlashAttribute("msg", "DEL_OK");
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg", "DEL_ERR");
         }
-        return "redirect:/product/list";
+        return "redirect:/product/list?page=1&pageSize=10";
     }
 
 
 
     @GetMapping("/read")
-    public String read(Integer pdt_id, Integer page, Integer pageSize, Model m) {
+    public String read(ProductService productService,Integer pdt_id, Integer page, Integer pageSize, Model m) {
         try {
               ProductDto productDto = productService.read(pdt_id);
-                System.out.println("productDto = " + productDto);
                 m.addAttribute("ProductDto",productDto);
               m.addAttribute("page",page);
               m.addAttribute("pagesize",pageSize);
@@ -84,20 +84,31 @@ public class ProductController {
 
 
     @GetMapping("/list")
-    public String list(@RequestParam(value = "page", defaultValue = "10") Integer page,
-                     Model m, HttpServletRequest request, HttpSession session, String order_sc) throws Exception{
+    public String list(ProductService productService,Integer page, Integer pageSize,
+                       Model m, HttpServletRequest request,
+                       HttpSession session, String order_sc) throws Exception{
+
+        if(page==null) page=10;
+        if(pageSize==null) pageSize=10;
+
+
+       int totalCnt = productService.getCount();
+        Paging ph = new Paging(totalCnt,page,pageSize);
         Map map = new HashMap();
+        map.put("offset", (page-1)*pageSize);
+        map.put("pageSize",pageSize);
         if(order_sc==null || order_sc == ""){
-            ProductPage pageHandler = new ProductPage(page);
             List<ProductDto> list = productService.ProductList(map);
             m.addAttribute("list", list);
+            m.addAttribute("ph",ph);
             return "product/productlist";
         }else{
-            map.put("order_sc",order_sc); // 정렬순 생성을 위한 map 생성
-            System.out.println("map = " + map); // map이 어떤 값으로 찍히는지 확인
+            map.put("offset", (page-1)*pageSize);
+            map.put("pageSize",pageSize);
+            map.put("order_sc",order_sc);
             List<ProductDto> list = productService.ProductListDESC(map);
-            System.out.println("list = " + list);
             m.addAttribute("list",list);
+            m.addAttribute("ph",ph);
             return "product/productlist";
 
         }
@@ -107,14 +118,13 @@ public class ProductController {
 
 
     @GetMapping("/newlist")
-    public String newlist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String newlist(ProductService productService, Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
 
         try {
             int totalCnt = productService.getCount();
-            ProductPage pageHandler = new ProductPage(totalCnt, page);
             Map map = new HashMap();
             map.put("pageSize", pageSize);
 
@@ -128,18 +138,17 @@ public class ProductController {
     }
 
     @GetMapping("/bestlist")
-    public String bestlist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String bestlist(ProductService productService, Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
 
         try {
             int totalCnt = productService.getCount();
-            ProductPage pageHandler = new ProductPage(totalCnt,page);
             Map map = new HashMap();
             map.put("pageSize", pageSize);
 
-            List<ProductDto> list = productService.ProductBestlist(map);
+            List<ProductDto> list = productService.ProductBestList(map);
             m.addAttribute("list", list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,18 +160,17 @@ public class ProductController {
 
 
     @GetMapping("/thriftylist")
-    public String thriftylist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String thriftylist(ProductService productService,Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
 
         try {
             int totalCnt = productService.getCount();
-            ProductPage pageHandler = new ProductPage(page);
             Map map = new HashMap();
             map.put("pageSize", pageSize);
 
-            List<ProductDto> list = productService.ProductThriftylist(map);
+            List<ProductDto> list = productService.ProductThriftyList(map);
             m.addAttribute("list", list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,7 +180,7 @@ public class ProductController {
     }
 
     @PostMapping("/modify")
-    public String modify(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
+    public String modify(ProductService productService,ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
         String in_user = (String)session.getAttribute("id");
         productDto.setIn_user(in_user);
 
@@ -184,7 +192,7 @@ public class ProductController {
 
             rattr.addFlashAttribute("msg", "MOD_OK");
 
-            return "redirect:/product/list";
+            return "redirect:/product/list?page=1&pageSize=10";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(productDto);
