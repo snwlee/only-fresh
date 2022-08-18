@@ -52,14 +52,24 @@
 
     <select id="selectReviewPage" parameterType="map" resultType="BoardDto">
         <include refid="selectReview"/>
-        order by bbs_id desc, wrt_dt desc
+        order by notice desc, bbs_id desc, wrt_dt desc
         limit #{offset}, #{pageSize}
     </select>
 
     <select id="selectReviewPageLike" parameterType="map" resultType="BoardDto">
         <include refid="selectReview"/>
-        order by revw_like desc, bbs_id desc
+        order by notice desc, revw_like desc, bbs_id desc
             limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectInqPage" parameterType="map" resultType="BoardDto">
+        select INQ_BOARD_TB.bbs_id, bbs_title, user_nm, wrt_dt, is_secret, is_replied, pdt_id, user_id, bbs_clsf_cd
+        from INQ_BOARD_TB
+                 right join BOARD_TB
+                            on INQ_BOARD_TB.bbs_id = BOARD_TB.bbs_id
+        where pdt_id = #{pdt_id} and bbs_clsf_cd = #{bbs_clsf_cd}
+        order by notice desc, bbs_id desc, wrt_dt desc
+        limit #{offset}, #{pageSize}
     </select>
 
     <insert id="insert" parameterType="BoardDto">
@@ -96,7 +106,7 @@
 
     <update id="IsRepliedStatus" parameterType="int">
         update INQ_BOARD_TB
-        set is_replied = 1
+        set is_replied = #{replyst}
         where bbs_id = #{bbs_id}
     </update>
 
@@ -124,20 +134,20 @@
     </insert>
 
     <insert id="insertAnswer" parameterType="CommentDto">
-        insert into ANSWER_TB (bbs_id, inq_ans, gd_cd, int_user, up_user)
-        values(#{bbs_id}, #{inq_ans}, #{gd_cd}, #{user_id}, #{user_id})
+        insert into ANSWER_TB (bbs_id, inq_ans, int_user, up_user)
+        values(#{bbs_id}, #{inq_ans}, #{user_id}, #{user_id})
     </insert>
 
     <update id="updateAnswer" parameterType="CommentDto">
         update ANSWER_TB
         set inq_ans = #{inq_ans}, ans_dt = now()
-        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}
+        where bbs_id = #{bbs_id}
     </update>
 
-    <delete id="deleteAnswer" parameterType="map">
+    <delete id="deleteAnswer" parameterType="int">
         delete
         from ANSWER_TB
-        where bbs_id = #{bbs_id} and gd_cd = #{gd_cd}
+        where bbs_id = #{bbs_id}
     </delete>
 
     <select id="selectAnswer" parameterType="int" resultType="CommentDto">

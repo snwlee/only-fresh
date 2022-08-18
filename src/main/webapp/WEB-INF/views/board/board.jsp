@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Review Board</title>
+    <title>리뷰 게시판</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         .title {
@@ -145,7 +145,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 id="modal-title" class="modal-title">상품 문의하기</h4>
+                    <h4 id="modal-title" class="modal-title">리뷰 등록하기</h4>
                 </div>
                 <div class="modal-body">
                     <table class="table">
@@ -306,6 +306,7 @@
         $("#board").on("click", ".title_cn", function() {
             if (!readStatus) {
                 let bbs_id = $(this).attr("data-bbs_id");
+                //
                 readStatus = true;
                 $.ajax({
                     type: 'GET',
