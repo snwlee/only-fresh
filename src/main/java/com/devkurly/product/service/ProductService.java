@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
+    String isValid(ProductDto productDto) throws Exception;
 
     // C
     int write(ProductDto productDto) throws Exception;
@@ -15,16 +16,17 @@ public interface ProductService {
     // R
     int getCount() throws Exception;
 
+
+
     ProductDto read(Integer pdt_id) throws Exception;
 
     List<ProductDto> ProductList(Map map) throws Exception;
 
-    List<ProductDto> ProductThriftylist(Map map) throws Exception;
+    List<ProductDto> ProductThriftyList(Map map) throws Exception;
 
-    List<ProductDto> ProductBestlist(Map map) throws Exception;
+    List<ProductDto> ProductBestList(Map map) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
-
 
 
     // U
