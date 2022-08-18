@@ -2,6 +2,7 @@ package com.devkurly.product.dao;
 
 
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -9,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -17,6 +19,24 @@ import static org.junit.Assert.assertTrue;
 public class ProductDaoImplTest {
     @Autowired
     ProductDao productDao;
+
+    @Test
+    public void searchSelectPageTest() throws Exception {
+        SearchCondition sc = new SearchCondition(1, 10, "피자", "T");
+        List<ProductDto> list = productDao.searchSelectPage(sc);
+        System.out.println("list = " + list);
+
+    }
+
+        @Test
+        public void searchResultCntTest() throws Exception {
+        SearchCondition sc = new SearchCondition(1, 10, "피자", "T");
+        int cnt = productDao.searchResultCnt(sc);
+            System.out.println("cnt = " + cnt);
+            assertTrue(cnt==1);
+        }
+
+
 
     @Test
     public void select() throws Exception {

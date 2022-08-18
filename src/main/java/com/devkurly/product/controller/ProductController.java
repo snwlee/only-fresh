@@ -19,12 +19,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-//    @Autowired
-//    ProductService productService; 필드주입 -> 생성자 주입 변경.
+    @Autowired
+        ProductService productService;
 
 
     @PostMapping("/write")
-    public String write(ProductService productService, ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
+    public String write(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
         String in_user = (String)session.getAttribute("id");
         productDto.setIn_user(in_user);
 
@@ -51,7 +51,7 @@ public class ProductController {
     }
 
     @PostMapping("/remove")
-    public String remove(ProductService productService,Integer pdt_id, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+    public String remove(Integer pdt_id, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
         String in_user = (String) session.getAttribute("id");
         try {
             m.addAttribute("page", page);
@@ -70,7 +70,7 @@ public class ProductController {
 
 
     @GetMapping("/read")
-    public String read(ProductService productService,Integer pdt_id, Integer page, Integer pageSize, Model m) {
+    public String read(Integer pdt_id, Integer page, Integer pageSize, Model m) {
         try {
               ProductDto productDto = productService.read(pdt_id);
                 m.addAttribute("ProductDto",productDto);
@@ -84,7 +84,8 @@ public class ProductController {
 
 
     @GetMapping("/list")
-    public String list(ProductService productService,Integer page, Integer pageSize,
+
+    public String list(Integer page, Integer pageSize,
                        Model m, HttpServletRequest request,
                        HttpSession session, String order_sc) throws Exception{
 
@@ -118,13 +119,14 @@ public class ProductController {
 
 
     @GetMapping("/newlist")
-    public String newlist(ProductService productService, Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String newlist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
 
         try {
             int totalCnt = productService.getCount();
+            System.out.println("totalCnt = " + totalCnt);
             Map map = new HashMap();
             map.put("pageSize", pageSize);
 
@@ -138,7 +140,7 @@ public class ProductController {
     }
 
     @GetMapping("/bestlist")
-    public String bestlist(ProductService productService, Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String bestlist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
@@ -159,8 +161,10 @@ public class ProductController {
 
 
 
+
+
     @GetMapping("/thriftylist")
-    public String thriftylist(ProductService productService,Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String thriftylist(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
 
         if(page==null) page=10;
         if(pageSize==null) pageSize=1000;
@@ -180,7 +184,7 @@ public class ProductController {
     }
 
     @PostMapping("/modify")
-    public String modify(ProductService productService,ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
+    public String modify(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
         String in_user = (String)session.getAttribute("id");
         productDto.setIn_user(in_user);
 

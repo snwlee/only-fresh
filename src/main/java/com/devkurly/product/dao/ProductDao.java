@@ -2,6 +2,7 @@ package com.devkurly.product.dao;
 
 import com.devkurly.board.domain.BoardDto;
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -44,5 +45,12 @@ public interface ProductDao {
 
 
     List<ProductDto> ProductListDESC(Map map); // 정렬
+
+
+     List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception;
+
+     int searchResultCnt(SearchCondition sc) throws Exception;
+
+
 
 }

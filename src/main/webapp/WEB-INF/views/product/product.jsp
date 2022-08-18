@@ -42,7 +42,7 @@
 
         $("#writeBtn").on("click", function(){
             let form = $("#form");
-            form.attr("action", "<c:url value='/product/write'/>");
+            form.attr("action", "<c:url value='/product/write?page=1&pageSize=10'/>");
             form.attr("method", "post");
             form.submit();
         });
@@ -50,7 +50,7 @@
         $("#removeBtn").on("click", function () {
             if (!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $("#form");
-            form.attr("action", "<c:url value='/product/remove'/>");
+            form.attr("action", "<c:url value='/product/remove?page=1&pageSize=10'/>");
             form.attr("method", "post");
             form.submit();
         });
@@ -74,7 +74,7 @@
             }
 
             // 2. 수정 상태이면, 수정된 내용을 서버로 전송
-            form.attr("action", "<c:url value='/product/modify'/>");
+            form.attr("action", "<c:url value='/product/modify?page=1&pageSize=10'/>");
             form.attr("method", "post");
                 form.submit();
         });

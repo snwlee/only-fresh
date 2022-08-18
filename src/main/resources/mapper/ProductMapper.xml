@@ -22,7 +22,13 @@
     </select>
 
     <select id="count" resultType="int">
-        SELECT count(*) FROM PRODUCT_TB
+        SELECT count(*) FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+            JOIN TAG_TB TG
+            ON TG.tag_id = T.tag_id
+            JOIN CATEGORY_TB C
+            ON C.pdt_id = P.pdt_id
     </select>
 
     <delete id="deleteAll">
@@ -95,14 +101,6 @@
         limit #{offset}, #{pageSize}
     </select>
 
-<!--   <select id="ProductListAsc" parameterType="map" resultType="Product">-->
-<!--       Select P.pdt_id,P.price,P.ds_rate,P.sel_price,P.title,P.sub_title,P.sales_rate,D.de_type,P.sales_rate,P.stock-->
-<!--       FROM PRODUCT_TB P-->
-<!--                 RIGHT OUTER JOIN PRODUCT_DETAIL_TB D-->
-<!--                                 ON D.pdt_id = P.pdt_id-->
-<!--       ORDER BY #{order_sc} ASC-->
-<!--   </select>-->
-
     <select id="ProductListDESC" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
                 P.ds_rate, P.price,P.sel_price,P.sales_rate,
@@ -165,4 +163,29 @@
         WHERE pdt_id = #{pdt_id}
         ORDER BY title DESC
     </update>
+
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="Product">
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+                P.ds_rate, P.price,P.sel_price,P.sales_rate,
+                P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.in_date
+        FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+        AND P.title LIKE concat('%', #{keyword}, '%')
+        limit #{offset}, #{pageSize}
+    </select>
+
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM PRODUCT_TB
+        WHERE TRUE
+          AND title LIKE concat('%', #{keyword}, '%')
+    </select>
+
 </mapper>

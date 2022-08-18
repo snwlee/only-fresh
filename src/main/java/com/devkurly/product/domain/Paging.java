@@ -1,5 +1,6 @@
 package com.devkurly.product.domain;
 
+
 public class Paging {
     private int totalCnt = 10;           // 총 게시글 갯수
     private int pageSize = 10;      // 한 페이지의 크기
@@ -26,6 +27,7 @@ public class Paging {
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;
     }
+    public Paging(){}
 
 
     void print() {

@@ -1,8 +1,8 @@
 package com.devkurly.product.service;
 
-import com.devkurly.board.domain.BoardDto;
 import com.devkurly.product.dao.*;
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.*;
@@ -12,6 +12,7 @@ import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    public ProductServiceImpl(){}
     @Autowired
     ProductDao productDao;
 
@@ -80,6 +81,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> ProductListDESC(Map map) {
         return productDao.ProductListDESC(map);
+    }
+
+    @Override
+    public List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return productDao.searchSelectPage(sc);
+    }
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return productDao.searchResultCnt(sc);
     }
 
     @Override

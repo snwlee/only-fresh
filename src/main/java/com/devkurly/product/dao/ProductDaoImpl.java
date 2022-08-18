@@ -1,6 +1,7 @@
 package com.devkurly.product.dao;
 
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
+
     @Autowired
     private SqlSession session;
     private static String namespace = "com.devkurly.product.dao.ProductMapper.";
@@ -78,11 +80,7 @@ public class ProductDaoImpl implements ProductDao {
         map.put("pdt_id", pdt_id);
         return session.delete(namespace + "delete", map);
     }
-//
-//    @Override
-//    public List<ProductDto> ProductListAsc(Map map) {
-//        return session.selectList(namespace+"ProductListAsc",map);
-//    }
+
 
     @Override
     public List<ProductDto> ProductListDESC(Map map) {
@@ -91,6 +89,15 @@ public class ProductDaoImpl implements ProductDao {
 
 
 
+    @Override
+    public List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace + "searchSelectPage", sc);
+    }
+
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace + "searchResultCnt", sc);
+    }
 
 
 }
