@@ -1,4 +1,4 @@
-package com.devkurly.admin;
+package com.devkurly.admin.domain;
 
 import java.util.Date;
 import java.util.Objects;
