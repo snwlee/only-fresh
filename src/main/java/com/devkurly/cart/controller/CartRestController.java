@@ -1,9 +1,8 @@
 package com.devkurly.cart.controller;
 
-import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
-import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.member.dto.MemberMainResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +23,8 @@ public class CartRestController {
 
     @GetMapping("/view")
     public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
-        List<CartProductResponseDto> cartList;
         int id = getId(tempCart, response, session);
-        cartList = cartService.viewCartProduct(id);
-        return new ResponseEntity<>(cartList, HttpStatus.OK);
+        return new ResponseEntity<>(cartService.viewCartProduct(id), HttpStatus.OK);
     }
 
     @PostMapping("/qty")
@@ -39,9 +36,9 @@ public class CartRestController {
 
     private int getId(Cookie tempCart, HttpServletResponse response, HttpSession session) {
         int id;
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        if (Optional.ofNullable(user_id).isPresent()) {
-            id = user_id;
+        MemberMainResponseDto memberMainResponseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
+        if (Optional.ofNullable(memberMainResponseDto).isPresent()) {
+            id = memberMainResponseDto.getUser_id();
         } else {
             id = cartService.getCookieId(tempCart, response);
         }
