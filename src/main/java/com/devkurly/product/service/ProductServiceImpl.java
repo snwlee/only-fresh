@@ -1,8 +1,8 @@
 package com.devkurly.product.service;
 
-import com.devkurly.board.domain.BoardDto;
 import com.devkurly.product.dao.*;
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.*;
@@ -12,6 +12,7 @@ import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    public ProductServiceImpl(){}
     @Autowired
     ProductDao productDao;
 
@@ -31,20 +32,20 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
+    public String isValid(ProductDto productDto) throws Exception {
+        return null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(ProductDto productDto) throws Exception {
-        isValid(productDto);
-        productDao.create(productDto);
-        int list = productDao.create(productDto);
         return productDao.create(productDto);
     }
 
 
     @Override
     public ProductDto read(Integer pdt_id) throws Exception {
-        ProductDto productDto = productDao.select(pdt_id);
-
-        return productDto;
+        return productDao.select(pdt_id);
     }
 
 
@@ -83,15 +84,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String isValid(ProductDto productDto) throws Exception {
-        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||
-                productDto.getSub_title().length() > 50 || productDto.getRec_info().length() > 50 ||
-                productDto.getSales_rate() == null) {
-            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
-        }
-        return null;
+    public List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return productDao.searchSelectPage(sc);
     }
-}
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return productDao.searchResultCnt(sc);
+    }
+
+//    @Override
+//    public String isValid(ProductDto productDto) throws Exception {
+//        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||
+//                productDto.getSub_title().length() > 50 || productDto.getRec_info().length() > 50 ||
+//                productDto.getSales_rate() == null) {
+//            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
+//        }
+//        return null;
+    }
 
 
 
