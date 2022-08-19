@@ -154,4 +154,16 @@ public class ProductDetailDto {
     public void setDe_type(boolean de_type) {
         this.de_type = de_type;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 }
