@@ -18,7 +18,9 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class ProductDaoImplTest {
     @Autowired
+
     ProductDao productDao;
+
 
     @Test
     public void searchSelectPageTest() throws Exception {
@@ -46,6 +48,7 @@ public class ProductDaoImplTest {
         System.out.println("productDto = " + productDto);
         assertTrue(productDto.getPdt_id().equals(1));
     }
+
 
 
     @Test
@@ -97,4 +100,5 @@ public class ProductDaoImplTest {
        //     public void productListDESC () {
             //     }
         }
+
 

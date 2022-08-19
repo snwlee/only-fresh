@@ -1,7 +1,10 @@
 package com.devkurly.board.dao;
 
 import com.devkurly.board.domain.BoardDto;
+import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.service.BoardService;
+import com.devkurly.product.dao.ProductDao;
+import com.devkurly.product.domain.ProductDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class BoardDaoImplTest {
     BoardDao boardDao;
     @Autowired
     BoardService boardService;
+    @Autowired
+    ProductDao productDao;
 
     public static int rand(int min, int max)
     {
@@ -37,36 +42,32 @@ public class BoardDaoImplTest {
     public void insert()throws Exception {
         boardDao.deleteAll();
         assertTrue(boardDao.boardAllCnt()==0);
-
-        int insertBoardCnt = rand(1,30);
-        Integer pdt_id = rand(1, 1000);
-        String bbs_clsf_cd = String.valueOf(rand(1, 30));
+        String bbs_clsf_cd = "1";
         Integer user_id = 1;
 
-        for (int i = 0; i < insertBoardCnt; i++) {
-            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1");
-            boardDao.insert(boardDto); //BOARD_TB 생성
-            Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
-            boardDto.setBbs_id(bbs_id);
-            assertTrue(boardDao.insertCn(boardDto)==1); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 BOARD_CN_TB 생성
-            boardDao.insertReview(bbs_id, user_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
+        int insertBoardCnt = rand(1,30);
+        List<ProductDto> list = productDao.selectProductId();
+        for (int j = 0; j < list.size(); j++) {
+            Integer pdt_id = list.get(j).getPdt_id();
+
+            for (int i = 0; i < insertBoardCnt; i++) {
+                BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1");
+                boardDao.insert(boardDto); //BOARD_TB 생성
+                Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
+                boardDto.setBbs_id(bbs_id);
+                assertTrue(boardDao.insertCn(boardDto)==1); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 BOARD_CN_TB 생성
+                boardDao.insertReview(bbs_id, user_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
+            }
         }
 
-        assertTrue(boardDao.boardAllCnt()==insertBoardCnt);
+        assertTrue(boardDao.boardAllCnt()==insertBoardCnt* list.size());
+        System.out.println("list.size() = " + list.size());
+        System.out.println("insertBoardCnt = " + insertBoardCnt);
+        System.out.println("boardDao.boardAllCnt() = " + boardDao.boardAllCnt());
 
-        Map map = new HashMap<>();
-        map.put("bbs_clsf_cd", bbs_clsf_cd);
-        map.put("pdt_id", pdt_id);
-        assertTrue(boardDao.count(map)==insertBoardCnt);
-        System.out.println("insertBoardCnt = "+insertBoardCnt+" bbs_clsf_cd = "+bbs_clsf_cd+" pdt_id = "+pdt_id);
-        System.out.println("boardDao.count(map) = " + boardDao.count(map));
 
-        assertTrue(boardDao.deleteAll()==insertBoardCnt);
-
-//        BoardDto boardDto = new BoardDto(pdt_id, 1, "title", "", 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
-//        BoardDto boardDto = new BoardDto(pdt_id, 1, "", "bbs_cn", 0, 0, "image", "youngjun", bbs_clsf_cd, "1", "1");
+//        BoardDto boardDto = new BoardDto(300, user_id, "title", "bbs_cn", 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1");
 //        boardService.write(boardDto);
-//        boardDao.insert(boardDto);
 
     }
 
@@ -110,22 +111,19 @@ public class BoardDaoImplTest {
 //        boardDao.delete();
 
     }
-
+    @Transactional
     @Test
     public void selectCn() throws Exception {
         Map map = new HashMap();
-        map.put("pdt_id", 1);
+        Integer pdt_id = rand(1, 30);
         map.put("bbs_clsf_cd", "1");
         map.put("offset", 0);
         map.put("pageSize", 10);
+        map.put("pdt_id", pdt_id);
 
-        Integer bbs_id = boardDao.selectReviewPage(map).get(0).getBbs_id();
-        System.out.println("bbs_id = " + bbs_id);
-        BoardDto boardDto = boardDao.selectCn(bbs_id);
-        String bbs_cn = boardDto.getBbs_cn();
-        System.out.println("bbs_cn = " + bbs_cn);
+        boardService.isValidPdt(pdt_id);
+
     }
-
 
     @Test
     public void count() throws Exception{
@@ -147,6 +145,8 @@ public class BoardDaoImplTest {
         map.put("offset", (page - 1) * pageSize);
         map.put("pageSize", pageSize);
         map.put("pdt_id", pdt_id);
+
+
         List list = boardDao.selectReviewPage(map);
         System.out.println("list = " + list);
 
@@ -156,11 +156,14 @@ public class BoardDaoImplTest {
 
 
     @Test
-    public void select() {
+    public void select() throws Exception{
+         CommentDto commentDto= boardDao.selectAnswer(3682);
+        System.out.println("commentDto = " + commentDto);
     }
 
     @Test
     public void selectPage() {
+
     }
 
 

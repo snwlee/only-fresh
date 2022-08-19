@@ -87,7 +87,10 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectList(namespace + "ProductListDESC", map);
     }
 
-
+//    @Override
+//    public List<ProductDto> selectProductId() throws Exception{
+//        return session.selectList(namespace + "selectProductId");
+//    }
 
     @Override
     public List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception {
@@ -98,8 +101,6 @@ public class ProductDaoImpl implements ProductDao {
     public int searchResultCnt(SearchCondition sc) throws Exception {
         return session.selectOne(namespace + "searchResultCnt", sc);
     }
-
-
 }
 
 

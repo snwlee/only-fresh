@@ -44,6 +44,8 @@ public interface ProductDao {
     int delete(Integer pdt_id) throws Exception;
 
 
+    List<ProductDto> selectProductId() throws Exception;
+
     List<ProductDto> ProductListDESC(Map map); // 정렬
 
 

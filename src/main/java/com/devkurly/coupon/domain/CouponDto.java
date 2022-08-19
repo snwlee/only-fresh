@@ -48,6 +48,14 @@ public class CouponDto {
         this.expi_dd = expi_dd;
     }
 
+    public CouponDto(String nm, Integer ds_max_posbl_amt, String use_cnd, String func, Integer rate, String expi_dd) {
+        this.nm = nm;
+        this.ds_max_posbl_amt = ds_max_posbl_amt;
+        this.use_cnd = use_cnd;
+        this.func = func;
+        this.rate = rate;
+        this.expi_dd = expi_dd;
+    }
 
     @Override
     public int hashCode() {
