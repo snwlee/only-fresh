@@ -1,12 +1,12 @@
 package com.devkurly.member.controller;
 
+import com.devkurly.member.dto.MemberMainResponseDto;
 import com.devkurly.member.dto.MemberSaveRequestDto;
-import com.devkurly.member.dto.ValidMemberForm;
+import com.devkurly.member.dto.MemberSignInRequestDto;
 import com.devkurly.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,18 +35,18 @@ public class MemberController {
     }
 
     @PostMapping("")
-    public String postSignIn(String email, String password, boolean rememberId, String toURL, HttpServletRequest request, HttpServletResponse response) {
+    public String postSignIn(MemberSignInRequestDto requestDto, boolean rememberId, String toURL, HttpServletRequest request, HttpServletResponse response) {
 
-        Integer user_id = memberService.signIn(email, password);
+        MemberMainResponseDto memberMainResponseDto = memberService.signIn(requestDto);
 
-        Cookie idCookie = new Cookie("email", email);
+        Cookie idCookie = new Cookie("email", requestDto.getUser_email());
         if (!rememberId) {
             idCookie.setMaxAge(0);
         }
         response.addCookie(idCookie);
 
         HttpSession session = request.getSession();
-        session.setAttribute("user_id", user_id);
+        session.setAttribute("memberMainResponseDto", memberMainResponseDto);
 
         toURL = toURL == null || toURL.equals("") ? "/" : toURL;
         return "redirect:" + toURL;
@@ -56,13 +54,11 @@ public class MemberController {
 
     @GetMapping("/signup")
     public String viewSignUp() {
-        System.out.println("GET");
         return "/member/signUp";
     }
 
     @PostMapping("/signup")
     public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto, BindingResult result) {
-        System.out.println("POST");
         if (result.hasErrors()) {
 //            List<ObjectError> globalErrors = result.getGlobalErrors();
 //            for (ObjectError ge : globalErrors) {
@@ -74,8 +70,13 @@ public class MemberController {
 //            }
             return "redirect:/members/signup";
         }
-        System.out.println("requestDto.getCPassword() = " + requestDto.getCPassword());
         memberService.join(requestDto);
         return "redirect:/members";
+    }
+
+    @GetMapping("/signout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

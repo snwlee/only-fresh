@@ -10,8 +10,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Builder
 public class MemberSignInRequestDto {
-    @Email
+//    @Email
     private String user_email;
-    @NotBlank
+//    @NotBlank
     private String pwd;
 }
