@@ -1,14 +1,12 @@
 package com.devkurly.order.dto;
 
-import com.devkurly.cart.domain.Cart;
 import com.devkurly.order.domain.Order;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
-import java.util.Calendar;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter

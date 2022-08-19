@@ -14,6 +14,64 @@
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
-
+<div class="member-out-box">
+    <form
+            action="/members"
+            method="post"
+    >
+        <div class="member-submit-box">
+            <div class="member-title">로그인</div>
+            <button
+                    id="kakao"
+                    class="sns-btn"
+                    onclick="location.href=''"
+                    type="button"
+            >
+                <img
+                        id="kakao-img"
+                        src="https://www.svgrepo.com/show/368252/kakao.svg"
+                        style="height: 24px"
+                />
+                <span class="sns-text">카카오 로그인</span>
+            </button>
+            <div class="warning-msg" id="msg">${param.error}</div>
+            <input
+                    class="member-input-text"
+                    type="text"
+                    name="user_email"
+                    value="${cookie.email.value}"
+                    placeholder="이메일"
+            />
+            <input
+                    class="member-input-text"
+                    id="password"
+                    type="password"
+                    name="pwd"
+                    placeholder="비밀번호"
+            />
+            <button type="button" onclick="change();">비밀번호 보기</button>
+            <input type="hidden" name="toURL" value="${param.toURL}"/>
+            <label class="remember-id">
+                <input type="checkbox" name="rememberId" ${empty cookie.email.value ? "" : "checked"}>
+                ID 기억하기
+            </label>
+            <a href="#">아이디 찾기</a>
+            <a href="#">비밀번호 찾기</a>
+            <button class="member-btn-a" type="submit">로그인</button>
+        </div>
+    </form>
+    <a href="/members/signup">
+        <button class=member-btn-b">회원가입</button>
+    </a>
+    <script>
+        let change = function () {
+            if ($('#password').prop('type') === 'password') {
+                $('#password').prop('type','text');
+            } else {
+                $('#password').prop('type','password');
+            }
+        }
+    </script>
+</div>
 </body>
 </html>

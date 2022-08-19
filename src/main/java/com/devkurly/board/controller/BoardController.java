@@ -22,6 +22,16 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    private String cleanXSS(String value) {
+        value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
+        value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
+        value = value.replaceAll("'", "& #39;");
+        value = value.replaceAll("eval\\((.*)\\)", "");
+        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+        value = value.replaceAll("script", "");
+        return value;
+    }
+
     @GetMapping("/boardlist")
     public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
         try {
@@ -73,6 +83,9 @@ public class BoardController {
         boardDto.setPdt_id(pdt_id);
         boardDto.setBbs_clsf_cd(bbs_clsf_cd);
         boardDto.setUser_nm("youngjun"); //임시 하드코딩
+        boardDto.setBbs_title(cleanXSS(boardDto.getBbs_title()));
+        boardDto.setBbs_cn(cleanXSS(boardDto.getBbs_cn()));
+
         try {
             boardService.write(boardDto);
             return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);
@@ -89,6 +102,8 @@ public class BoardController {
         boardDto.setUser_id(1); //임시 하드코딩
         boardDto.setBbs_id(bbs_id);
         boardDto.setPdt_id(pdt_id);
+        boardDto.setBbs_title(cleanXSS(boardDto.getBbs_title()));
+        boardDto.setBbs_cn(cleanXSS(boardDto.getBbs_cn()));
         try {
             int rowCnt = boardService.modify(boardDto);
             if (rowCnt != 1)

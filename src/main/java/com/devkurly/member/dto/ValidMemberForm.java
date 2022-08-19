@@ -8,10 +8,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Constraint(validatedBy = MemberFormValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidMemberForm {
-    String message() default "주문 요청이 규칙에 맞지 않습니다.";
+    String message() default "올바른 회원 정보를 입력해주세요.";
 
     Class<?>[] groups() default {};
 

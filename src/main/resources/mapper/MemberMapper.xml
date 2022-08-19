@@ -5,11 +5,11 @@
 
 <mapper namespace="com.devkurly.mapper.MemberMapper">
     <insert id="save" parameterType="Member">
-        insert into USER_TB(user_id, user_nm, user_email, pwd, telno, subs_dt, gender, bryr, prvc_arge, user_cls_cd, rcmdr_email, pnt)
-        values (#{user_id}, #{user_nm}, #{user_email}, #{pwd}, #{telno}, now(), #{gender}, #{bryr}, #{prvc_arge}, #{user_cls_cd}, #{rcmdr_email}, #{pnt});
+        insert into USER_TB(user_id, user_nm, user_email, pwd, telno, subs_dt, gender, bryr, prvc_arge, rcmdr_email)
+        values (#{user_id}, #{user_nm}, #{user_email}, #{pwd}, #{telno}, now(), #{gender}, #{bryr}, #{prvc_arge}, #{rcmdr_email});
     </insert>
-    <select id="findByEmail" parameterType="String" resultType="int">
-        select user_id
+    <select id="findByEmail" parameterType="String" resultType="Member">
+        select *
         from USER_TB
         where user_email = #{user_email};
     </select>

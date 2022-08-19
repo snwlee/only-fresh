@@ -40,7 +40,7 @@ public class CartController {
             cartService.addCart(requestDto);
             cartService.removeCart(cartService.getCookieId(tempCart, response));
         }
-        return "/home";
+        return "redirect:/";
     }
 
     /**
@@ -49,60 +49,62 @@ public class CartController {
     @GetMapping("logout")
     public String end(HttpSession session) {
         session.invalidate();
-        return "/home";
+        return "redirect:/";
+    }
+
+    @GetMapping("")
+    public String viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session, Model model) {
+        int id = getId(tempCart, response, session);
+        model.addAttribute("id", id);
+        cartService.viewCartProduct(id);
+        return "cart/cart";
+    }
+
+    @PostMapping("/{pdt_id}")
+    public String addCart(@PathVariable Integer pdt_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        requestDto.saveCart(id, pdt_id);
+        cartService.checkProductStock(requestDto.toEntity());
+        cartService.addCart(requestDto);
+        return "redirect:/carts";
+    }
+
+    @GetMapping("/delete")
+    public String removeAllCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        cartService.removeCart(id);
+        return "redirect:/carts";
+    }
+
+    @GetMapping("/delete/{ptd_id}")
+    public String removeOneCart(@PathVariable Integer ptd_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, Cart cart, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        cart.updateCart(id, ptd_id);
+        cartService.removeOneCart(cart);
+        return "redirect:/carts";
     }
 
     /**
      * temp
      */
-    @GetMapping("/add/{pdt_id}")
-    public String addCart(@PathVariable Integer pdt_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        if (Optional.ofNullable(user_id).isPresent()) {
-            requestDto.saveCart(user_id, pdt_id, 1);
-        } else {
-            int cookieId = cartService.getCookieId(tempCart, response);
-            System.out.println("add" + cookieId);
-            requestDto.saveCart(cookieId, pdt_id, 1);
+    @GetMapping("/delete/checked")
+    public String removeCheckedCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, List<Cart> cartList, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        for (Cart cart : cartList) {
+            cart.setUser_id(id);
         }
-        cartService.checkProductStock(requestDto.toEntity());
-        cartService.addCart(requestDto);
-        return "redirect:/carts/view";
+        cartService.removeCheckedCart(cartList);
+        return "redirect:/carts";
     }
 
-    @GetMapping("/view")
-    public String viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session, Model model) {
+    private int getId(Cookie tempCart, HttpServletResponse response, HttpSession session) {
         int id;
         Integer user_id = (Integer) session.getAttribute("user_id");
         if (Optional.ofNullable(user_id).isPresent()) {
             id = user_id;
         } else {
             id = cartService.getCookieId(tempCart, response);
-            model.addAttribute("id", id);
         }
-        cartService.viewCartProduct(id);
-        return "/cart/cartRestApi";
-    }
-
-    @GetMapping("/delete")
-    public String removeAllCart(HttpSession session) {
-        cartService.removeCart((Integer) session.getAttribute("user_id"));
-        return "redirect:/carts/view";
-    }
-
-    @GetMapping("/{ptd_id}")
-    public String removeOneCart(@PathVariable Integer ptd_id, Cart cart, HttpSession session) {
-        cart.updateCart((Integer) session.getAttribute("user_id"), ptd_id);
-        cartService.removeOneCart(cart);
-        return "redirect:/carts/view";
-    }
-
-    @GetMapping("/delete/checked")
-    public String removeCheckedCart(List<Cart> cartList, HttpSession session) {
-        for (Cart cart : cartList) {
-            cart.setUser_id((Integer) session.getAttribute("user_id"));
-        }
-        cartService.removeCheckedCart(cartList);
-        return "redirect:/carts/view";
+        return id;
     }
 }
