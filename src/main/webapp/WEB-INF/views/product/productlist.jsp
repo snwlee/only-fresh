@@ -31,7 +31,6 @@
         text-decoration: none;
         color: white;
     }
-
     .btn {
         cursor: pointer;
         width: 200px;
@@ -81,7 +80,7 @@
     <table border="1">
                     <div>상품리스트</div>
         <c:forEach var="ProductDto" items="${list}">
-            <form action="carts/add/${ProductDto.pdt_id}" id="form">
+            <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
                 <div id="product">
                     <tr>
                     <td><input type="number" value=1 name="count"></td>

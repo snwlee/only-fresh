@@ -29,12 +29,16 @@ public class CouponDaoImpl implements CouponDao {
 
     // R
     @Override
-    public CouponDto read(int coupn_id) throws Exception {
+    public CouponDto read(Integer coupn_id) throws Exception {
         return session.selectOne(namespace + "read", coupn_id);
     }
     @Override
     public List<CouponDto> readAll() throws Exception {
         return session.selectList(namespace+"readAll");
+    }
+    @Override
+    public List<CouponDto> readUserCoupons(Integer user_id) throws Exception {
+        return session.selectList(namespace+"readUserCoupons", user_id);
     }
 
     // U

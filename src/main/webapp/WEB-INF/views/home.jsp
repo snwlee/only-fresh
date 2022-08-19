@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-	<title>메인화면</title>
+	<title>DevKurly :: 얼마나 좋아</title>
 	<style>
 		#contents_container {
 			display: flex;
@@ -46,11 +46,12 @@
 <body>
 <h1>메인화면</h1>
 <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
-<a class="btn" href="/carts/login">유저 'user_id = 1' 로 로그인하기</a>
+<a class="btn" href="/members/">로그인</a>
+<a class="btn" href="/members/logout">로그아웃</a>
 <div id="contents_container" >
 <%--장바구니--%>
 	<div class="content_box">
-		<a class="btn" href="/carts/view">장바구니 보기</a>
+		<a class="btn" href="/carts">장바구니 보기</a>
 	</div>
 <%--이벤트--%>
 	<div class="content_box">
