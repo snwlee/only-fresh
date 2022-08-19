@@ -64,7 +64,7 @@ public class CartService {
                     }));
             return cartMapper.save(requestDto.toEntity());
         } catch (DuplicateCartException e) {
-            requestDto.setPdt_qty(cartMapper.findByCart(requestDto.toEntity()).getPdt_qty() + 1);
+            requestDto.setPdt_qty(cartMapper.findByCart(requestDto.toEntity()).getPdt_qty() + requestDto.getPdt_qty());
         } catch (Exception e) {
             throw new RuntimeException();
         }
