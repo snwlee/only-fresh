@@ -1,6 +1,7 @@
 package com.devkurly.coupon.dao;
 
 import com.devkurly.coupon.domain.CouponDto;
+import com.devkurly.coupon.domain.UserCouponDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -21,10 +22,13 @@ public class CouponDaoImpl implements CouponDao {
     public int create(CouponDto couponDto) throws Exception {
         return session.insert(namespace+"create", couponDto);
     }
-
     @Override
     public int createWithId(CouponDto couponDto) throws Exception {
         return session.insert(namespace+"createWithId", couponDto);
+    }
+    @Override
+    public int createUserCoupon(UserCouponDto userCouponDto) throws Exception {
+        return session.insert(namespace + "createCouponToUser", userCouponDto);
     }
 
     // R
