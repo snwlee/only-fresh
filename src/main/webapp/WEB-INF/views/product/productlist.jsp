@@ -87,13 +87,8 @@
     <table border="1">
         <div>상품리스트</div>
         <c:forEach var="ProductDto" items="${list}">
-<<<<<<< HEAD
-            <form action="carts/add/${ProductDto.pdt_id}" id="form">
-                <div id="product" style="text-align:center">
-=======
             <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
                 <div id="product">
->>>>>>> upstream/main
                     <tr>
                         <td><input type="number" value=1 name="count"></td>
                         <td><a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a></td>
