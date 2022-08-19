@@ -69,6 +69,7 @@
 <c:if test="${sessionScope.memberMainResponseDto != null}">
     <span>님</span>
 </c:if>
+<a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
 <a class="btn" href="${signInOutLink}">${signInOut}</a>
 <div id="contents_container">
     <%--장바구니--%>

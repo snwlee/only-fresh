@@ -25,6 +25,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @GetMapping("/test")
+    public String test(HttpSession session) {
+        MemberSignInRequestDto requestDto = new MemberSignInRequestDto("1234", "1234");
+        MemberMainResponseDto memberMainResponseDto = memberService.signIn(requestDto);
+        session.setAttribute("memberMainResponseDto", memberMainResponseDto);
+        return "redirect:/";
+    }
+
     @GetMapping("")
     public String viewSignIn(HttpSession session) {
         Object sessionAttribute = session.getAttribute("user_id");
