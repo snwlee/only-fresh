@@ -32,20 +32,20 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
+    public String isValid(ProductDto productDto) throws Exception {
+        return null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(ProductDto productDto) throws Exception {
-        isValid(productDto);
-        productDao.create(productDto);
-        int list = productDao.create(productDto);
         return productDao.create(productDto);
     }
 
 
     @Override
     public ProductDto read(Integer pdt_id) throws Exception {
-        ProductDto productDto = productDao.select(pdt_id);
-
-        return productDto;
+        return productDao.select(pdt_id);
     }
 
 
@@ -93,16 +93,15 @@ public class ProductServiceImpl implements ProductService {
         return productDao.searchResultCnt(sc);
     }
 
-    @Override
-    public String isValid(ProductDto productDto) throws Exception {
-        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||
-                productDto.getSub_title().length() > 50 || productDto.getRec_info().length() > 50 ||
-                productDto.getSales_rate() == null) {
-            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
-        }
-        return null;
+//    @Override
+//    public String isValid(ProductDto productDto) throws Exception {
+//        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||
+//                productDto.getSub_title().length() > 50 || productDto.getRec_info().length() > 50 ||
+//                productDto.getSales_rate() == null) {
+//            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
+//        }
+//        return null;
     }
-}
 
 
 

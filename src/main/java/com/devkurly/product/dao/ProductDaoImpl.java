@@ -91,7 +91,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception {
-        return session.selectOne(namespace + "searchSelectPage", sc);
+        return session.selectList(namespace + "searchSelectPage", sc);
     }
 
     @Override
