@@ -9,7 +9,7 @@
         values (#{user_id}, #{user_nm}, #{user_email}, #{pwd}, #{telno}, now(), #{gender}, #{bryr}, #{prvc_arge}, #{rcmdr_email});
     </insert>
     <select id="findByEmail" parameterType="String" resultType="Member">
-        select user_id
+        select *
         from USER_TB
         where user_email = #{user_email};
     </select>

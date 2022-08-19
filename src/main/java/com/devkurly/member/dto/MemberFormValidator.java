@@ -18,39 +18,43 @@ public class MemberFormValidator implements ConstraintValidator<ValidMemberForm,
 
     @Override
     public boolean isValid(MemberSaveRequestDto requestDto, ConstraintValidatorContext context) {
+        int valid = 0;
         if (!requestDto.getPwd().equals(requestDto.getCPassword())) {
-            System.out.println("TEST1");
+            System.out.println("동일한 비밀번호가 아닙니다.");
             addConstraintViolation(context, "동일한 비밀번호가 아닙니다.");
-            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
+            valid++;
         }
         if (hasWhiteSpace(requestDto.getPwd())) {
-            System.out.println("TEST2");
+            System.out.println("비밀번호에 빈칸은 허용되지 않습니다.");
             addConstraintViolation(context, "비밀번호에 빈칸은 허용되지 않습니다.");
-            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
+            valid++;
         }
         if (!Pattern.matches("^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$", requestDto.getPwd())) {
-            System.out.println("TEST3");
+            System.out.println("비밀번호 형식에 맞지 않습니다.");
             addConstraintViolation(context, "비밀번호 형식에 맞지 않습니다.");
-            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
+            valid++;
         }
         if (hasWhiteSpace(requestDto.getUser_nm())) {
-            System.out.println("TEST4");
+            System.out.println("이름에 빈칸은 허용되지 않습니다.");
             addConstraintViolation(context, "이름에 빈칸은 허용되지 않습니다.");
-            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
+            valid++;
         }
         if (!Pattern.matches("[가-힣]{2,5}", requestDto.getUser_nm())) {
-            System.out.println("TEST5");
+            System.out.println("이름 형식에 맞지 않습니다.");
             addConstraintViolation(context, "이름 형식에 맞지 않습니다.");
-            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
-        }
-        if (!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", requestDto.getTelno())) {
-            System.out.println("TEST6");
-            addConstraintViolation(context, "번호 형식에 맞지 않습니다.");
-            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
+            valid++;
         }
         if (hasWhiteSpace(requestDto.getTelno())) {
-            System.out.println("TEST7");
+            System.out.println("번호에 빈칸은 허용되지 않습니다.");
             addConstraintViolation(context, "번호에 빈칸은 허용되지 않습니다.");
+            valid++;
+        }
+        if (!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", requestDto.getTelno())) {
+            System.out.println("번호 형식에 맞지 않습니다.");
+            addConstraintViolation(context, "번호 형식에 맞지 않습니다.");
+            valid++;
+        }
+        if (valid != 0) {
             throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
         }
         return true;

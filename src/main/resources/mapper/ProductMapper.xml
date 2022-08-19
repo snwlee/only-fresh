@@ -22,7 +22,13 @@
     </select>
 
     <select id="count" resultType="int">
-        SELECT count(*) FROM PRODUCT_TB
+        SELECT count(*) FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+            JOIN TAG_TB TG
+            ON TG.tag_id = T.tag_id
+            JOIN CATEGORY_TB C
+            ON C.pdt_id = P.pdt_id
     </select>
 
     <delete id="deleteAll">
@@ -91,6 +97,8 @@
                       ON TG.tag_id = T.tag_id
                  JOIN CATEGORY_TB C
                       ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+          AND title LIKE concat('%', #{keyword}, '%')
         ORDER BY  P.pdt_id ASC
         limit #{offset}, #{pageSize}
     </select>
@@ -114,6 +122,8 @@
                       ON TG.tag_id = T.tag_id
                  JOIN CATEGORY_TB C
                       ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+          AND P.title LIKE concat('%', #{keyword}, '%')
         ORDER BY ${order_sc} DESC
         limit #{offset}, #{pageSize}
     </select>
@@ -154,10 +164,22 @@
             FROM PRODUCT_TB
     </sql>
 
-    <select id="selectProductId" resultType="Product">
-        select pdt_id
-        from PRODUCT_TB
-    </select>
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="C"'>
+                AND company LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   company LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
 
     <update id="update" parameterType="Product">
         UPDATE PRODUCT_TB

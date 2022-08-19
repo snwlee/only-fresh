@@ -44,10 +44,12 @@
             />
             <input
                     class="member-input-text"
+                    id="password"
                     type="password"
                     name="pwd"
                     placeholder="비밀번호"
             />
+            <button type="button" onclick="change();">비밀번호 보기</button>
             <input type="hidden" name="toURL" value="${param.toURL}"/>
             <label class="remember-id">
                 <input type="checkbox" name="rememberId" ${empty cookie.email.value ? "" : "checked"}>
@@ -58,7 +60,18 @@
             <button class="member-btn-a" type="submit">로그인</button>
         </div>
     </form>
-    <a href="/members/signup"><button class=member-btn-b">회원가입</button></a>
+    <a href="/members/signup">
+        <button class=member-btn-b">회원가입</button>
+    </a>
+    <script>
+        let change = function () {
+            if ($('#password').prop('type') === 'password') {
+                $('#password').prop('type','text');
+            } else {
+                $('#password').prop('type','password');
+            }
+        }
+    </script>
 </div>
 </body>
 </html>

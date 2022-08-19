@@ -1,11 +1,14 @@
 package com.devkurly.product.service;
 
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
+
+
     String isValid(ProductDto productDto) throws Exception;
 
     // C
@@ -38,6 +41,10 @@ public interface ProductService {
 
 
     List<ProductDto> ProductListDESC(Map map);
+
+    List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception;
+
+    int getSearchResultCnt(SearchCondition sc) throws Exception;
 
 }
 

@@ -22,7 +22,7 @@
     <div class="member-out-box">
         <div class="member-submit-box">
             <div class="member-title">회원 가입</div>
-            <div class="warning-msg" id="msg">${param.error}</div>
+            <div class="warning-msg" id="msg">에러코드 : ${param.error}</div>
             <span>이메일 *</span>
             <input
                     class="member-input-text"
