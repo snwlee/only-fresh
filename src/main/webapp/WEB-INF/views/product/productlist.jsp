@@ -58,6 +58,10 @@
 
     #product {
     }
+    #img{
+        width:300px;
+        height: 150px;
+    }
 
 
 </style>
@@ -90,13 +94,14 @@
             <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
                 <div id="product">
                     <tr>
+                        <td><button class="cart_btn" type="submit">장바구니에 추가</button></td>
                         <td><input type="number" value=1 name="count"></td>
-                        <td><a class="cart_btn" href="<c:url value="/carts/add/${ProductDto.pdt_id}"/>">장바구니에 추가</a></td>
                         <td> 태그이름: ${ProductDto.tag_name}</td>
                         <td> 제품명 :<a href="<c:url value="/product/read?pdt_id=${ProductDto.pdt_id}"/>"><c:out value="${ProductDto.title}"/></a></td>
                         <td> 소제목: ${ProductDto.sub_title}</td>
                         <td> 할인율 : ${ProductDto.ds_rate}%</td>
                         <td> 원가 : ${ProductDto.price}원</td>
+                        <td><img id="img" src="${ProductDto.image}"/></td>
                         <td> 판매가 : ${ProductDto.sel_price}원</td>
                         <td> 판매량 : ${ProductDto.sales_rate} 개</td>
                         <td> 배송타입 : ${ProductDto.de_type}</td>

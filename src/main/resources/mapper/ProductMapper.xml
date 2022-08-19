@@ -191,7 +191,7 @@
 
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
-        P.ds_rate, P.price,P.sel_price,P.sales_rate,
+        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
         P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.in_date
         FROM PRODUCT_TB P
         JOIN PRODUCT_TAG_TB T
