@@ -1,9 +1,9 @@
 package com.devkurly.productDetail.domain;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class ProductDetailDto {
-    private Integer det_id; // 디테일ID
     private Integer pdt_id; // 상품 ID
     private String pack_cd; // 포장 타입 코드
     private String sell_cd; // 판매 단위 코드
@@ -16,47 +16,21 @@ public class ProductDetailDto {
     private String prt_image; // 상품 고화질 이미지
     private String company; // 제조사
     private boolean de_type; // 배송 유형
+    private Date in_date;
+    private String in_user;
+    private Date up_date;
+    private String up_user;
 
     public ProductDetailDto() { }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProductDetailDto)) return false;
-        ProductDetailDto that = (ProductDetailDto) o;
-        return isDe_type() == that.isDe_type() && Objects.equals(getDet_id(), that.getDet_id()) && Objects.equals(getPdt_id(), that.getPdt_id()) && Objects.equals(getPack_cd(), that.getPack_cd()) && Objects.equals(getSell_cd(), that.getSell_cd()) && Objects.equals(getWeca_cd(), that.getWeca_cd()) && Objects.equals(getAllg_dt(), that.getAllg_dt()) && Objects.equals(getEx_dt(), that.getEx_dt()) && Objects.equals(getOrigin(), that.getOrigin()) && Objects.equals(getNotice(), that.getNotice()) && Objects.equals(getPrt_info(), that.getPrt_info()) && Objects.equals(getPrt_image(), that.getPrt_image()) && Objects.equals(getCompany(), that.getCompany());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getDet_id(), getPdt_id(), getPack_cd(), getSell_cd(), getWeca_cd(), getAllg_dt(), getEx_dt(), getOrigin(), getNotice(), getPrt_info(), getPrt_image(), getCompany(), isDe_type());
-    }
-
-    @Override
-    public String toString() {
-        return "ProductDetailDto{" +
-                "det_id=" + det_id +
-                ", pdt_id=" + pdt_id +
-                ", pack_cd='" + pack_cd + '\'' +
-                ", sell_cd='" + sell_cd + '\'' +
-                ", weca_cd='" + weca_cd + '\'' +
-                ", allg_dt='" + allg_dt + '\'' +
-                ", ex_dt='" + ex_dt + '\'' +
-                ", origin='" + origin + '\'' +
-                ", notice='" + notice + '\'' +
-                ", prt_info='" + prt_info + '\'' +
-                ", prt_image='" + prt_image + '\'' +
-                ", company='" + company + '\'' +
-                ", de_type=" + de_type +
-                '}';
-    }
-
-    public Integer getDet_id() {
-        return det_id;
-    }
-
-    public void setDet_id(Integer det_id) {
-        this.det_id = det_id;
+    public ProductDetailDto(Integer pdt_id, String pack_cd, String sell_cd, String weca_cd, String prt_info, String in_user, String up_user) {
+        this.pdt_id = pdt_id;
+        this.pack_cd = pack_cd;
+        this.sell_cd = sell_cd;
+        this.weca_cd = weca_cd;
+        this.prt_info = prt_info;
+        this.in_user = in_user;
+        this.up_user = up_user;
     }
 
     public Integer getPdt_id() {
@@ -153,5 +127,72 @@ public class ProductDetailDto {
 
     public void setDe_type(boolean de_type) {
         this.de_type = de_type;
+    }
+
+    public Date getIn_date() {
+        return in_date;
+    }
+
+    public void setIn_date(Date in_date) {
+        this.in_date = in_date;
+    }
+
+    public String getIn_user() {
+        return in_user;
+    }
+
+    public void setIn_user(String in_user) {
+        this.in_user = in_user;
+    }
+
+    public Date getUp_date() {
+        return up_date;
+    }
+
+    public void setUp_date(Date up_date) {
+        this.up_date = up_date;
+    }
+
+    public String getUp_user() {
+        return up_user;
+    }
+
+    public void setUp_user(String up_user) {
+        this.up_user = up_user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDetailDto that = (ProductDetailDto) o;
+        return de_type == that.de_type && Objects.equals(pdt_id, that.pdt_id) && Objects.equals(pack_cd, that.pack_cd) && Objects.equals(sell_cd, that.sell_cd) && Objects.equals(weca_cd, that.weca_cd) && Objects.equals(allg_dt, that.allg_dt) && Objects.equals(ex_dt, that.ex_dt) && Objects.equals(origin, that.origin) && Objects.equals(notice, that.notice) && Objects.equals(prt_info, that.prt_info) && Objects.equals(prt_image, that.prt_image) && Objects.equals(company, that.company) && Objects.equals(in_date, that.in_date) && Objects.equals(in_user, that.in_user) && Objects.equals(up_date, that.up_date) && Objects.equals(up_user, that.up_user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pdt_id, pack_cd, sell_cd, weca_cd, allg_dt, ex_dt, origin, notice, prt_info, prt_image, company, de_type, in_date, in_user, up_date, up_user);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDetailDto{" +
+                "pdt_id=" + pdt_id +
+                ", pack_cd='" + pack_cd + '\'' +
+                ", sell_cd='" + sell_cd + '\'' +
+                ", weca_cd='" + weca_cd + '\'' +
+                ", allg_dt='" + allg_dt + '\'' +
+                ", ex_dt='" + ex_dt + '\'' +
+                ", origin='" + origin + '\'' +
+                ", notice='" + notice + '\'' +
+                ", prt_info='" + prt_info + '\'' +
+                ", prt_image='" + prt_image + '\'' +
+                ", company='" + company + '\'' +
+                ", de_type=" + de_type +
+                ", in_date=" + in_date +
+                ", in_user='" + in_user + '\'' +
+                ", up_date=" + up_date +
+                ", up_user='" + up_user + '\'' +
+                '}';
     }
 }

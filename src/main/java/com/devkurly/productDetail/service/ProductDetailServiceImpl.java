@@ -11,37 +11,18 @@ import java.util.Map;
 @Service
 public class ProductDetailServiceImpl implements ProductDetailService {
 
-    @Autowired
-    ProductDetailDao productDetailDao;
+    private ProductDetailDao productDetailDao;
+
+    public ProductDetailServiceImpl(ProductDetailDao productDetailDao) {
+        this.productDetailDao = productDetailDao;
+    }
 
     @Override
     public int insertDetail(ProductDetailDto dto) throws Exception {
         return productDetailDao.insert(dto);
     }
-
-    @Override
-    public int minInsertDetail(ProductDetailDto dto) throws Exception {
-        return productDetailDao.minInsert(dto);
-    }
-
-    @Override
-    public int deleteDetail(ProductDetailDto dto) throws Exception {
-        return productDetailDao.delete(dto);
-    }
-
-    @Override
-    public int deleteAllDetail() throws Exception {
-        return productDetailDao.deleteAll();
-    }
-
     @Override
     public ProductDetailDto selectDetail(Integer det_id ) throws Exception {
         return productDetailDao.select(det_id);
     }
-
-    @Override
-    public ProductDetailDto selectAllDetail() throws Exception {
-        return productDetailDao.selectAll();
-    }
-
 }
