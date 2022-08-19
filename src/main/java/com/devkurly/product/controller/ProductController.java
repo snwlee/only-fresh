@@ -19,8 +19,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-//    @Autowired
-//    ProductService productService; 필드주입 -> 생성자 주입 변경.
+    @Autowired
+    ProductService productService; //필드주입 -> 생성자 주입 변경.
 
 
     @PostMapping("/write")
@@ -84,7 +84,7 @@ public class ProductController {
 
 
     @GetMapping("/list")
-    public String list(ProductService productService,Integer page, Integer pageSize,
+    public String list(Integer page, Integer pageSize,
                        Model m, HttpServletRequest request,
                        HttpSession session, String order_sc) throws Exception{
 

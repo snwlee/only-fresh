@@ -214,7 +214,7 @@
         lists.forEach(function(BoardDto){
             if(BoardDto.is_replied==true){
                 BoardDto.is_replied = "답변완료";
-            } else{
+            } else if(BoardDto.is_replied==false){
                 BoardDto.is_replied = "답변대기";
             }
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
@@ -292,6 +292,14 @@
         $("#myModal .btn-modify").text("등록");
     };
 
+    let areaclose = function(){
+        $("#rep_textarea").val("");
+        $("#rep_textarea").attr("style", "display:none");
+        $(".aw_wrt_btn").attr("style", "display:none");
+        $(".aw_mod_btn").attr("style", "display:block");
+        $(".area_close").attr("style", "display:none");
+    };
+
     $(document).ready(function(){
         showList(pdt_id);
         let readStatus = false;
@@ -306,7 +314,6 @@
 
             let secretvalue = $("input:checkbox[name='secret1']:checked").val();
             let is_secret = secretvalue == "true";
-            console.log(is_secret);
 
             if(bbs_cn.trim()==''|bbs_title.trim()==''){
                 alert("제목 또는 내용을 입력해주세요.");
@@ -365,6 +372,7 @@
                             $(".aw_del_btn").attr("style", "display:block");
                         }else{
                             $(".Inq_answer").text("");
+                            $(".rep_btn").attr("style", "display:block");
                             $(".aw_mod_btn").attr("style", "display:none");
                             $(".aw_del_btn").attr("style", "display:none");
                         }
@@ -375,6 +383,7 @@
                 });
                 locateCn(bbs_id);
             } else {
+                areaclose();
                 relocateCn();
                 readStatus = false;
             }
@@ -503,6 +512,10 @@
             $(".aw_wrt_btn").attr("style", "display:block");
             $(".area_close").attr("style", "display:block");
 
+            $(".area_close").click(function(){
+                areaclose();
+                $(".Inq_answer").text(inq_ans);
+            })
             $(".aw_wrt_btn").click(function(){
                 let inq_ans = $("#rep_textarea").val();
 
@@ -527,21 +540,7 @@
                 });
             })
 
-
-
-
-
-
         });
-
-
-
-
-
-
-
-
-
 
     });
 </script>
