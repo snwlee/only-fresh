@@ -18,6 +18,7 @@
                 <typeAlias alias="UserDto" type="com.devkurly.admin.UserDto"/>
                 <typeAlias alias="Member" type="com.devkurly.member.domain.Member"/>
 <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
+                <typeAlias alias="UserCouponDto" type="com.devkurly.coupon.domain.UserCouponDto" />
                 <typeAlias alias="SearchCondition" type="com.devkurly.product.domain.SearchCondition"/>
        </typeAliases>
 </configuration>
