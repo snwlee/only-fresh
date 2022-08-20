@@ -42,19 +42,16 @@ public class ProductServiceImpl implements ProductService {
         return productDao.create(productDto);
     }
 
-
-    @Override
-    public ProductDto read(Integer pdt_id) throws Exception {
-        return productDao.select(pdt_id);
-    }
-
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int modify(ProductDto productDto) throws Exception {
         productDao.update(productDto);
         int list = productDao.update(productDto);
         return productDao.update(productDto);
+    }
+    @Override
+    public List<ProductDto> selectProductId() throws Exception {//board용 남겨주세요.
+        return productDao.selectProductId();
     }
 
 

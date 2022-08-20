@@ -1,5 +1,6 @@
 package com.devkurly.productDetail.service;
 
+import com.devkurly.product.dao.ProductDao;
 import com.devkurly.productDetail.dao.ProductDetailDao;
 import com.devkurly.productDetail.domain.ProductDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,15 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public int insertDetail(ProductDetailDto dto) throws Exception {
-        return productDetailDao.insert(dto);
+    public int insert(ProductDetailDto productDetailDto) throws Exception {
+        return productDetailDao.insert(productDetailDto);
     }
     @Override
-    public ProductDetailDto selectDetail(Integer det_id ) throws Exception {
-        return productDetailDao.select(det_id);
+    public ProductDetailDto selectDetail(Integer pdt_id) throws Exception {
+        return productDetailDao.select(pdt_id);
+    }
+    @Override
+    public int updateDetail(ProductDetailDto productDetailDto)throws Exception {
+        return productDetailDao.update(productDetailDto);
     }
 }

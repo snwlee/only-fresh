@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface ProductDetailDao {
 
-    ProductDetailDto select(Integer det_id) throws Exception;
+    ProductDetailDto select(Integer pdt_id) throws Exception;
     int insert(ProductDetailDto dto) throws Exception;
     int update(ProductDetailDto dto) throws Exception;
 

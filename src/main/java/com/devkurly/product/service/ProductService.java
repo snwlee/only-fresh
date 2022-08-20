@@ -20,9 +20,6 @@ public interface ProductService {
     int getCount() throws Exception;
 
 
-
-    ProductDto read(Integer pdt_id) throws Exception;
-
     List<ProductDto> ProductList(Map map) throws Exception;
 
     List<ProductDto> ProductThriftyList(Map map) throws Exception;
@@ -31,7 +28,7 @@ public interface ProductService {
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
 
-
+    List<ProductDto> selectProductId() throws Exception;
     // U
     int modify(ProductDto productDto) throws Exception;
 

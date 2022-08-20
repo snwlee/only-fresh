@@ -1,6 +1,5 @@
 package com.devkurly.productDetail.domain;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class ProductDetailDto {
@@ -13,24 +12,45 @@ public class ProductDetailDto {
     private String origin; // 원산지
     private String notice; // 안내사항
     private String prt_info; // 상품설명
-    private String prt_image; // 상품 고화질 이미지
+    private String prt_image = "image"; // 상품 고화질 이미지
     private String company; // 제조사
     private boolean de_type; // 배송 유형
-    private Date in_date;
-    private String in_user;
-    private Date up_date;
-    private String up_user;
+    private int ds_rate;
+    private int price;
+    private int sel_price;
+    private String sub_title;
+    private String title;
+    private Integer user_id;
 
-    public ProductDetailDto() { }
+    public ProductDetailDto(){}
 
-    public ProductDetailDto(Integer pdt_id, String pack_cd, String sell_cd, String weca_cd, String prt_info, String in_user, String up_user) {
+    public ProductDetailDto(Integer pdt_id, String pack_cd, String sell_cd, String weca_cd, String allg_dt, String ex_dt, String origin, String notice, String prt_info, String prt_image, String company, boolean de_type, int ds_rate, int price, int sel_price, String sub_title, String title, Integer user_id) {
         this.pdt_id = pdt_id;
         this.pack_cd = pack_cd;
         this.sell_cd = sell_cd;
         this.weca_cd = weca_cd;
+        this.allg_dt = allg_dt;
+        this.ex_dt = ex_dt;
+        this.origin = origin;
+        this.notice = notice;
         this.prt_info = prt_info;
-        this.in_user = in_user;
-        this.up_user = up_user;
+        this.prt_image = prt_image;
+        this.company = company;
+        this.de_type = de_type;
+        this.ds_rate = ds_rate;
+        this.price = price;
+        this.sel_price = sel_price;
+        this.sub_title = sub_title;
+        this.title = title;
+        this.user_id = user_id;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public Integer getPdt_id() {
@@ -128,36 +148,45 @@ public class ProductDetailDto {
     public void setDe_type(boolean de_type) {
         this.de_type = de_type;
     }
-    public Date getIn_date() {
-        return in_date;
+
+    public int getDs_rate() {
+        return ds_rate;
     }
 
-    public void setIn_date(Date in_date) {
-        this.in_date = in_date;
+    public void setDs_rate(int ds_rate) {
+        this.ds_rate = ds_rate;
     }
 
-    public String getIn_user() {
-        return in_user;
+    public int getPrice() {
+        return price;
     }
 
-    public void setIn_user(String in_user) {
-        this.in_user = in_user;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public Date getUp_date() {
-        return up_date;
+    public int getSel_price() {
+        return sel_price;
     }
 
-    public void setUp_date(Date up_date) {
-        this.up_date = up_date;
+    public void setSel_price(int sel_price) {
+        this.sel_price = sel_price;
     }
 
-    public String getUp_user() {
-        return up_user;
+    public String getSub_title() {
+        return sub_title;
     }
 
-    public void setUp_user(String up_user) {
-        this.up_user = up_user;
+    public void setSub_title(String sub_title) {
+        this.sub_title = sub_title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -165,12 +194,12 @@ public class ProductDetailDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDetailDto that = (ProductDetailDto) o;
-        return de_type == that.de_type && Objects.equals(pdt_id, that.pdt_id) && Objects.equals(pack_cd, that.pack_cd) && Objects.equals(sell_cd, that.sell_cd) && Objects.equals(weca_cd, that.weca_cd) && Objects.equals(allg_dt, that.allg_dt) && Objects.equals(ex_dt, that.ex_dt) && Objects.equals(origin, that.origin) && Objects.equals(notice, that.notice) && Objects.equals(prt_info, that.prt_info) && Objects.equals(prt_image, that.prt_image) && Objects.equals(company, that.company) && Objects.equals(in_date, that.in_date) && Objects.equals(in_user, that.in_user) && Objects.equals(up_date, that.up_date) && Objects.equals(up_user, that.up_user);
+        return de_type == that.de_type && ds_rate == that.ds_rate && price == that.price && sel_price == that.sel_price && Objects.equals(pdt_id, that.pdt_id) && Objects.equals(pack_cd, that.pack_cd) && Objects.equals(sell_cd, that.sell_cd) && Objects.equals(weca_cd, that.weca_cd) && Objects.equals(allg_dt, that.allg_dt) && Objects.equals(ex_dt, that.ex_dt) && Objects.equals(origin, that.origin) && Objects.equals(notice, that.notice) && Objects.equals(prt_info, that.prt_info) && Objects.equals(prt_image, that.prt_image) && Objects.equals(company, that.company) && Objects.equals(sub_title, that.sub_title) && Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pdt_id, pack_cd, sell_cd, weca_cd, allg_dt, ex_dt, origin, notice, prt_info, prt_image, company, de_type, in_date, in_user, up_date, up_user);
+        return Objects.hash(pdt_id, pack_cd, sell_cd, weca_cd, allg_dt, ex_dt, origin, notice, prt_info, prt_image, company, de_type, ds_rate, price, sel_price, sub_title, title);
     }
 
     @Override
@@ -188,10 +217,11 @@ public class ProductDetailDto {
                 ", prt_image='" + prt_image + '\'' +
                 ", company='" + company + '\'' +
                 ", de_type=" + de_type +
-                ", in_date=" + in_date +
-                ", in_user='" + in_user + '\'' +
-                ", up_date=" + up_date +
-                ", up_user='" + up_user + '\'' +
+                ", ds_rate=" + ds_rate +
+                ", price=" + price +
+                ", sel_price=" + sel_price +
+                ", sub_title='" + sub_title + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

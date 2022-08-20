@@ -47,12 +47,6 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectList(namespace + "ProductThriftyList", map);
     }
 
-
-    @Override
-    public ProductDto select(Integer pdt_id) throws Exception {
-        return session.selectOne(namespace + "select", pdt_id);
-    }
-
     @Override
     public int count() throws Exception {
         return session.selectOne(namespace + "count");
@@ -87,10 +81,10 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectList(namespace + "ProductListDESC", map);
     }
 
-//    @Override
-//    public List<ProductDto> selectProductId() throws Exception{
-//        return session.selectList(namespace + "selectProductId");
-//    }
+    @Override
+    public List<ProductDto> selectProductId() throws Exception{ //board용 남겨주세요.
+        return session.selectList(namespace + "selectProductId");
+    }
 
     @Override
     public List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception {

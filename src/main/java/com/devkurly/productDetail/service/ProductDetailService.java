@@ -4,8 +4,8 @@ import com.devkurly.productDetail.domain.ProductDetailDto;
 
 public interface ProductDetailService {
 
-    int insertDetail(ProductDetailDto dto) throws Exception;
+    int insert(ProductDetailDto dto) throws Exception;
 
-    ProductDetailDto selectDetail(Integer det_id) throws Exception;
-
+    ProductDetailDto selectDetail(Integer pdt_id) throws Exception;
+    int updateDetail(ProductDetailDto productDetailDto)throws Exception;
 }

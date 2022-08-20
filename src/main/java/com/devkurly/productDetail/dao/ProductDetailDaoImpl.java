@@ -17,20 +17,20 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
         this.session = session;
     }
 
-    private static String namespace = "com.devkurly.productDetail.dao.ProductDetailMapper.";
+    private String namespace = "com.devkurly.productDetail.dao.ProductDetailMapper.";
 
     @Override
-    public ProductDetailDto select(Integer det_id) throws Exception {
-        return session.selectOne(namespace + "select", det_id);
+    public ProductDetailDto select(Integer pdt_id) throws Exception {
+        return session.selectOne(namespace + "select", pdt_id);
     }
 
     @Override
-    public int insert(ProductDetailDto dto) throws Exception {
-        return session.insert(namespace + "insert", dto);
+    public int insert(ProductDetailDto productDetailDto) throws Exception {
+        return session.insert(namespace + "insert", productDetailDto);
     }
 
     @Override
-    public int update(ProductDetailDto dto) throws Exception {
-        return session.update(namespace + "update", dto);
+    public int update(ProductDetailDto productDetailDto) throws Exception {
+        return session.update(namespace + "update", productDetailDto);
     }
 }
