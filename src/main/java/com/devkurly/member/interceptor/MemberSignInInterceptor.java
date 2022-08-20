@@ -13,7 +13,7 @@ import java.util.Optional;
 public class MemberSignInInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws SignInException {
-        Optional.ofNullable(request.getSession().getAttribute("user_id"))
+        Optional.ofNullable(request.getSession().getAttribute("memberResponse"))
                 .orElseThrow(() ->
                         new SignInException("로그인이 필요합니다.", ErrorCode.SIGN_IN_FAIL));
         return true;
