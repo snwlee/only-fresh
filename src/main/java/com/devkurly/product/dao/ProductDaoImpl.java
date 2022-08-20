@@ -75,11 +75,6 @@ public class ProductDaoImpl implements ProductDao {
         return session.delete(namespace + "delete", map);
     }
 
-    @Override
-    public List<ProductDto> selectProductId() throws Exception {
-        return null;
-    }
-
 
     @Override
     public List<ProductDto> ProductListDESC(Map map) {

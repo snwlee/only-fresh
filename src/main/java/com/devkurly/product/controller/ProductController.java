@@ -73,22 +73,6 @@ public class ProductController {
         return "redirect:/product/list?page=1&pageSize=10";
     }
 
-
-
-    @GetMapping("/read")
-    public String read(Integer pdt_id, Integer page, Integer pageSize, Model m) {
-        try {
-            ProductDto productDto = productService.read(pdt_id);
-            m.addAttribute("ProductDto",productDto);
-            m.addAttribute("page",page);
-            m.addAttribute("pagesize",pageSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "product/product";
-    }
-
-
     @GetMapping("/list")
 
     public String list(SearchCondition sc, String option, Model m, HttpServletRequest request, HttpSession session, String order_sc){
