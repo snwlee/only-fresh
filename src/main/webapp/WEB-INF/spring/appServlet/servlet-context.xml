@@ -30,16 +30,15 @@
 	<context:component-scan base-package="com.devkurly"/>
 
 	<mvc:interceptors>
-<!--		<mvc:interceptor>-->
-<!--			<mvc:mapping path="/carts/**" />-->
-<!--			<beans:bean id="memberSignInInterceptor" class="com.devkurly.member.interceptor.MemberSignInInterceptor" />-->
-<!--		</mvc:interceptor>-->
 		<mvc:interceptor>
 			<mvc:mapping path="/orders/**" />
-			<mvc:mapping path="/payments/**" />
-<!--			<mvc:mapping path="/mypage/coupon"/> 채훈님-->
-			<beans:bean id="memberVerifyInterceptor" class="com.devkurly.member.interceptor.MemberVerifyInterceptor" />
+			<beans:bean id="memberSignInInterceptor" class="com.devkurly.member.interceptor.MemberSignInInterceptor" />
 		</mvc:interceptor>
+<!--		<mvc:interceptor>-->
+<!--			<mvc:mapping path="/payments/**" />-->
+<!--			<mvc:mapping path="/mypage/coupon"/>-->
+<!--			<beans:bean id="memberVerifyInterceptor" class="com.devkurly.member.interceptor.MemberVerifyInterceptor" />-->
+<!--		</mvc:interceptor>-->
 	</mvc:interceptors>
 
 </beans:beans>

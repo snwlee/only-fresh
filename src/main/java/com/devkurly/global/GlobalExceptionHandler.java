@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -26,18 +27,16 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(OutOfStockException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> productCatcher(HttpServletResponse response, Exception e) throws IOException {
+    public ResponseEntity<String> productCatcher(Exception e){
         System.out.println("제품 재고가 부족합니다.");
-//        response.sendRedirect("/carts?error=2");
         return ResponseEntity.badRequest().body(ErrorCode.OUT_OF_STOCK.getMessage());
     }
 
     @ExceptionHandler(SignInException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> signInCatcher(HttpServletResponse response, Exception e) throws IOException {
+    public ResponseEntity<String> signInCatcher(HttpServletResponse response, HttpServletRequest request, Exception e) throws IOException {
         System.out.println("로그인에 실패했습니다.");
-        response.sendRedirect("/members?error=1");
+        response.sendRedirect("/members?error=1&toURL="+ request.getRequestURL());
         return ResponseEntity.badRequest().body(ErrorCode.SIGN_IN_FAIL.getMessage());
     }
 

@@ -159,8 +159,10 @@
             <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
                 <div id="product">
                     <tr>
+
+                        <td><input type="number" value=1 name="pdt_qty"></td>
                         <td><button class="cart_btn" type="submit">장바구니에 추가</button></td>
-                        <td><input type="number" value=1 name="count"></td>
+
                         <td> 태그이름: ${ProductDto.tag_name}</td>
                         <td> 제품명 :${ProductDto.title}</td>
                         <td> 소제목: ${ProductDto.sub_title}</td>
