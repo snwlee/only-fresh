@@ -1,15 +1,14 @@
 package com.devkurly.mypage.controller;
 
 import com.devkurly.coupon.domain.CouponDto;
-import com.devkurly.coupon.domain.UserCouponDto;
 import com.devkurly.coupon.service.CouponService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,23 +21,37 @@ public class MyPageController {
     }
 
     @PostMapping("/coupon")
-    public ResponseEntity<String> addCouponToUser(@RequestBody UserCouponDto userCouponDto) {
+    public ResponseEntity<String> addCouponToUser(HttpServletRequest req, HttpServletResponse res) {
+        if (!isLogined(req.getSession())) {
+            try {
+                res.sendRedirect("/");
+                return null;
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        }
+
+        Integer user_id = (Integer) req.getSession().getAttribute("user_id");
+        String nm = req.getParameter("nm");
+
+        if(user_id == null || nm.equals("")) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         try {
-            couponService.insertUserCoupon(userCouponDto);
+            couponService.insertUserCoupon(user_id, nm);
             return new ResponseEntity<>("add coupon to user success", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), e.getMessage().equals("" + 400) ? HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.toString(), e.getMessage().equals("" + 400) ? HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/coupon")
     public ResponseEntity<List<CouponDto>> bringUserCoupons(HttpSession session, HttpServletResponse res) {
-        if (isLogined(session)) {
+        if (!isLogined(session)) {
             try {
                 res.sendRedirect("/");
                 return null;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
             }
         }
 
@@ -48,7 +61,7 @@ public class MyPageController {
             list = couponService.selectUserCoupons((Integer) session.getAttribute("user_id"));
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(list, e.getMessage().equals("" + 400) ? HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

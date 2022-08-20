@@ -9,7 +9,7 @@ public interface CouponService {
     // C
     int insert(CouponDto couponDto) throws Exception;
 
-    int insertUserCoupon(UserCouponDto userCouponDto) throws Exception;
+    int insertUserCoupon(Integer user_id, String nm) throws Exception;
 
     // R
     CouponDto select(int coupn_id) throws Exception;

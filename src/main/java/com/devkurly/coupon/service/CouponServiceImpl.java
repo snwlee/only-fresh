@@ -24,13 +24,6 @@ public class CouponServiceImpl implements CouponService {
         return true;
     }
 
-    public boolean isUserCouponValid(UserCouponDto userCouponDto) {
-        // userCouponDto 가 null 로 들어오는 경우
-        // userCouponDto 의 field 에 유효하지 않은 값 들어올 때
-
-        return true;
-    }
-
     // C
     @Override
     public int insert(CouponDto couponDto) throws Exception {
@@ -47,11 +40,12 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public int insertUserCoupon(UserCouponDto userCouponDto) throws Exception {
-        if(!isUserCouponValid(userCouponDto)) throw new Exception("" + HttpStatus.BAD_REQUEST);
+    public int insertUserCoupon(Integer user_id, String nm) throws Exception {
+        // user_id, nm 에 대한 유효성 검사 해야함
+        UserCouponDto dto = new UserCouponDto(user_id, nm );
 
         try {
-            int rowCnt = couponDao.createUserCoupon(userCouponDto);
+            int rowCnt = couponDao.createUserCoupon(dto);
             if( rowCnt != 1) throw new Exception("" + HttpStatus.INTERNAL_SERVER_ERROR);
             return rowCnt;
         } catch(Exception e){
