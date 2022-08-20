@@ -40,16 +40,6 @@ public class ProductDaoImplTest {
 
 
 
-    @Test
-    public void select() throws Exception {
-        assertTrue(productDao != null);
-        System.out.println("productDao = " + productDao);
-        ProductDto productDto = productDao.select(1);
-        System.out.println("productDto = " + productDto);
-        assertTrue(productDto.getPdt_id().equals(1));
-    }
-
-
 
     @Test
     public void insert() throws Exception {
