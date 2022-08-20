@@ -1,13 +1,14 @@
 package com.devkurly.member.dto;
 
-import com.devkurly.order.dto.OrderSaveRequestDto;
+import com.devkurly.global.ErrorCode;
+import com.devkurly.member.exception.SignUpException;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class MemberFormValidator implements ConstraintValidator<ValidMemberForm, MemberSaveRequestDto> {
-    private static final int MIN_LENGTH = 1;
+    private static final int MIN_LENGTH = 5;
     private static final int MAX_LENGTH = 25;
 
     @Override
@@ -17,41 +18,44 @@ public class MemberFormValidator implements ConstraintValidator<ValidMemberForm,
 
     @Override
     public boolean isValid(MemberSaveRequestDto requestDto, ConstraintValidatorContext context) {
-        if (Objects.isNull(requestDto.getUser_email())) {
-            addConstraintViolation(context, "M001");
-            return false;
-        }
-        if (!hasProperLength(requestDto.getUser_email())) {
-            addConstraintViolation(context, String.format("M002", MIN_LENGTH, MAX_LENGTH));
-            return false;
-        }
-        if (hasWhiteSpace(requestDto.getUser_email())) {
-            addConstraintViolation(context, "M003");
-            return false;
-        }
-        if (Objects.isNull(requestDto.getPwd())) {
-            addConstraintViolation(context, "M011");
-            return false;
-        }
-        if (!hasProperLength(requestDto.getPwd())) {
-            addConstraintViolation(context, String.format("M012", MIN_LENGTH, MAX_LENGTH));
-            return false;
+        int valid = 0;
+        if (!requestDto.getPwd().equals(requestDto.getCPassword())) {
+            System.out.println("동일한 비밀번호가 아닙니다.");
+            addConstraintViolation(context, "동일한 비밀번호가 아닙니다.");
+            valid++;
         }
         if (hasWhiteSpace(requestDto.getPwd())) {
-            addConstraintViolation(context, "M013");
-            return false;
+            System.out.println("비밀번호에 빈칸은 허용되지 않습니다.");
+            addConstraintViolation(context, "비밀번호에 빈칸은 허용되지 않습니다.");
+            valid++;
         }
-        if (Objects.isNull(requestDto.getUser_nm())) {
-            addConstraintViolation(context, "M021");
-            return false;
-        }
-        if (!hasProperLength(requestDto.getUser_nm())) {
-            addConstraintViolation(context, String.format("M022", MIN_LENGTH, MAX_LENGTH));
-            return false;
+        if (!Pattern.matches("^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$", requestDto.getPwd())) {
+            System.out.println("비밀번호 형식에 맞지 않습니다.");
+            addConstraintViolation(context, "비밀번호 형식에 맞지 않습니다.");
+            valid++;
         }
         if (hasWhiteSpace(requestDto.getUser_nm())) {
-            addConstraintViolation(context, "M023");
-            return false;
+            System.out.println("이름에 빈칸은 허용되지 않습니다.");
+            addConstraintViolation(context, "이름에 빈칸은 허용되지 않습니다.");
+            valid++;
+        }
+        if (!Pattern.matches("[가-힣]{2,5}", requestDto.getUser_nm())) {
+            System.out.println("이름 형식에 맞지 않습니다.");
+            addConstraintViolation(context, "이름 형식에 맞지 않습니다.");
+            valid++;
+        }
+        if (hasWhiteSpace(requestDto.getTelno())) {
+            System.out.println("번호에 빈칸은 허용되지 않습니다.");
+            addConstraintViolation(context, "번호에 빈칸은 허용되지 않습니다.");
+            valid++;
+        }
+        if (!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", requestDto.getTelno())) {
+            System.out.println("번호 형식에 맞지 않습니다.");
+            addConstraintViolation(context, "번호 형식에 맞지 않습니다.");
+            valid++;
+        }
+        if (valid != 0) {
+            throw new SignUpException("회원가입 입력 값 오류", ErrorCode.SIGN_UP_FAIL);
         }
         return true;
     }
@@ -68,9 +72,6 @@ public class MemberFormValidator implements ConstraintValidator<ValidMemberForm,
     private void addConstraintViolation(ConstraintValidatorContext context, String errorMessage) {
         context.disableDefaultConstraintViolation();
         context.buildConstraintViolationWithTemplate(errorMessage)
-//                .addPropertyNode(firstNode)
-//                .addPropertyNode(secondNode)
-//                .addPropertyNode(thirdNode)
                 .addConstraintViolation();
     }
 }

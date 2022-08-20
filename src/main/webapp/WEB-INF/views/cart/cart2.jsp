@@ -7,7 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="id" value="${sessionScope.user_id==null ? id : sessionScope.user_id}"/>
+<c:set
+        var="signInOutLink"
+        value="${sessionScope.memberResponse==null ? '/members' : '/members/logout'}"
+/>
+<c:set
+        var="signInOut"
+        value="${sessionScope.memberResponse==null ? '로그인' : '로그아웃'}"
+/>
 <html>
 <head>
     <title>장바구니</title>
@@ -32,11 +39,12 @@
 </head>
 <body>
 <div>장바구니</div>
-<div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
+<div id="test">테스트 로그인전</div>
+<div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
 <a class="btn" href="/carts/delete">장바구니 제품 전체 삭제</a>
 <a class="btn" href="/carts/${pdt_id}">~~장바구니 제품 선택 삭제~~</a>
 <a class="btn" href="/carts/update">~~예)상품에서 장바구니 제품 1, 10개 추가~~</a>
-<a class="btn" href="/carts/rest/view">JSON</a>
+<a class="btn" href="/carts/view">JSON</a>
 <div id="cart"></div>
 <div id="cart-empty">장바구니에 담긴 상품이 없습니다</div>
 <div id="cart-sum"></div>
@@ -45,7 +53,7 @@
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: '/carts/rest/view',
+            url: '/carts/view',
             datatype: 'json',
             success: function (result) {
                 $.each(result, function (index, CartResponseDto) {
@@ -70,9 +78,8 @@
                         `;
                     $('#cart-empty').html('');
                     $('#cart').append(cart);
-
+                    let sum = 0;
                     let cart_sum = function (pdt_qty) {
-                        let sum = 0;
                         $.each(result, function (index, CartResponseDto) {
                             sum += pdt_qty * CartResponseDto.sel_price;
                         });
@@ -85,7 +92,8 @@
                         let cart = {
                             user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
-                            pdt_qty: $('#cart-qty-' + index).val()
+                            pdt_qty: $('#cart-qty-' + index).val(),
+                            sel_price: CartResponseDto.sel_price
                         };
                         let cartJs = {};
                         $.ajax({
@@ -113,7 +121,8 @@
                         let cart = {
                             user_id: ${id},
                             pdt_id: CartResponseDto.pdt_id,
-                            pdt_qty: $('#cart-qty-' + index).val()
+                            pdt_qty: $('#cart-qty-' + index).val(),
+                            sel_price: CartResponseDto.sel_price
                         };
                         let cartJs = {};
                         $.ajax({
@@ -132,7 +141,6 @@
                             }
                         });
                     });
-
                 });
             },
             error: function () {

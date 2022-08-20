@@ -1,5 +1,6 @@
 package com.devkurly.board.controller;
 import com.devkurly.board.domain.BoardDto;
+import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.domain.PageHandler;
 import com.devkurly.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,27 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    private String cleanXSS(String value) {
+        value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
+        value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
+        value = value.replaceAll("'", "& #39;");
+        value = value.replaceAll("eval\\((.*)\\)", "");
+        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+        value = value.replaceAll("script", "");
+        return value;
+    }
+
     @GetMapping("/boardlist")
     public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
         try {
-            if (!bbs_clsf_cd.equals("1"))
-                throw new Exception("not review board");
             int totalCnt = boardService.getCount(bbs_clsf_cd, pdt_id);
             PageHandler ph = new PageHandler(totalCnt, page, pageSize);
             m.addAttribute("totalCnt", totalCnt);
             m.addAttribute("ph", ph);
             m.addAttribute("pdt_id", pdt_id);
             m.addAttribute("bbs_clsf_cd", bbs_clsf_cd);
+            if(bbs_clsf_cd.equals("2"))
+                return "board/board_answer";
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,11 +60,14 @@ public class BoardController {
         map.put("bbs_clsf_cd", bbs_clsf_cd);
         List<BoardDto> list = null;
         try {
-            if(sortType.equals("like")){
-                list = boardService.selectReviewPageLike(map);
+            if(bbs_clsf_cd.equals("2")){list = boardService.selectInqPage(map);}
+            else {
+                if (sortType.equals("like")) {
+                    list = boardService.selectReviewPageLike(map);
+                } else {
+                    list = boardService.selectReviewPage(map);
+                }
             }
-            else{list = boardService.selectReviewPage(map);}
-
             return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,15 +77,14 @@ public class BoardController {
 
     @PostMapping("/board")
     @ResponseBody
-    public ResponseEntity<String> write(Integer pdt_id, String bbs_clsf_cd, boolean is_secret, @RequestBody BoardDto boardDto, HttpSession session) {
+    public ResponseEntity<String> write(Integer pdt_id, String bbs_clsf_cd, @RequestBody BoardDto boardDto, HttpSession session) {
 //        int user_id = (int) session.getAttribute("user_id");
         boardDto.setUser_id(1); //임시 하드코딩
         boardDto.setPdt_id(pdt_id);
         boardDto.setBbs_clsf_cd(bbs_clsf_cd);
         boardDto.setUser_nm("youngjun"); //임시 하드코딩
-        boardDto.setIs_secret(is_secret);
-        if(is_secret==true)
-            boardDto.setBbs_title("비밀글 입니다."); //board_answer.jsp에서 회색&링크없애기
+        boardDto.setBbs_title(cleanXSS(boardDto.getBbs_title()));
+        boardDto.setBbs_cn(cleanXSS(boardDto.getBbs_cn()));
 
         try {
             boardService.write(boardDto);
@@ -89,6 +102,8 @@ public class BoardController {
         boardDto.setUser_id(1); //임시 하드코딩
         boardDto.setBbs_id(bbs_id);
         boardDto.setPdt_id(pdt_id);
+        boardDto.setBbs_title(cleanXSS(boardDto.getBbs_title()));
+        boardDto.setBbs_cn(cleanXSS(boardDto.getBbs_cn()));
         try {
             int rowCnt = boardService.modify(boardDto);
             if (rowCnt != 1)
@@ -120,19 +135,19 @@ public class BoardController {
     }
 
     @GetMapping("/board/{bbs_id}")
-    public ResponseEntity<BoardDto> read(@PathVariable Integer bbs_id, String gd_cd, boolean is_secret) {
+    public ResponseEntity<Map> read(@PathVariable Integer bbs_id, boolean is_secret) {
         try {
-            if(is_secret==true){
-                if(!gd_cd.equals("2"))
-                    throw new Exception("잘못된 요청입니다.");
-                BoardDto boardDto = boardService.readCn(bbs_id);
-                return new ResponseEntity<BoardDto>(boardDto, HttpStatus.OK);
-            }
+            Map map = new HashMap<>();
+            CommentDto commentDto = boardService.readAnswer(bbs_id);
+            if(commentDto==null)
+                map.put("commentDto", null);
+            map.put("commentDto", commentDto);
             BoardDto boardDto = boardService.readCn(bbs_id);
-            return new ResponseEntity<BoardDto>(boardDto, HttpStatus.OK);
+            map.put("boardDto", boardDto);
+            return new ResponseEntity<Map>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<BoardDto>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Map>(HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.productDetail.dao.ProductDetailMapper">
+
+    <insert id="insert" parameterType="ProductDetailDto" >
+        INSERT INTO PRODUCT_DETAIL_TB(pdt_id, company ,pack_cd, sell_cd, weca_cd, origin, allg_dt, ex_dt, notice, prt_info, de_type, in_user, up_user)
+        VALUES (#{pdt_id}, #{company}, #{pack_cd}, #{sell_cd}, #{weca_cd}, #{origin}, #{allg_dt}, #{ex_dt}, #{notice}, #{prt_info}, #{de_type}, #{user_id}, #{user_id});
+    </insert>
+
+<!--    <select id="select" parameterType="int" resultType="ProductDetailDto">-->
+<!--        SELECT pdt_id, pack_cd, sell_cd, weca_cd, prt_info, de_type, allg_dt, ex_dt, origin, notice, prt_image, company-->
+<!--        FROM PRODUCT_DETAIL_TB-->
+<!--        WHERE pdt_id = #{pdt_id}-->
+<!--    </select>-->
+
+    <select id="select" parameterType="int" resultType="ProductDetailDto">
+        select *
+        from PRODUCT_TB
+                 left join PRODUCT_DETAIL_TB
+                            on PRODUCT_TB.pdt_id = PRODUCT_DETAIL_TB.pdt_id
+        where PRODUCT_TB.pdt_id=#{pdt_id}
+    </select>
+    <update id="update" parameterType="ProductDetailDto">
+        UPDATE PRODUCT_DETAIL_TB
+        SET pack_cd = #{pack_cd},
+            sell_cd = #{sell_cd},
+            weca_cd = #{weca_cd},
+            prt_info = #{prt_info},
+            allg_dt = #{allg_dt},
+            ex_dt = #{ex_dt},
+            origin = #{origin},
+            notice = #{notice},
+            company = #{company},
+            de_type = #{de_type},
+            in_user = #{user_id},
+            up_user = #{user_id}
+        WHERE pdt_id = #{pdt_id}
+    </update>
+</mapper>

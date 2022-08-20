@@ -1,5 +1,6 @@
 package com.devkurly.productDetail.service;
 
+import com.devkurly.product.dao.ProductDao;
 import com.devkurly.productDetail.dao.ProductDetailDao;
 import com.devkurly.productDetail.domain.ProductDetailDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,37 +12,22 @@ import java.util.Map;
 @Service
 public class ProductDetailServiceImpl implements ProductDetailService {
 
-    @Autowired
-    ProductDetailDao productDetailDao;
+    private ProductDetailDao productDetailDao;
 
-    @Override
-    public int insertDetail(ProductDetailDto dto) throws Exception {
-        return productDetailDao.insert(dto);
+    public ProductDetailServiceImpl(ProductDetailDao productDetailDao) {
+        this.productDetailDao = productDetailDao;
     }
 
     @Override
-    public int minInsertDetail(ProductDetailDto dto) throws Exception {
-        return productDetailDao.minInsert(dto);
+    public int insert(ProductDetailDto productDetailDto) throws Exception {
+        return productDetailDao.insert(productDetailDto);
     }
-
     @Override
-    public int deleteDetail(ProductDetailDto dto) throws Exception {
-        return productDetailDao.delete(dto);
+    public ProductDetailDto selectDetail(Integer pdt_id) throws Exception {
+        return productDetailDao.select(pdt_id);
     }
-
     @Override
-    public int deleteAllDetail() throws Exception {
-        return productDetailDao.deleteAll();
+    public int updateDetail(ProductDetailDto productDetailDto)throws Exception {
+        return productDetailDao.update(productDetailDto);
     }
-
-    @Override
-    public ProductDetailDto selectDetail(Integer det_id ) throws Exception {
-        return productDetailDao.select(det_id);
-    }
-
-    @Override
-    public ProductDetailDto selectAllDetail() throws Exception {
-        return productDetailDao.selectAll();
-    }
-
 }

@@ -10,33 +10,32 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 public class CommentController {
     private final BoardService boardService;
 
     public CommentController(BoardService boardService) {
         this.boardService = boardService;
     }
-    @GetMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<CommentDto> getComment(@PathVariable Integer bbs_id) {
-        try {
-
-            CommentDto commentDto = boardService.readAnswer(bbs_id);
-            return new ResponseEntity<>(commentDto, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<CommentDto>(HttpStatus.BAD_REQUEST);
-        }
+    private String cleanXSS(String value) {
+        value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
+        value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
+        value = value.replaceAll("'", "& #39;");
+        value = value.replaceAll("eval\\((.*)\\)", "");
+        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
+        value = value.replaceAll("script", "");
+        return value;
     }
+
     @PostMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, CommentDto commentDto, HttpSession session) {
+    public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, int replyst, @RequestBody CommentDto commentDto, HttpSession session) {
 //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
         Integer user_id = 1;
-        String gd_cd = "2";
         commentDto.setUser_id(user_id);
-        commentDto.setGd_cd(gd_cd);
         commentDto.setBbs_id(bbs_id);
+        commentDto.setReplyst(replyst);
+        commentDto.setInq_ans(cleanXSS(commentDto.getInq_ans()));
         try {
             boardService.writeAnswer(commentDto);
             return new ResponseEntity<>("WRT_OK", HttpStatus.OK);
@@ -47,14 +46,14 @@ public class CommentController {
     }
 
     @PatchMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> modifyComment(@PathVariable Integer bbs_id, CommentDto commentDto, HttpSession session) {
+    public ResponseEntity<String> modifyComment(@PathVariable Integer bbs_id, @RequestBody CommentDto commentDto, HttpSession session) {
         //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
-        String gd_cd = "2";
-        commentDto.setGd_cd(gd_cd);
+        commentDto.setBbs_id(bbs_id);
+        commentDto.setInq_ans(cleanXSS(commentDto.getInq_ans()));
         try {
             boardService.modifyAnswer(commentDto);
-            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
+            return new ResponseEntity<String>("MOD_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
@@ -62,12 +61,12 @@ public class CommentController {
     }
 
     @DeleteMapping("/board/comment/{bbs_id}")
-    public ResponseEntity<String> deleteComment(@PathVariable Integer bbs_id, HttpSession session) {
+    public ResponseEntity<String> deleteComment(@PathVariable Integer bbs_id, int replyst, String bbs_clsf_cd, HttpSession session) {
         //        session.getAttribute("user_id", user_id);
         //임시 하드코딩
-        String gd_cd = "2";
+
         try {
-            boardService.deleteAnswer(bbs_id, gd_cd);
+            boardService.deleteAnswer(bbs_id, replyst);
             return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

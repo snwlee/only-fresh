@@ -1,9 +1,8 @@
 package com.devkurly.cart.controller;
 
-import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
-import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.member.dto.MemberMainResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,23 +21,27 @@ public class CartRestController {
 
     private final CartService cartService;
 
-    @GetMapping("/rest/view")
-    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue(value="tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
-        List<CartProductResponseDto> cartList;
-        Integer user_id = (Integer) session.getAttribute("user_id");
-        if (Optional.ofNullable(user_id).isPresent()) {
-            cartList = cartService.viewCartProduct(user_id);
-        } else {
-            cartList = cartService.viewCartProduct(cartService.getCookieId(tempCart, response));
-            System.out.println("rest");
-        }
-        return new ResponseEntity<>(cartList, HttpStatus.OK);
+    @GetMapping("/view")
+    public ResponseEntity<List<CartProductResponseDto>> viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        return new ResponseEntity<>(cartService.viewCartProduct(id), HttpStatus.OK);
     }
 
     @PostMapping("/qty")
-    public Cart modifyCartQty(@RequestBody Cart cart) {
-        cartService.checkProductStock(cart);
-        cartService.modifyCart(cart);
-        return cart;
+    public CartProductResponseDto modifyCartQty(@RequestBody CartProductResponseDto responseDto) {
+        cartService.checkProductStock(responseDto.toEntity());
+        cartService.modifyCart(responseDto.toEntity());
+        return responseDto;
+    }
+
+    private int getId(Cookie tempCart, HttpServletResponse response, HttpSession session) {
+        int id;
+        MemberMainResponseDto memberMainResponseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
+        if (Optional.ofNullable(memberMainResponseDto).isPresent()) {
+            id = memberMainResponseDto.getUser_id();
+        } else {
+            id = cartService.getCookieId(tempCart, response);
+        }
+        return id;
     }
 }

@@ -1,6 +1,7 @@
 package com.devkurly.product.dao;
 
 import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
+
     @Autowired
     private SqlSession session;
     private static String namespace = "com.devkurly.product.dao.ProductMapper.";
@@ -45,12 +47,6 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectList(namespace + "ProductThriftyList", map);
     }
 
-
-    @Override
-    public ProductDto select(Integer pdt_id) throws Exception {
-        return session.selectOne(namespace + "select", pdt_id);
-    }
-
     @Override
     public int count() throws Exception {
         return session.selectOne(namespace + "count");
@@ -78,21 +74,27 @@ public class ProductDaoImpl implements ProductDao {
         map.put("pdt_id", pdt_id);
         return session.delete(namespace + "delete", map);
     }
-//
-//    @Override
-//    public List<ProductDto> ProductListAsc(Map map) {
-//        return session.selectList(namespace+"ProductListAsc",map);
-//    }
+
 
     @Override
     public List<ProductDto> ProductListDESC(Map map) {
         return session.selectList(namespace + "ProductListDESC", map);
     }
 
+    @Override
+    public List<ProductDto> selectProductId() throws Exception{ //board용 남겨주세요.
+        return session.selectList(namespace + "selectProductId");
+    }
 
+    @Override
+    public List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectList(namespace + "searchSelectPage", sc);
+    }
 
-
-
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace + "searchResultCnt", sc);
+    }
 }
 
 

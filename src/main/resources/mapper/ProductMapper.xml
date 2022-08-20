@@ -3,27 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devkurly.product.dao.ProductMapper">
-    <select id="create" parameterType="int" resultType="Product">
-        select pdt_id,
-               price,
-               ds_rate,
-               sel_price,
-               title,
-               sub_title,
-               rec_info,
-               adt_sts,
-               stock,
-               in_date,
-               in_user,
-               up_date,
-               up_user
-        from PRODUCT_TB
-        where pdt_id =#{pdt_id}
-    </select>
 
-    <select id="count" resultType="int">
-        SELECT count(*) FROM PRODUCT_TB
-    </select>
+
+<!--    <select id="count" resultType="int">-->
+<!--        SELECT count(*) FROM PRODUCT_TB P-->
+<!--                 JOIN PRODUCT_TAG_TB T-->
+<!--        ON T.pdt_id = P.pdt_id-->
+<!--            JOIN TAG_TB TG-->
+<!--            ON TG.tag_id = T.tag_id-->
+<!--            JOIN CATEGORY_TB C-->
+<!--            ON C.pdt_id = P.pdt_id-->
+<!--    </select>-->
+
 
     <delete id="deleteAll">
         DELETE FROM PRODUCT_TB
@@ -34,7 +25,7 @@
         DELETE FROM PRODUCT_TB WHERE pdt_id = #{pdt_id}
     </delete>
 
-    <insert id="insert" parameterType="Product">
+    <insert id="create" parameterType="Product">
         INSERT INTO PRODUCT_TB
         (pdt_id, title, ds_rate, sel_price, price, sub_title,company,de_type)
         VALUES
@@ -91,6 +82,8 @@
                       ON TG.tag_id = T.tag_id
                  JOIN CATEGORY_TB C
                       ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+          AND title LIKE concat('%', #{keyword}, '%')
         ORDER BY  P.pdt_id ASC
         limit #{offset}, #{pageSize}
     </select>
@@ -114,6 +107,8 @@
                       ON TG.tag_id = T.tag_id
                  JOIN CATEGORY_TB C
                       ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+        <include refid="searchCondition"/>
         ORDER BY ${order_sc} DESC
         limit #{offset}, #{pageSize}
     </select>
@@ -154,6 +149,23 @@
             FROM PRODUCT_TB
     </sql>
 
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="C"'>
+                AND company LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   company LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+
     <update id="update" parameterType="Product">
         UPDATE PRODUCT_TB
         SET   price = #{price},
@@ -165,4 +177,41 @@
         WHERE pdt_id = #{pdt_id}
         ORDER BY title DESC
     </update>
+
+
+    <select id="selectProductId" resultType="Product">
+        select pdt_id
+        from PRODUCT_TB
+    </select>
+
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM PRODUCT_TB P
+        JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+        JOIN TAG_TB TG
+        ON TG.tag_id = T.tag_id
+        JOIN CATEGORY_TB C
+        ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="Product">
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+        P.ds_rate, P.price,P.sel_price,P.sales_rate,
+        P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.in_date
+        FROM PRODUCT_TB P
+        JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+        JOIN TAG_TB TG
+        ON TG.tag_id = T.tag_id
+        JOIN CATEGORY_TB C
+        ON C.pdt_id = P.pdt_id
+        WHERE TRUE
+        <include refid="searchCondition"/>
+        limit #{offset}, #{pageSize}
+    </select>
+
 </mapper>

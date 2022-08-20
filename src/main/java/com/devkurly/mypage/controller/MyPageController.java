@@ -2,6 +2,7 @@ package com.devkurly.mypage.controller;
 
 import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.coupon.service.CouponService;
+import com.devkurly.member.dto.MemberMainResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +67,7 @@ public class MyPageController {
     }
 
     public boolean isLogined(HttpSession session) {
-        return session.getAttribute("user_id") != null;
+//        return session.getAttribute("user_id") != null;
+        return ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id() != null;
     }
 }

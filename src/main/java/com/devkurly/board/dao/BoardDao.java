@@ -19,6 +19,7 @@ public interface BoardDao {
 
     List<BoardDto> selectReviewPage(Map map) throws Exception;
     List<BoardDto> selectReviewPageLike(Map map) throws Exception;
+    List<BoardDto> selectInqPage(Map map) throws Exception;
 
     List<BoardDto> selectAll() throws Exception;
 
@@ -34,7 +35,7 @@ public interface BoardDao {
     int update(BoardDto boardDto) throws Exception;
 
     int updateCn(BoardDto boardDto) throws Exception;
-    int isRepliedStatus(Integer bbs_id)throws Exception;
+    int isRepliedStatus(Integer bbs_id, int replyst)throws Exception;
     int isSecretStatus(Integer bbs_id) throws Exception;
 
     int increaseLike(Integer bbs_id) throws Exception;
@@ -44,7 +45,7 @@ public interface BoardDao {
     int userLikeNo(BoardDto boardDto) throws Exception;
     int insertAnswer(CommentDto commentDto)throws Exception;
     int updateAnswer(CommentDto commentDto)throws Exception;
-    int deleteAnswer(Integer bbs_id, String gd_cd)throws Exception;
+    int deleteAnswer(Integer bbs_id)throws Exception;
     CommentDto selectAnswer(Integer bbs_id) throws Exception;
 
     }

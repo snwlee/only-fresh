@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Review Board</title>
+    <title>리뷰 게시판</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         .title {
@@ -145,7 +145,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 id="modal-title" class="modal-title">상품 문의하기</h4>
+                    <h4 id="modal-title" class="modal-title">리뷰 등록하기</h4>
                 </div>
                 <div class="modal-body">
                     <table class="table">
@@ -178,7 +178,7 @@
     let showList = function(pdt_id, sortType){
         $.ajax({
             type:'GET',
-            url: '/dev_kurly/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType='+sortType,
+            url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType='+sortType,
             success : function(result){
                 $("#board").html(toHtml(result));
             },
@@ -277,7 +277,7 @@
             }
             $.ajax({
                 type:'POST',
-                url: '/dev_kurly/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
+                url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
                 headers : { "content-type": "application/json"},
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
                 success : function(result){
@@ -306,10 +306,11 @@
         $("#board").on("click", ".title_cn", function() {
             if (!readStatus) {
                 let bbs_id = $(this).attr("data-bbs_id");
+                //
                 readStatus = true;
                 $.ajax({
                     type: 'GET',
-                    url: '/dev_kurly/board/' + bbs_id,
+                    url: '/board/' + bbs_id,
                     headers: {"content-type": "application/json"},
                     success: function (result) {
                         $(".review_content").text(result.bbs_cn);
@@ -333,7 +334,7 @@
             if(!confirm("정말로 글을 삭제하시겠습니까?")) return;
             $.ajax({
                 type:'DELETE',
-                url: '/dev_kurly/board/'+bbs_id+'?pdt_id='+pdt_id,
+                url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 success : function(result){
                     alert(result)
                     relocateCn();
@@ -375,7 +376,7 @@
             }
             $.ajax({
                 type:'PATCH',
-                url: '/dev_kurly/board/'+bbs_id+'?pdt_id='+pdt_id,
+                url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 headers : { "content-type": "application/json"},
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
                 success : function(result){
@@ -393,7 +394,7 @@
             let bbs_id = $(this).attr("data-bbs_id");
             $.ajax({
                 type:'PATCH',
-                url: '/dev_kurly/like/'+bbs_id+'?user_id='+user_id,
+                url: '/like/'+bbs_id+'?user_id='+user_id,
                 success : function(result){
                     relocateCn();
                     readStatus = false;
