@@ -4,7 +4,6 @@ import com.devkurly.product.dao.*;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +28,13 @@ public class ProductServiceImpl implements ProductService {
         int list = productDao.delete(pdt_id);
         return productDao.delete(pdt_id);
     }
+
+    @Override
+    public List<ProductDto> EventList(Map map) throws Exception {
+        return productDao.EventList(map);
+    }
+
+
 
 
     @Override
