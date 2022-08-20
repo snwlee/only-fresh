@@ -32,7 +32,7 @@ public class MyPageController {
             }
         }
 
-        Integer user_id = (Integer) req.getSession().getAttribute("user_id");
+        Integer user_id = ((MemberMainResponseDto) req.getSession().getAttribute("memberResponse")).getUser_id();
         String nm = req.getParameter("nm");
 
         if(user_id == null || nm.equals("")) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -58,8 +58,9 @@ public class MyPageController {
 
         List<CouponDto> list = null;
 
+        System.out.println("session = " + session.getAttribute("memberResponse"));
         try {
-            list = couponService.selectUserCoupons((Integer) session.getAttribute("user_id"));
+            list = couponService.selectUserCoupons(((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id());
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,6 +69,7 @@ public class MyPageController {
 
     public boolean isLogined(HttpSession session) {
 //        return session.getAttribute("user_id") != null;
-        return ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id() != null;
+        if(session.getAttribute("memberResponse") == null) return false;
+        return true;
     }
 }
