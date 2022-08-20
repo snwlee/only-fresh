@@ -36,6 +36,17 @@ public class CouponDaoImplTest {
         CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         assertTrue(couponDao.create(dto) == 1);
     }
+    @Test
+    @Transactional
+    public void createWithIdTest() throws Exception{
+
+    }
+    @Test
+    @Transactional
+    public void createUserCoupon() throws Exception {
+        
+    }
+
 
     // R
     @Test

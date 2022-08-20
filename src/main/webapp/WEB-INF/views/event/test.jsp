@@ -93,6 +93,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    let test = document.cookie
     // UTILS
     let toLiTags = function (result) {
         let tmp = "<ul>";

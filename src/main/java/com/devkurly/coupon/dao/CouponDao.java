@@ -1,6 +1,7 @@
 package com.devkurly.coupon.dao;
 
 import com.devkurly.coupon.domain.CouponDto;
+import com.devkurly.coupon.domain.UserCouponDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,6 +10,7 @@ public interface CouponDao {
     // C
     int create(CouponDto couponDto) throws Exception;
     int createWithId(CouponDto couponDto) throws Exception;
+    int createUserCoupon(UserCouponDto userCouponDto) throws Exception;
 
     // R
     CouponDto read(Integer coupn_id) throws Exception;
