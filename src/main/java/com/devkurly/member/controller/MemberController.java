@@ -1,5 +1,8 @@
 package com.devkurly.member.controller;
 
+import com.devkurly.cart.domain.Cart;
+import com.devkurly.cart.dto.CartSaveRequestDto;
+import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.MemberMainResponseDto;
 import com.devkurly.member.dto.MemberSaveRequestDto;
 import com.devkurly.member.dto.MemberSignInRequestDto;
@@ -7,16 +10,15 @@ import com.devkurly.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,18 +26,36 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final CartService cartService;
 
     @GetMapping("/test")
-    public String test(HttpSession session) {
-        MemberSignInRequestDto requestDto = new MemberSignInRequestDto("1234", "1234");
-        MemberMainResponseDto memberMainResponseDto = memberService.signIn(requestDto);
-        session.setAttribute("memberMainResponseDto", memberMainResponseDto);
+    public String test(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
+        MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("1234", "1234");
+        MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
+        session.setAttribute("memberResponse", memberResponse);
         return "redirect:/";
+    }
+
+    private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            tempCart.setPath("/");
+            tempCart.setMaxAge(0);
+            response.addCookie(tempCart);
+        }
+        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
+        for (Cart cart : carts) {
+            MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
+            cart.setUser_id(memberResponse.getUser_id());
+            cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
+            cartService.addCart(cartSaveRequestDto);
+            cartService.removeCart(cartService.getCookieId(tempCart, response));
+        }
     }
 
     @GetMapping("")
     public String viewSignIn(HttpSession session) {
-        Object sessionAttribute = session.getAttribute("user_id");
+        Object sessionAttribute = session.getAttribute("memberResponse");
         if (sessionAttribute == null) {
             return "/member/signIn";
         }
@@ -43,9 +63,9 @@ public class MemberController {
     }
 
     @PostMapping("")
-    public String postSignIn(MemberSignInRequestDto requestDto, boolean rememberId, String toURL, HttpServletRequest request, HttpServletResponse response) {
-
-        MemberMainResponseDto memberMainResponseDto = memberService.signIn(requestDto);
+    public String postSignIn(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, MemberSignInRequestDto requestDto, boolean rememberId, String toURL, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
+        MemberMainResponseDto memberResponse = memberService.signIn(requestDto);
 
         Cookie idCookie = new Cookie("email", requestDto.getUser_email());
         if (!rememberId) {
@@ -53,8 +73,8 @@ public class MemberController {
         }
         response.addCookie(idCookie);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("memberMainResponseDto", memberMainResponseDto);
+        HttpSession requestSession = request.getSession();
+        requestSession.setAttribute("memberResponse", memberResponse);
 
         toURL = toURL == null || toURL.equals("") ? "/" : toURL;
         return "redirect:" + toURL;

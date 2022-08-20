@@ -26,11 +26,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(OutOfStockException.class)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> productCatcher(HttpServletResponse response, Exception e) throws IOException {
         System.out.println("제품 재고가 부족합니다.");
-        response.sendRedirect("/carts?error=2");
-        return ResponseEntity.ok().body(ErrorCode.OUT_OF_STOCK.getMessage());
+//        response.sendRedirect("/carts?error=2");
+        return ResponseEntity.badRequest().body(ErrorCode.OUT_OF_STOCK.getMessage());
     }
 
     @ExceptionHandler(SignInException.class)

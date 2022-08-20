@@ -9,64 +9,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set
         var="signInOut"
-        value="${sessionScope.memberMainResponseDto==null ? '로그인' : '로그아웃'}"
+        value="${sessionScope.memberResponse==null ? '로그인' : '로그아웃'}"
 />
 <c:set
         var="signInOutLink"
-        value="${sessionScope.memberMainResponseDto==null ? '/members' : '/members/signout'}"
+        value="${sessionScope.memberResponse==null ? '/members' : '/members/signout'}"
 />
 <c:set
         var="name"
-        value="${sessionScope.memberMainResponseDto==null ? '회원가입' : sessionScope.memberMainResponseDto.user_nm}"
+        value="${sessionScope.memberResponse==null ? '회원가입' : sessionScope.memberResponse.user_nm}"
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberMainResponseDto==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
 />
 <html>
 <head>
     <title>DevKurly :: 얼마나 좋아</title>
-    <style>
-        #contents_container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .content_box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 400px;
-            height: 300px;
-            border: 1px solid #5F0080;
-            margin-top: 20px;
-            margin-right: 10px;
-        }
-
-        .btn {
-            cursor: pointer;
-            width: 380px;
-            height: 50px;
-            border-radius: 5px;
-            border: none;
-            background-color: #5F0080;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 400;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
-<h1>메인화면</h1>
-<div>로그인 상태 : 유저 번호 ${sessionScope.memberMainResponseDto.user_id}</div>
+<div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
 <a href="${nameLink}">${name}</a>
-<c:if test="${sessionScope.memberMainResponseDto != null}">
+<c:if test="${sessionScope.memberResponse != null}">
     <span>님</span>
 </c:if>
 <a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
