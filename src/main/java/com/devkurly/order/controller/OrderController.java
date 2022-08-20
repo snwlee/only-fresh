@@ -3,6 +3,7 @@ package com.devkurly.order.controller;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.member.dto.MemberMainResponseDto;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Controller
@@ -28,7 +30,7 @@ public class OrderController {
 
     @GetMapping("")
     public String requestOrder(Model model, HttpSession session) {
-        Integer user_id = (Integer) session.getAttribute("user_id");
+        Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
         // 유저 기반 주문 생성
         orderService.addOrder(user_id);
 
@@ -47,7 +49,8 @@ public class OrderController {
         for (CartProductResponseDto responseDto : viewCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
-        model.addAttribute("sum", sum);
+        DecimalFormat df = new DecimalFormat("###,###");
+        model.addAttribute("sum", df.format(sum));
         model.addAttribute("order_id", order_id);
         model.addAttribute("cart", viewCartProduct);
         model.addAttribute("order", orderResponseDto);
@@ -70,7 +73,7 @@ public class OrderController {
 
     @PostMapping("/4/{ord_id}")
     public String deleteOrder(@PathVariable Integer ord_id, HttpSession session) {
-        orderService.removeOrder((Integer) session.getAttribute("user_id"), ord_id);
+        orderService.removeOrder((Integer) session.getAttribute("memberResponse"), ord_id);
         return "redirect:/orders";
     }
 }

@@ -7,12 +7,28 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set
+        var="signInOut"
+        value="${sessionScope.memberResponse==null ? '로그인' : '로그아웃'}"
+/>
+<c:set
+        var="signInOutLink"
+        value="${sessionScope.memberResponse==null ? '/members' : '/members/signout'}"
+/>
+<c:set
+        var="name"
+        value="${sessionScope.memberResponse==null ? '회원가입' : sessionScope.memberResponse.user_nm}"
+/>
+<c:set
+        var="nameLink"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+/>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 로그인</title>
+    <title>DevKurly :: 장바구니</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
@@ -51,9 +67,9 @@
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
-                <a id="signup" href="">회원가입</a>
+                <a id="signup" href="${nameLink}">${name}</a>
                 <div></div>
-                <a id="signin" href="">로그인</a>
+                <a id="signin" href="${signInOutLink}">${signInOut}</a>
                 <div></div>
                 <a id="cust">고객센터</a>
             </div>
@@ -92,6 +108,7 @@
             </div>
         </div>
     </div>
+    <%--    header--%>
     <div class="member-out-box">
         <form
                 action="/members"
@@ -128,11 +145,11 @@
                         placeholder="비밀번호"
                 />
                 <button type="button" onclick="change();">비밀번호 보기</button>
-                <input type="hidden" name="toURL" value="${param.toURL}"/>
                 <label class="remember-id">
                     <input type="checkbox" name="rememberId" ${empty cookie.email.value ? "" : "checked"}>
                     ID 기억하기
                 </label>
+                <input type="hidden" name="toURL" value="${param.toURL}"/>
                 <a href="#">아이디 찾기</a>
                 <a href="#">비밀번호 찾기</a>
                 <button class="member-btn-a" type="submit">로그인</button>
