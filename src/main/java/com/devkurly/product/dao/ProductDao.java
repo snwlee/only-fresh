@@ -27,7 +27,6 @@ public interface ProductDao {
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
 
-    ProductDto select(Integer pdt_id) throws Exception; // 상품 상세페이지
     int count() throws Exception;
 
     // U

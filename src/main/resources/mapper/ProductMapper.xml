@@ -4,6 +4,7 @@
 
 <mapper namespace="com.devkurly.product.dao.ProductMapper">
 
+
 <!--    <select id="count" resultType="int">-->
 <!--        SELECT count(*) FROM PRODUCT_TB P-->
 <!--                 JOIN PRODUCT_TAG_TB T-->
@@ -13,6 +14,7 @@
 <!--            JOIN CATEGORY_TB C-->
 <!--            ON C.pdt_id = P.pdt_id-->
 <!--    </select>-->
+
 
     <delete id="deleteAll">
         DELETE FROM PRODUCT_TB
@@ -176,6 +178,13 @@
         ORDER BY title DESC
     </update>
 
+
+    <select id="selectProductId" resultType="Product">
+        select pdt_id
+        from PRODUCT_TB
+    </select>
+
+
     <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
         SELECT count(*)
         FROM PRODUCT_TB P
@@ -204,4 +213,5 @@
         <include refid="searchCondition"/>
         limit #{offset}, #{pageSize}
     </select>
+
 </mapper>

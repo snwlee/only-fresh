@@ -190,7 +190,7 @@
     let showList = function(pdt_id){
         $.ajax({
             type:'GET',
-            url: '/dev_kurly/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType=',
+            url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType=',
             success : function(result){
                 $("#board").html(toHtml(result));
             },
@@ -322,7 +322,7 @@
             }
             $.ajax({
                 type:'POST',
-                url: '/dev_kurly/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
+                url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
                 headers : { "content-type": "application/json"},
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn, is_secret:is_secret}),
                 success : function(result){
@@ -353,7 +353,7 @@
                 readStatus = true;
                 $.ajax({
                     type: 'GET',
-                    url: '/dev_kurly/board/' + bbs_id,
+                    url: '/board/' + bbs_id,
                     headers: {"content-type": "application/json"},
                     success: function (result) {
                         $(".del_btn").attr("data-bbs_id", bbs_id);
@@ -394,7 +394,7 @@
             if(!confirm("정말로 글을 삭제하시겠습니까?")) return;
             $.ajax({
                 type:'DELETE',
-                url: '/dev_kurly/board/'+bbs_id+'?pdt_id='+pdt_id,
+                url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 success : function(result){
                     alert(result)
                     relocateCn();
@@ -436,7 +436,7 @@
             }
             $.ajax({
                 type:'PATCH',
-                url: '/dev_kurly/board/'+bbs_id+'?pdt_id='+pdt_id,
+                url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 headers : { "content-type": "application/json"},
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
                 success : function(result){
@@ -468,7 +468,7 @@
                 }
                 $.ajax({
                     type:'POST',
-                    url: '/dev_kurly/board/comment/'+bbs_id+'?replyst='+replyst,
+                    url: '/board/comment/'+bbs_id+'?replyst='+replyst,
                     headers : { "content-type": "application/json"},
                     data : JSON.stringify({inq_ans: inq_ans}),
                     success : function(result){
@@ -490,7 +490,7 @@
             if(!confirm("정말로 답변을 삭제하시겠습니까?")) return;
             $.ajax({
                 type:'DELETE',
-                url: '/dev_kurly/board/comment/'+bbs_id+'?replyst='+replyst,
+                url: '/board/comment/'+bbs_id+'?replyst='+replyst,
                 success : function(result){
                     alert(result)
                     relocateCmt();
@@ -526,7 +526,7 @@
                 }
                 $.ajax({
                     type:'PATCH',
-                    url: '/dev_kurly/board/comment/'+bbs_id,
+                    url: '/board/comment/'+bbs_id,
                     headers : { "content-type": "application/json"},
                     data : JSON.stringify({inq_ans: inq_ans}),
                     success : function(result){
