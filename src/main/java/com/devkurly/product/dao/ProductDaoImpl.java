@@ -100,6 +100,11 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductDto> EventList(Map map) throws Exception {
         return session.selectList(namespace+"EventList", map);
     }
+
+    @Override
+    public List<ProductDto> CateList(Map map) throws Exception {
+        return session.selectList(namespace+"CateList",map);
+    }
 }
 
 
