@@ -8,6 +8,7 @@ import com.devkurly.productDetail.service.ProductDetailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,17 @@ public class ProductDetailController {
     public ProductDetailController(ProductService productService, ProductDetailService productDetailService) {
         this.productService = productService;
         this.productDetailService = productDetailService;
+    }
+
+    @RequestMapping("") // /detail?pdt_id=29
+    public String DetailPage(Integer pdt_id ,Model model) {
+        try {
+            ProductDetailDto dto = productDetailService.selectDetail(pdt_id);
+            model.addAttribute(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "board/product_detail";
     }
 
     @RequestMapping("/admin")
