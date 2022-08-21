@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.mapper.MemberMapper">
+    <insert id="save" parameterType="Member">
+        insert into USER_TB(user_id, user_nm, user_email, pwd, telno, subs_dt, gender, bryr, prvc_arge, rcmdr_email)
+        values (#{user_id}, #{user_nm}, #{user_email}, #{pwd}, #{telno}, now(), #{gender}, #{bryr}, #{prvc_arge}, #{rcmdr_email});
+    </insert>
+    <select id="findByEmail" parameterType="String" resultType="Member">
+        select *
+        from USER_TB
+        where user_email = #{user_email};
+    </select>
+    <select id="findById" parameterType="int" resultType="Member">
+        select *
+        from USER_TB
+        where user_id = #{user_id};
+    </select>
+    <update id="update" parameterType="Member">
+        update USER_TB
+        set user_nm = #{user_nm},
+            telno = #{telno},
+            gender = #{gender}
+        where user_id = #{user_id};
+    </update>
+    <delete id="delete" parameterType="int">
+        delete
+        from USER_TB
+        where user_id = #{user_id};
+    </delete>
+</mapper>

@@ -95,6 +95,11 @@ public class ProductDaoImpl implements ProductDao {
     public int searchResultCnt(SearchCondition sc) throws Exception {
         return session.selectOne(namespace + "searchResultCnt", sc);
     }
+
+    @Override
+    public List<ProductDto> EventList(Map map) throws Exception {
+        return session.selectList(namespace+"EventList", map);
+    }
 }
 
 

@@ -52,6 +52,8 @@ public interface ProductDao {
 
      int searchResultCnt(SearchCondition sc) throws Exception;
 
+    List<ProductDto> EventList(Map map) throws Exception;
+
 
 
 }
