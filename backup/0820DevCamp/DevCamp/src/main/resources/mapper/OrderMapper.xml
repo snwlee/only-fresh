@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.mapper.OrderMapper">
+    <insert id="save" parameterType="int">
+        insert into ORDER_TB(user_id)
+        values (#{user_id});
+    </insert>
+    <insert id="insertOrderProduct" parameterType="OrderProduct">
+        insert into ORDER_PRODUCT_TB(ord_id, pdt_id, pdt_qty)
+        values (#{ord_id}, #{pdt_id}, #{pdt_qty});
+    </insert>
+    <select id="findById" parameterType="int" resultType="int">
+        select ord_id
+        from ORDER_TB
+        where user_id = #{user_id}
+        order by in_date DESC
+        limit 1;
+    </select>
+    <select id="joinOrderProduct" parameterType="int" resultType="com.devkurly.order.dto.OrderResponseDto">
+        select OT.ord_id, user_id, coupn_id, stus_cd, req_plc_cd, req_dtls, used_acamt, dlvr_yn, pdt_id, pdt_qty
+        from ORDER_TB OT
+        join ORDER_PRODUCT_TB OPT
+        on OT.ord_id = OPT.ord_id
+        where OT.ord_id = #{ord_id}
+        order by OT.in_date DESC;
+    </select>
+    <update id="update" parameterType="Order">
+        update ORDER_TB
+        set addr_id    = #{addr_id},
+            coupn_id   = #{coupn_id},
+            stus_cd    = #{stus_cd},
+            req_plc_cd = #{req_plc_cd},
+            req_dtls   = #{req_dtls},
+            used_acamt = #{used_acamt},
+            dlvr_yn    = #{dlvr_yn}
+        where ord_id = #{ord_id};
+    </update>
+    <delete id="delete" parameterType="int">
+        delete
+        from ORDER_TB
+        where user_id = #{user_id}
+          and ord_id = #{ord_id};
+    </delete>
+</mapper>

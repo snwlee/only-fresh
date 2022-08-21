@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.event.dao.EventMapper">
+    <!--C-->
+    <insert id="insert" parameterType="EventDto">
+        insert into EVENT_TB (nm, des, photo, photo_alt, cat_cd, setl_methd_cd, stpt_dd, expi_dd, early_end_stus,
+                              ds_rate)
+        values (#{nm}, #{des}, #{photo}, #{photo_alt}, #{cat_cd}, #{setl_methd_cd}, #{stpt_dd}, #{expi_dd},
+                #{early_end_stus}, #{ds_rate});
+    </insert>
+
+    <!--R-->
+    <select id="count" resultType="int">
+        select count(*)
+        from EVENT_TB;
+    </select>
+    <select id="select" parameterType="int" resultType="EventDto">
+        select *
+        from EVENT_TB
+        where event_id = ${event_id}
+    </select>
+    <select id="selectAll" resultType="EventDto">
+        select *
+        from EVENT_TB
+        ORDER BY stpt_dd DESC
+    </select>
+    <select id="selectIds" resultType="EventIdDto">
+        select event_id
+        from EVENT_TB
+    </select>
+
+
+    <!--U-->
+    <update id="update" parameterType="EventDto">
+        update EVENT_TB
+        set nm                  = #{nm},
+            ds_max_posbl_amt    = #{ds_max_posbl_amt},
+            use_cnd             = #{use_cnd},
+            lmtt_cnd            = #{lmtt_cnd},
+            func                = #{fucn},
+            rate                = #{rate},
+            expi_dd             = #{expi_dd}
+        where event_id = #{event_id}
+    </update>
+
+    <!--D-->
+    <delete id="deleteAll">
+        delete
+        from EVENT_TB
+    </delete>
+    <delete id="delete" parameterType="int">
+        delete
+        from EVENT_TB
+        where event_id = ${event_id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkurly.coupon.dao.CouponMapper">
+    <!--C-->
+    <insert id="create" parameterType="couponDto">
+        insert into COUPON_TB(event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd)
+        values (#{event_id}, #{nm}, #{ds_max_posbl_amt}, #{use_cnd}, #{lmtt_cnd}, #{func}, ${rate}, ${expi_dd})
+    </insert>
+    <insert id="createWithId" parameterType="couponDto">
+        insert into COUPON_TB(coupn_id, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd)
+        values (#{coupn_id}, #{event_id}, #{nm}, #{ds_max_posbl_amt}, #{use_cnd}, #{lmtt_cnd}, #{func}, ${rate},
+                ${expi_dd})
+    </insert>
+
+    <!--R-->
+    <select id="read" parameterType="int" resultType="CouponDto">
+        select *
+        from COUPON_TB
+        where coupn_id = #{coupn_id}
+    </select>
+    <select id="readAll" resultType="CouponDto">
+        select *
+        from COUPON_TB
+    </select>
+    <select id="readUserCoupons" parameterType="int" resultType="CouponDto">
+        select u.coupn_id, event_id, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        from USER_COUPON_TB as u
+                 join COUPON_TB as c
+                      on user_id = #{user_id} and u.coupn_id = c.coupn_id;
+    </select>
+
+    <!--U-->
+    <update id="update" parameterType="CouponDto">
+        update COUPON_TB
+        set nm               = #{nm},
+            ds_max_posbl_amt = #{ds_max_posbl_amt},
+            use_cnd          = #{use_cnd},
+            lmtt_cnd         = #{lmtt_cnd},
+            func             = #{func},
+            rate             = #{rate},
+            expi_dd          = #{expi_dd}
+        where coupn_id = #{coupn_id}
+    </update>
+
+    <!--D-->
+    <delete id="delete" parameterType="int">
+        delete
+        from COUPON_TB
+        where coupn_id = #{coupn_id}
+    </delete>
+    <delete id="deleteAll">
+        delete
+        from COUPON_TB;
+    </delete>
+</mapper>

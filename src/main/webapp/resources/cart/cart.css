@@ -25,7 +25,6 @@ h2 {
 }
 
 
-
 .select_or_delete {
     /* border: 1px solid #129090; */
     display: flex;
@@ -71,18 +70,18 @@ h2 {
     border-bottom: none;
 }
 
-.product h4{
+.product h4 {
     width: 345px;
     font-weight: 500;
     font-size: 16px;
     color: #333333;
 }
 
-.product img{
+.product img {
     margin: 0px 10px 0px 0px;
 }
 
-.product_img{
+.product_img {
     width: 60px;
     height: 78px;
 }
@@ -120,7 +119,7 @@ h2 {
 
 #shipping_payment {
     width: 100%;
-    border: 1px solid#f4f4f4;
+    border: 1px solid #f4f4f4;
 }
 
 #shipping {
@@ -165,7 +164,7 @@ h2 {
     color: #333;
     font-size: 16px;
     font-weight: 500;
-    margin-bottom : 20px;
+    margin-bottom: 20px;
 }
 
 .total {
