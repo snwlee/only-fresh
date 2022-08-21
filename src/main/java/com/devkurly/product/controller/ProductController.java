@@ -75,18 +75,18 @@ public class ProductController {
 
 
 
-    @GetMapping("/read")
-    public String read(Integer pdt_id, Integer page, Integer pageSize, Model m) {
-        try {
-            ProductDto productDto = productService.read(pdt_id);
-            m.addAttribute("ProductDto",productDto);
-            m.addAttribute("page",page);
-            m.addAttribute("pagesize",pageSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "product/product";
-    }
+//    @GetMapping("/read")
+//    public String read(Integer pdt_id, Integer page, Integer pageSize, Model m) {
+//        try {
+//            ProductDto productDto = productService.read(pdt_id);
+//            m.addAttribute("ProductDto",productDto);
+//            m.addAttribute("page",page);
+//            m.addAttribute("pagesize",pageSize);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "product/product";
+//    }
 
 
     @GetMapping("/list")
