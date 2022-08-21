@@ -3,7 +3,6 @@ package com.devkurly.event.controller;
 import com.devkurly.event.domain.EventDto;
 import com.devkurly.event.domain.EventIdDto;
 import com.devkurly.event.service.EventService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,12 @@ public class EventController {
 
     @RequestMapping("/admin")
     public String test() {
-        return "event/test";
+        return "/event/admin";
+    }
+
+    @RequestMapping("/main")
+    public String main(){
+        return "/event/event";
     }
 
 
