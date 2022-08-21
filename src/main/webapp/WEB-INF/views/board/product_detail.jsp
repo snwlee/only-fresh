@@ -30,8 +30,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[${productDetailDto.company}] ${productDetailDto.title} :: DevKurly</title>
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-  <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css">
-  <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">
+  <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css?after">
+  <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
   <style>
     #whole_container {
       width: 100%;
@@ -118,14 +118,18 @@
   <div id="content">
     <div id="detail_container">
       <img id="pdt_img"
-           src="https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80" />
+           src="${productDetailDto.image}" />
       <div id="detail_price_button_container">
         <p id="is_early_deli">${productDetailDto.de_type==true ? '샛별배송':'낮배송'}</p>
         <h2>[${productDetailDto.company}] ${productDetailDto.title}</h2>
         <p id="sub_title">${productDetailDto.sub_title}</p>
         <div style="margin-bottom: 10px;">
-          <span id="price"></span>
+          <span id="ds_rate">${productDetailDto.ds_rate}%</span>
+          <span id="sel_price"></span>
           <span id="won">원</span>
+        </div>
+        <div>
+          <span id="price"></span>
         </div>
         <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->
         <div class="detail_column">
@@ -183,16 +187,16 @@
           <div class="column_title">구매수량</div>
           <div>
             <div class="quantity_control_box">
-              <button>-</button>
-              <div>1</div>
-              <button>+</button>
+              <button id="down_qty">-</button>
+              <div id="pdt_qty">1</div>
+              <button id="up_qty">+</button>
             </div>
           </div>
         </div>
         <div>
           <div id="price_container">
             <span id="total_price">총 상품금액: </span>
-            <span id="actual_price">2,070</span>
+            <span id="actual_price"></span>
             <span id="unit">원</span>
           </div>
           <div id="mileage">
@@ -202,20 +206,26 @@
         <div id="button_container">
           <button><img src="/product_detail/imgs/purpleheart.svg"/></button>
           <button><img src="/product_detail/imgs/bell.svg"/></button>
-          <button>장바구니 담기</button>
+          <button id="addCart">장바구니 담기</button>
         </div>
       </div>
     </div>
-    <nav>
-      <div id="">상품설명</div>
-      <div id="">상세정보</div>
-      <div id="">후기 (261734)</div>
-      <div id="">문의</div>
+    <nav class="menu_nav">
+      <div class="navi" value="#des1">
+        <span class="navs">상품설명</span></a>
+      </div>
+      <div class="navi" value="#des2">
+        <span class="navs">상세정보</span></a>
+      </div>
+      <div class="navi" value="#review_board">
+        <span class="navs">후기 (${reviewCnt})</span></a>
+      </div>
+      <div class="navi" value="#inquiry_board">
+        <span class="navs">문의</span></a>
+      </div>
     </nav>
-    <img style="margin-bottom: 30px;"
-         src="https://images.unsplash.com/photo-1446126102442-f6b2b73257fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80" />
-    <img
-            src="https://images.unsplash.com/photo-1552404200-b22566b2317b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=985&q=80" />
+    <img id="des1" src="https://images.unsplash.com/photo-1552404200-b22566b2317b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=985&q=80" />
+    <img id="des2" src="${productDetailDto.prt_info}"/>
 
     <div id ="board_container">
       <div id="review_board">
@@ -230,10 +240,65 @@
   </div>
 </div>
 <script>
+  let pdt_id = ${param.pdt_id};
   //가격단위 콤마 추가
   let sel_price = ${productDetailDto.sel_price};
+  let price = ${productDetailDto.price};
   let priceLocale= sel_price.toLocaleString()
-  $("#price").text(priceLocale);
+  let priceLocale2= price.toLocaleString()
+  $("#sel_price").text(priceLocale);
+  $("#price").text(priceLocale2 + "원");
+  $("#actual_price").text(priceLocale);
+
+  $(document).ready(function(){
+
+    let jbOffset = $(".menu_nav").offset();
+    $(window).scroll( function() {
+      if ($(document).scrollTop() > jbOffset.top) {
+        $(".menu_nav").css({"position":"fixed","top":"0px","left":"50%","transform":"translateX(-50%)"});
+      }
+      else {
+        $(".menu_nav").css({"position":'relative'});
+      }
+    });
+
+    $(".navi").click(function(event){
+
+      event.preventDefault();
+      x= $(this).attr("value");
+      $('html,body').animate({scrollTop:$(x).offset().top}, 500);
+
+    });
+
+    $("#down_qty").click(function(){
+      if(parseInt($("#pdt_qty").text())>=1)
+        $("#pdt_qty").text(parseInt($("#pdt_qty").text())-1);
+      $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
+    });
+
+    $("#up_qty").click(function(){
+      $("#pdt_qty").text(parseInt($("#pdt_qty").text())+1);
+      $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
+    });
+
+    $("#addCart").click(function(){
+      let pdt_qty = parseInt($("#pdt_qty").text());
+      $.ajax({
+        type:'POST',
+        url: '/carts/'+pdt_id+'?pdt_qty='+pdt_qty,
+        success : function(result){
+          window.location.href = '/carts';
+        },
+        error   : function(){ alert("error") }
+      });
+    });
+
+
+
+
+
+
+  });
 
 
 

@@ -23,9 +23,10 @@
     width: 100%;
 }
 
-#signup_signin a,div {
+#signup_signin #signup, #signin, #cust{
     font-size: 12px;
     margin-right: 8px;
+    margin-left: 8px;
 }
 
 #signup {

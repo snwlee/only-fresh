@@ -400,6 +400,7 @@
                     readStatus = false;
                     showList(pdt_id);
                     deleteModalValue();
+                    $(".modal").css("display","none");
                 },
                 error   : function(){ alert("error") }
             });

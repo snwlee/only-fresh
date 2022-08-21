@@ -9,12 +9,6 @@
         VALUES (#{pdt_id}, #{company}, #{pack_cd}, #{sell_cd}, #{weca_cd}, #{origin}, #{allg_dt}, #{ex_dt}, #{notice}, #{prt_info}, #{de_type}, #{user_id}, #{user_id});
     </insert>
 
-<!--    <select id="select" parameterType="int" resultType="ProductDetailDto">-->
-<!--        SELECT pdt_id, pack_cd, sell_cd, weca_cd, prt_info, de_type, allg_dt, ex_dt, origin, notice, prt_image, company-->
-<!--        FROM PRODUCT_DETAIL_TB-->
-<!--        WHERE pdt_id = #{pdt_id}-->
-<!--    </select>-->
-
     <select id="select" parameterType="int" resultType="ProductDetailDto">
         select *
         from PRODUCT_TB
@@ -22,6 +16,7 @@
                             on PRODUCT_TB.pdt_id = PRODUCT_DETAIL_TB.pdt_id
         where PRODUCT_TB.pdt_id=#{pdt_id}
     </select>
+
     <update id="update" parameterType="ProductDetailDto">
         UPDATE PRODUCT_DETAIL_TB
         SET pack_cd = #{pack_cd},
