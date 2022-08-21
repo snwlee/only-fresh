@@ -7,32 +7,66 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰 게시판</title>
+    <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
+    <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         .title {
             padding-left: 50px;
             text-align: left;
         }
-
+        .no, .grade, .writer, .reg_date, .like_cnt{
+            text-align: center;
+        }
         #review_view {
             display: none;
             padding: 10px 10px 11px;
             border-top: 1px solid #e3e3e3;
         }
 
-        .review_board #review_view .review_content {
-            width: 100%;
-            padding: 20px 9px 9px;
+        th{
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        td{
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .border_write_btn{
+            padding-top: 18px;
+        }
+        .p_write_btn{
+            background-color: #795b8f;
+            border: 1px solid #5f0080;
+            float:right;
+            display: inline-block;
+            color: #fff;
+            font-size: 13px;
+            text-align: center;
+            line-height:30px;
+            width:130px;
+        }
+        #review_view #buttons p{
+            float:right;
+            height:34px;
+            padding: 0 13px 0 12px;
+            font-size: 12px;
+            color: #5f0080;
+            line-height: 32px;
+            text-align: center;
+            border: 1px solid #5f0080;
+            margin-left: 28px;
+        }
+        #review_view .review_content {
+            width: 60%;
+            padding: 20px 9px 30px;
             line-height: 25px
         }
-
-        .review_board .tb1 .title {
-            padding-left: 50px;
-            text-align: left;
-        }
-
-        .p_write_btn {float:right}
-
         .ph{text-align: center;}
 
         .paging-active {
@@ -45,55 +79,125 @@
             padding: 6px;
             margin-right: 10px;
         }
+        /*modal css start*/
         .modal {
             display: none;
-            /* Hidden by default */
-            position: fixed;
-            /* Stay in place */
-            z-index: 1;
-            /* Sit on top */
-            padding-top: 10px;
-            /* Location of the box */
-            left: 0;
-            top: 0;
+            width: 99%;
+            height: 99%;
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgb(235, 231, 231);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .modal-dialog {
+            background: rgb(255, 255, 255);
+            box-shadow: 0 8px 32px 0 rgba(174, 144, 186, 0.322);
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 800px;
+            height: 420px;
+            position: relative;
+            top: -100px;
+            padding: 30px;
+
+        }
+        .modal-content {
+            border-top: 1px solid #522772;
+            border-bottom: 1px solid #522772;
+
+        }
+        #modal-title {
+            font-size: 24px;
+            font-weight: 500;
+            padding: 10px 0 10px 20px;
+            color: #333333;
+
+        }
+        .table td {
+            padding: 10px 0 10px 20px;
+            border-top: 1px solid #dddfe1;
+            vertical-align: middle;
+        }
+        .form-control1 {
             width: 100%;
-            /* Full width */
-            height: 100%;
-            /* Full height */
-            overflow: auto;
-            /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0);
-            /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
+            height: 34px;
+            font-size: 12px;
+            border: 0;
+            color: #000;
+            line-height: 18px;
+            outline: none;
         }
-        .modal-dialog{
-            display: flex;
+        .field_cmt {
+            padding: 8px 10px 9px;
+            border: 1px solid #dddfe1;
         }
-        .modal-content{
-            margin: auto;
+        .form-control2 {
+            overflow: hidden;
+            width: 100%;
+            min-height: 100px;
+            border: 0;
+            resize: none;
+            font-size: 12px;
+            color: #000;
+            line-height: 18px;
+            outline: none;
         }
+        .modal-footer {
+            height: 70px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .modal-footer p {
+            float: right;
+            height: 34px;
+            padding: 0 13px 0 12px;
+            font-size: 12px;
+            color: #5f0080;
+            line-height: 32px;
+            text-align: center;
+            border: 1px solid #5f0080;
+            margin-top: 10px;
+            margin-left: 28px;
+        }
+        /*modal css end*/
 
     </style>
 </head>
 <body>
-<div class="review_board">
+<div id="review_board">
     <div class="board">
-        <div class="title"></div>
-        <%--        <form action="<c:url value="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=${param.bbs_clsf_cd}&page=${param.page}&pageSize=${param.pageSize}"/>" class="search-form" method="get">--%>
-        <select id="sort-option" name="option">
-            <option value="latest" selected>최근등록순</option>
-            <option value="like">추천</option>
-        </select>
-        <%--        </form>--%>
+        <div id="title_desc_filter_container">
+            <h2>PRODUCT REVIEW</h2>
+            <div id="desc_filter">
+                <div id="title_desc">
+                    <p class="review_desc">- 상품에 대한 리뷰를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수
+                        있습니다.
+                    </p>
+                </div>
+                <select id="sort-option" name="option">
+                    <option value="latest" selected>최근등록순</option>
+                    <option value="like">추천</option>
+                </select>
+            </div>
+        </div>
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <colgroup>
                 <col style="width:70px;">
                 <col style="width:auto;">
-                <col style="width:51px;">
-                <col style="width:77px;">
-                <col style="width:100px;">
-                <col style="width:80px;">
+                <col style="width:40px;">
+                <col style="width:88px;">
+                <col style="width:85px;">
+                <col style="width:98px;">
             </colgroup>
             <tbody>
             <tr>
@@ -110,14 +214,17 @@
 
         </div>
     </div>
-    <p class="p_write_btn">
-        <button type="button" class="modal_write">글쓰기</button>
+    <div class="border_write_btn">
+        <p class="p_write_btn">글쓰기</p>
+    </div>
     <div id="review_view">
-        <div class="review_content">내용</div>
+        <div>
+            <div class="review_content"></div>
+        </div>
         <div id="buttons">
-            <button type="button" class="mod_btn">수정</button>
-            <button type="button" class="del_btn">삭제</button>
-            <button type="button" class="like_button">추천</button>
+            <p class="mod_btn">수정</p>
+            <p class="del_btn">삭제</p>
+            <p class="like_button">추천</p>
         </div>
     </div>
     </p>
@@ -140,28 +247,35 @@
     <!-- Modal -->
     <div class="modal" id="myModal" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 id="modal-title" class="modal-title">리뷰 등록하기</h4>
+                    <p id="modal-title" class="modal-title">상품 리뷰하기</p>
                 </div>
                 <div class="modal-body">
                     <table class="table">
                         <tr>
                             <td>제목</td>
-                            <td><input class="form-control" id="bbs_title" type="text" placeholder="제목을 입력해주세요"></td>
+                            <td>
+                                <div class="field_cmt">
+                                    <input class="form-control1" id="bbs_title" type="text" placeholder="제목을 입력해주세요">
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>내용</td>
-                            <td><textarea class="form-control" id="contents" rows="10" placeholder="내용을 입력해주세요"></textarea></td>
+                            <td>
+                                <div class="field_cmt">
+                                    <textarea class="form-control2" id="contents" cols="100" rows="10"
+                                              placeholder="내용을 입력해주세요"></textarea>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button id="modalSubmit" type="button" class="btn-write">등록</button>
-                    <button type="button" class="btn-cancel" data-dismiss="modal">취소</button>
+                    <p class="btn-cancel">취소</p>
+                    <p class="btn-write">등록</p>
                 </div>
             </div>
         </div>
@@ -189,7 +303,7 @@
     let toHtml =function(lists){
         let tmp = "";
         lists.forEach(function(BoardDto){
-            tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
+            tmp += '<table class="tb1" width="100%">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
             tmp += '<col style="width:auto;">'
@@ -199,7 +313,7 @@
             tmp += '<col style="width:80px;">'
             tmp += '</colgroup>'
             tmp += '<tbody>'
-            tmp += '<tr>'
+            tmp += '<tr class="tr1">'
             tmp += '<td class="no">'+BoardDto.bbs_id+'</td>'
             tmp += '<td class="title">'
             tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
@@ -261,8 +375,8 @@
             showList(pdt_id, sortType);
         });
 
-        $(".modal_write").click(function(){
-            $(".modal").css("display","block");
+        $(".p_write_btn").click(function(){
+            $(".modal").css("display","flex");
         })
 
         $("#myModal").on("click", ".btn-write", function(){
@@ -310,10 +424,11 @@
                 readStatus = true;
                 $.ajax({
                     type: 'GET',
-                    url: '/board/' + bbs_id,
+                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
                     headers: {"content-type": "application/json"},
                     success: function (result) {
-                        $(".review_content").text(result.bbs_cn);
+                        $(".review_content").text(result.boardDto.bbs_cn);
+                        console.log(result.bbs_cn);
                         $(".del_btn").attr("data-bbs_id", bbs_id);
                         $(".mod_btn").attr("data-bbs_id", bbs_id);
                         $(".like_button").attr("data-bbs_id", bbs_id);
@@ -360,7 +475,7 @@
             $("#myModal .btn-modify").text("수정");
             $("#myModal .btn-modify").attr("data-bbs_id", bbs_id);
 
-            $(".modal").css("display","block");
+            $(".modal").css("display","flex");
 
         });
 

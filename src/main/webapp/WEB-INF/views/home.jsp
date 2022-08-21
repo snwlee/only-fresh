@@ -25,6 +25,7 @@
 />
 <html>
 <head>
+<<<<<<< HEAD
     <title>DevKurly :: 얼마나 좋아</title>
 </head>
 <body>
@@ -61,5 +62,41 @@
     <div class="content_box">
     </div>
 </div>
+=======
+	<title>메인화면</title>
+	<style>
+		.btn {
+			cursor: pointer;
+			width: 380px;
+			height: 50px;
+			border-radius: 5px;
+			border: none;
+			background-color: #5F0080;
+			color: #ffffff;
+			font-size: 16px;
+			font-weight: 400;
+			margin-top: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+<h1>메인화면</h1>
+<div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
+<a class="btn" href="/carts/login">유저 'user_id = 1' 로 로그인하기</a>
+<a class="btn" href="/carts/logout">로그아웃</a>
+<a class="btn" href="/product/list">상품 보기</a>
+<a class="btn" href="/product/newlist">신상품 보기</a>
+<a class="btn" href="/product/bestlist">베스트 상품 보기</a>
+<a class="btn" href="/product/list">알뜰쇼핑</a>
+<a class="btn" href="/carts/view">장바구니 보기</a>
+<<<<<<< HEAD
+>>>>>>> 9753137 (⚙ chore: MERGE 하기 전 COMMIT)
+=======
+<a class="btn" href="/admin/list">회원관리</a>
+>>>>>>> a0f3db6 (⭐ feat: admin 회원정보 CRUD 완성)
 </body>
 </html>
