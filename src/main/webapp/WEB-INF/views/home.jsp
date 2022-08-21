@@ -92,6 +92,10 @@
 <a class="btn" href="/product/bestlist">베스트 상품 보기</a>
 <a class="btn" href="/product/list">알뜰쇼핑</a>
 <a class="btn" href="/carts/view">장바구니 보기</a>
+<<<<<<< HEAD
 >>>>>>> 9753137 (⚙ chore: MERGE 하기 전 COMMIT)
+=======
+<a class="btn" href="/admin/list">회원관리</a>
+>>>>>>> a0f3db6 (⭐ feat: admin 회원정보 CRUD 완성)
 </body>
 </html>

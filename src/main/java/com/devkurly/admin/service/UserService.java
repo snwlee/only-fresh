@@ -10,7 +10,7 @@ public interface UserService {
 
     int remove(Integer user_id) throws Exception;
 
-    int write(UserDto userDto) throws Exception;
+    int insert(UserDto userDto) throws Exception;
 
     List<UserDto> getList() throws Exception;
 

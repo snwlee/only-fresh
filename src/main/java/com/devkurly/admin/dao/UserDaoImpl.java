@@ -32,9 +32,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int delete(Integer user_id) throws Exception {
-        Map map = new HashMap();
-        map.put("user_id", user_id);
-        return session.delete(namespace + "delete", map);
+        return session.delete(namespace + "delete", user_id);
     }
 
     @Override
@@ -62,10 +60,6 @@ public class UserDaoImpl implements UserDao {
         return session.update(namespace+"update", dto);
     }
 
-    @Override
-    public int increaseViewCnt(Integer user_id) throws Exception {
-        return session.update(namespace+"increaseViewCnt", user_id);
-    }
 
 }
 

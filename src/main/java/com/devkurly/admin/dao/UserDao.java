@@ -24,5 +24,4 @@ public interface UserDao {
 
     int update(UserDto dto) throws Exception;
 
-    int increaseViewCnt(Integer user_id) throws Exception;
 }

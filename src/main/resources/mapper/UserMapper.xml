@@ -6,14 +6,14 @@
     <select id="select" parameterType="int" resultType="UserDto">
         select
             user_id,
+            user_nm,
             user_email,
             subs_dt,
             gender,
             bryr,
-            in_date,
-            in_user,
-            up_date,
-            up_user
+            pwd,
+            telno,
+            rcmdr_email
         from USER_TB
         where user_id = #{user_id}
     </select>
@@ -28,24 +28,28 @@
     <delete id="deleteForAdmin">
         DELETE FROM USER_TB WHERE user_id = #{user_id}
     </delete>
-    <delete id="delete" parameterType="map">
+    <delete id="delete" parameterType="int">
         DELETE FROM USER_TB WHERE user_id = #{user_id}
     </delete>
 
+    <!--회원등록-->
     <insert id="insert" parameterType="UserDto">
         INSERT INTO USER_TB
-            (pwd, user_nm, user_email)
+            (user_email,pwd,user_nm,telno,subs_dt,gender,bryr,rcmdr_email)
         VALUES
-            (#{pwd}, #{user_nm}, #{user_email})
+            (#{user_email},#{pwd},#{user_nm},#{telno},#{subs_dt},#{gender},#{bryr},#{rcmdr_email})
     </insert>
 
     <select id="selectAll" resultType="UserDto">
         SELECT user_id,
                user_nm,
                user_email,
+               pwd,
+               telno,
                subs_dt,
                gender,
-               bryr
+               bryr,
+               rcmdr_email
         FROM USER_TB
         ORDER BY subs_dt DESC, user_id DESC
     </select>
@@ -55,20 +59,25 @@
         SELECT user_id,
                user_nm,
                user_email,
+               pwd,
+               telno,
                subs_dt,
                gender,
-               bryr
+               bryr,
+               rcmdr_email
         FROM USER_TB
     </sql>
-
 
     <select id="selectPage" parameterType="map" resultType="UserDto">
         SELECT user_id,
                user_nm,
                user_email,
+               pwd,
+               telno,
                subs_dt,
                gender,
-               bryr
+               bryr,
+               rcmdr_email
         FROM USER_TB
         ORDER BY subs_dt DESC, user_id DESC
         LIMIT #{offset}, #{pageSize}
@@ -79,9 +88,12 @@
         SET pwd = #{pwd},
             user_nm = #{user_nm},
             user_email = #{user_email},
-            up_date = now()
+            telno = #{telno},
+            subs_dt = #{subs_dt},
+            gender = #{gender},
+            bryr = #{bryr},
+            rcmdr_email = #{rcmdr_email}
         WHERE user_id = #{user_id}
-        ORDER BY user_id DESC
     </update>
 
 
@@ -100,19 +112,16 @@
         </choose>
     </sql>
 
-<!--    <update id="increaseViewCnt" parameterType="int">-->
-<!--        UPDATE USER_TB-->
-<!--        SET   view_cnt = view_cnt + 1-->
-<!--        WHERE user_id = #{user_id}-->
-<!--    </update>-->
-
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="UserDto">
         SELECT  user_id,
                 user_nm,
                 user_email,
+                pwd,
+                telno,
                 subs_dt,
                 gender,
-                bryr
+                bryr,
+                rcmdr_email
         FROM USER_TB
         where true
         <include refid="searchCondition"/>
@@ -127,9 +136,4 @@
         <include refid="searchCondition"/>
     </select>
 
-<!--    <update id="updateCommentCnt" parameterType="map">-->
-<!--        UPDATE USER_TB-->
-<!--        SET comment_cnt = comment_cnt + #{cnt}-->
-<!--        WHERE user_id = #{user_id}-->
-<!--    </update>-->
 </mapper>

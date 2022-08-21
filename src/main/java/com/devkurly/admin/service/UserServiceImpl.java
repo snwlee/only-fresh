@@ -1,10 +1,7 @@
 package com.devkurly.admin.service;
 
-import com.devkurly.admin.dao.*;
-import com.devkurly.admin.domain.*;
 import com.devkurly.admin.dao.UserDao;
 import com.devkurly.admin.domain.UserDto;
-import com.devkurly.admin.service.UserService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -26,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int write(UserDto userDto) throws Exception {
+    public int insert(UserDto userDto) throws Exception {
         return userDao.insert(userDto);
     }
 
@@ -35,12 +32,10 @@ public class UserServiceImpl implements UserService {
         return userDao.selectAll();
     }
 
+    //회원정보상세조회
     @Override
     public UserDto read(Integer user_id) throws Exception {
-        UserDto userDto = userDao.select(user_id);
-        userDao.increaseViewCnt(user_id);
-
-        return userDto;
+        return userDao.select(user_id);
     }
 
     @Override
