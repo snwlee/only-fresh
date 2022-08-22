@@ -63,12 +63,13 @@
             margin-left: 28px;
         }
         #review_view .review_content {
-            width: 60%;
+            width: 120%;
+            word-break: break-word;
             padding: 20px 9px 30px;
             line-height: 25px
         }
         #review_view .Inq_answer{
-            width: 60%;
+            width: 120%;
             padding: 20px 9px 9px;
             line-height: 25px
         }
@@ -302,8 +303,7 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
-    <%--let user_id = ${sessionScope.user_id};--%>
-    let user_id = 1; //임시 하드코딩
+    <%--let user_id = ${sessionScope.memberResponse.user_id};--%>
 
     let showList = function(pdt_id){
         $.ajax({
@@ -335,6 +335,8 @@
             } else if(BoardDto.is_replied==false){
                 BoardDto.is_replied = "답변대기";
             }
+            if(BoardDto.notice==true)
+                BoardDto.title = ('<b>"공지 "</b>'+BoardDto.title);
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -570,6 +572,7 @@
                     relocateCn();
                     readStatus = false;
                     showList(pdt_id);
+                    $(".modal").css("display","none");
                 },
                 error   : function(){ alert("error") }
             });

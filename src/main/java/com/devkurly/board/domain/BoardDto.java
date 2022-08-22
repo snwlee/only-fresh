@@ -21,10 +21,11 @@ public class BoardDto {
     private String in_user;
     private Date up_date;
     private String up_user;
+    private  boolean notice;
 
     public BoardDto(){}
 
-    public BoardDto(Integer pdt_id, Integer user_id, String bbs_title, String bbs_cn, Integer revw_like, Integer like_no, String revw_img, boolean is_secret, boolean is_replied, String user_nm, String bbs_clsf_cd, String in_user, String up_user) {
+    public BoardDto(Integer pdt_id, Integer user_id, String bbs_title, String bbs_cn, Integer revw_like, Integer like_no, String revw_img, boolean is_secret, boolean is_replied, String user_nm, String bbs_clsf_cd, String in_user, String up_user, boolean notice) {
         this.pdt_id = pdt_id;
         this.user_id = user_id;
         this.bbs_title = bbs_title;
@@ -38,6 +39,15 @@ public class BoardDto {
         this.bbs_clsf_cd = bbs_clsf_cd;
         this.in_user = in_user;
         this.up_user = up_user;
+        this.notice = notice;
+    }
+
+    public boolean isNotice() {
+        return notice;
+    }
+
+    public void setNotice(boolean notice) {
+        this.notice = notice;
     }
 
     public Integer getBbs_id() {
@@ -181,12 +191,12 @@ public class BoardDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BoardDto boardDto = (BoardDto) o;
-        return is_secret == boardDto.is_secret && is_replied == boardDto.is_replied && Objects.equals(bbs_id, boardDto.bbs_id) && Objects.equals(pdt_id, boardDto.pdt_id) && Objects.equals(user_id, boardDto.user_id) && Objects.equals(bbs_title, boardDto.bbs_title) && Objects.equals(bbs_cn, boardDto.bbs_cn) && Objects.equals(revw_like, boardDto.revw_like) && Objects.equals(like_no, boardDto.like_no) && Objects.equals(revw_img, boardDto.revw_img) && Objects.equals(wrt_dt, boardDto.wrt_dt) && Objects.equals(user_nm, boardDto.user_nm) && Objects.equals(bbs_clsf_cd, boardDto.bbs_clsf_cd) && Objects.equals(in_date, boardDto.in_date) && Objects.equals(in_user, boardDto.in_user) && Objects.equals(up_date, boardDto.up_date) && Objects.equals(up_user, boardDto.up_user);
+        return is_secret == boardDto.is_secret && is_replied == boardDto.is_replied && notice == boardDto.notice && Objects.equals(bbs_id, boardDto.bbs_id) && Objects.equals(pdt_id, boardDto.pdt_id) && Objects.equals(user_id, boardDto.user_id) && Objects.equals(bbs_title, boardDto.bbs_title) && Objects.equals(bbs_cn, boardDto.bbs_cn) && Objects.equals(revw_like, boardDto.revw_like) && Objects.equals(like_no, boardDto.like_no) && Objects.equals(revw_img, boardDto.revw_img) && Objects.equals(wrt_dt, boardDto.wrt_dt) && Objects.equals(user_nm, boardDto.user_nm) && Objects.equals(bbs_clsf_cd, boardDto.bbs_clsf_cd) && Objects.equals(in_date, boardDto.in_date) && Objects.equals(in_user, boardDto.in_user) && Objects.equals(up_date, boardDto.up_date) && Objects.equals(up_user, boardDto.up_user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bbs_id, pdt_id, user_id, bbs_title, bbs_cn, revw_like, like_no, revw_img, wrt_dt, is_secret, is_replied, user_nm, bbs_clsf_cd, in_date, in_user, up_date, up_user);
+        return Objects.hash(bbs_id, pdt_id, user_id, bbs_title, bbs_cn, revw_like, like_no, revw_img, wrt_dt, is_secret, is_replied, user_nm, bbs_clsf_cd, in_date, in_user, up_date, up_user, notice);
     }
 
     @Override
@@ -209,6 +219,7 @@ public class BoardDto {
                 ", in_user='" + in_user + '\'' +
                 ", up_date=" + up_date +
                 ", up_user='" + up_user + '\'' +
+                ", notice=" + notice +
                 '}';
     }
 }

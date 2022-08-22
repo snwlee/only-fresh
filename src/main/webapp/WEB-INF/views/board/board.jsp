@@ -63,7 +63,8 @@
             margin-left: 28px;
         }
         #review_view .review_content {
-            width: 60%;
+            width: 120%;
+            word-break: break-word;
             padding: 20px 9px 30px;
             line-height: 25px
         }
@@ -286,8 +287,6 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
-    <%--let user_id = ${sessionScope.user_id};--%>
-    let user_id = 1; //임시 하드코딩
 
     let showList = function(pdt_id, sortType){
         $.ajax({
@@ -370,7 +369,6 @@
         let readStatus = false;
 
         $("#sort-option").change(function(){
-            console.log(this.value);
             let sortType = this.value;
             showList(pdt_id, sortType);
         });
@@ -429,7 +427,6 @@
                     headers: {"content-type": "application/json"},
                     success: function (result) {
                         $(".review_content").text(result.boardDto.bbs_cn);
-                        console.log(result.bbs_cn);
                         $(".del_btn").attr("data-bbs_id", bbs_id);
                         $(".mod_btn").attr("data-bbs_id", bbs_id);
                         $(".like_button").attr("data-bbs_id", bbs_id);
@@ -500,25 +497,28 @@
                     relocateCn();
                     readStatus = false;
                     showList(pdt_id);
+                    $(".modal").css("display","none");
                 },
                 error   : function(){ alert("error") }
             });
             $(".close").trigger("click");
         });
 
-        $("#board").on("click", ".like_button", function(){
-            let bbs_id = $(this).attr("data-bbs_id");
-            $.ajax({
-                type:'PATCH',
-                url: '/like/'+bbs_id+'?user_id='+user_id,
-                success : function(result){
-                    relocateCn();
-                    readStatus = false;
-                    showList(pdt_id);
-                },
-                error : function(){ alert("you pushed like-btn in this review already.")}
+        if(${sessionScope.memberResponse !=null}) {
+            $("#board").on("click", ".like_button", function () {
+                let bbs_id = $(this).attr("data-bbs_id");
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/like/' + bbs_id,
+                    success: function (result) {
+                        relocateCn();
+                        readStatus = false;
+                        showList(pdt_id);
+                    },
+                    error : function(){ alert("you pushed like-btn in this review already.")}
+                });
             });
-        });
+        }
     });
 </script>
 </body>
