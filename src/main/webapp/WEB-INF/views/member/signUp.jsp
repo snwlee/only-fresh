@@ -28,10 +28,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 개인 정보 수정</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
+    <link rel="stylesheet" type="text/css" href="/cart/temp.css">
     <style>
         #whole_container {
             width: 100%;
@@ -65,6 +66,7 @@
         #search_first a {
             font-weight: 600;
         }
+
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -124,7 +126,7 @@
     >
         <div class="member-out-box">
             <div class="member-submit-box">
-                <div class="member-title">회원 가입</div>
+                <div class="member-title">회원가입</div>
                 <div class="warning-msg" id="msg">에러코드 : ${param.error}</div>
                 <span>이메일 *</span>
                 <input
@@ -163,7 +165,7 @@
                         placeholder="휴대폰 번호를 입력해주세요."
                 />
                 <span>주소 *</span>
-                <button type="button">주소 검색</button>
+                <button class="member-btn-b" type="button">주소 검색</button>
                 <span>성별</span>
                 <input type="text" id="name" name="gender" hidden/>
                 <div class="select-gender" role="radio-group">

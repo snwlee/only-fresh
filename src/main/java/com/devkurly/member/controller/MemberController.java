@@ -5,6 +5,7 @@ import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.*;
 import com.devkurly.member.service.MemberService;
+import com.devkurly.util.EncryptSha256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,15 @@ public class MemberController {
     @GetMapping("/test")
     public String test(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
         MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("1234", "1234");
+        MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
+        session.setAttribute("memberResponse", memberResponse);
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
+        return "redirect:/";
+    }
+
+    @GetMapping("/test2")
+    public String test2(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("pgrrr119@gmail.com", "1q2w3e4r%");
         MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
         session.setAttribute("memberResponse", memberResponse);
         cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
@@ -114,9 +124,11 @@ public class MemberController {
     }
 
     @PostMapping("/info")
-    public String modifyMember(MemberUpdateRequestDto updateRequest, Model model) {
-        memberService.updatePassword(updateRequest.getUser_id(), updateRequest.getPwd());
+    public String modifyMember(MemberUpdateRequestDto updateRequest, Model model, HttpSession session) {
+        String prvPwd = updateRequest.getPwd();
         MemberUpdateResponseDto updateResponse = memberService.modifyMember(updateRequest);
+        MemberMainResponseDto memberResponse = memberService.signIn(new MemberSignInRequestDto(updateRequest.getUser_email(), prvPwd));
+        session.setAttribute("memberResponse", memberResponse);
         model.addAttribute("updateResponse", updateResponse);
         return "redirect:/members/info";
     }

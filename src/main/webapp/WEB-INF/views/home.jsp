@@ -28,7 +28,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 얼마나 좋아</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
@@ -121,6 +121,7 @@
     <span>님</span>
 </c:if>
 <a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
+<a class="btn" href="/members/test2">[임시] 53번 유저로 로그인</a>
 <a class="btn" href="${signInOutLink}">${signInOut}</a>
 <div id="contents_container">
     <%--장바구니--%>
