@@ -12,7 +12,7 @@ public class ProductDetailDto {
     private String origin; // 원산지
     private String notice; // 안내사항
     private String prt_info; // 상품설명
-    private String prt_image = "image"; // 상품 고화질 이미지
+    private String image = "image"; // 상품 고화질 이미지
     private String company; // 제조사
     private boolean de_type; // 배송 유형
     private int ds_rate;
@@ -24,7 +24,7 @@ public class ProductDetailDto {
 
     public ProductDetailDto(){}
 
-    public ProductDetailDto(Integer pdt_id, String pack_cd, String sell_cd, String weca_cd, String allg_dt, String ex_dt, String origin, String notice, String prt_info, String prt_image, String company, boolean de_type, int ds_rate, int price, int sel_price, String sub_title, String title, Integer user_id) {
+    public ProductDetailDto(Integer pdt_id, String pack_cd, String sell_cd, String weca_cd, String allg_dt, String ex_dt, String origin, String notice, String prt_info, String image, String company, boolean de_type, int ds_rate, int price, int sel_price, String sub_title, String title, Integer user_id) {
         this.pdt_id = pdt_id;
         this.pack_cd = pack_cd;
         this.sell_cd = sell_cd;
@@ -34,7 +34,7 @@ public class ProductDetailDto {
         this.origin = origin;
         this.notice = notice;
         this.prt_info = prt_info;
-        this.prt_image = prt_image;
+        this.image = image;
         this.company = company;
         this.de_type = de_type;
         this.ds_rate = ds_rate;
@@ -125,12 +125,12 @@ public class ProductDetailDto {
         this.prt_info = prt_info;
     }
 
-    public String getPrt_image() {
-        return prt_image;
+    public String getimage() {
+        return image;
     }
 
-    public void setPrt_image(String prt_image) {
-        this.prt_image = prt_image;
+    public void setimage(String image) {
+        this.image = image;
     }
 
     public String getCompany() {
@@ -194,12 +194,12 @@ public class ProductDetailDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDetailDto that = (ProductDetailDto) o;
-        return de_type == that.de_type && ds_rate == that.ds_rate && price == that.price && sel_price == that.sel_price && Objects.equals(pdt_id, that.pdt_id) && Objects.equals(pack_cd, that.pack_cd) && Objects.equals(sell_cd, that.sell_cd) && Objects.equals(weca_cd, that.weca_cd) && Objects.equals(allg_dt, that.allg_dt) && Objects.equals(ex_dt, that.ex_dt) && Objects.equals(origin, that.origin) && Objects.equals(notice, that.notice) && Objects.equals(prt_info, that.prt_info) && Objects.equals(prt_image, that.prt_image) && Objects.equals(company, that.company) && Objects.equals(sub_title, that.sub_title) && Objects.equals(title, that.title);
+        return de_type == that.de_type && ds_rate == that.ds_rate && price == that.price && sel_price == that.sel_price && Objects.equals(pdt_id, that.pdt_id) && Objects.equals(pack_cd, that.pack_cd) && Objects.equals(sell_cd, that.sell_cd) && Objects.equals(weca_cd, that.weca_cd) && Objects.equals(allg_dt, that.allg_dt) && Objects.equals(ex_dt, that.ex_dt) && Objects.equals(origin, that.origin) && Objects.equals(notice, that.notice) && Objects.equals(prt_info, that.prt_info) && Objects.equals(image, that.image) && Objects.equals(company, that.company) && Objects.equals(sub_title, that.sub_title) && Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pdt_id, pack_cd, sell_cd, weca_cd, allg_dt, ex_dt, origin, notice, prt_info, prt_image, company, de_type, ds_rate, price, sel_price, sub_title, title);
+        return Objects.hash(pdt_id, pack_cd, sell_cd, weca_cd, allg_dt, ex_dt, origin, notice, prt_info, image, company, de_type, ds_rate, price, sel_price, sub_title, title);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class ProductDetailDto {
                 ", origin='" + origin + '\'' +
                 ", notice='" + notice + '\'' +
                 ", prt_info='" + prt_info + '\'' +
-                ", prt_image='" + prt_image + '\'' +
+                ", image='" + image + '\'' +
                 ", company='" + company + '\'' +
                 ", de_type=" + de_type +
                 ", ds_rate=" + ds_rate +
