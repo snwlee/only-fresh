@@ -21,11 +21,11 @@ public class BoardDto {
     private String in_user;
     private Date up_date;
     private String up_user;
-    private  boolean notice;
+    private char notice;
 
     public BoardDto(){}
 
-    public BoardDto(Integer pdt_id, Integer user_id, String bbs_title, String bbs_cn, Integer revw_like, Integer like_no, String revw_img, boolean is_secret, boolean is_replied, String user_nm, String bbs_clsf_cd, String in_user, String up_user, boolean notice) {
+    public BoardDto(Integer pdt_id, Integer user_id, String bbs_title, String bbs_cn, Integer revw_like, Integer like_no, String revw_img, boolean is_secret, boolean is_replied, String user_nm, String bbs_clsf_cd, String in_user, String up_user, char notice) {
         this.pdt_id = pdt_id;
         this.user_id = user_id;
         this.bbs_title = bbs_title;
@@ -42,14 +42,12 @@ public class BoardDto {
         this.notice = notice;
     }
 
-    public boolean isNotice() {
+    public char getNotice() {
         return notice;
     }
-
-    public void setNotice(boolean notice) {
+    public void setNotice(char notice) {
         this.notice = notice;
     }
-
     public Integer getBbs_id() {
         return bbs_id;
     }

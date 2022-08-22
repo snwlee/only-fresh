@@ -78,8 +78,8 @@ public class BoardController {
     public ResponseEntity<String> write(Integer pdt_id, String bbs_clsf_cd, @RequestBody BoardDto boardDto, HttpSession session) {
         Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
         String user_nm = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_nm();
-//        boolean user_cls_cd = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_cls_cd();
-//        boolean notice = user_cls_cd;
+        char user_cls_cd = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_cls_cd();
+        char notice = user_cls_cd;
 
         boardDto.setUser_id(user_id);
         boardDto.setPdt_id(pdt_id);
@@ -87,7 +87,7 @@ public class BoardController {
         boardDto.setUser_nm(user_nm);
         boardDto.setBbs_title(cleanXSS(boardDto.getBbs_title()));
         boardDto.setBbs_cn(cleanXSS(boardDto.getBbs_cn()));
-//        boardDto.setNotice(notice);
+        boardDto.setNotice(notice);
 
         try {
             boardService.write(boardDto);

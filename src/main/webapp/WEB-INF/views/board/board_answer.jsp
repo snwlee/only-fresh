@@ -197,10 +197,9 @@
             <colgroup>
                 <col style="width:70px;">
                 <col style="width:auto;">
-                <col style="width:40px;">
-                <col style="width:88px;">
-                <col style="width:85px;">
-                <col style="width:55px;">
+                <col style="width:120px;">
+                <col style="width:60px;">
+                <col style="width:90px;">
             </colgroup>
             <tbody>
             <tr>
@@ -303,7 +302,6 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
-    <%--let user_id = ${sessionScope.memberResponse.user_id};--%>
 
     let showList = function(pdt_id){
         $.ajax({
@@ -316,16 +314,7 @@
         });
     }
 
-    // if(BoardDto.user_cls_cd==true){
-    //     if(BoardDto.user_id==user_id){
-    //         BoardDto.title
-    //     }else{
-    //         "비밀글입니다."
-    //     }
-    // }
 
-
-    //
     // 비밀글이면 관리자와 작성자를 제외한 유저들에게는 “비밀글입니다.”라는 글제목으로 링크를 없앤 채 회색글씨로 보이게 한다.
     let toHtml =function(lists){
         let tmp = "";
@@ -335,8 +324,10 @@
             } else if(BoardDto.is_replied==false){
                 BoardDto.is_replied = "답변대기";
             }
-            if(BoardDto.notice==true)
-                BoardDto.title = ('<b>"공지 "</b>'+BoardDto.title);
+            if(BoardDto.notice=='1'){
+                BoardDto.bbs_title = ('<b style="font-weight:900">공지  </b>'+BoardDto.bbs_title);
+                BoardDto.is_replied = "-";
+            }
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -353,7 +344,7 @@
             tmp += '</td>'
             tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
             tmp += '<td class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</td>'
-            tmp += '<td class="reply_status">'+BoardDto.is_replied+'</td>'
+            tmp += '<td class="reply_status" style="text-align: center">'+BoardDto.is_replied+'</td>'
             tmp += '</tr>'
             tmp += '</tbody>'
             tmp += '</table>'

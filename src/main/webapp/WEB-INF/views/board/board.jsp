@@ -302,6 +302,8 @@
     let toHtml =function(lists){
         let tmp = "";
         lists.forEach(function(BoardDto){
+            if(BoardDto.notice=='1')
+                BoardDto.bbs_title = ('<b style="font-weight:900">공지  </b>'+BoardDto.bbs_title);
             tmp += '<table class="tb1" width="100%">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
