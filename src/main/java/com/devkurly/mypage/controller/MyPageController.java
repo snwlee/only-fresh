@@ -58,7 +58,6 @@ public class MyPageController {
 
         List<CouponDto> list = null;
 
-        System.out.println("session = " + session.getAttribute("memberResponse"));
         try {
             list = couponService.selectUserCoupons(((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id());
             return new ResponseEntity<>(list, HttpStatus.OK);
