@@ -15,9 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +29,7 @@ public class ProductController {
 
 
     @PostMapping("/write")
-    public ResponseEntity<String> write(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
+    public ResponseEntity<String> write(ProductDto productDto, HttpSession session, RedirectAttributes rattr) {
         String in_user = (String) session.getAttribute("id");
         productDto.setIn_user(in_user);
         System.out.println("productDto = " + productDto);
