@@ -115,35 +115,34 @@
         </div>
     </div>
     <%--    header--%>
-<div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
-<a href="${nameLink}">${name}</a>
-<c:if test="${sessionScope.memberResponse != null}">
-    <span>님</span>
-</c:if>
-<a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
-<a class="btn" href="${signInOutLink}">${signInOut}</a>
-<div id="contents_container">
-    <%--장바구니--%>
-    <div class="content_box">
-        <a class="btn" href="/carts">장바구니 보기</a>
-    </div>
-    <%--이벤트--%>
-    <div class="content_box">
-        <a class="btn" href="/event/admin">이벤트 CRUD 페이지</a>
-    </div>
-    <%--게시판--%>
-    <div class="content_box">
-        <a class="btn" href="/boardlist?pdt_id=&bbs_clsf_cd=1&page=1&pageSize=10">게시판 CRUD 페이지</a>
-    </div>
-    <%--상품 보기--%>
-    <div class="content_box">
-        <a class="btn" href="/product/list?page=1&pageSize=10"/>상품 보기</a>
-        <a class="btn" href="/product/newlist">신상품 보기</a>
-        <a class="btn" href="/product/bestlist">베스트 상품 보기</a>
-        <a class="btn" href="/product/list">알뜰쇼핑</a>
-    </div>
-    <%--배송지--%>
-    <div class="content_box">
+
+    <div class="member-out-box">
+        <form
+                action="/members/info/verify"
+                method="post"
+        >
+            <div class="member-submit-box">
+                <div class="member-title">비밀번호 확인</div>
+                <input
+                        class="member-input-text"
+                        id="password"
+                        type="password"
+                        name="pwd"
+                        placeholder="비밀번호"
+                />
+                <button type="button" onclick="change();">비밀번호 보기</button>
+                <button class="member-btn-a" type="submit">비밀번호 확인</button>
+            </div>
+        </form>
+        <script>
+            let change = function () {
+                if ($('#password').prop('type') === 'password') {
+                    $('#password').prop('type', 'text');
+                } else {
+                    $('#password').prop('type', 'password');
+                }
+            }
+        </script>
     </div>
 </div>
 </body>

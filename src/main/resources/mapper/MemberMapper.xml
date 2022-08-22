@@ -21,8 +21,8 @@
     <update id="update" parameterType="Member">
         update USER_TB
         set user_nm = #{user_nm},
-            telno = #{telno},
-            gender = #{gender}
+            pwd = #{pwd},
+            telno = #{telno}
         where user_id = #{user_id};
     </update>
     <delete id="delete" parameterType="int">

@@ -3,12 +3,11 @@ package com.devkurly.member.controller;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.member.dto.MemberMainResponseDto;
-import com.devkurly.member.dto.MemberSaveRequestDto;
-import com.devkurly.member.dto.MemberSignInRequestDto;
+import com.devkurly.member.dto.*;
 import com.devkurly.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,7 +59,6 @@ public class MemberController {
         requestSession.setAttribute("memberResponse", memberResponse);
 
         cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        System.out.println(toURL);
         toURL = toURL == null || toURL.equals("") ? "/" : toURL;
         return "redirect:" + toURL;
     }
@@ -93,9 +91,34 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("info/verify")
+    public String viewVerifyMemberModify() {
+        return "/member/verify";
+    }
+
+    @PostMapping("/info/verify")
+    public String verifyMemberModify(String pwd, HttpSession session) {
+        MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
+        Integer user_id = memberResponse.getUser_id();
+        memberService.updatePassword(user_id, pwd);
+        return "redirect:/members/info";
+    }
+
     @GetMapping("/info")
-    public String modifyMember() {
+    public String viewModifyMember(Model model, HttpSession session) {
+        MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
+        Integer user_id = memberResponse.getUser_id();
+        MemberUpdateResponseDto updateResponse = memberService.findUpdateMember(user_id);
+        model.addAttribute("updateResponse", updateResponse);
         return "/member/update";
+    }
+
+    @PostMapping("/info")
+    public String modifyMember(MemberUpdateRequestDto updateRequest, Model model) {
+        memberService.updatePassword(updateRequest.getUser_id(), updateRequest.getPwd());
+        MemberUpdateResponseDto updateResponse = memberService.modifyMember(updateRequest);
+        model.addAttribute("updateResponse", updateResponse);
+        return "redirect:/members/info";
     }
 
     private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
