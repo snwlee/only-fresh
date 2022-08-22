@@ -142,38 +142,36 @@
         <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sales_rate'/>">판매량순</a></li>
         <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=in_date'/>">신상품순</a></li>
     </ul>
-        <div class="search-container">
-    <form action="<c:url value="/product/list"/>" class="search-form" method="get">
-        <select class="search-option" name="option">
-            <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>검색</option>
-            <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>상품명</option>
-            <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>제조사명</option>
-        </select>
-        <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
-        <input type="submit" class="search-button" value="검색">
-    </form>
-        </div>
+    <div class="search-container">
+        <form action="<c:url value="/product/list"/>" class="search-form" method="get">
+            <select class="search-option" name="option">
+                <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>검색</option>
+                <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>상품명</option>
+                <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>제조사명</option>
+            </select>
+            <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+            <input type="submit" class="search-button" value="검색">
+        </form>
+    </div>
     <table border="1">
         <div>상품리스트</div>
         <c:forEach var="ProductDto" items="${list}">
             <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
                 <div id="product">
                     <tr>
-
-                        <td><input type="number" value=1 name="pdt_qty"></td>
                         <td><button class="cart_btn" type="submit">장바구니에 추가</button></td>
-
+                        <td><input type="number" value=1 name="pdt_qty"></td>
+                        <td> 아이디 : ${ProductDto.pdt_id}</td>
                         <td> 태그이름: ${ProductDto.tag_name}</td>
                         <td> 제품명 :${ProductDto.title}</td>
                         <td> 소제목: ${ProductDto.sub_title}</td>
                         <td> 할인율 : ${ProductDto.ds_rate}%</td>
-                        <td> 원가 : ${ProductDto.price}원</td>
+                        <td> 원가 :<fmt:formatNumber value="${ProductDto.price}" pattern="#,###"/>원</td>
                         <td><img id="img" src="${ProductDto.image}"/></td>
-                        <td> 판매가 : ${ProductDto.sel_price}원</td>
-<%--                        <td> 판매량 : ${ProductDto.sales_rate} 개</td>--%>
-<%--                        <td> 배송타입 : ${ProductDto.de_type}</td>--%>
+                        <td> 판매가 :<fmt:formatNumber value="${ProductDto.sel_price}" pattern="#,###"/>원</td>
+
+                        <td> 배송타입 : ${ProductDto.de_type}</td>
                         <td> 제조사 : ${ProductDto.company}</td>
-<%--                        <td> 카테고리 이름 : ${ProductDto.cd_name} </td>--%>
                     </tr>
                 </div>
                 <br>
@@ -209,27 +207,27 @@
 
 
 
-            <br>
-            <div class="paging-container">
-                <div class="paging">
-<%--                    <c:if test="${totalCnt==null || totalCnt==0}">--%>
-<%--                        <div> 게시물이 없습니다. </div>--%>
-<%--                    </c:if>--%>
-                    <c:if test="${totalCnt!=null && totalCnt!=0}">
-                        <c:if test="${ph.showPrev}">
-                            <a class="page" href="<c:url value="/product/list${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
-                        </c:if>
-                        <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                            <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value="/product/list${ph.sc.getQueryString(i)}"/>">${i}</a>
-                        </c:forEach>
-                        <c:if test="${ph.showNext}">
-                            <a class="page" href="<c:url value="/product/list${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>
-                        </c:if>
-                    </c:if>
-                </div>
-            </div>
+    <br>
+    <div class="paging-container">
+        <div class="paging">
+            <%--                    <c:if test="${totalCnt==null || totalCnt==0}">--%>
+            <%--                        <div> 게시물이 없습니다. </div>--%>
+            <%--                    </c:if>--%>
+            <c:if test="${totalCnt!=null && totalCnt!=0}">
+                <c:if test="${ph.showPrev}">
+                    <a class="page" href="<c:url value="/product/list${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
+                </c:if>
+                <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                    <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value="/product/list${ph.sc.getQueryString(i)}"/>">${i}</a>
+                </c:forEach>
+                <c:if test="${ph.showNext}">
+                    <a class="page" href="<c:url value="/product/list${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>
+                </c:if>
+            </c:if>
         </div>
     </div>
+</div>
+</div>
 </div>
 </body>
 </html>

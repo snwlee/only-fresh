@@ -96,6 +96,11 @@ public class ProductServiceImpl implements ProductService {
         return productDao.searchResultCnt(sc);
     }
 
+    @Override
+    public List<ProductDto> CateList(Map map) throws Exception {
+        return productDao.CateList(map);
+    }
+
 //    @Override
 //    public String isValid(ProductDto productDto) throws Exception {
 //        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||

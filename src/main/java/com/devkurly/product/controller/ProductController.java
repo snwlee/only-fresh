@@ -6,6 +6,8 @@ import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import com.devkurly.product.service.ProductService;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,24 +29,16 @@ public class ProductController {
 
 
     @PostMapping("/write")
-    public String write(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
-        String in_user = (String)session.getAttribute("id");
+    public ResponseEntity<String> write(ProductDto productDto, HttpSession session, RedirectAttributes rattr) {
+        String in_user = (String) session.getAttribute("id");
         productDto.setIn_user(in_user);
         System.out.println("productDto = " + productDto);
         try {
-            int rowCnt = productService.write(productDto); // insert
-            System.out.println("rowCnt = " + rowCnt);
-            if(rowCnt!=1)
-                throw new Exception("Write failed");
-
-            rattr.addFlashAttribute("msg", "WRT_OK");
-
-            return "redirect:/product/list";
+            productService.write(productDto); // insert
+            return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute(productDto);
-            m.addAttribute("msg", "WRT_ERR");
-            return "product/product";
+            return new ResponseEntity<String>("WRT_ERR", HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("/write")
@@ -56,21 +47,18 @@ public class ProductController {
         return "product/product"; // 읽기와 쓰기에 사용. 쓰기에 사용할떄는 mode=new
     }
 
-    @PostMapping("/remove")
-    public String remove(Integer pdt_id, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+    @DeleteMapping("/remove")
+    public ResponseEntity<String> remove(@PathVariable Integer pdt_id, HttpSession session) {
         String in_user = (String) session.getAttribute("id");
         try {
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
             int rowCnt = productService.remove(pdt_id);
-            if (rowCnt == 1)
-                rattr.addFlashAttribute("msg", "DEL_OK");
-            return "redirect:/product/list?page=1&pageSize=10";
+            if (rowCnt != 1)
+                throw new Exception("delete error");
+            return new ResponseEntity<String>("DEL_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            rattr.addFlashAttribute("msg", "DEL_ERR");
+            return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
         }
-        return "redirect:/product/list?page=1&pageSize=10";
     }
 
 
@@ -86,6 +74,24 @@ public class ProductController {
 //        }
 //        return "product/product";
 //    }
+
+    @GetMapping("/CateList")
+    public String CateList( Model m, HttpServletRequest request, HttpSession session, String order_sc){
+        try {
+            List<ProductDto> list = null;
+            Map map = new HashMap();
+            if (order_sc == null || order_sc == "") {
+                list = productService.CateList(map);
+            } else {
+                map.put("order_sc", order_sc);
+                list = productService.ProductListDESC(map);
+            }
+            m.addAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "product/productCateList";
+    }
 
 
 
@@ -226,25 +232,20 @@ public class ProductController {
         return "product/productThriftylist";
     }
 
-    @PostMapping("/modify")
-    public String modify(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
+    @PatchMapping("/modify")
+    public ResponseEntity<String> modify(ProductDto productDto, Model m , HttpSession session, RedirectAttributes rattr) {
         String in_user = (String)session.getAttribute("id");
         productDto.setIn_user(in_user);
 
         try {
             int rowCnt = productService.modify(productDto); // insert
-
             if(rowCnt!=1)
                 throw new Exception("modify failed");
-
-            rattr.addFlashAttribute("msg", "MOD_OK");
-
-            return "redirect:/product/list?page=1&pageSize=10";
+            return new ResponseEntity<String>("MOD_OK", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute(productDto);
-            m.addAttribute("msg", "MOD_ERR");
-            return "product/product";
+            return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
+
         }
 
     }
