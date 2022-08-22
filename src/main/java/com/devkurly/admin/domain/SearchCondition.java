@@ -1,38 +1,33 @@
-package com.devkurly.product.domain;
+package com.devkurly.admin.domain;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class SearchCondition {
-
     private Integer page = 1;
-    private Integer PageSize = 10;
-    private Integer offset = 0;
+    private Integer pageSize = 10;
     private String keyword = "";
-    private String option = "";
-    private String order_sc;
-    private String cat_code;
+    private String option =  "";
+
 
     public SearchCondition(){}
     public SearchCondition(Integer page, Integer pageSize, String keyword, String option) {
         this.page = page;
-        PageSize = pageSize;
+        this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
     }
-
     public String getQueryString(Integer page) {
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
-                .queryParam("pageSize", PageSize)
-                .queryParam("option", option)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option",  option)
                 .queryParam("keyword", keyword)
                 .build().toString();
     }
-    public String getQueryString(){
+
+    public String getQueryString() {
         return getQueryString(page);
     }
-
-
 
     public Integer getPage() {
         return page;
@@ -43,20 +38,15 @@ public class SearchCondition {
     }
 
     public Integer getPageSize() {
-        return PageSize;
+        return pageSize;
     }
 
     public void setPageSize(Integer pageSize) {
-        PageSize = pageSize;
+        this.pageSize = pageSize;
     }
 
-    public Integer getOffset() {
-        return (page-1) * PageSize;
-    }
+    public Integer getOffset() {return (page-1) * pageSize;}
 
-    public void setOffset(Integer offset) {
-        this.offset = offset;
-    }
 
     public String getKeyword() {
         return keyword;
@@ -74,32 +64,15 @@ public class SearchCondition {
         this.option = option;
     }
 
-    public String getOrder_sc() {
-        return order_sc;
-    }
-
-    public void setOrder_sc(String order_sc) {
-        this.order_sc = order_sc;
-    }
-
-    public String getCat_code() {
-        return cat_code;
-    }
-
-    public void setCat_code(String cat_code) {
-        this.cat_code = cat_code;
-    }
 
     @Override
     public String toString() {
         return "SearchCondition{" +
                 "page=" + page +
-                ", PageSize=" + PageSize +
-                ", offset=" + offset +
+                ", pageSize=" + pageSize +
+                ", offset=" + getOffset() +
                 ", keyword='" + keyword + '\'' +
                 ", option='" + option + '\'' +
                 '}';
     }
 }
-
-

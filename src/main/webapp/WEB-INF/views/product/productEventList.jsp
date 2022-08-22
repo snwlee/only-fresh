@@ -137,10 +137,10 @@
     <li>
 
     </li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=sel_price'/>">높은 가격순</a></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=ds_rate'/>">혜택순</a></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=sales_rate'/>">판매량순</a></li>
-    <li><a class="btn" href="<c:url value='/product/list?order_sc=in_date'/>">신상품순</a></li>
+    <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sel_price'/>">높은 가격순</a></li>
+    <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=ds_rate'/>">혜택순</a></li>
+    <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sales_rate'/>">판매량순</a></li>
+    <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=in_date'/>">신상품순</a></li>
   </ul>
   <div class="search-container">
     <form action="<c:url value="/product/list"/>" class="search-form" method="get">
@@ -154,13 +154,15 @@
     </form>
   </div>
   <table border="1">
-    <div>베스트 상품 리스트</div>
+    <div>상품리스트</div>
     <c:forEach var="ProductDto" items="${list}">
       <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
         <div id="product">
           <tr>
             <td><button class="cart_btn" type="submit">장바구니에 추가</button></td>
             <td><input type="number" value=1 name="count"></td>
+            <td> 아이디 : ${ProductDto.pdt_id}</td>
+            <td>이벤트 테스트 : ${ProductDto.cat_code}</td>
             <td> 태그이름: ${ProductDto.tag_name}</td>
             <td> 제품명 :${ProductDto.title}</td>
             <td> 소제목: ${ProductDto.sub_title}</td>
@@ -168,10 +170,10 @@
             <td> 원가 : ${ProductDto.price}원</td>
             <td><img id="img" src="${ProductDto.image}"/></td>
             <td> 판매가 : ${ProductDto.sel_price}원</td>
-<%--            <td> 판매량 : ${ProductDto.sales_rate} 개</td>--%>
+              <%--                        <td> 판매량 : ${ProductDto.sales_rate} 개</td>--%>
             <td> 배송타입 : ${ProductDto.de_type}</td>
             <td> 제조사 : ${ProductDto.company}</td>
-<%--            <td> 카테고리 이름 : ${ProductDto.cd_name} </td>--%>
+              <%--                        <td> 카테고리 이름 : ${ProductDto.cd_name} </td>--%>
           </tr>
         </div>
         <br>

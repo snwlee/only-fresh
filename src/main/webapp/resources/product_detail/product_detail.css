@@ -1,0 +1,229 @@
+#detail_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#pdt_img {
+    display: block;
+    width: 430px;
+    height: 552px;
+    margin-right: 40px;
+}
+
+#is_early_deli {
+    font-size: 14px;
+    font-weight: 500;
+    color: #999999;
+    margin-bottom: 10px;
+}
+
+#detail_price_button_container h2 {
+    width: 500px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#sub_title {
+    color:#b5b5b5;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+#ds_rate {
+    padding-right: 9px;
+    font-size: 28px;
+    color: rgb(250, 98, 47);
+    font-weight: 600;
+}
+
+#sel_price {
+    color: #333;
+    font-size: 28px;
+    font-weight: 600;
+}
+#price{
+    font-size: 16px;
+    color: rgb(181, 181, 181);
+    text-decoration: line-through;
+    margin-right: 0px;
+    letter-spacing: -0.5px;
+}
+#won {
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#mileage_except {
+    font-size: 14px;
+    color: #5f0080;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F4F4F4;
+    margin-top: 14px
+}
+
+.detail_column {
+    display: flex;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.column_title {
+    width: 120px;
+    color: #666666;
+    font-size: 14px;
+}
+
+.main_desc {
+    color: #333;
+    font-size: 14px;
+    padding-bottom: 6px;
+}
+
+.sub_desc {
+    width: 400px;
+    color: #777777;
+    word-wrap: break-word;
+}
+
+
+.quantity_control_box {
+    display: flex;
+    border: 1px solid rgb(221, 223, 225);
+    /* margin-right: 50px; */
+}
+
+.quantity_control_box div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    margin: 0;
+}
+
+.quantity_control_box button {
+    width: 27px;
+    height: 28px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#price_container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 40px;
+}
+
+#total_price {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+}
+
+#actual_price {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+}
+
+#unit {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+#mileage {
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+}
+
+#button_container {
+    display: flex;
+    padding-top: 20px;
+    margin-bottom: 100px;
+}
+
+#button_container button:first-child, button:nth-child(2){ 
+    width: 68px;
+    height: 56px;
+    margin-right: 8px;
+    border-radius: 4px;
+    border: 1px solid #DDDDDD;
+    background-color: transparent;
+}
+
+#button_container button:last-child {
+    height: 56px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #5F0080;
+    color: white;
+    border: none;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    border: 1px solid #EEEEEE;
+    margin-bottom: 20px;
+
+}
+
+nav div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26%;
+    height: 58px;
+    border-right: 1px solid #EEEEEE;
+    font-size: 16px;
+    color: #666666;
+    font-weight: 600;
+}
+.navs{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(95, 0, 128);
+}
+.navi{
+    background-color: rgb(255, 255, 255);
+    text-decoration: none;
+    color: inherit;
+}
+
+#inquire_tab {
+    border: none;
+}
+
+#review_board {
+    padding-top: 50px;
+}
+
+#title_desc_filter_container {
+    padding-bottom: 16px;
+    border-bottom: 2px solid #522772;
+}
+
+#title_desc_filter_container h2{
+    font-size: 13px;
+    color: #4C4C4C;
+    padding-bottom: 6px;
+}
+
+.review_desc {
+    font-size: 12px;
+    color: #4C4C4C;
+    padding-bottom: 4px;
+}
+
+#desc_filter {
+    display: flex;
+    justify-content: space-between;
+}
+
