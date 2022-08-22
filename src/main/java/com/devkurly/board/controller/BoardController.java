@@ -135,15 +135,17 @@ public class BoardController {
     }
 
     @GetMapping("/board/{bbs_id}")
-    public ResponseEntity<Map> read(@PathVariable Integer bbs_id, boolean is_secret) {
+    public ResponseEntity<Map> read(@PathVariable Integer bbs_id, String bbs_clsf_cd, boolean is_secret) {
         try {
             Map map = new HashMap<>();
-            CommentDto commentDto = boardService.readAnswer(bbs_id);
-            if(commentDto==null)
-                map.put("commentDto", null);
-            map.put("commentDto", commentDto);
             BoardDto boardDto = boardService.readCn(bbs_id);
             map.put("boardDto", boardDto);
+            if (bbs_clsf_cd.equals("2")) {
+                CommentDto commentDto = boardService.readAnswer(bbs_id);
+                if(commentDto==null)
+                    map.put("commentDto", null);
+                map.put("commentDto", commentDto);
+            }
             return new ResponseEntity<Map>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

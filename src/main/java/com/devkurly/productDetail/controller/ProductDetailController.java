@@ -1,5 +1,6 @@
 package com.devkurly.productDetail.controller;
 
+import com.devkurly.board.service.BoardService;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.service.ProductService;
 import com.devkurly.productDetail.dao.ProductDetailDao;
@@ -8,6 +9,7 @@ import com.devkurly.productDetail.service.ProductDetailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -18,10 +20,25 @@ import java.util.List;
 public class ProductDetailController {
     private ProductService productService;
     private ProductDetailService productDetailService;
+    private BoardService boardService;
 
-    public ProductDetailController(ProductService productService, ProductDetailService productDetailService) {
+    public ProductDetailController(ProductService productService, ProductDetailService productDetailService, BoardService boardService) {
         this.productService = productService;
         this.productDetailService = productDetailService;
+        this.boardService = boardService;
+    }
+
+    @RequestMapping("") // /detail?pdt_id=29
+    public String DetailPage(Integer pdt_id ,Model model) {
+        try {
+            ProductDetailDto dto = productDetailService.selectDetail(pdt_id);
+            int reviewCnt = boardService.getCount("1", pdt_id);
+            model.addAttribute(dto);
+            model.addAttribute("reviewCnt",reviewCnt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "board/product_detail";
     }
 
     @RequestMapping("/admin")
