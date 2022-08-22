@@ -37,22 +37,6 @@ public class MemberController {
         return "redirect:/";
     }
 
-    private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
-        if (Optional.ofNullable(tempCart).isPresent()) {
-            tempCart.setPath("/");
-            tempCart.setMaxAge(0);
-            response.addCookie(tempCart);
-        }
-        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
-        for (Cart cart : carts) {
-            MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-            cart.setUser_id(memberResponse.getUser_id());
-            cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
-            cartService.addCart(cartSaveRequestDto);
-            cartService.removeCart(cartService.getCookieId(tempCart, response));
-        }
-    }
-
     @GetMapping("")
     public String viewSignIn(HttpSession session) {
         Object sessionAttribute = session.getAttribute("memberResponse");
@@ -107,5 +91,26 @@ public class MemberController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping("/info")
+    public String modifyMember() {
+        return "/member/update";
+    }
+
+    private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            tempCart.setPath("/");
+            tempCart.setMaxAge(0);
+            response.addCookie(tempCart);
+        }
+        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
+        for (Cart cart : carts) {
+            MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
+            cart.setUser_id(memberResponse.getUser_id());
+            cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
+            cartService.addCart(cartSaveRequestDto);
+            cartService.removeCart(cartService.getCookieId(tempCart, response));
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.devkurly.payment.controller;
 
+import com.devkurly.member.dto.MemberMainResponseDto;
 import com.devkurly.order.service.OrderService;
 import com.devkurly.payment.dto.PaymentSaveRequestDto;
 import com.devkurly.payment.service.PaymentService;
@@ -22,8 +23,8 @@ public class PaymentController {
 
     @PostMapping("/{ord_id}")
     public String requestPayment(PaymentSaveRequestDto requestDto, HttpSession session) {
-        Integer userId = (Integer) session.getAttribute("user_id");
-        requestDto.setUser_id(userId);
+        Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
+        requestDto.setUser_id(user_id);
         paymentService.addPayment(requestDto);
         return "/payment/payment";
     }
@@ -36,7 +37,7 @@ public class PaymentController {
 
     @GetMapping("/2")
     public String deletePayment(Integer ord_id, HttpSession session) {
-        paymentService.removePayment((Integer) session.getAttribute("user_id"), ord_id);
+        paymentService.removePayment(((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id(), ord_id);
         return "redirect:/payments";
     }
 }
