@@ -28,7 +28,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 결제 정보</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
@@ -116,6 +116,6 @@
     </div>
     <%--    header--%>
 <div>결제</div>
-<div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
+<div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
 </body>
 </html>

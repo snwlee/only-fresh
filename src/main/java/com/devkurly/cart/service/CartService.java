@@ -86,9 +86,21 @@ public class CartService {
         if (Optional.ofNullable(tempCart).isPresent()) {
             id = Integer.parseInt(tempCart.getValue());
         } else {
-            Random random = new Random();
-            int randomNumber = random.nextInt(100000);
-            // (예정) 중복 확인 후 재랜덤 결정
+            int randomNumber;
+            do {
+                Random random = new Random();
+                randomNumber = random.nextInt(1000000);
+                // (예정) 중복 확인 후 재랜덤 결정
+                try {
+                    Optional.ofNullable(cartMapper.findById(randomNumber))
+                            .ifPresent(cookieNumber -> {
+                                throw new ArithmeticException();
+                            });
+                    break;
+                } catch (Exception ignored) {
+
+                }
+            } while (true);
             Cookie newTempCart = new Cookie("tempCart", Integer.toString(randomNumber));
             newTempCart.setPath("/");
             response.addCookie(newTempCart);

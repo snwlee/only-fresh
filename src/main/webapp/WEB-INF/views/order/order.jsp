@@ -115,6 +115,7 @@
         </div>
     </div>
     <%--    header--%>
+
     <div>주문서</div>
     <div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
     <div>주문 상품</div>
@@ -228,6 +229,7 @@
                 });
             });
         </script>
+        <input type="number" name="all_amt" value="${sum}" hidden>
         <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>
         <script>
 

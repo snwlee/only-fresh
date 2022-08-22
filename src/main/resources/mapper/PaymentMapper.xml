@@ -5,8 +5,8 @@
 
 <mapper namespace="com.devkurly.mapper.PaymentMapper">
     <insert id="save" parameterType="Payment">
-        insert into PAYMENT_TB(ord_id, user_id, setl_cd, setl_stus_cd, all_amt, all_dc_amt, dlvr_amt)
-        values (#{ord_id}, #{user_id}, #{setl_cd}, #{setl_stus_cd}, #{all_amt}, #{all_dc_amt}, #{dlvr_amt});
+        insert into PAYMENT_TB(ord_id, user_id, setl_cd, all_amt, all_dc_amt, dlvr_amt)
+        values (#{ord_id}, #{user_id}, #{setl_cd}, #{all_amt}, #{all_dc_amt}, #{dlvr_amt});
     </insert>
     <select id="findById" parameterType="Int" resultType="Payment">
         select *

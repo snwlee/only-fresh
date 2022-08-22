@@ -4,7 +4,7 @@ import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.member.dto.MemberMainResponseDto;
+import com.devkurly.order.domain.Order;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
@@ -19,6 +19,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.devkurly.member.controller.MemberController.getMemberResponse;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/orders")
@@ -29,12 +31,13 @@ public class OrderController {
 
     @GetMapping("")
     public String requestOrder(@RequestParam(value = "checked") List<String> chArr, Model model, HttpSession session) {
-        Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
+        Integer user_id = getMemberResponse(session);
+
         // 유저 기반 주문 생성
         orderService.addOrder(user_id);
         Integer order_id = orderService.checkRecentOrderId(user_id);
 
-        int pdt_id = 0;
+        int pdt_id;
         List<CartProductResponseDto> checkedCartProduct = new ArrayList<>();
         for (String str : chArr) {
             pdt_id = Integer.parseInt(str);
@@ -53,6 +56,9 @@ public class OrderController {
         for (CartProductResponseDto responseDto : checkedCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
+        Order order = orderService.checkOrder(order_id);
+        order.setAll_amt(sum);
+        orderService.modifyOrder(new OrderUpdateRequestDto(order));
         DecimalFormat df = new DecimalFormat("###,###");
         model.addAttribute("sum", df.format(sum));
         model.addAttribute("order_id", order_id);

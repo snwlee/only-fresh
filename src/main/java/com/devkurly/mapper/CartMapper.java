@@ -12,6 +12,7 @@ import java.util.List;
 public interface CartMapper {
 
     Integer save(Cart cart);
+    Integer findById(Integer cookieId);
     Cart findByCart(Cart cart);
     List<Cart> findAllByUserId(Integer user_id);
     ProductDto findProductByPdtId(Integer pdt_id);

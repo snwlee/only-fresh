@@ -5,7 +5,6 @@ import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.*;
 import com.devkurly.member.service.MemberService;
-import com.devkurly.util.EncryptSha256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,16 +107,14 @@ public class MemberController {
 
     @PostMapping("/info/verify")
     public String verifyMemberModify(String pwd, HttpSession session) {
-        MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = memberResponse.getUser_id();
+        Integer user_id = getMemberResponse(session);
         memberService.updatePassword(user_id, pwd);
         return "redirect:/members/info";
     }
 
     @GetMapping("/info")
     public String viewModifyMember(Model model, HttpSession session) {
-        MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = memberResponse.getUser_id();
+        Integer user_id = getMemberResponse(session);
         MemberUpdateResponseDto updateResponse = memberService.findUpdateMember(user_id);
         model.addAttribute("updateResponse", updateResponse);
         return "/member/update";
@@ -141,11 +138,13 @@ public class MemberController {
         }
         List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
         for (Cart cart : carts) {
-            MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-            cart.setUser_id(memberResponse.getUser_id());
+            cart.setUser_id(getMemberResponse(session));
             cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
             cartService.addCart(cartSaveRequestDto);
             cartService.removeCart(cartService.getCookieId(tempCart, response));
         }
+    }
+    public static Integer getMemberResponse(HttpSession session) {
+        return ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
     }
 }
