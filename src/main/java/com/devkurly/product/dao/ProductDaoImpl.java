@@ -76,6 +76,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
 
+
+
     @Override
     public List<ProductDto> ProductListDESC(Map map) {
         return session.selectList(namespace + "ProductListDESC", map);

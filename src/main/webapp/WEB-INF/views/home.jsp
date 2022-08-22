@@ -47,7 +47,7 @@
     <%--게시판--%>
     <div class="content_box">
         <a class="btn" href="/boardlist?pdt_id=&bbs_clsf_cd=1&page=1&pageSize=10">게시판 CRUD 페이지</a>
-    </div>
+2    </div>
     <%--상품 보기--%>
     <div class="content_box">
         <a class="btn" href="/product/list?page=1&pageSize=10"/>상품 보기</a>
@@ -61,5 +61,6 @@
     <div class="content_box">
     </div>
 </div>
+<a class="btn" href="/admin/list">회원관리</a>
 </body>
 </html>
