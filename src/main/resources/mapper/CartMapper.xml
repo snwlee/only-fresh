@@ -19,6 +19,12 @@
         from CART_TB
         where user_id = #{user_id};
     </select>
+    <select id="findCheckedByCart" parameterType="Cart" resultType="Cart">
+        select user_id, pdt_id, pdt_qty
+        from CART_TB
+        where user_id = #{user_id}
+        and pdt_id = #{pdt_id};
+    </select>
     <select id="findProductByPdtId" parameterType="int" resultType="Product">
         select stock
         from PRODUCT_TB

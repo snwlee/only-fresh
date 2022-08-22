@@ -116,8 +116,14 @@
     </div>
     <%--    header--%>
     <div>주문서</div>
-    <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
+    <div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
     <div>주문 상품</div>
+<%--    <c:forEach var="cart" items="${cart}" varStatus="status">--%>
+<%--    <div>주문 제품 이름 : ${cart.title}</div>--%>
+<%--    <div>주문 제품 개수 : ${cart.pdt_qty}</div>--%>
+<%--    <div>주문 제품 총 가격 : ${cart.sel_price * cart.pdt_qty}</div>--%>
+<%--    <br>--%>
+<%--    </c:forEach>--%>
     <c:forEach var="cart" items="${cart}" varStatus="status">
     <div>주문 제품 이름 : ${cart.title}</div>
     <div>주문 제품 개수 : ${cart.pdt_qty}</div>

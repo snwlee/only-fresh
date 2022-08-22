@@ -121,7 +121,7 @@
     </div>
     <%--    header--%>
 
-    <form action="/members" method="post">
+    <form action="/members" method="post" autocomplete="off">
         <div class="member-submit-box">
             <div class="member-title">로그인</div>
             <button

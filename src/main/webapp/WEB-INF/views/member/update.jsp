@@ -124,6 +124,7 @@
                     action="/members/info"
                     method="post"
                     onsubmit="return formCheck(this)"
+                    autocomplete="off"
             >
                 <div class="member-title" style="font-size: 16px">
                     개인 정보 수정

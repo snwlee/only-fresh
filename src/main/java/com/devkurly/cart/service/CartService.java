@@ -42,6 +42,16 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
+    public List<Cart> viewCheckedCart(CartSaveRequestDto requestDto) {
+        return cartMapper.findCheckedByCart(requestDto.toEntity());
+    }
+
+    @Transactional(readOnly = true)
+    public List<CartProductResponseDto> viewCheckedCartProduct(CartSaveRequestDto requestDto) {
+        return cartMapper.joinCartProductByCart(requestDto.toEntity());
+    }
+
+    @Transactional(readOnly = true)
     public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
         return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
     }

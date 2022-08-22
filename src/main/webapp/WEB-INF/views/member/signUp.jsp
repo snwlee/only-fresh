@@ -120,10 +120,7 @@
         </div>
     </div>
     <%--    header--%>
-    <form
-            action="/members/signup"
-            method="post"
-    >
+    <form action="/members/signup" method="post" autocomplete="off">
         <div class="member-out-box">
             <div class="member-submit-box">
                 <div class="member-title">회원가입</div>
