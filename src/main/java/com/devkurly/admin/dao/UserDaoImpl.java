@@ -1,6 +1,7 @@
 package com.devkurly.admin.dao;
 
 import com.devkurly.admin.domain.UserDto;
+import com.devkurly.admin.domain.UserSearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -58,6 +59,14 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int update(UserDto dto) throws Exception {
         return session.update(namespace+"update", dto);
+    }
+    @Override
+    public List<UserDto> userSearchSelectPage(UserSearchCondition sc) throws Exception {
+        return session.selectList(namespace+"userSearchSelectPage", sc);
+    }
+    @Override
+    public int userSearchResultCnt(UserSearchCondition sc) throws Exception {
+        return session.selectOne(namespace+"userSearchResultCnt", sc);
     }
 
 

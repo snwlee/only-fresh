@@ -68,7 +68,7 @@
         FROM USER_TB
     </sql>
 
-    <select id="selectPage" parameterType="map" resultType="UserDto">
+    <select id="userSelectPage" parameterType="UserSearchCondition" resultType="UserDto">
         SELECT user_id,
                user_nm,
                user_email,
@@ -97,7 +97,7 @@
     </update>
 
 
-    <sql id="searchCondition">
+    <sql id="userSearchCondition">
         <choose>
             <when test='option=="T"'>
                 AND title LIKE concat('%', #{keyword}, '%')
@@ -112,7 +112,7 @@
         </choose>
     </sql>
 
-    <select id="searchSelectPage" parameterType="SearchCondition" resultType="UserDto">
+    <select id="usersearchSelectPage" parameterType="UserSearchCondition" resultType="UserDto">
         SELECT  user_id,
                 user_nm,
                 user_email,
@@ -124,16 +124,16 @@
                 rcmdr_email
         FROM USER_TB
         where true
-        <include refid="searchCondition"/>
+        And user_nm LIKE concat('%', #{keyword}, '%') # %title%
         ORDER BY subs_dt DESC, user_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+    <select id="usersearchResultCnt" parameterType="UserSearchCondition" resultType="int">
         SELECT count(*)
         FROM USER_TB
         where true
-        <include refid="searchCondition"/>
+            AND user_nm LIKE concat('%', #{keyword}, '%')
     </select>
 
 </mapper>

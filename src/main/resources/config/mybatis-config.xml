@@ -20,7 +20,7 @@
 <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
                 <typeAlias alias="UserCouponDto" type="com.devkurly.coupon.domain.UserCouponDto" />
                 <typeAlias alias="SearchCondition" type="com.devkurly.product.domain.SearchCondition"/>
-                <typeAlias alias="SearchCondition" type="com.devkurly.admin.domain.SearchCondition"/>
-                <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
+                <typeAlias alias="CommentDto" type="com.devkurly.board.domain.CommentDto"/>
+                <typeAlias alias="UserSearchCondition" type="com.devkurly.admin.domain.UserSearchCondition"/>
         </typeAliases>
 </configuration>

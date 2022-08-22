@@ -1,6 +1,7 @@
 package com.devkurly.admin.dao;
 
 import com.devkurly.admin.domain.UserDto;
+import com.devkurly.admin.domain.UserSearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -23,5 +24,10 @@ public interface UserDao {
     List<UserDto> selectPage(Map map) throws Exception;
 
     int update(UserDto dto) throws Exception;
+
+    int userSearchResultCnt(UserSearchCondition sc) throws Exception;
+
+    List<UserDto> userSearchSelectPage(UserSearchCondition sc) throws Exception;
+
 
 }

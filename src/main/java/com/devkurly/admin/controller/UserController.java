@@ -2,24 +2,22 @@ package com.devkurly.admin.controller;
 
 import com.devkurly.admin.domain.UserDto;
 import com.devkurly.admin.domain.UserPageHandler;
+import com.devkurly.admin.domain.UserSearchCondition;
 import com.devkurly.admin.service.UserService;
-import com.devkurly.admin.domain.UserPageHandler;
-import com.devkurly.board.domain.BoardDto;
-import com.devkurly.board.domain.PageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,29 +27,26 @@ public class UserController {
 
     //  회원정보목록 (R)
     @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String list(UserSearchCondition sc, Model m, HttpServletRequest request) {
 //        if(!loginCheck(request))
 //            return "redirect:/login/login?toURL="+request.getRequestURL();
 
-        if (page == null) page = 1;
-        if (pageSize == null) pageSize = 10;
-
         try {
+            int totalCnt = userService.getUserSearchResultCnt(sc);
+            m.addAttribute("totalCnt", totalCnt);
 
-            int totalCnt = userService.getCount();
-            PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+            UserPageHandler userPageHandler = new UserPageHandler(totalCnt, sc);
 
-            Map map = new HashMap();
-            map.put("offset", (page - 1) * pageSize);
-            map.put("pageSize", pageSize);
-
-            List<UserDto> list = userService.getPage(map);
+            List<UserDto> list = userService.getUserSearchResultPage(sc);
             m.addAttribute("list", list);
-            m.addAttribute("ph", pageHandler); //pageHandler가 가지고 있는 값이 있으니 jsp로넘겨주면 jsp에서 페이징
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
+            m.addAttribute("ph", userPageHandler); //pageHandler가 가지고 있는 값이 있으니 jsp로넘겨주면 jsp에서 페이징
+
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            m.addAttribute("msg","LIST_ERR");
+            m.addAttribute("totalCnt",0);
         }
 
         return "admin/userList";
@@ -100,7 +95,7 @@ public class UserController {
     }
 
     //  회원정보등록 c
-    @PostMapping("/write")  //Dto로 작성한 내용을 받음 -> Dto에 글쓴 사람의 id 를 담아줘야 함(session필요. 주석부분 해석 잘 안됨)
+    @PostMapping("/write")
     public String write(UserDto userDto, Model m, HttpSession session, RedirectAttributes rattr) {
 //        String writer = (String)session.getAttribute("id");
 //        userDto.setWriter(writer);
