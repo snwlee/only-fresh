@@ -59,6 +59,10 @@
     <%--배송지--%>
     <div class="content_box">
     </div>
+    <%--쿠폰--%>
+    <div class="content_box">
+        <a class="btn" href="/mypage">마이페이지</a>
+    </div>
 </div>
 </body>
 </html>

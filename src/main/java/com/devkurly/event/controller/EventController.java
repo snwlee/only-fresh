@@ -30,7 +30,6 @@ public class EventController {
         return "/event/event";
     }
 
-
     //    C
     @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody EventDto eventDto) {
