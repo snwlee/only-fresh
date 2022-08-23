@@ -3,10 +3,6 @@ package com.devkurly.admin.domain;
 import org.springframework.web.util.*;
 
 public class UserPageHandler {
-//    private int page;
-//    private int pageSize;
-//    private String option;
-//    private String keyword;
     private UserSearchCondition sc;
     private int totalCnt;
     private int naviSize = 10;
@@ -19,34 +15,24 @@ public class UserPageHandler {
     public UserPageHandler(int totalCnt, UserSearchCondition sc) {
         this.totalCnt = totalCnt;
         this.sc = sc;
-    }
 
-    public void dopaging(int totalCnt, UserSearchCondition sc) {
-        this.totalCnt = totalCnt;
-        this.sc = sc;
-
-        dopaging(totalCnt, sc);
+        doPaging(totalCnt, sc);
     }
 
     public void doPaging(int totalCnt, UserSearchCondition sc) {
         this.totalCnt = totalCnt;
 
         totalPage = (int)Math.ceil((totalCnt) / (double)sc.getPageSize());
-        beginPage = (sc.getPage()-1) / naviSize * naviSize + 1;
-        endPage = Math.min(beginPage + naviSize-1, totalPage);
+        beginPage = (sc.getPage() - 1) / naviSize * naviSize + 1;
+        endPage = Math.min(beginPage + naviSize - 1, totalPage);
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;
     }
 
-    void print() {                              //ln빼야되지않나?
-        System.out.println("page = " + sc.getPage());
-        System.out.print(showPrev ? "[PREV] " : "");
-        for (int i = beginPage; i <= endPage ; i++) {
-            System.out.print(i+" ");
-        }
-        System.out.println(showNext ? " [NEXT]" : "");
-    }
 
+    public UserSearchCondition getSc() {return sc;}
+
+    public void setSc(UserSearchCondition sc) {this.sc = sc;}
 
     public int getTotalCnt() {
         return totalCnt;

@@ -39,7 +39,7 @@ public class UserController {
 
             List<UserDto> list = userService.getUserSearchResultPage(sc);
             m.addAttribute("list", list);
-            m.addAttribute("ph", userPageHandler); //pageHandler가 가지고 있는 값이 있으니 jsp로넘겨주면 jsp에서 페이징
+            m.addAttribute("ph", userPageHandler);
 
             Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
             m.addAttribute("startOfToday", startOfToday.toEpochMilli());
@@ -78,19 +78,19 @@ public class UserController {
     public String modify(UserDto userDto, Model m, HttpSession session, RedirectAttributes rattr) {
 
         try {
-            int rowCnt = userService.modify(userDto); // insert
+            int rowCnt = userService.modify(userDto);
 
             if (rowCnt != 1)
                 throw new Exception("Modify failed");
 
             rattr.addFlashAttribute("msg", "MOD_OK");
 
-            return "redirect:/admin/list";  //성공시
+            return "redirect:/admin/list";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(userDto);
             m.addAttribute("msg", "MOD_ERR");
-            return "admin/userBoard"; //실패시
+            return "admin/userBoard";
         }
     }
 
@@ -109,8 +109,8 @@ public class UserController {
             return "redirect:/admin/list";
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute(userDto);    //Model m을 이용해서 입력했던 내용을 돌려줌
-            m.addAttribute("msg", "WRT_ERR");   //에러메세지창
+            m.addAttribute(userDto);
+            m.addAttribute("msg", "WRT_ERR");
             return "admin/userBoard";
         }
     }
@@ -118,7 +118,7 @@ public class UserController {
     @GetMapping("/write")
     public String write(Model m) {
         m.addAttribute("mode", "new");
-        return "admin/userBoard"; //userBoard.jsp를 R과 C에 둘다 사용. 쓰기(mode=new)
+        return "admin/userBoard";
     }
 
     //회원정보상세조회

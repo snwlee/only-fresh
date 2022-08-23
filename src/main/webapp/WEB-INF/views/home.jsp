@@ -25,9 +25,7 @@
 />
 <html>
 <head>
-<<<<<<< HEAD
     <title>DevKurly :: 얼마나 좋아</title>
-=======
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +67,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
->>>>>>> upstream/main
+
 </head>
 
 <body>
@@ -151,11 +149,7 @@
     <div class="content_box">
         <a class="btn" href="/admin/list"/>회원정보 관리</a>
     </div>
-<<<<<<< HEAD
     <%--배송지--%>
-=======
 </div>
-<a class="btn" href="/admin/list">회원관리</a>
->>>>>>> upstream/main
 </body>
 </html>
