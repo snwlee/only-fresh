@@ -54,6 +54,7 @@ public interface ProductDao {
 
     List<ProductDto> EventList(Map map) throws Exception;
 
+    List<ProductDto> CateList(Map map) throws Exception;
 
 
 }

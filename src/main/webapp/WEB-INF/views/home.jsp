@@ -143,6 +143,7 @@
         <a class="btn" href="/product/bestlist?page=1&pageSize=10">베스트 상품 보기</a>
         <a class="btn" href="/product/thriftylist?page=1&pageSize=10">알뜰쇼핑</a>
         <a class="btn" href="/product/EventList">이벤트 클릭 시 이동 상품페이지 </a>
+        <a class="btn" href="/product/CateList">채소-친환경 테스트리스트</a>
     </div>
     <%--배송지--%>
     <div class="content_box">
