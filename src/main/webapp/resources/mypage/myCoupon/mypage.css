@@ -1,0 +1,53 @@
+#my_kurly {
+    margin-right: 30px;
+}
+
+#my_kurly h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    padding-bottom: 30px;
+}
+
+#my_kurly ul {
+    width: 200px;
+}
+
+#my_kurly ul li {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 20px;
+    border: 1px solid rgb(242, 242, 242);
+    background-color: #fff;
+}
+
+#my_kurly ul li:hover {
+    background-color: #fafafa;
+}
+
+#my_kurly ul a:hover {
+    color: #5F0080;
+}
+
+#my_kurly ul a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    color: #666666;
+}
+
+#mypage_content h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    padding-bottom: 30px;
+}
+
+#mypage_content {
+    width: 740px;
+}
+
+#mypage_content_body {
+    border-top: 2px solid #333;;
+}

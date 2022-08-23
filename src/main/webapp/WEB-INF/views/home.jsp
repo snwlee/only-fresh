@@ -131,6 +131,7 @@
     <%--이벤트--%>
     <div class="content_box">
         <a class="btn" href="/event/admin">이벤트 CRUD 페이지</a>
+        <a class="btn" href="/event/main">실제 이벤트 페이지</a>
     </div>
     <%--게시판--%>
     <div class="content_box">
@@ -147,6 +148,10 @@
     </div>
     <%--배송지--%>
     <div class="content_box">
+    </div>
+    <%--쿠폰--%>
+    <div class="content_box">
+        <a class="btn" href="/mypage">마이페이지</a>
     </div>
 </div>
 <a class="btn" href="/admin/list">회원관리</a>
