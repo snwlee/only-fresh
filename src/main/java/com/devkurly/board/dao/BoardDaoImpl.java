@@ -128,8 +128,11 @@ public class BoardDaoImpl implements BoardDao {
         return session.update(namespace + "IsRepliedStatus", map);
     }
     @Override
-    public int isSecretStatus(Integer bbs_id) throws Exception {
-        return session.update(namespace + "IsSecretStatus", bbs_id);
+    public int isSecretStatus(Integer bbs_id, boolean is_secret) throws Exception {
+        Map map = new HashMap();
+        map.put("bbs_id", bbs_id);
+        map.put("is_secret", is_secret);
+        return session.update(namespace + "IsSecretStatus", map);
     }
     @Override
     public int increaseLike(Integer bbs_id) throws Exception {

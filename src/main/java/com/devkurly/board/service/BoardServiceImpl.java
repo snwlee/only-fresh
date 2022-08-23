@@ -57,6 +57,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int modify(BoardDto boardDto) throws Exception {
+        boardDao.isSecretStatus(boardDto.getBbs_id(),boardDto.isIs_secret());
         boardDao.update(boardDto);
         return boardDao.updateCn(boardDto);
     }
@@ -77,7 +78,7 @@ public class BoardServiceImpl implements BoardService {
             boardDao.insertInq(bbs_id, boardDto.getUser_id());
             //비밀글 작성을 눌렀으면
             if(boardDto.isIs_secret()==true)
-                boardDao.isSecretStatus(bbs_id);
+                boardDao.isSecretStatus(bbs_id,boardDto.isIs_secret());
             return boardDao.insertCn(boardDto);
         }
         boardDao.insertReview(bbs_id, boardDto.getUser_id());

@@ -63,7 +63,7 @@
             margin-left: 28px;
         }
         #review_view .review_content {
-            width: 120%;
+            width: 100%;
             word-break: break-word;
             padding: 20px 9px 30px;
             line-height: 25px

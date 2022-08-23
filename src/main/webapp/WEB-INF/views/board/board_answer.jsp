@@ -63,7 +63,7 @@
             margin-left: 28px;
         }
         #review_view .review_content {
-            width: 120%;
+            width: 100%;
             word-break: break-word;
             padding: 20px 9px 30px;
             line-height: 25px
@@ -318,7 +318,6 @@
     }
 
 
-    // 비밀글이면 관리자와 작성자를 제외한 유저들에게는 “비밀글입니다.”라는 글제목으로 링크를 없앤 채 회색글씨로 보이게 한다.
     let toHtml =function(lists){
         let tmp = "";
         lists.forEach(function(BoardDto){
@@ -332,7 +331,7 @@
                 BoardDto.is_replied = "-";
             }
             if(BoardDto.is_secret)
-                BoardDto.bbs_title =('<dt style="color:#b5b5b5">비밀글입니다.</dt>');
+                BoardDto.bbs_title =('<p style="color:#b5b5b5">비밀글입니다.</p>');
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -451,8 +450,9 @@
                 let bbs_id = $(this).attr("data-bbs_id");
                 let writer_id = $(this).attr("data-id");
                 if($(this).attr("data-secret")==="true"){
-                    if((writer_id!=user_id)&&(!(user_cls_cd==='1'))){
-                        return;
+                    if(writer_id!=user_id){
+                        if(!(user_cls_cd==='1'))
+                            return;
                     }
                 }
                 readStatus = true;
@@ -585,6 +585,9 @@
             let bbs_cn = $("#myModal #contents").val();
             let bbs_id = $(this).attr("data-bbs_id");
 
+            let secretvalue = $("input:checkbox[name='secret1']:checked").val();
+            let is_secret = secretvalue == "true";
+
             if(bbs_cn.trim()==''|bbs_title.trim()==''){
                 alert("제목 또는 내용을 입력해주세요.");
                 $("#myModal #contents").focus()
@@ -594,7 +597,7 @@
                 type:'PATCH',
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 headers : { "content-type": "application/json"},
-                data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
+                data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn, is_secret:is_secret}),
                 success : function(result){
                     alert(result);
                     relocateCn();
