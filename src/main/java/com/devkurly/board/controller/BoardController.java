@@ -4,7 +4,6 @@ import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.domain.PageHandler;
 import com.devkurly.board.service.BoardService;
 import com.devkurly.member.dto.MemberMainResponseDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

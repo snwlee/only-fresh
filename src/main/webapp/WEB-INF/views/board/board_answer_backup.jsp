@@ -6,19 +6,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>리뷰 게시판</title>
+    <title>문의 게시판</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
     <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>
         .title {
             padding-left: 50px;
             text-align: left;
         }
-        .no, .grade, .writer, .reg_date, .like_cnt{
+        .no, .writer, .reg_date, .is_replied{
             text-align: center;
         }
+
         #review_view {
             display: none;
             padding: 10px 10px 11px;
@@ -36,7 +37,6 @@
             padding-bottom: 18px;
             border-bottom: 1px solid #f4f4f4;
         }
-
         .border_write_btn{
             padding-top: 18px;
         }
@@ -51,7 +51,7 @@
             line-height:30px;
             width:130px;
         }
-        #review_view #buttons p{
+        #review_view .buttons p{
             float:right;
             height:34px;
             padding: 0 13px 0 12px;
@@ -66,6 +66,11 @@
             width: 120%;
             word-break: break-word;
             padding: 20px 9px 30px;
+            line-height: 25px
+        }
+        #review_view .Inq_answer{
+            width: 120%;
+            padding: 20px 9px 9px;
             line-height: 25px
         }
         .ph{text-align: center;}
@@ -175,39 +180,34 @@
     </style>
 </head>
 <body>
-<div id="review_board">
+<div id="inquiry_board">
     <div class="board">
         <div id="title_desc_filter_container">
-            <h2>PRODUCT REVIEW</h2>
+            <h2>PRODUCT INQUIRY</h2>
             <div id="desc_filter">
                 <div id="title_desc">
-                    <p class="review_desc">- 상품에 대한 리뷰를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수
+                    <p class="review_desc">- 상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수
                         있습니다.
                     </p>
+                    <p class="review_desc">- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리내 1:1 문의에 남겨주세요.</p>
                 </div>
-                <select id="sort-option" name="option">
-                    <option value="latest" selected>최근등록순</option>
-                    <option value="like">추천</option>
-                </select>
             </div>
         </div>
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <colgroup>
                 <col style="width:70px;">
                 <col style="width:auto;">
-                <col style="width:40px;">
-                <col style="width:88px;">
-                <col style="width:85px;">
-                <col style="width:98px;">
+                <col style="width:120px;">
+                <col style="width:60px;">
+                <col style="width:90px;">
             </colgroup>
             <tbody>
             <tr>
                 <th class="no" scope="col">번호</th>
                 <th class="title" scope="col">제목</th>
-                <th class="grade" scope="col" style="display:block">등급</th>
                 <th class="writer" scope="col">작성자</th>
                 <th class="reg_date" scope="col">작성일</th>
-                <th class="like_cnt" scope="col">추천</th>
+                <th class="is_replied" scope="col">답변상태</th>
             </tr>
             </tbody>
         </table>
@@ -216,16 +216,29 @@
         </div>
     </div>
     <div class="border_write_btn">
-        <p class="p_write_btn">글쓰기</p>
+        <p class="p_write_btn">문의하기</p>
     </div>
     <div id="review_view">
         <div>
+            <div class="back_q_mark"><img src="/product_detail/imgs/question.svg"></div>
             <div class="review_content"></div>
         </div>
-        <div id="buttons">
+        <br>
+        <div class="buttons">
+            <p class="rep_btn">답변하기</p>
             <p class="mod_btn">수정</p>
             <p class="del_btn">삭제</p>
-            <p class="like_button">추천</p>
+        </div>
+        <div>
+            <img id="answer_mark" src="/product_detail/imgs/answer.svg">
+            <div class="Inq_answer"></div>
+            <textarea id="rep_textarea" rows="10" cols="100" style="display:none"></textarea>
+            <div class="buttons">
+                <p class="aw_wrt_btn">등록</p>
+                <p class="aw_mod_btn">수정</p>
+                <p class="aw_del_btn">삭제</p>
+                <p class="area_close">닫기</p>
+            </div>
         </div>
     </div>
     </p>
@@ -251,7 +264,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <p id="modal-title" class="modal-title">상품 리뷰하기</p>
+                    <p id="modal-title" class="modal-title">상품 문의하기</p>
                 </div>
                 <div class="modal-body">
                     <table class="table">
@@ -275,8 +288,10 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+                    <label><input type="checkbox" name="secret1" value="true" style="margin-top:10px">비밀글로 문의하기</label>
                     <p class="btn-cancel">취소</p>
                     <p class="btn-write">등록</p>
+
                 </div>
             </div>
         </div>
@@ -287,12 +302,11 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
-    let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
 
-    let showList = function(pdt_id, sortType){
+    let showList = function(pdt_id){
         $.ajax({
             type:'GET',
-            url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType='+sortType,
+            url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType=',
             success : function(result){
                 $("#board").html(toHtml(result));
             },
@@ -300,30 +314,37 @@
         });
     }
 
+
+    // 비밀글이면 관리자와 작성자를 제외한 유저들에게는 “비밀글입니다.”라는 글제목으로 링크를 없앤 채 회색글씨로 보이게 한다.
     let toHtml =function(lists){
         let tmp = "";
         lists.forEach(function(BoardDto){
-            if(BoardDto.notice=='1')
+            if(BoardDto.is_replied==true){
+                BoardDto.is_replied = "답변완료";
+            } else if(BoardDto.is_replied==false){
+                BoardDto.is_replied = "답변대기";
+            }
+            if(BoardDto.notice=='1'){
                 BoardDto.bbs_title = ('<b style="font-weight:900">공지  </b>'+BoardDto.bbs_title);
-            tmp += '<table class="tb1" width="100%">'
+                BoardDto.is_replied = "-";
+            }
+            tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
             tmp += '<col style="width:auto;">'
-            tmp += '<col style="width:51px;">'
             tmp += '<col style="width:77px;">'
             tmp += '<col style="width:100px;">'
             tmp += '<col style="width:80px;">'
             tmp += '</colgroup>'
             tmp += '<tbody>'
-            tmp += '<tr class="tr1">'
+            tmp += '<tr>'
             tmp += '<td class="no">'+BoardDto.bbs_id+'</td>'
             tmp += '<td class="title">'
-            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
+            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
             tmp += '</td>'
-            tmp += '<td class="grade">VIP</td>'
-            tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
+            tmp += '<td class="writer" value="'+BoardDto.user_id+'">'+BoardDto.user_nm+'</td>'
             tmp += '<td class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</td>'
-            tmp += '<td class="like_cnt">'+BoardDto.revw_like+'</td>'
+            tmp += '<td class="reply_status" style="text-align: center">'+BoardDto.is_replied+'</td>'
             tmp += '</tr>'
             tmp += '</tbody>'
             tmp += '</table>'
@@ -359,10 +380,19 @@
         $("#review_view").appendTo($("div[data-bbs_id=" + bbs_id + "]"));
         $("#review_view").css("display", "block");
     }
-    let resetButtons = function(){
-        $(".mod_btn").attr("style", "display:none");
-        $(".del_btn").attr("style", "display:none");
-        $(".like_button").attr("style", "display:none");
+
+    let locateCmt = function(){
+        $("#rep_textarea").attr("style", "display:block");
+        $(".rep_btn").attr("style", "display:none");
+        $(".aw_wrt_btn").attr("style", "display:block");
+        $(".area_close").attr("style", "display:block");
+    }
+
+    let relocateCmt = function(){
+        $("#rep_textarea").attr("style", "display:none");
+        $(".rep_btn").attr("style", "display:block");
+        $(".aw_wrt_btn").attr("style", "display:none");
+        $(".area_close").attr("style", "display:none");
     }
 
     let deleteModalValue = function () {
@@ -372,67 +402,47 @@
         $("#myModal .btn-modify").text("등록");
     };
 
+    let areaclose = function(){
+        $("#rep_textarea").val("");
+        $("#rep_textarea").attr("style", "display:none");
+        $(".aw_wrt_btn").attr("style", "display:none");
+        $(".aw_mod_btn").attr("style", "display:block");
+        $(".area_close").attr("style", "display:none");
+    };
+
+    let writeAnswer = function(){
+        if(${sessionScope.memberResponse.user_cls_cd=='1'})
+        {
+            $(".rep_btn").attr("style", "display:block");
+            $(".mod_btn").attr("style", "display:block");
+            $(".del_btn").attr("style", "display:block");
+        }
+    }
+
+    let addBbs_idToButtons = function(bbs_id){
+        $(".del_btn").attr("data-bbs_id", bbs_id);
+        $(".mod_btn").attr("data-bbs_id", bbs_id);
+        $(".rep_btn").attr("data-bbs_id", bbs_id);
+        $(".aw_wrt_btn").attr("data-bbs_id", bbs_id);
+        $(".aw_mod_btn").attr("data-bbs_id", bbs_id);
+        $(".aw_del_btn").attr("data-bbs_id", bbs_id);
+        $(".area_close").attr("data-bbs_id", bbs_id);
+    }
+
     $(document).ready(function(){
         showList(pdt_id);
         let readStatus = false;
-        resetButtons();
-
-        if(${sessionScope.memberResponse==null}) {
-            $(".p_write_btn").click(function () {
-                window.parent.location.href = "/members";
-            })
-        }
-
-        $("#board").on("click", ".title_cn", function() {
-            if (!readStatus) {
-                let bbs_id = $(this).attr("data-bbs_id");
-                let writer_id = $(this).attr("data-id");
-                readStatus = true;
-                $.ajax({
-                    type: 'GET',
-                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
-                    headers: {"content-type": "application/json"},
-                    success: function (result) {
-                        $(".del_btn").attr("data-bbs_id", bbs_id);
-                        $(".mod_btn").attr("data-bbs_id", bbs_id);
-                        $(".like_button").attr("data-bbs_id", bbs_id);
-                        $(".review_content").text(result.boardDto.bbs_cn);
-
-                        if(${sessionScope.memberResponse!=null}){
-                            if(writer_id===user_id){
-                                $(".mod_btn").attr("style", "display:block");
-                                $(".del_btn").attr("style", "display:block");
-                            }else{
-                                $(".like_button").attr("style", "display:block");
-                            }
-                        }
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-                locateCn(bbs_id);
-            } else {
-                relocateCn();
-                readStatus = false;
-                resetButtons();
-            }
-        })
-
-
-        $("#sort-option").change(function(){
-            let sortType = this.value;
-            showList(pdt_id, sortType);
-        });
 
         $(".p_write_btn").click(function(){
             $(".modal").css("display","flex");
         })
 
         $("#myModal").on("click", ".btn-write", function(){
-
             let bbs_title = $("#myModal #bbs_title").val();
             let bbs_cn = $("#myModal #contents").val();
+
+            let secretvalue = $("input:checkbox[name='secret1']:checked").val();
+            let is_secret = secretvalue == "true";
 
             if(bbs_cn.trim()==''|bbs_title.trim()==''){
                 alert("제목 또는 내용을 입력해주세요.");
@@ -443,7 +453,7 @@
                 type:'POST',
                 url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
                 headers : { "content-type": "application/json"},
-                data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
+                data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn, is_secret:is_secret}),
                 success : function(result){
                     alert(result);
                     relocateCn();
@@ -466,6 +476,65 @@
             $(".modal").css("display","none");
             deleteModalValue();
         });
+
+        $("#board").on("click", ".title_cn", function() {
+            if (!readStatus) {
+                let bbs_id = $(this).attr("data-bbs_id");
+                readStatus = true;
+                $.ajax({
+                    type: 'GET',
+                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
+                    headers: {"content-type": "application/json"},
+                    success: function (result) {
+                        addBbs_idToButtons(bbs_id);
+                        $(".review_content").text(result.boardDto.bbs_cn);
+
+                        if(result.commentDto!=null){
+                            $(".Inq_answer").text(result.commentDto.inq_ans);
+                            if(${sessionScope.memberResponse==null}){
+                                $(".mod_btn").attr("style","display:none");
+                                $(".del_btn").attr("style","display:none");
+                            }
+                            $(".rep_btn").attr("style", "display:none");
+                            $(".area_close").attr("style", "display:none");
+                            $(".aw_wrt_btn").attr("style", "display:none");
+                            $(".aw_mod_btn").attr("style", "display:none");
+                            $("#answer_mark").attr("style", "display:block");
+                            if(${sessionScope.memberResponse.user_cls_cd==1}){
+                                $(".aw_mod_btn").attr("style", "display:block");
+                                $(".aw_del_btn").attr("style", "display:block");
+                            }
+                        }else{
+                            $(".Inq_answer").text("");
+
+                            if(${sessionScope.memberResponse==null}){
+                                $(".mod_btn").attr("style","display:none");
+                                $(".del_btn").attr("style","display:none");
+                            }
+
+                            // $(".rep_btn").attr("style", "display:none");
+                            $(".aw_mod_btn").attr("style", "display:none");
+                            $(".aw_del_btn").attr("style", "display:none");
+                            $(".area_close").attr("style", "display:none");
+                            $(".aw_wrt_btn").attr("style", "display:none");
+                            $("#answer_mark").attr("style", "display:none");
+
+                            if(${sessionScope.memberResponse.user_cls_cd==1}){
+                                $(".rep_btn").attr("style", "display:block");
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+                });
+                locateCn(bbs_id);
+            } else {
+                areaclose();
+                relocateCn();
+                readStatus = false;
+            }
+        })
 
         $("#board").on("click", ".del_btn", function(){
             let bbs_id = $(this).attr("data-bbs_id");
@@ -529,21 +598,98 @@
             $(".close").trigger("click");
         });
 
-        if(${sessionScope.memberResponse !=null}) {
-            $("#board").on("click", ".like_button", function () {
+        $("#board").on("click", ".rep_btn", function(){
+            locateCmt();
+            $(".area_close").click(function(){
+                relocateCmt();
+            });
+
+            $(".aw_wrt_btn").click(function(){
+                let inq_ans = $("#rep_textarea").val();
                 let bbs_id = $(this).attr("data-bbs_id");
+                let replyst = 1;
+
+                if(inq_ans.trim()==''){
+                    alert("답변을 입력해주세요.");
+                    $("#rep_textarea").focus()
+                    return;
+                }
                 $.ajax({
-                    type: 'PATCH',
-                    url: '/like/' + bbs_id,
-                    success: function (result) {
+                    type:'POST',
+                    url: '/board/comment/'+bbs_id+'?replyst='+replyst,
+                    headers : { "content-type": "application/json"},
+                    data : JSON.stringify({inq_ans: inq_ans}),
+                    success : function(result){
+                        alert(result);
+                        relocateCmt();
+                        relocateCn();
+                        readStatus = false;
+                        showList(pdt_id);
+
+                    },
+                    error   : function(){ alert("error") }
+                });
+            });
+        });
+
+        $("#board").on("click", ".aw_del_btn", function(){
+            let bbs_id = $(this).attr("data-bbs_id");
+            let replyst = 0;
+            if(!confirm("정말로 답변을 삭제하시겠습니까?")) return;
+            $.ajax({
+                type:'DELETE',
+                url: '/board/comment/'+bbs_id+'?replyst='+replyst,
+                success : function(result){
+                    alert(result)
+                    relocateCmt();
+                    relocateCn();
+                    readStatus = false;
+                    showList(pdt_id);
+                },
+                error   : function(){ alert("error") }
+            });
+        });
+
+        $("#board").on("click", ".aw_mod_btn", function(){
+            let bbs_id = $(this).attr("data-bbs_id");
+            let inq_ans = $(".Inq_answer").text();
+            $(".Inq_answer").text("");
+            $("#rep_textarea").val(inq_ans);
+            $("#rep_textarea").attr("style", "display:block");
+            $(".aw_mod_btn").attr("style", "display:none");
+            $(".aw_wrt_btn").attr("style", "display:block");
+            $(".area_close").attr("style", "display:block");
+
+            $(".area_close").click(function(){
+                areaclose();
+                $(".Inq_answer").text(inq_ans);
+            })
+            $(".aw_wrt_btn").click(function(){
+                let inq_ans = $("#rep_textarea").val();
+
+                if(inq_ans.trim()==''){
+                    alert("답변을 입력해주세요.");
+                    $("#rep_textarea").focus()
+                    return;
+                }
+                $.ajax({
+                    type:'PATCH',
+                    url: '/board/comment/'+bbs_id,
+                    headers : { "content-type": "application/json"},
+                    data : JSON.stringify({inq_ans: inq_ans}),
+                    success : function(result){
+                        alert(result);
+                        relocateCmt();
                         relocateCn();
                         readStatus = false;
                         showList(pdt_id);
                     },
-                    error : function(){ alert("you pushed like-btn in this review already.")}
+                    error : function(){ alert("error")}
                 });
-            });
-        }
+            })
+
+        });
+
     });
 </script>
 </body>

@@ -318,7 +318,7 @@
             tmp += '<tr class="tr1">'
             tmp += '<td class="no">'+BoardDto.bbs_id+'</td>'
             tmp += '<td class="title">'
-            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
+            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
             tmp += '</td>'
             tmp += '<td class="grade">VIP</td>'
             tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
@@ -359,11 +359,6 @@
         $("#review_view").appendTo($("div[data-bbs_id=" + bbs_id + "]"));
         $("#review_view").css("display", "block");
     }
-    let resetButtons = function(){
-        $(".mod_btn").attr("style", "display:none");
-        $(".del_btn").attr("style", "display:none");
-        $(".like_button").attr("style", "display:none");
-    }
 
     let deleteModalValue = function () {
         $("#myModal #bbs_title").val('');
@@ -375,50 +370,6 @@
     $(document).ready(function(){
         showList(pdt_id);
         let readStatus = false;
-        resetButtons();
-
-        if(${sessionScope.memberResponse==null}) {
-            $(".p_write_btn").click(function () {
-                window.parent.location.href = "/members";
-            })
-        }
-
-        $("#board").on("click", ".title_cn", function() {
-            if (!readStatus) {
-                let bbs_id = $(this).attr("data-bbs_id");
-                let writer_id = $(this).attr("data-id");
-                readStatus = true;
-                $.ajax({
-                    type: 'GET',
-                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
-                    headers: {"content-type": "application/json"},
-                    success: function (result) {
-                        $(".del_btn").attr("data-bbs_id", bbs_id);
-                        $(".mod_btn").attr("data-bbs_id", bbs_id);
-                        $(".like_button").attr("data-bbs_id", bbs_id);
-                        $(".review_content").text(result.boardDto.bbs_cn);
-
-                        if(${sessionScope.memberResponse!=null}){
-                            if(writer_id===user_id){
-                                $(".mod_btn").attr("style", "display:block");
-                                $(".del_btn").attr("style", "display:block");
-                            }else{
-                                $(".like_button").attr("style", "display:block");
-                            }
-                        }
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-                locateCn(bbs_id);
-            } else {
-                relocateCn();
-                readStatus = false;
-                resetButtons();
-            }
-        })
-
 
         $("#sort-option").change(function(){
             let sortType = this.value;
@@ -466,6 +417,33 @@
             $(".modal").css("display","none");
             deleteModalValue();
         });
+
+
+        $("#board").on("click", ".title_cn", function() {
+            if (!readStatus) {
+                let bbs_id = $(this).attr("data-bbs_id");
+                //
+                readStatus = true;
+                $.ajax({
+                    type: 'GET',
+                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
+                    headers: {"content-type": "application/json"},
+                    success: function (result) {
+                        $(".review_content").text(result.boardDto.bbs_cn);
+                        $(".del_btn").attr("data-bbs_id", bbs_id);
+                        $(".mod_btn").attr("data-bbs_id", bbs_id);
+                        $(".like_button").attr("data-bbs_id", bbs_id);
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+                });
+                locateCn(bbs_id);
+            } else {
+                relocateCn();
+                readStatus = false;
+            }
+        })
 
         $("#board").on("click", ".del_btn", function(){
             let bbs_id = $(this).attr("data-bbs_id");

@@ -302,6 +302,9 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
+    let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
+    let user_cls_cd = '<c:out value="${sessionScope.memberResponse.user_cls_cd}"/>';
+
 
     let showList = function(pdt_id){
         $.ajax({
@@ -328,6 +331,8 @@
                 BoardDto.bbs_title = ('<b style="font-weight:900">공지  </b>'+BoardDto.bbs_title);
                 BoardDto.is_replied = "-";
             }
+            if(BoardDto.is_secret)
+                BoardDto.bbs_title =('<dt style="color:#b5b5b5">비밀글입니다.</dt>');
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -340,7 +345,7 @@
             tmp += '<tr>'
             tmp += '<td class="no">'+BoardDto.bbs_id+'</td>'
             tmp += '<td class="title">'
-            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
+            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-secret ='+BoardDto.is_secret+' data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
             tmp += '</td>'
             tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
             tmp += '<td class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</td>'
@@ -390,7 +395,7 @@
 
     let relocateCmt = function(){
         $("#rep_textarea").attr("style", "display:none");
-        $(".rep_btn").attr("style", "display:block");
+        $(".rep_btn").attr("style", "display:none");
         $(".aw_wrt_btn").attr("style", "display:none");
         $(".area_close").attr("style", "display:none");
     }
@@ -410,9 +415,92 @@
         $(".area_close").attr("style", "display:none");
     };
 
+    let resetButtons = function(){
+        $(".rep_btn").attr("style", "display:none");
+        $(".mod_btn").attr("style", "display:none");
+        $(".del_btn").attr("style", "display:none");
+        $(".aw_wrt_btn").attr("style", "display:none");
+        $(".aw_mod_btn").attr("style", "display:none");
+        $(".aw_del_btn").attr("style", "display:none");
+        $(".area_close").attr("style", "display:none");
+    }
+
+    let addBbs_idToButtons = function(bbs_id){
+        $(".del_btn").attr("data-bbs_id", bbs_id);
+        $(".mod_btn").attr("data-bbs_id", bbs_id);
+        $(".rep_btn").attr("data-bbs_id", bbs_id);
+        $(".aw_wrt_btn").attr("data-bbs_id", bbs_id);
+        $(".aw_mod_btn").attr("data-bbs_id", bbs_id);
+        $(".aw_del_btn").attr("data-bbs_id", bbs_id);
+        $(".area_close").attr("data-bbs_id", bbs_id);
+    }
+
     $(document).ready(function(){
         showList(pdt_id);
         let readStatus = false;
+        resetButtons();
+
+        if(${sessionScope.memberResponse==null}) {
+            $(".p_write_btn").click(function () {
+                window.parent.location.href = "/members";
+            })
+        }
+
+        $("#board").on("click", ".title_cn", function() {
+            if (!readStatus) {
+                let bbs_id = $(this).attr("data-bbs_id");
+                let writer_id = $(this).attr("data-id");
+                if($(this).attr("data-secret")==="true"){
+                    if((writer_id!=user_id)&&(!(user_cls_cd==='1'))){
+                        return;
+                    }
+                }
+                readStatus = true;
+                $.ajax({
+                    type: 'GET',
+                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
+                    headers: {"content-type": "application/json"},
+                    success: function (result) {
+                        addBbs_idToButtons(bbs_id);
+                        $(".review_content").text(result.boardDto.bbs_cn);
+
+                        if(result.commentDto!=null){
+                            $(".Inq_answer").text(result.commentDto.inq_ans);
+                            $("#answer_mark").attr("style", "display:block");
+                        }else{
+                            $(".Inq_answer").text("");
+                            $("#answer_mark").attr("style", "display:none");
+                        }
+
+                        if(${sessionScope.memberResponse!=null}){
+                            if(writer_id===user_id){
+                                $(".mod_btn").attr("style", "display:block");
+                                $(".del_btn").attr("style", "display:block");
+                            }
+                            if(user_cls_cd==='1'){
+                                if(result.commentDto!=null){
+                                    $(".aw_mod_btn").attr("style", "display:block");
+                                    $(".aw_del_btn").attr("style", "display:block");
+                                }
+                                else{
+                                    $(".rep_btn").attr("style", "display:block");
+                                }
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+                });
+                locateCn(bbs_id);
+            } else {
+                $("#rep_textarea").val("");
+                $("#rep_textarea").attr("style", "display:none");
+                relocateCn();
+                readStatus = false;
+                resetButtons();
+            }
+        });
 
         $(".p_write_btn").click(function(){
             $(".modal").css("display","flex");
@@ -458,56 +546,6 @@
             deleteModalValue();
         });
 
-        $("#board").on("click", ".title_cn", function() {
-            if (!readStatus) {
-                let bbs_id = $(this).attr("data-bbs_id");
-                readStatus = true;
-                $.ajax({
-                    type: 'GET',
-                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
-                    headers: {"content-type": "application/json"},
-                    success: function (result) {
-                        $(".del_btn").attr("data-bbs_id", bbs_id);
-                        $(".mod_btn").attr("data-bbs_id", bbs_id);
-                        $(".rep_btn").attr("data-bbs_id", bbs_id);
-                        $(".aw_wrt_btn").attr("data-bbs_id", bbs_id);
-                        $(".aw_mod_btn").attr("data-bbs_id", bbs_id);
-                        $(".aw_del_btn").attr("data-bbs_id", bbs_id);
-                        $(".area_close").attr("data-bbs_id", bbs_id);
-                        $(".review_content").text(result.boardDto.bbs_cn);
-
-                        if(result.commentDto!=null){
-                            $(".Inq_answer").text(result.commentDto.inq_ans);
-                            $(".rep_btn").attr("style", "display:none");
-                            $(".aw_mod_btn").attr("style", "display:block");
-                            $(".aw_del_btn").attr("style", "display:block");
-                            $(".area_close").attr("style", "display:none");
-                            $(".aw_wrt_btn").attr("style", "display:none");
-                            $("#answer_mark").attr("style", "display:block");
-
-
-                        }else{
-                            $(".Inq_answer").text("");
-                            $(".rep_btn").attr("style", "display:block");
-                            $(".aw_mod_btn").attr("style", "display:none");
-                            $(".aw_del_btn").attr("style", "display:none");
-                            $(".area_close").attr("style", "display:none");
-                            $(".aw_wrt_btn").attr("style", "display:none");
-                            $("#answer_mark").attr("style", "display:none");
-                        }
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-                locateCn(bbs_id);
-            } else {
-                areaclose();
-                relocateCn();
-                readStatus = false;
-            }
-        })
-
         $("#board").on("click", ".del_btn", function(){
             let bbs_id = $(this).attr("data-bbs_id");
             if(!confirm("정말로 글을 삭제하시겠습니까?")) return;
@@ -522,7 +560,6 @@
                 },
                 error   : function(){ alert("error") }
             });
-
         });
 
         $("#board").on("click", ".mod_btn", function(e){
@@ -570,11 +607,10 @@
             $(".close").trigger("click");
         });
 
+
+
         $("#board").on("click", ".rep_btn", function(){
             locateCmt();
-            $(".area_close").click(function(){
-                relocateCmt();
-            });
 
             $(".aw_wrt_btn").click(function(){
                 let inq_ans = $("#rep_textarea").val();
@@ -591,16 +627,16 @@
                     url: '/board/comment/'+bbs_id+'?replyst='+replyst,
                     headers : { "content-type": "application/json"},
                     data : JSON.stringify({inq_ans: inq_ans}),
-                    success : function(result){
-                        alert(result);
-                        relocateCmt();
-                        relocateCn();
-                        readStatus = false;
-                        showList(pdt_id);
-
-                    },
                     error   : function(){ alert("error") }
                 });
+                $(location).prop("href", location.href);
+                alert("댓글이 등록되었습니다.");
+            });
+            $(".area_close").click(function(){
+                $("#rep_textarea").attr("style", "display:none");
+                $(".rep_btn").attr("style", "display:block");
+                $(".aw_wrt_btn").attr("style", "display:none");
+                $(".area_close").attr("style", "display:none");
             });
         });
 
@@ -611,15 +647,10 @@
             $.ajax({
                 type:'DELETE',
                 url: '/board/comment/'+bbs_id+'?replyst='+replyst,
-                success : function(result){
-                    alert(result)
-                    relocateCmt();
-                    relocateCn();
-                    readStatus = false;
-                    showList(pdt_id);
-                },
                 error   : function(){ alert("error") }
             });
+            $(location).prop("href", location.href);
+            alert("댓글이 삭제되었습니다.");
         });
 
         $("#board").on("click", ".aw_mod_btn", function(){
@@ -649,18 +680,13 @@
                     url: '/board/comment/'+bbs_id,
                     headers : { "content-type": "application/json"},
                     data : JSON.stringify({inq_ans: inq_ans}),
-                    success : function(result){
-                        alert(result);
-                        relocateCmt();
-                        relocateCn();
-                        readStatus = false;
-                        showList(pdt_id);
-                    },
                     error : function(){ alert("error")}
                 });
+                $(location).prop("href", location.href);
+                alert("댓글이 수정되었습니다.");
             })
-
         });
+
 
     });
 </script>
