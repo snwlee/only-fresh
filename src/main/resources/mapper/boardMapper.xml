@@ -43,7 +43,7 @@
         ORDER BY bbs_id DESC ,wrt_dt DESC
     </select>
     <sql id="selectReview">
-        select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd
+        select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd, notice
         from REVIEW_BOARD_TB
                  right join BOARD_TB
                             on REVIEW_BOARD_TB.bbs_id = BOARD_TB.bbs_id
@@ -63,7 +63,7 @@
     </select>
 
     <select id="selectInqPage" parameterType="map" resultType="BoardDto">
-        select INQ_BOARD_TB.bbs_id, bbs_title, user_nm, wrt_dt, is_secret, is_replied, pdt_id, user_id, bbs_clsf_cd
+        select INQ_BOARD_TB.bbs_id, bbs_title, user_nm, wrt_dt, is_secret, is_replied, pdt_id, user_id, bbs_clsf_cd, notice
         from INQ_BOARD_TB
                  right join BOARD_TB
                             on INQ_BOARD_TB.bbs_id = BOARD_TB.bbs_id
@@ -73,8 +73,8 @@
     </select>
 
     <insert id="insert" parameterType="BoardDto">
-        insert into BOARD_TB (pdt_id, user_id, bbs_title, user_nm, bbs_clsf_cd, in_user,  up_user)
-        values (#{pdt_id}, #{user_id},#{bbs_title}, #{user_nm},#{bbs_clsf_cd}, #{user_id}, #{user_id})
+        insert into BOARD_TB (pdt_id, user_id, bbs_title, user_nm, bbs_clsf_cd, in_user,  up_user, notice)
+        values (#{pdt_id}, #{user_id},#{bbs_title}, #{user_nm},#{bbs_clsf_cd}, #{user_id}, #{user_id}, #{notice})
     </insert>
 
     <insert id="insertReview" parameterType="map">
