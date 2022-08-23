@@ -281,7 +281,7 @@
       $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
     });
 
-    $("#addCart").click(function(){
+      $("#addCart").click(function(){
       let pdt_qty = parseInt($("#pdt_qty").text());
       $.ajax({
         type:'POST',

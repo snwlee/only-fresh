@@ -69,7 +69,6 @@ public class BoardServiceImpl implements BoardService {
 
         if(isValidPdt(boardDto.getPdt_id()).equals("PDT_ERR"))
             throw new Exception("없는 상품 ID입니다.");
-
         boardDao.insert(boardDto);
         List<BoardDto> list = boardDao.selectAll();
         Integer bbs_id = list.get(0).getBbs_id();
