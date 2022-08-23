@@ -33,6 +33,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/orders/**" />
 			<mvc:mapping path="/mypage/**"/>
+			<mvc:mapping path="/payments/**" />
 			<beans:bean id="memberSignInInterceptor" class="com.devkurly.member.interceptor.MemberSignInInterceptor" />
 		</mvc:interceptor>
 <!--		<mvc:interceptor>-->

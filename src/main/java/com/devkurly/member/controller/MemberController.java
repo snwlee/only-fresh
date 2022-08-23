@@ -3,12 +3,11 @@ package com.devkurly.member.controller;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.member.dto.MemberMainResponseDto;
-import com.devkurly.member.dto.MemberSaveRequestDto;
-import com.devkurly.member.dto.MemberSignInRequestDto;
+import com.devkurly.member.dto.*;
 import com.devkurly.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,20 +36,13 @@ public class MemberController {
         return "redirect:/";
     }
 
-    private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
-        if (Optional.ofNullable(tempCart).isPresent()) {
-            tempCart.setPath("/");
-            tempCart.setMaxAge(0);
-            response.addCookie(tempCart);
-        }
-        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
-        for (Cart cart : carts) {
-            MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-            cart.setUser_id(memberResponse.getUser_id());
-            cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
-            cartService.addCart(cartSaveRequestDto);
-            cartService.removeCart(cartService.getCookieId(tempCart, response));
-        }
+    @GetMapping("/test2")
+    public String test2(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("pgrrr119@gmail.com", "1q2w3e4r%");
+        MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
+        session.setAttribute("memberResponse", memberResponse);
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
+        return "redirect:/";
     }
 
     @GetMapping("")
@@ -76,7 +68,6 @@ public class MemberController {
         requestSession.setAttribute("memberResponse", memberResponse);
 
         cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        System.out.println(toURL);
         toURL = toURL == null || toURL.equals("") ? "/" : toURL;
         return "redirect:" + toURL;
     }
@@ -107,5 +98,53 @@ public class MemberController {
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping("info/verify")
+    public String viewVerifyMemberModify() {
+        return "/member/verify";
+    }
+
+    @PostMapping("/info/verify")
+    public String verifyMemberModify(String pwd, HttpSession session) {
+        Integer user_id = getMemberResponse(session);
+        memberService.updatePassword(user_id, pwd);
+        return "redirect:/members/info";
+    }
+
+    @GetMapping("/info")
+    public String viewModifyMember(Model model, HttpSession session) {
+        Integer user_id = getMemberResponse(session);
+        MemberUpdateResponseDto updateResponse = memberService.findUpdateMember(user_id);
+        model.addAttribute("updateResponse", updateResponse);
+        return "/member/update";
+    }
+
+    @PostMapping("/info")
+    public String modifyMember(MemberUpdateRequestDto updateRequest, Model model, HttpSession session) {
+        String prvPwd = updateRequest.getPwd();
+        MemberUpdateResponseDto updateResponse = memberService.modifyMember(updateRequest);
+        MemberMainResponseDto memberResponse = memberService.signIn(new MemberSignInRequestDto(updateRequest.getUser_email(), prvPwd));
+        session.setAttribute("memberResponse", memberResponse);
+        model.addAttribute("updateResponse", updateResponse);
+        return "redirect:/members/info";
+    }
+
+    private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            tempCart.setPath("/");
+            tempCart.setMaxAge(0);
+            response.addCookie(tempCart);
+        }
+        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
+        for (Cart cart : carts) {
+            cart.setUser_id(getMemberResponse(session));
+            cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
+            cartService.addCart(cartSaveRequestDto);
+            cartService.removeCart(cartService.getCookieId(tempCart, response));
+        }
+    }
+    public static Integer getMemberResponse(HttpSession session) {
+        return ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
     }
 }

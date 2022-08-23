@@ -41,6 +41,8 @@ public class ProductDaoImplTest {
 
 
 
+
+
     @Test
     public void insert() throws Exception {
         productDao.deleteAll();

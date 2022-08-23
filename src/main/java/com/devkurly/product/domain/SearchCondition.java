@@ -9,6 +9,8 @@ public class SearchCondition {
     private Integer offset = 0;
     private String keyword = "";
     private String option = "";
+    private String order_sc;
+    private String cat_code;
 
     public SearchCondition(){}
     public SearchCondition(Integer page, Integer pageSize, String keyword, String option) {
@@ -70,6 +72,22 @@ public class SearchCondition {
 
     public void setOption(String option) {
         this.option = option;
+    }
+
+    public String getOrder_sc() {
+        return order_sc;
+    }
+
+    public void setOrder_sc(String order_sc) {
+        this.order_sc = order_sc;
+    }
+
+    public String getCat_code() {
+        return cat_code;
+    }
+
+    public void setCat_code(String cat_code) {
+        this.cat_code = cat_code;
     }
 
     @Override

@@ -84,7 +84,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int insertCn(BoardDto boardDto) throws Exception {
         int cnLength = boardDto.getBbs_cn().length();
-        if(cnLength>2000||cnLength==0)
+        if(cnLength>5000||cnLength==0)
             throw new Exception("내용에 적절하지 않은 글자수입니다.");
         return session.insert(namespace + "insertCn", boardDto);
     }
