@@ -20,7 +20,7 @@
         limit 1;
     </select>
     <select id="findByOrderId" parameterType="int" resultType="Order">
-        select ord_id
+        select *
         from ORDER_TB
         where ord_id = #{ord_id};
     </select>

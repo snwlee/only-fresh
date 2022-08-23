@@ -115,7 +115,11 @@
         </div>
     </div>
     <%--    header--%>
-<div>결제</div>
+<div>결제 완료</div>
 <div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
+    <div>결제 번호 : ${paymentResponse.ord_id}</div>
+    <div>결제 수단 : ${paymentResponse.setl_cd}</div>
+    <div>결제 상태 : ${paymentResponse.setl_stus_cd}</div>
+    <div>결제 금액 : ${paymentResponse.all_amt}</div>
 </body>
 </html>

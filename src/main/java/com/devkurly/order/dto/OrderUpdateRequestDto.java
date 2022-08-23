@@ -27,7 +27,7 @@ public class OrderUpdateRequestDto {
     public Order toEntity() {
         return Order.builder()
                 .ord_id(ord_id)
-                .user_id(all_amt)
+                .all_amt(all_amt)
                 .build();
     }
 

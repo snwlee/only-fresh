@@ -4,7 +4,6 @@ import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.order.domain.Order;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +31,13 @@ public class OrderController {
     public String requestOrder(@RequestParam(value = "checked") List<String> chArr, Model model, HttpSession session) {
         Integer user_id = getMemberResponse(session);
 
-        // 유저 기반 주문 생성
+        // 유저 기반 주문 테이블 생성
         orderService.addOrder(user_id);
+
+        // 생성한 주문 테이블의 주문 번호
         Integer order_id = orderService.checkRecentOrderId(user_id);
 
+        // 선택한 장바구니만 주문 - 상품 테이블에 추가
         int pdt_id;
         List<CartProductResponseDto> checkedCartProduct = new ArrayList<>();
         for (String str : chArr) {
@@ -46,7 +47,6 @@ public class OrderController {
                 orderService.insertOrderProduct(new OrderProduct(order_id, cart.getPdt_id(), cart.getPdt_qty()));
                 List<CartProductResponseDto> viewCartProduct = cartService.viewCheckedCartProduct(new CartSaveRequestDto(cart));
                 checkedCartProduct.addAll(viewCartProduct);
-//                cartService.removeOneCart(cart);
             }
         }
 
@@ -56,11 +56,8 @@ public class OrderController {
         for (CartProductResponseDto responseDto : checkedCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
-        Order order = orderService.checkOrder(order_id);
-        order.setAll_amt(sum);
-        orderService.modifyOrder(new OrderUpdateRequestDto(order));
-        DecimalFormat df = new DecimalFormat("###,###");
-        model.addAttribute("sum", df.format(sum));
+        orderService.modifyOrder(new OrderUpdateRequestDto(order_id, sum));
+        model.addAttribute("sum", sum);
         model.addAttribute("order_id", order_id);
         model.addAttribute("cart", checkedCartProduct);
         model.addAttribute("order", orderResponseDto);

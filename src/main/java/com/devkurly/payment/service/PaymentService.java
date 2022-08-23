@@ -24,10 +24,11 @@ public class PaymentService {
     }
 
     public void addPayment(PaymentSaveRequestDto requestDto) {
-        Optional.ofNullable(paymentMapper.save(requestDto.toEntity()))
+        Optional.ofNullable(paymentMapper.findById(requestDto.getOrd_id()))
                 .ifPresent(num -> {
                     throw new PaymentException("이미 결제 이력이 있습니다.", ErrorCode.PAYMENT_ERROR);
                 });
+        paymentMapper.save(requestDto.toEntity());
     }
 
     public Integer modifyPayment(PaymentUpdateRequestDto requestDto) {

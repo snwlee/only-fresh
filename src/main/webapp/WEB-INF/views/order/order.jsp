@@ -232,30 +232,29 @@
         <input type="number" name="all_amt" value="${sum}" hidden>
         <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>
         <script>
-
-            $(function () {
-                $('#submit').on("click", function () {
-
-                    let form = $("#form").serialize();
-                    let formJs = {};
-                    console.log(form);
-                    $.ajax({
-                        type: "POST",
-                        url: "/payments/${order_id}",
-                        headers: {"content-type": "application/json"},
-                        dataType: 'text',
-                        data: JSON.stringify(form),
-                        success: function (result) {
-                            formJs = JSON.parse(result);
-                            alert("success");
-                            console.log(result);
-                        },
-                        error: function (request, status, error) {
-                            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                        }
-                    });
-                });
-            });
+            $('#submit').html((${sum}).toLocaleString('en-US') + ' 원 결제하기');
+            <%--$(function () {--%>
+            <%--    $('#submit').on("click", function () {--%>
+            <%--        let form = $("#form").serialize();--%>
+            <%--        let formJs = {};--%>
+            <%--        console.log(form);--%>
+            <%--        $.ajax({--%>
+            <%--            type: "POST",--%>
+            <%--            url: "/payments/${order_id}",--%>
+            <%--            headers: {"content-type": "application/json"},--%>
+            <%--            dataType: 'text',--%>
+            <%--            data: JSON.stringify(form),--%>
+            <%--            success: function (result) {--%>
+            <%--                formJs = JSON.parse(result);--%>
+            <%--                alert("success");--%>
+            <%--                console.log(result);--%>
+            <%--            },--%>
+            <%--            error: function (request, status, error) {--%>
+            <%--                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);--%>
+            <%--            }--%>
+            <%--        });--%>
+            <%--    });--%>
+            <%--});--%>
         </script>
     </form>
 </body>
