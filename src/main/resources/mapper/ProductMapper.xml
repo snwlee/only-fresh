@@ -70,7 +70,7 @@
     <select id="ProductList"  parameterType="SearchCondition" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
                 P.ds_rate, P.price,P.sel_price,P.sales_rate,
-                P.de_type,P.company,P.stock,C.cat_code,C.cd_name
+                P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.de_type
         FROM PRODUCT_TB P
                  JOIN PRODUCT_TAG_TB T
                       ON T.pdt_id = P.pdt_id
@@ -205,12 +205,30 @@
         select TG.tag_name, P.title, P.sub_title,
                P.ds_rate, P.price,P.image,P.sel_price,
                P.de_type,P.company,C.cat_code,C.cd_name
-        from PRODUCT_TB  P join CATEGORY_TB  C
+        from PRODUCT_TB  P JOIN CATEGORY_TB  C
                            JOIN PRODUCT_TAG_TB T
                                 ON T.pdt_id = P.pdt_id
                            JOIN TAG_TB TG
                                 ON TG.tag_id = T.tag_id
           AND C.pdt_id = P.pdt_id
         where C.cat_code = cat_code
+    </select>
+    <select id="CateList" parameterType="map" resultType="Product">
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+                P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name
+
+        FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+                 JOIN COMMON_CODE_TB CCT
+                      ON CCT.cat_code = C.cat_code
+                 JOIN COMMON_CODE_TYPE_TB CCTT
+                      ON CCTT.cd_type_id = CCT.cd_type_id
+        WHERE CCTT.cd_type_name = '채소' and CCT.cd_name= '친환경'
     </select>
 </mapper>

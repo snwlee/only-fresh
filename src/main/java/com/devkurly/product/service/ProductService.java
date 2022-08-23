@@ -47,6 +47,7 @@ public interface ProductService {
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 
+    List<ProductDto> CateList(Map map) throws Exception;
 }
 
 

@@ -36,6 +36,15 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/test2")
+    public String test2(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
+        MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("pgrrr119@gmail.com", "1q2w3e4r%");
+        MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
+        session.setAttribute("memberResponse", memberResponse);
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
+        return "redirect:/";
+    }
+
     @GetMapping("")
     public String viewSignIn(HttpSession session) {
         Object sessionAttribute = session.getAttribute("memberResponse");
@@ -98,25 +107,25 @@ public class MemberController {
 
     @PostMapping("/info/verify")
     public String verifyMemberModify(String pwd, HttpSession session) {
-        MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = memberResponse.getUser_id();
+        Integer user_id = getMemberResponse(session);
         memberService.updatePassword(user_id, pwd);
         return "redirect:/members/info";
     }
 
     @GetMapping("/info")
     public String viewModifyMember(Model model, HttpSession session) {
-        MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = memberResponse.getUser_id();
+        Integer user_id = getMemberResponse(session);
         MemberUpdateResponseDto updateResponse = memberService.findUpdateMember(user_id);
         model.addAttribute("updateResponse", updateResponse);
         return "/member/update";
     }
 
     @PostMapping("/info")
-    public String modifyMember(MemberUpdateRequestDto updateRequest, Model model) {
-        memberService.updatePassword(updateRequest.getUser_id(), updateRequest.getPwd());
+    public String modifyMember(MemberUpdateRequestDto updateRequest, Model model, HttpSession session) {
+        String prvPwd = updateRequest.getPwd();
         MemberUpdateResponseDto updateResponse = memberService.modifyMember(updateRequest);
+        MemberMainResponseDto memberResponse = memberService.signIn(new MemberSignInRequestDto(updateRequest.getUser_email(), prvPwd));
+        session.setAttribute("memberResponse", memberResponse);
         model.addAttribute("updateResponse", updateResponse);
         return "redirect:/members/info";
     }
@@ -129,11 +138,13 @@ public class MemberController {
         }
         List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
         for (Cart cart : carts) {
-            MemberMainResponseDto memberResponse = (MemberMainResponseDto) session.getAttribute("memberResponse");
-            cart.setUser_id(memberResponse.getUser_id());
+            cart.setUser_id(getMemberResponse(session));
             cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
             cartService.addCart(cartSaveRequestDto);
             cartService.removeCart(cartService.getCookieId(tempCart, response));
         }
+    }
+    public static Integer getMemberResponse(HttpSession session) {
+        return ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
     }
 }

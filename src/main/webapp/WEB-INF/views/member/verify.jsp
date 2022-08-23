@@ -28,10 +28,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 개인 정보 수정</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
+    <link rel="stylesheet" type="text/css" href="/cart/temp.css">
     <style>
         #whole_container {
             width: 100%;
@@ -130,7 +131,7 @@
                         name="pwd"
                         placeholder="비밀번호"
                 />
-                <button type="button" onclick="change();">비밀번호 보기</button>
+                <button class="member-btn-b" type="button" onclick="change();">비밀번호 보기</button>
                 <button class="member-btn-a" type="submit">비밀번호 확인</button>
             </div>
         </form>

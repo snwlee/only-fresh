@@ -21,7 +21,7 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/members/info/verify}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/members/info/verify'}"
 />
 <html>
 <head>
@@ -115,17 +115,22 @@
         </div>
     </div>
     <%--    header--%>
+
     <div>주문서</div>
-    <div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
+    <div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
     <div>주문 상품</div>
+<%--    <c:forEach var="cart" items="${cart}" varStatus="status">--%>
+<%--    <div>주문 제품 이름 : ${cart.title}</div>--%>
+<%--    <div>주문 제품 개수 : ${cart.pdt_qty}</div>--%>
+<%--    <div>주문 제품 총 가격 : ${cart.sel_price * cart.pdt_qty}</div>--%>
+<%--    <br>--%>
+<%--    </c:forEach>--%>
     <c:forEach var="cart" items="${cart}" varStatus="status">
     <div>주문 제품 이름 : ${cart.title}</div>
     <div>주문 제품 개수 : ${cart.pdt_qty}</div>
     <div>주문 제품 총 가격 : ${cart.sel_price * cart.pdt_qty}</div>
     <br>
     </c:forEach>
-
-<<<<<<< HEAD
     <h3>주문자 정보</h3>
     <div>보내는 분</div>
     <div>휴대폰</div>
@@ -178,58 +183,6 @@
                 /><label class="payment" for="phone">휴대폰</label>
             </div>
             <div id="below-div"></div>
-=======
-<h3>주문자 정보</h3>
-<div>보내는 분</div>
-<div>휴대폰</div>
-<div>이메일</div>
-<br>
-<h3>배송 정보</h3>
-<div>배송지</div>
-<div>상세 정보</div>
-<br>
-<h3>쿠폰 / 적립금</h3>
-<div>쿠폰 적용</div>
-<%--보유한 쿠폰 리스트 temp--%>
-<select name='credit'>
-    <option value=''>사용가능 쿠폰 0 장 / 전체 0 장</option>
-    <option value='30% 쿠폰'>30% 쿠폰</option>
-    <option value='35% 쿠폰'>35% 쿠폰</option>
-    <option value='20% 쿠폰'>20% 쿠폰</option>
-    <option value='10% 쿠폰'>10% 쿠폰</option>
-</select>
-<div>적립금 적용</div>
-<br>
-<form id="form">
-    <h3>결제 수단</h3>
-    <label class="reUser-payment"
-    ><input type="checkbox" name="reUser-payment" ${empty cookie.email.value
-            ? "" : "checked"}>선택한 결제 수단을 다음에도 사용</label
-    >
-    <div class="payment-container">
-        <div>결제수단 선택</div>
-        <div class="select-payment">
-            <input type="text" id="payment" name="payment" hidden/>
-            <input
-                    type="radio"
-                    id="credit"
-                    name="payment"
-                    checked
-                    onclick="document.querySelector('#payment').value = 'credit'"
-            /><label class="payment" for="credit">신용카드</label>
-            <input
-                    type="radio"
-                    id="pay"
-                    name="payment"
-                    onclick="document.querySelector('#payment').value = 'pay'"
-            /><label class="payment" for="pay">간편 결제</label>
-            <input
-                    type="radio"
-                    id="phone"
-                    name="payment"
-                    onclick="document.querySelector('#payment').value = 'phone'"
-            /><label class="payment" for="phone">휴대폰</label>
->>>>>>> 9753137 (⚙ chore: MERGE 하기 전 COMMIT)
         </div>
         <script>
             $(document).ready(function () {
@@ -276,32 +229,32 @@
                 });
             });
         </script>
+        <input type="number" name="all_amt" value="${sum}" hidden>
         <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>
         <script>
-
-            $(function () {
-                $('#submit').on("click", function () {
-
-                    let form = $("#form").serialize();
-                    let formJs = {};
-                    console.log(form);
-                    $.ajax({
-                        type: "POST",
-                        url: "/payments/${order_id}",
-                        headers: {"content-type": "application/json"},
-                        dataType: 'text',
-                        data: JSON.stringify(form),
-                        success: function (result) {
-                            formJs = JSON.parse(result);
-                            alert("success");
-                            console.log(result);
-                        },
-                        error: function (request, status, error) {
-                            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-                        }
-                    });
-                });
-            });
+            $('#submit').html((${sum}).toLocaleString('en-US') + ' 원 결제하기');
+            <%--$(function () {--%>
+            <%--    $('#submit').on("click", function () {--%>
+            <%--        let form = $("#form").serialize();--%>
+            <%--        let formJs = {};--%>
+            <%--        console.log(form);--%>
+            <%--        $.ajax({--%>
+            <%--            type: "POST",--%>
+            <%--            url: "/payments/${order_id}",--%>
+            <%--            headers: {"content-type": "application/json"},--%>
+            <%--            dataType: 'text',--%>
+            <%--            data: JSON.stringify(form),--%>
+            <%--            success: function (result) {--%>
+            <%--                formJs = JSON.parse(result);--%>
+            <%--                alert("success");--%>
+            <%--                console.log(result);--%>
+            <%--            },--%>
+            <%--            error: function (request, status, error) {--%>
+            <%--                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);--%>
+            <%--            }--%>
+            <%--        });--%>
+            <%--    });--%>
+            <%--});--%>
         </script>
     </form>
 </body>

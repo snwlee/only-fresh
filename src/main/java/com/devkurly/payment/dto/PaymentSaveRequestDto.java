@@ -1,6 +1,5 @@
 package com.devkurly.payment.dto;
 
-import com.devkurly.order.domain.Order;
 import com.devkurly.payment.domain.Payment;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +18,11 @@ public class PaymentSaveRequestDto {
     private Integer all_amt;
     private Integer all_dc_amt;
     private Integer dlvr_amt;
+
+    public void savePayment(Integer ord_id, Integer user_id) {
+        this.ord_id = ord_id;
+        this.user_id = user_id;
+    }
 
     @Builder
     public PaymentSaveRequestDto(Integer ord_id, Integer user_id, String setl_cd, String setl_stus_cd, Integer all_amt, Integer all_dc_amt, Integer dlvr_amt) {

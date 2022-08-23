@@ -42,6 +42,16 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
+    public List<Cart> viewCheckedCart(CartSaveRequestDto requestDto) {
+        return cartMapper.findCheckedByCart(requestDto.toEntity());
+    }
+
+    @Transactional(readOnly = true)
+    public List<CartProductResponseDto> viewCheckedCartProduct(CartSaveRequestDto requestDto) {
+        return cartMapper.joinCartProductByCart(requestDto.toEntity());
+    }
+
+    @Transactional(readOnly = true)
     public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
         return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
     }
@@ -76,9 +86,21 @@ public class CartService {
         if (Optional.ofNullable(tempCart).isPresent()) {
             id = Integer.parseInt(tempCart.getValue());
         } else {
-            Random random = new Random();
-            int randomNumber = random.nextInt(100000);
-            // (예정) 중복 확인 후 재랜덤 결정
+            int randomNumber;
+            do {
+                Random random = new Random();
+                randomNumber = random.nextInt(1000000);
+                // (예정) 중복 확인 후 재랜덤 결정
+                try {
+                    Optional.ofNullable(cartMapper.findById(randomNumber))
+                            .ifPresent(cookieNumber -> {
+                                throw new ArithmeticException();
+                            });
+                    break;
+                } catch (Exception ignored) {
+
+                }
+            } while (true);
             Cookie newTempCart = new Cookie("tempCart", Integer.toString(randomNumber));
             newTempCart.setPath("/");
             response.addCookie(newTempCart);

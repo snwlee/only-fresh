@@ -29,7 +29,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 얼마나 좋아</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
@@ -123,6 +123,7 @@
     <span>님</span>
 </c:if>
 <a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
+<a class="btn" href="/members/test2">[임시] 53번 유저로 로그인</a>
 <a class="btn" href="${signInOutLink}">${signInOut}</a>
 <div id="contents_container">
     <%--장바구니--%>
@@ -132,6 +133,7 @@
     <%--이벤트--%>
     <div class="content_box">
         <a class="btn" href="/event/admin">이벤트 CRUD 페이지</a>
+        <a class="btn" href="/event/main">실제 이벤트 페이지</a>
     </div>
     <%--게시판--%>
     <div class="content_box">
@@ -144,12 +146,19 @@
         <a class="btn" href="/product/bestlist?page=1&pageSize=10">베스트 상품 보기</a>
         <a class="btn" href="/product/thriftylist?page=1&pageSize=10">알뜰쇼핑</a>
         <a class="btn" href="/product/EventList">이벤트 클릭 시 이동 상품페이지 </a>
+        <a class="btn" href="/product/CateList">채소-친환경 테스트리스트</a>
     </div>
     <%--관리자--%>
     <div class="content_box">
         <a class="btn" href="/admin/list"/>회원정보 관리</a>
     </div>
     <%--배송지--%>
+    <div class="content_box">
+    </div>
+    <%--쿠폰--%>
+    <div class="content_box">
+        <a class="btn" href="/mypage">마이페이지</a>
+    </div>
 </div>
 </body>
 </html>

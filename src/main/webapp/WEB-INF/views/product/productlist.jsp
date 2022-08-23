@@ -171,7 +171,7 @@
                         <td><img id="img" src="${ProductDto.image}"/></td>
                         <td> 판매가 : ${ProductDto.sel_price}원</td>
 <%--                        <td> 판매량 : ${ProductDto.sales_rate} 개</td>--%>
-                        <td> 배송타입 : ${ProductDto.de_type}</td>
+<%--                        <td> 배송타입 : ${ProductDto.de_type}</td>--%>
                         <td> 제조사 : ${ProductDto.company}</td>
 <%--                        <td> 카테고리 이름 : ${ProductDto.cd_name} </td>--%>
                     </tr>
