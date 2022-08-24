@@ -23,5 +23,6 @@
                 <typeAlias alias="SearchCondition" type="com.devkurly.product.domain.SearchCondition"/>
 <!--                <typeAlias alias="SearchCondition" type="com.devkurly.admin.domain.SearchCondition"/>-->
                 <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
+                <typeAlias alias="MainSubCategoryDto" type="com.devkurly.product.domain.MainSubCatDto" />
         </typeAliases>
 </configuration>
