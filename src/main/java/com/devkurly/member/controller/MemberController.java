@@ -30,10 +30,10 @@ public class MemberController {
 
     @GetMapping("/test")
     public String test(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
-        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
         MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("1234", "1234");
         MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
         session.setAttribute("memberResponse", memberResponse);
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
         return "redirect:/";
     }
 
@@ -64,7 +64,6 @@ public class MemberController {
 
     @PostMapping("")
     public String postSignIn(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, MemberSignInRequestDto requestDto, boolean rememberId, String toURL, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
         MemberMainResponseDto memberResponse = memberService.signIn(requestDto);
 
         Cookie idCookie = new Cookie("email", requestDto.getUser_email());
@@ -76,6 +75,8 @@ public class MemberController {
         HttpSession requestSession = request.getSession();
         requestSession.setAttribute("memberResponse", memberResponse);
 
+        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
+        System.out.println(toURL);
         toURL = toURL == null || toURL.equals("") ? "/" : toURL;
         return "redirect:" + toURL;
     }
