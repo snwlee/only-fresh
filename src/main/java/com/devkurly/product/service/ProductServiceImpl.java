@@ -127,6 +127,12 @@ public class ProductServiceImpl implements ProductService {
         return productDao.goodslist(cd_name);
     }
 
+    @Override
+    public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception {
+        return productDao.CodeNameSelect(sc,cd_name_num);
+    }
+
+
 //    @Override
 //    public String isValid(ProductDto productDto) throws Exception {
 //        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||

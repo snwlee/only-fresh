@@ -131,6 +131,18 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectList(namespace+"goodslist",cd_name);
     }
 
+
+
+
+    @Override
+    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        map.put("cd_name_num",cd_name_num);
+        return session.selectList(namespace+"CodeNameSelect",map);
+    }
+
 }
 
 

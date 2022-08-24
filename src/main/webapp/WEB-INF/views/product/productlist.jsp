@@ -191,7 +191,7 @@
                 <span>카테고리</span>
             </div>
             <div id="menus">
-                <a href="product/newlist">신상품</a>
+                <a href="/product/newlist?page=1&pageSize=12&option=&keyword=">신상품</a>
                 <span>베스트</span>
                 <span>알뜰쇼핑</span>
                 <span>특가/혜택</span>
@@ -247,9 +247,10 @@
     <%--let page = ${param.page};--%>
     <%--let pageSize = ${param.pageSize};--%>
     let showList = function(){
+        let sort = 0
         $.ajax({
             type: 'GET',
-            url: '/product/call',
+            url: '/product/call?sort='+sort,
             success : function(result){
                 $("#product").html(toHtml(result.list1));
                 $("#product2").html(toHtml(result.list2));

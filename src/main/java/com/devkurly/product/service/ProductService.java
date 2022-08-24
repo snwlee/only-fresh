@@ -59,6 +59,8 @@ public interface ProductService {
     List<ProductDto> mainlist(String cd_type_id) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws  Exception;
+
+    List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
 }
 
 
