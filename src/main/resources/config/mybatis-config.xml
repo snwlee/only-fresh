@@ -21,6 +21,7 @@
                 <typeAlias alias="UserCouponDto" type="com.devkurly.coupon.domain.UserCouponDto" />
                 <typeAlias alias="SearchCondition" type="com.devkurly.product.domain.SearchCondition"/>
                 <typeAlias alias="UserSearchCondition" type="com.devkurly.admin.domain.UserSearchCondition"/>
-                <typeAlias alias="CommentDto" type="com.devkurly.board.domain.CommentDto"/>
+                <typeAlias alias="AddressDto" type="com.devkurly.address.domain.AddressDto" />
+                <typeAlias alias="MainSubCategoryDto" type="com.devkurly.product.domain.MainSubCatDto" />
         </typeAliases>
 </configuration>

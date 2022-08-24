@@ -1,5 +1,6 @@
 package com.devkurly.product.dao;
 
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
@@ -32,6 +33,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
+        return session.selectList(namespace + "ProductThriftyList", map);
+    }
+    @Override
     public List<ProductDto> ProductNewList(Map map) throws Exception {
         return session.selectList(namespace + "ProductNewList", map);
     }
@@ -42,16 +47,17 @@ public class ProductDaoImpl implements ProductDao {
     }
 
 
-    @Override
-    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
-        return session.selectList(namespace + "ProductThriftyList", map);
-    }
+
 
     @Override
     public int count() throws Exception {
         return session.selectOne(namespace + "count");
     }
 
+    @Override
+    public List<MainSubCatDto> getCatList(){
+        return session.selectList(namespace+"selectCategories");
+    }
 
     // U
 
@@ -129,6 +135,18 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<ProductDto> goodslist(String cd_name) throws Exception {
         return session.selectList(namespace+"goodslist",cd_name);
+    }
+
+
+
+
+    @Override
+    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        map.put("cd_name_num",cd_name_num);
+        return session.selectList(namespace+"CodeNameSelect",map);
     }
 
 }

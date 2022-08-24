@@ -1,6 +1,7 @@
 package com.devkurly.product.service;
 
 import com.devkurly.product.dao.*;
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.*;
@@ -67,14 +68,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> ProductThriftyList(Map map) throws Exception { // 알뜰상품
+    public List<ProductDto> ProductThriftyList(SearchCondition sc) throws Exception { // 알뜰상품
+       Map map = new HashMap<>();
+       map.put("offset", sc.getOffset());
+       map.put("pageSize", sc.getPageSize());
         return productDao.ProductThriftyList(map);
     }
 
-    @Override
-    public List<ProductDto> ProductBestList(Map map) throws Exception { // 베스트 상품
-        return productDao.ProductBestList(map); // 흐름을 자세히 보자.
-    }
+ @Override
+ public List<ProductDto> ProductBestList(SearchCondition sc) throws  Exception { // 베스트상품
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        return productDao.ProductBestList(map);
+ }
+
 
     @Override
     public List<ProductDto> ProductNewList(Map map) throws Exception { // 신상품
@@ -102,6 +110,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<MainSubCatDto> getMainSubCats() throws Exception{
+        return productDao.getCatList();
+    }
+
+    @Override
     public List<ProductDto> Vegetable(Map map) throws Exception {
         return productDao.Vegetable(map);
     }
@@ -126,6 +139,15 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> goodslist(String cd_name) throws Exception {
         return productDao.goodslist(cd_name);
     }
+
+    @Override
+    public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception {
+        return productDao.CodeNameSelect(sc,cd_name_num);
+    }
+
+
+
+
 
 //    @Override
 //    public String isValid(ProductDto productDto) throws Exception {
