@@ -21,14 +21,14 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/members/info/verify'}"
 />
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 결제 정보</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
@@ -115,7 +115,11 @@
         </div>
     </div>
     <%--    header--%>
-<div>결제</div>
-<div>로그인 상태 : 유저 번호 ${sessionScope.user_id}</div>
+<div>결제 완료</div>
+<div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
+    <div>결제 번호 : ${paymentResponse.ord_id}</div>
+    <div>결제 수단 : ${paymentResponse.setl_cd}</div>
+    <div>결제 상태 : ${paymentResponse.setl_stus_cd}</div>
+    <div>결제 금액 : ${paymentResponse.all_amt}</div>
 </body>
 </html>

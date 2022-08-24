@@ -2,6 +2,7 @@ package com.devkurly.board.controller;
 
 import com.devkurly.board.domain.CommentDto;
 import com.devkurly.board.service.BoardService;
+import com.devkurly.member.dto.MemberMainResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,7 @@ public class CommentController {
 
     @PostMapping("/board/comment/{bbs_id}")
     public ResponseEntity<String> writeComment(@PathVariable Integer bbs_id, int replyst, @RequestBody CommentDto commentDto, HttpSession session) {
-//        session.getAttribute("user_id", user_id);
-        //임시 하드코딩
-        Integer user_id = 1;
+        Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
         commentDto.setUser_id(user_id);
         commentDto.setBbs_id(bbs_id);
         commentDto.setReplyst(replyst);
@@ -47,8 +46,6 @@ public class CommentController {
 
     @PatchMapping("/board/comment/{bbs_id}")
     public ResponseEntity<String> modifyComment(@PathVariable Integer bbs_id, @RequestBody CommentDto commentDto, HttpSession session) {
-        //        session.getAttribute("user_id", user_id);
-        //임시 하드코딩
         commentDto.setBbs_id(bbs_id);
         commentDto.setInq_ans(cleanXSS(commentDto.getInq_ans()));
         try {
@@ -62,8 +59,6 @@ public class CommentController {
 
     @DeleteMapping("/board/comment/{bbs_id}")
     public ResponseEntity<String> deleteComment(@PathVariable Integer bbs_id, int replyst, String bbs_clsf_cd, HttpSession session) {
-        //        session.getAttribute("user_id", user_id);
-        //임시 하드코딩
 
         try {
             boardService.deleteAnswer(bbs_id, replyst);

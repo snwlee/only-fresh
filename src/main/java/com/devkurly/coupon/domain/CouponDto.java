@@ -13,6 +13,7 @@ public class CouponDto {
     private String func;
     private Integer rate;
     private String expi_dd;
+    private boolean used;
 
     public CouponDto(){}
 
@@ -55,6 +56,19 @@ public class CouponDto {
         this.func = func;
         this.rate = rate;
         this.expi_dd = expi_dd;
+    }
+
+    public CouponDto(Integer coupn_id, Integer event_id, String nm, Integer ds_max_posbl_amt, String use_cnd, String lmtt_cnd, String func, Integer rate, String expi_dd, boolean used) {
+        this.coupn_id = coupn_id;
+        this.event_id = event_id;
+        this.nm = nm;
+        this.ds_max_posbl_amt = ds_max_posbl_amt;
+        this.use_cnd = use_cnd;
+        this.lmtt_cnd = lmtt_cnd;
+        this.func = func;
+        this.rate = rate;
+        this.expi_dd = expi_dd;
+        this.used = used;
     }
 
     @Override
@@ -133,6 +147,23 @@ public class CouponDto {
     public void setExpi_dd(String expi_dd) {
         this.expi_dd = expi_dd;
     }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CouponDto)) return false;
+        CouponDto couponDto = (CouponDto) o;
+        return coupn_id.equals(couponDto.coupn_id) && event_id.equals(couponDto.event_id);
+    }
+
     @Override
     public String toString() {
         return "CouponDto{" +
@@ -145,14 +176,7 @@ public class CouponDto {
                 ", func='" + func + '\'' +
                 ", rate=" + rate +
                 ", expi_dd='" + expi_dd + '\'' +
+                ", used=" + used +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CouponDto)) return false;
-        CouponDto couponDto = (CouponDto) o;
-        return coupn_id.equals(couponDto.coupn_id);
     }
 }

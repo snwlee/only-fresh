@@ -13,12 +13,15 @@
                 <typeAlias alias="OrderProduct" type="com.devkurly.order.domain.OrderProduct"/>
                 <typeAlias alias="Payment" type="com.devkurly.payment.domain.Payment"/>
                 <typeAlias alias="ProductDetailDto" type="com.devkurly.productDetail.domain.ProductDetailDto" />
+                <typeAlias alias="ProductDetail" type="com.devkurly.productDetail.domain.ProductDetailDto" />
                 <typeAlias alias="Product" type="com.devkurly.product.domain.ProductDto"/>
                 <typeAlias alias="CouponDto" type="com.devkurly.coupon.domain.CouponDto"/>
-                <typeAlias alias="UserDto" type="com.devkurly.admin.UserDto"/>
+                <typeAlias alias="UserDto" type="com.devkurly.admin.domain.UserDto"/>
                 <typeAlias alias="Member" type="com.devkurly.member.domain.Member"/>
                 <typeAlias alias="AddressDto" type="com.devkurly.address.domain.AddressDto" />
                 <typeAlias alias="UserCouponDto" type="com.devkurly.coupon.domain.UserCouponDto" />
                 <typeAlias alias="SearchCondition" type="com.devkurly.product.domain.SearchCondition"/>
-       </typeAliases>
+<!--                <typeAlias alias="SearchCondition" type="com.devkurly.admin.domain.SearchCondition"/>-->
+                <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->
+        </typeAliases>
 </configuration>

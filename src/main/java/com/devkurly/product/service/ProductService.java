@@ -9,6 +9,7 @@ import java.util.Map;
 public interface ProductService {
 
 
+
     String isValid(ProductDto productDto) throws Exception;
 
     // C
@@ -28,6 +29,8 @@ public interface ProductService {
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
 
+
+
     List<ProductDto> selectProductId() throws Exception;
     // U
     int modify(ProductDto productDto) throws Exception;
@@ -36,6 +39,7 @@ public interface ProductService {
     // D
     int remove(Integer pdt_id) throws Exception;
 
+    List<ProductDto> EventList(Map map) throws Exception;
 
     List<ProductDto> ProductListDESC(Map map);
 
@@ -43,6 +47,18 @@ public interface ProductService {
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;
 
+    List<ProductDto> CateList(Map map) throws Exception;
+
+    List<ProductDto> Vegetable(Map map) throws Exception;
+
+    List<ProductDto> EcoVegetable(Map map) throws Exception;
+
+    List<ProductDto> main(Map map) throws Exception;
+
+
+    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+
+    List<ProductDto> goodslist(String cd_name) throws  Exception;
 }
 
 
