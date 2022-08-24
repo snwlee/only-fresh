@@ -122,9 +122,9 @@
         <span>카테고리</span>
       </div>
       <div id="menus">
-        <span>신상품</span>
-        <span>베스트</span>
-        <span>알뜰쇼핑</span>
+        <span onclick="location.href='/product/newlist?sort=1&page=1&pageSize=12'">신상품</span>
+        <span onclick="location.href='/product/newlist?sort=2&page=1&pageSize=12'">베스트</span>
+        <span onclick="location.href='/product/newlist?sort=3&page=1&pageSize=12'">알뜰쇼핑</span>
         <span>특가/혜택</span>
       </div>
       <div id="deli_info">
