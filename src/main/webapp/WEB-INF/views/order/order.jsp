@@ -173,7 +173,7 @@
                         </div>
                         <div style="padding-top: 20px;" class="payment_row">
                             <span style="margin-top: 25px;">사용할 적립금</span>
-                            <span style="margin-top: 15px;"><input id="point-input" type="number" max="0" min="0"
+                            <span style="margin-top: 15px;"><input id="point-input" name="used_acamt" type="number" max="0" min="0"
                                                                    value="0"
                                                                    placeholder="0" style="text-align: right"></span>
                         </div>
@@ -438,6 +438,7 @@
                             <span>상세 정보</span>
                             <span>` + result.addr_name + `, ` + result.addr_tel + `</span>
                         </div>
+                        <input type="text" name="addr_id" value="` + result.addr_id + `" hidden/>
                         `;
                 $('#address').append(user);
             },

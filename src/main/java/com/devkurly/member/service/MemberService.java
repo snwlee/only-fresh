@@ -46,7 +46,7 @@ public class MemberService {
     }
 
     public MemberUpdateResponseDto findUpdateMember(Integer user_id) {
-        Member member = getMember(user_id);
+        Member member = findMemberById(user_id);
         return new MemberUpdateResponseDto(member);
     }
 
@@ -65,11 +65,15 @@ public class MemberService {
         return couponById;
     }
 
+    public CouponDto findCouponByCouponId(Integer coupn_id) {
+        return memberMapper.findCouponByCouponId(coupn_id);
+    }
+
     public AddressDto findAddress(Integer user_id) {
         return memberMapper.findAddressById(user_id);
     }
 
-    private Member getMember(Integer user_id) {
+    public Member findMemberById(Integer user_id) {
         return Optional.ofNullable(memberMapper.findById(user_id)).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
     }
 

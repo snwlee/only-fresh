@@ -19,9 +19,10 @@ public class PaymentSaveRequestDto {
     private Integer all_dc_amt;
     private Integer dlvr_amt;
 
-    public void savePayment(Integer ord_id, Integer user_id) {
+    public void savePayment(Integer ord_id, Integer user_id, Integer all_dc_amt) {
         this.ord_id = ord_id;
         this.user_id = user_id;
+        this.all_dc_amt = all_dc_amt;
     }
 
     @Builder

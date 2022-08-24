@@ -23,10 +23,16 @@
         from USER_COUPON_TB UT
         join COUPON_TB CT
         on UT.coupn_id = CT.coupn_id
-        where user_id = #{user_id} and used = 0;
+        where user_id = #{user_id}
+        and used = 0;
+    </select>
+    <select id="findCouponByCouponId" parameterType="int" resultType="CouponDto">
+        select event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        from COUPON_TB CT
+        where CT.coupn_id = #{coupn_id};
     </select>
     <select id="findAddressById" parameterType="int" resultType="AddressDto">
-        select main_addr, sub_addr, addr_name, addr_tel
+        select addr_id, main_addr, sub_addr, addr_name, addr_tel
         from ADDRESS_TB
         where user_id = #{user_id}
         and chk_addr = 1;

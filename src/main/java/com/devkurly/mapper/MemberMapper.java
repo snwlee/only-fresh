@@ -14,6 +14,7 @@ public interface MemberMapper {
     Member findByEmail(String user_email);
     Member findById(Integer user_id);
     List<CouponDto> findCouponById(Integer user_id);
+    CouponDto findCouponByCouponId(Integer coupn_id);
     AddressDto findAddressById(Integer user_id);
     Integer update(Member member);
     Integer delete(Integer user_id);

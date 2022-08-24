@@ -11,12 +11,13 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    Integer save(Integer user_id);
+    Integer add(Integer user_id);
     Integer findByUserId(Integer user_id);
     Order findByOrderId(Integer ord_id);
     Integer insertOrderProduct(OrderProduct orderProduct);
     List<OrderResponseDto> joinOrderProduct(Integer order_id);
-    Integer update(Order order);
+    Integer updateOrder(Order order);
+    Integer updateAmt(Order order);
     Integer delete(@Param("user_id") Integer user_id, @Param("ord_id") Integer ord_id);
 
 }
