@@ -1,9 +1,6 @@
 package com.devkurly.product.dao;
 
-<<<<<<< HEAD
-=======
 import com.devkurly.product.domain.MainSubCatDto;
->>>>>>> upstream/main
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 
