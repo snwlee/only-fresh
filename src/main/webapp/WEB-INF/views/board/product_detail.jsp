@@ -54,6 +54,9 @@
       width: 200px;
       height: 100px;
     }
+    .board_margin{
+      margin-bottom: 200px;
+    }
 
     #content {
       display: flex;
@@ -61,11 +64,11 @@
       justify-content: center;
       padding: 30 200 160 200;
     }
-    #review_board_i{
+    #review_board{
       position: relative;
       padding-bottom: 80.25%;
     }
-    #inquiry_board_i{
+    #inquiry_board{
       position: relative;
       padding-bottom: 80.25%;
     }
@@ -232,10 +235,10 @@
       <div class="navi" value="#des2">
         <span class="navs">상세정보</span></a>
       </div>
-      <div class="navi" value="#review_board">
+      <div class="navi" value="#review_board_i">
         <span class="navs">후기 (${reviewCnt})</span></a>
       </div>
-      <div class="navi" value="#inquiry_board">
+      <div class="navi" value="#inquiry_board_i">
         <span class="navs">문의</span></a>
       </div>
     </nav>
@@ -243,11 +246,13 @@
     <img id="des2" src="${productDetailDto.prt_info}" />
 
     <div id ="board_container">
-      <div id="review_board_i">
+      <div class="board_margin" id="review_board_i"></div>
+      <div id="review_board">
         <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10">
         </iframe>
       </div>
-      <div id="inquiry_board_i">
+      <div class="board_margin" id="inquiry_board_i"></div>
+      <div id="inquiry_board">
         <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=2&page=1&pageSize=10">
         </iframe>
       </div>
@@ -280,7 +285,7 @@
     $(".navi").click(function(event){
 
       event.preventDefault();
-      x= $(this).attr("value");
+      let x= $(this).attr("value");
       $('html,body').animate({scrollTop:$(x).offset().top}, 500);
 
     });
