@@ -220,7 +220,7 @@
                             <span>
                                 <div class="payment-container">
                             <div style="display: flex;" class="select-payment">
-                                <input type="text" id="payment" name="setl_cd" hidden/>
+                                <input type="text" id="payment" name="setl_cd" value="credit" hidden/>
                                 <input
                                         type="radio"
                                         id="credit"
