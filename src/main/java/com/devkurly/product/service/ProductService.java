@@ -1,5 +1,6 @@
 package com.devkurly.product.service;
 
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 
@@ -28,6 +29,7 @@ public interface ProductService {
     List<ProductDto> ProductBestList(SearchCondition sc) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
+    List<MainSubCatDto> getMainSubCats() throws Exception;
 
 
 
@@ -56,11 +58,15 @@ public interface ProductService {
     List<ProductDto> main(Map map) throws Exception;
 
 
-    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+    List<ProductDto> mainlist(String cd_type_name) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws  Exception;
 
     List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
+
+    List cate(String cd_type_name, SearchCondition sc) throws Exception;
+
+    int cateCnt(String cd_type_name) throws Exception;
 }
 
 

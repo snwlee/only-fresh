@@ -121,15 +121,27 @@
         }
 
         .paging {
+            display: flex;
             color: black;
-            width: 100%;
             align-items: center;
         }
 
         .page {
-            color: black;
-            padding: 6px;
-            margin-right: 10px;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-top: 1px solid rgb(221, 221, 221);
+            border-right: 1px solid rgb(221, 221, 221);
+            border-bottom: 1px solid rgb(221, 221, 221);
+            border-image: initial;
+            border-left: none;
+            cursor: pointer;
+            background-color: rgb(247, 247, 247);
+            color: rgb(95, 0, 128);
         }
 
         .paging-active {
@@ -148,10 +160,6 @@
             justify-content: center;
         }
 
-        #img {
-            width: 249px;
-            height: 320px;
-        }
 
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -193,9 +201,10 @@
                 <span>카테고리</span>
             </div>
             <div id="menus">
-                <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
-                <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
-                <a href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
+
+                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
@@ -205,50 +214,46 @@
         </div>
     </div>
     <div id="content">
-        <div id="min" style="display: flex; flex-direction: column; align-items: center; height:3500px; width:800px;">
-            <div id="count">총 000건</div>
-
+        <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
+<%--            <div id="count">총 ${ProductDao.searchResultCnt}개</div>--%>
 
             <div id="product" style="display: flex;">
 
             </div>
-
+                <div class="paging-container">
+                    <div class="paging">
+                        <c:if test="${totalCnt!=null && totalCnt!=0}">
+                            <c:if test="${ph.showPrev}">
+                                <a class="page"
+                                   href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.beginPage-1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">&lt;</a>
+                            </c:if>
+                            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                                <a class="page ${i==ph.sc.page? "paging-active" : ""}"
+                                   href="<c:url value="/product/newlist${ph.sc.getQueryString(i)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">${i}</a>
+                            </c:forEach>
+                            <c:if test="${ph.showNext}">
+                                <a class="page"
+                                   href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.endPage+1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">&gt;</a>
+                            </c:if>
+                        </c:if>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
 </div>
-<div class="paging-container">
-    <div class="paging">
-        <c:if test="${totalCnt!=null && totalCnt!=0}">
-            <c:if test="${ph.showPrev}">
-                <a class="page"
-                   href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.beginPage-1)}&sort=${param.sort}"/>">&lt;</a>
-            </c:if>
-            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-                   href="<c:url value="/product/newlist${ph.sc.getQueryString(i)}&sort=${param.sort}"/>">${i}</a>
-            </c:forEach>
-            <c:if test="${ph.showNext}">
-                <a class="page"
-                   href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.endPage+1)}&sort=${param.sort}"/>">&gt;</a>
-            </c:if>
-        </c:if>
 
-    </div>
-</div>
-</div>
-</div>
-</div>
-</div>
 <script>
-    let page = ${param.page};
-    let pageSize = ${param.pageSize};
-    let sort = ${param.sort};
+    let page = '<c:out value="${param.page}"/>';
+    let pageSize = '<c:out value="${param.pageSize}"/>';
+    let sort = '<c:out value="${param.sort}"/>';
+    let cd_name_num ='<c:out value="${param.cd_name_num}"/>';
+    let cd_type_name='<c:out value="${param.cd_type_name}"/>';
     let showList = function (){
-        console.log(sort);
         $.ajax({
             type: 'GET',
-            url: '/product/call?sort='+sort+'&page='+page+'&pageSize='+pageSize,
+            url: '/product/call?sort='+sort+'&cd_name_num='+cd_name_num+'&cd_type_name='+cd_type_name+'&page='+page+'&pageSize='+pageSize,
+            // http://localhost/product/newlist?page=1&pageSize=12&cd_name_num=1&cd_type_name=%27%EC%B1%84%EC%86%8C%27&sort=0
             success: function (result) {
                 $("#product").html(toHtml(result.list));
             },
@@ -261,15 +266,15 @@
         lists.forEach(function (ProductDto) {
             tmp += '<div class="products" style="margin-top:50px">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
-            tmp += '<span class="de_type">' + ProductDto.de_type==true?+'샛별배송':'낮배송'+'</span>'
+            tmp += '<span class="de_type">' +ProductDto.de_type===true?'샛별배송':'낮배송'+'</span>'
             tmp += '<div class="product_title">' + ProductDto.title + '<h3/>'
-            tmp += '<span class="product_price">' + ProductDto.price + '원</span></div>'
-            tmp += '<span class="product_sel_price">' + ProductDto.sel_price + '원</span></div>'
+            tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span></div>'
+            tmp += '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></div>'
         })
         return tmp;
     }
     $(document).ready(function (){
-        showList(page,pageSize);
+        showList();
     })
 </script>
 </body>

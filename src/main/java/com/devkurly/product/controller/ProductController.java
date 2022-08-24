@@ -1,9 +1,7 @@
 package com.devkurly.product.controller;
 
-import com.devkurly.product.domain.Paging;
-import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.*;
 
-import com.devkurly.product.domain.SearchCondition;
 import com.devkurly.product.service.ProductService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -18,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/product")
@@ -80,23 +79,6 @@ public class ProductController {
         return "product/productCateList";
     }
 
-    @GetMapping("/Vegetable")
-    public String Vegetable(Model m, HttpServletRequest request, HttpSession session, String order_sc) {
-        try {
-            List<ProductDto> list = null;
-            Map map = new HashMap();
-            if (order_sc == null || order_sc == "") {
-                list = productService.Vegetable(map);
-            } else {
-                map.put("order_sc", order_sc);
-                list = productService.ProductListDESC(map);
-            }
-            m.addAttribute("list", list);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "product/Vegetable";
-    }
 
     @GetMapping("/EcoVegetable")
     public String EcoVegetable(Model m, HttpServletRequest request, HttpSession session, String order_sc) {
@@ -153,43 +135,56 @@ public class ProductController {
 
     @GetMapping("/call")
     @ResponseBody
-    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num) {
+    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name) {
         Map<String, Object> map = new HashMap<String, Object>();
         Paging ph = null;
         List list = null;
         try {
-            int totalCnt = productService.getSearchResultCnt(sc);
-            ph = new Paging(totalCnt, sc);
-            if(cd_name_num!=null){
-                list = productService.CodeNameSelect(cd_name_num, sc);
-                System.out.println("list = " + list);
-                map.put("totalCnt",totalCnt);
-                map.put("ph",ph);
-                map.put("list",list);
+            if(sort==null){
+                System.out.println("sort가 널입니다.");
+                if(cd_type_name!=null){ // 대분류 카테고리 코드
+                    int totalCnt = productService.cateCnt(cd_type_name);
+                    ph = new Paging(totalCnt, sc);
+                    list = productService.cate(cd_type_name,sc);
+                    map.put("totalCnt",totalCnt);
+                    map.put("ph",ph);
+                    map.put("list",list);
+                }
+                if(cd_name_num!=null){ // 소분류 카테고리 코드
+                    list = productService.CodeNameSelect(cd_name_num,sc);
+                    int totalCnt = list.size();
+                    ph = new Paging(totalCnt, sc);
+                    map.put("totalCnt",totalCnt);
+                    map.put("ph",ph);
+                    map.put("list",list);
+                }
                 return new ResponseEntity<Map>(map, HttpStatus.OK);
             }
-            if (sort == 1) {
+            int totalCnt = productService.getSearchResultCnt(sc);
+            ph = new Paging(totalCnt, sc);
+            if (sort == 1) { // 신상품
                 list = productService.getSearchResultPage(sc);
                 map.put("totalCnt", totalCnt);
                 map.put("ph", ph);
                 map.put("list", list);
-            }else if(sort==2) {
+            }else if(sort==2) { // 베스트
                 list = productService.ProductBestList(sc);
                 map.put("totalCnt", totalCnt);
                 map.put("ph", ph);
                 map.put("list", list);
-            }else if(sort==3) {
+            }else if(sort==3) { // 알뜰쇼핑
                 list = productService.ProductThriftyList(sc);
                 map.put("totalCnt", totalCnt);
                 map.put("ph", ph);
                 map.put("list", list);
                 System.out.println("list = " + list);
-            }else if(sort==0){
-                List list1 = productService.mainlist("P001");
-                List list2 = productService.mainlist("P002");
-                List list3 = productService.mainlist("P003");
-                List list4 = productService.mainlist("P004");
-                List list5 = productService.mainlist("P005");
+            }
+            else if(sort==0){ // 메인페이지
+                List list1 = productService.mainlist("채소");
+                List list2 = productService.mainlist("과일·견과·쌀");
+                List list3 = productService.mainlist("수산·해산·건어물");
+                List list4 = productService.mainlist("정육·계란");
+                List list5 = productService.mainlist("국·반찬·메인요리");
                 map.put("list1", list1);
                 map.put("list2", list2);
                 map.put("list3", list3);
@@ -203,6 +198,19 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/categories")
+    @ResponseBody
+    public ResponseEntity<Map<String, List<MainSubCatDto>>> getCategories(){
+        Map<String, List<MainSubCatDto>> map = null;
+        try {
+            List<MainSubCatDto> list = productService.getMainSubCats();
+            map = list.stream().collect(Collectors.groupingBy(MainSubCatDto::getCd_type_name));
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 
     @GetMapping("/list")
@@ -213,16 +221,13 @@ public class ProductController {
             m.addAttribute("totalCnt", totalCnt);
             ph = new Paging(totalCnt,sc);
             List<ProductDto> list = null;
-
             if(order_sc==null || order_sc == ""){
                 list = productService.getSearchResultPage(sc);
-            }else{
                 Map map = new HashMap();
                 map.put("order_sc",order_sc);
                 map.put("offset",sc.getOffset());
                 map.put("pageSize",sc.getPageSize());
                 map.put("keyword",sc.getKeyword());
-                list = productService.ProductListDESC(map);
             }
             m.addAttribute("list", list);
             m.addAttribute("ph",ph);

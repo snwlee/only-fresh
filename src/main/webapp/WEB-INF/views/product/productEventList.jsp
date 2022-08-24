@@ -211,7 +211,7 @@
 
   <br>
   <div class="paging-container">
-    <div class="paging">
+    <div class="paging" >
       <%--                    <c:if test="${totalCnt==null || totalCnt==0}">--%>
       <%--                        <div> 게시물이 없습니다. </div>--%>
       <%--                    </c:if>--%>

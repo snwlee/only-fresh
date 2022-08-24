@@ -5,8 +5,8 @@
 <mapper namespace="com.devkurly.productDetail.dao.ProductDetailMapper">
 
     <insert id="insert" parameterType="ProductDetailDto" >
-        INSERT INTO PRODUCT_DETAIL_TB(pdt_id, company ,pack_cd, sell_cd, weca_cd, origin, allg_dt, ex_dt, notice, prt_info, de_type, in_user, up_user)
-        VALUES (#{pdt_id}, #{company}, #{pack_cd}, #{sell_cd}, #{weca_cd}, #{origin}, #{allg_dt}, #{ex_dt}, #{notice}, #{prt_info}, #{de_type}, #{user_id}, #{user_id});
+        INSERT INTO PRODUCT_DETAIL_TB(pdt_id, company ,pack_cd, sell_cd, weca_cd, origin, allg_dt, ex_dt, notice, prt_info, de_type, in_user, up_user, prt_image)
+        VALUES (#{pdt_id}, #{company}, #{pack_cd}, #{sell_cd}, #{weca_cd}, #{origin}, #{allg_dt}, #{ex_dt}, #{notice}, #{prt_info}, #{de_type}, #{user_id}, #{user_id}, #{prt_image});
     </insert>
 
     <select id="select" parameterType="int" resultType="ProductDetailDto">
@@ -30,7 +30,8 @@
             company = #{company},
             de_type = #{de_type},
             in_user = #{user_id},
-            up_user = #{user_id}
+            up_user = #{user_id},
+            prt_image = #{prt_image}
         WHERE pdt_id = #{pdt_id}
     </update>
 </mapper>

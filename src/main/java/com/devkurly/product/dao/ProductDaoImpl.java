@@ -1,5 +1,6 @@
 package com.devkurly.product.dao;
 
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
@@ -53,6 +54,10 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectOne(namespace + "count");
     }
 
+    @Override
+    public List<MainSubCatDto> getCatList(){
+        return session.selectList(namespace+"selectCategories");
+    }
 
     // U
 
@@ -76,8 +81,8 @@ public class ProductDaoImpl implements ProductDao {
         return session.delete(namespace + "delete", map);
     }
 
-    public List<ProductDto> mainlist(String cd_type_id)throws Exception {
-        return session.selectList(namespace + "mainlist", cd_type_id);
+    public List<ProductDto> mainlist(String cd_type_name)throws Exception {
+        return session.selectList(namespace + "mainlist", cd_type_name);
     }
 
 
@@ -142,6 +147,16 @@ public class ProductDaoImpl implements ProductDao {
         map.put("pageSize",sc.getPageSize());
         map.put("cd_name_num",cd_name_num);
         return session.selectList(namespace+"CodeNameSelect",map);
+    }
+
+    @Override
+    public List cate(SearchCondition sc, String cd_type_name) throws Exception {
+        return session.selectList(namespace+"cate",cd_type_name);
+    }
+
+    @Override
+    public int cateCnt(String cd_type_name) throws Exception {
+        return session.selectOne(namespace+"cateCnt",cd_type_name);
     }
 
 }

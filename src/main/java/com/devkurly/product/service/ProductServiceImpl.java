@@ -1,6 +1,7 @@
 package com.devkurly.product.service;
 
 import com.devkurly.product.dao.*;
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.*;
@@ -109,6 +110,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<MainSubCatDto> getMainSubCats() throws Exception{
+        return productDao.getCatList();
+    }
+
+    @Override
     public List<ProductDto> Vegetable(Map map) throws Exception {
         return productDao.Vegetable(map);
     }
@@ -125,8 +131,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> mainlist(String cd_type_id) throws Exception {
-        return productDao.mainlist(cd_type_id);
+    public List<ProductDto> mainlist(String cd_type_name) throws Exception {
+        return productDao.mainlist(cd_type_name);
     }
 
     @Override
@@ -139,7 +145,14 @@ public class ProductServiceImpl implements ProductService {
         return productDao.CodeNameSelect(sc,cd_name_num);
     }
 
-
+    @Override
+    public List cate(String cd_type_name, SearchCondition sc) throws Exception {
+        return productDao.cate(sc, cd_type_name);
+    }
+        @Override
+        public int cateCnt(String cd_type_name) throws Exception {
+            return productDao.cateCnt(cd_type_name);
+    }
 
 
 

@@ -200,13 +200,3 @@
     background-color: #f7f7f7;
     border: 1px solid #ddd;
 }
-
-#main_cat_container  a, #sub_cat_container a {
-    display: block;
-    text-decoration: none;
-    color: #333333;
-}
-
-#main_cat_container a:hover, #sub_cat_container a:hover {
-    color: #5F0080 ;
-}
