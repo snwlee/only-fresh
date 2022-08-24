@@ -43,7 +43,11 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public List<Cart> viewCheckedCart(CartSaveRequestDto requestDto) {
-        return cartMapper.findCheckedByCart(requestDto.toEntity());
+        List<Cart> cartList = cartMapper.findCheckedByCart(requestDto.toEntity());
+        if (cartList.isEmpty()) {
+            throw new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT);
+        }
+        return cartList;
     }
 
     @Transactional(readOnly = true)

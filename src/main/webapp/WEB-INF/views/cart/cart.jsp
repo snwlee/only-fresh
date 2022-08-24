@@ -221,8 +221,10 @@
                             <button id="plus-btn-` + index + `">+</button>
                         </div>
                         <div class="cart-sum" id="cart-sum-hidden-` + CartResponseDto.pdt_id + `" data-status="1" hidden>` + CartResponseDto.pdt_qty * CartResponseDto.sel_price + `</div>
-                        <p id="cart-sum-` + index + `">` + (CartResponseDto.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + `원</p>
-                        <a href="/carts/delete/` + CartResponseDto.pdt_id + `"><button>x</button></a>
+                        <p id="cart-sum-` + index + `" style="margin-bottom: 0px;
+                            ">` + (CartResponseDto.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + `원</p>
+                        <a href="/carts/delete/` + CartResponseDto.pdt_id + `"><button style="
+                            margin-bottom: 5px; color: #cacaca; font-size: 16px">x</button></a>
                         </div>
                         `;
                     $('#cart-empty').html('');
