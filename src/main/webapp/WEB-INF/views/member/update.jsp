@@ -28,10 +28,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 장바구니</title>
+    <title>DevKurly :: 개인 정보 수정</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
+    <link rel="stylesheet" type="text/css" href="/cart/temp.css">
     <style>
         #whole_container {
             width: 100%;
@@ -123,10 +124,10 @@
                     action="/members/info"
                     method="post"
                     onsubmit="return formCheck(this)"
+                    autocomplete="off"
             >
-                <div class="member-title">회원 정보</div>
                 <div class="member-title" style="font-size: 16px">
-                    회원 정보 수정
+                    개인 정보 수정
                 </div>
                 <%--                <div class="warning-msg" id="msg">${error}</div>--%>
                 <input type="number" name="user_id" value="${sessionScope.memberResponse.user_id}" hidden/>
@@ -153,7 +154,7 @@
                 <input
                         class="member-input-text"
                         type="text"
-                        name="name"
+                        name="user_nm"
                         placeholder="이름"
                         value="${updateResponse.user_nm}"
                 />

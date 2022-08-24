@@ -63,7 +63,8 @@
             margin-left: 28px;
         }
         #review_view .review_content {
-            width: 60%;
+            width: 120%;
+            word-break: break-word;
             padding: 20px 9px 30px;
             line-height: 25px
         }
@@ -286,8 +287,7 @@
     let page = ${param.page};
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
-    <%--let user_id = ${sessionScope.user_id};--%>
-    let user_id = 1; //임시 하드코딩
+    let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
 
     let showList = function(pdt_id, sortType){
         $.ajax({
@@ -303,6 +303,8 @@
     let toHtml =function(lists){
         let tmp = "";
         lists.forEach(function(BoardDto){
+            if(BoardDto.notice=='1')
+                BoardDto.bbs_title = ('<b style="font-weight:900">공지  </b>'+BoardDto.bbs_title);
             tmp += '<table class="tb1" width="100%">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -316,7 +318,7 @@
             tmp += '<tr class="tr1">'
             tmp += '<td class="no">'+BoardDto.bbs_id+'</td>'
             tmp += '<td class="title">'
-            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
+            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
             tmp += '</td>'
             tmp += '<td class="grade">VIP</td>'
             tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
@@ -357,6 +359,11 @@
         $("#review_view").appendTo($("div[data-bbs_id=" + bbs_id + "]"));
         $("#review_view").css("display", "block");
     }
+    let resetButtons = function(){
+        $(".mod_btn").attr("style", "display:none");
+        $(".del_btn").attr("style", "display:none");
+        $(".like_button").attr("style", "display:none");
+    }
 
     let deleteModalValue = function () {
         $("#myModal #bbs_title").val('');
@@ -368,9 +375,52 @@
     $(document).ready(function(){
         showList(pdt_id);
         let readStatus = false;
+        resetButtons();
+
+        if(${sessionScope.memberResponse==null}) {
+            $(".p_write_btn").click(function () {
+                window.parent.location.href = "/members";
+            })
+        }
+
+        $("#board").on("click", ".title_cn", function() {
+            if (!readStatus) {
+                let bbs_id = $(this).attr("data-bbs_id");
+                let writer_id = $(this).attr("data-id");
+                readStatus = true;
+                $.ajax({
+                    type: 'GET',
+                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
+                    headers: {"content-type": "application/json"},
+                    success: function (result) {
+                        $(".del_btn").attr("data-bbs_id", bbs_id);
+                        $(".mod_btn").attr("data-bbs_id", bbs_id);
+                        $(".like_button").attr("data-bbs_id", bbs_id);
+                        $(".review_content").text(result.boardDto.bbs_cn);
+
+                        if(${sessionScope.memberResponse!=null}){
+                            if(writer_id===user_id){
+                                $(".mod_btn").attr("style", "display:block");
+                                $(".del_btn").attr("style", "display:block");
+                            }else{
+                                $(".like_button").attr("style", "display:block");
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+                });
+                locateCn(bbs_id);
+            } else {
+                relocateCn();
+                readStatus = false;
+                resetButtons();
+            }
+        })
+
 
         $("#sort-option").change(function(){
-            console.log(this.value);
             let sortType = this.value;
             showList(pdt_id, sortType);
         });
@@ -416,34 +466,6 @@
             $(".modal").css("display","none");
             deleteModalValue();
         });
-
-
-        $("#board").on("click", ".title_cn", function() {
-            if (!readStatus) {
-                let bbs_id = $(this).attr("data-bbs_id");
-                //
-                readStatus = true;
-                $.ajax({
-                    type: 'GET',
-                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
-                    headers: {"content-type": "application/json"},
-                    success: function (result) {
-                        $(".review_content").text(result.boardDto.bbs_cn);
-                        console.log(result.bbs_cn);
-                        $(".del_btn").attr("data-bbs_id", bbs_id);
-                        $(".mod_btn").attr("data-bbs_id", bbs_id);
-                        $(".like_button").attr("data-bbs_id", bbs_id);
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-                locateCn(bbs_id);
-            } else {
-                relocateCn();
-                readStatus = false;
-            }
-        })
 
         $("#board").on("click", ".del_btn", function(){
             let bbs_id = $(this).attr("data-bbs_id");
@@ -500,25 +522,28 @@
                     relocateCn();
                     readStatus = false;
                     showList(pdt_id);
+                    $(".modal").css("display","none");
                 },
                 error   : function(){ alert("error") }
             });
             $(".close").trigger("click");
         });
 
-        $("#board").on("click", ".like_button", function(){
-            let bbs_id = $(this).attr("data-bbs_id");
-            $.ajax({
-                type:'PATCH',
-                url: '/like/'+bbs_id+'?user_id='+user_id,
-                success : function(result){
-                    relocateCn();
-                    readStatus = false;
-                    showList(pdt_id);
-                },
-                error : function(){ alert("you pushed like-btn in this review already.")}
+        if(${sessionScope.memberResponse !=null}) {
+            $("#board").on("click", ".like_button", function () {
+                let bbs_id = $(this).attr("data-bbs_id");
+                $.ajax({
+                    type: 'PATCH',
+                    url: '/like/' + bbs_id,
+                    success: function (result) {
+                        relocateCn();
+                        readStatus = false;
+                        showList(pdt_id);
+                    },
+                    error : function(){ alert("you pushed like-btn in this review already.")}
+                });
             });
-        });
+        }
     });
 </script>
 </body>

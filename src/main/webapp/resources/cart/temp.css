@@ -1,0 +1,146 @@
+/*임시 CSS*/
+
+.member-out-box {
+    margin-left: 100px;
+    display: flex;
+    justify-content: center;
+    width: 520px;
+    height: 100vh;
+    border-left: 1px solid #cacaca;
+    border-right: 1px solid #cacaca;
+    background-color: white;
+}
+
+.member-submit-box {
+    width: 500px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.member-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.member-title {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.member-input-text {
+    width: 333px;
+    height: 48px;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 15px;
+    display: block;
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+}
+
+.self-input-text {
+    width: 333px;
+    height: 42px;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 15px;
+    display: block;
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+}
+
+.member-input-text[type="text"]:disabled {
+    width: 333px;
+    height: 48px;
+    color: #999999;
+    background: #eaeaea;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 15px;
+    display: block;
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+}
+
+.member-btn-a {
+    cursor: pointer;
+    width: 340px;
+    height: 56px;
+    border-radius: 5px;
+    border: none;
+    background-color: #5F0080;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-btn-b {
+    cursor: pointer;
+    width: 340px;
+    height: 56px;
+    border-radius: 5px;
+    border: 1px solid #5f0080;
+    background-color: #ffffff;
+    color: #5f0080;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-btn-c {
+    width: 340px;
+    height: 56px;
+    border-radius: 5px;
+    border: none;
+    background-color: #5F0080;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-btn-sns {
+    cursor: pointer;
+    width: 340px;
+    height: 56px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffe500;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.password-view {
+    width: 64px;
+    height: 64px;
+    border-radius: 5px;
+    background-color: #4C4C4C;
+    color: white;
+}
+
+#kakao {
+    padding-right: 50px;
+}

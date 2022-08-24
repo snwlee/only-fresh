@@ -5,6 +5,7 @@ import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
 import com.devkurly.member.exception.SignUpException;
+import com.devkurly.order.exception.OrderException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -59,6 +60,13 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<String> signUpCatcher(HttpServletResponse response, Exception e) throws IOException {
         System.out.println("잘못된 값이 입력 되었습니다.");
         response.sendRedirect("/members/signup?error=3");
+        return ResponseEntity.badRequest().body(ErrorCode.SIGN_UP_FAIL.getMessage());
+    }
+
+    @ExceptionHandler(OrderException.class)
+    protected ResponseEntity<String> orderCatcher(HttpServletResponse response, Exception e) throws IOException {
+        System.out.println("주문 중 오류가 발생 했습니다.");
+        response.sendRedirect("/carts?error=1");
         return ResponseEntity.badRequest().body(ErrorCode.SIGN_UP_FAIL.getMessage());
     }
 }

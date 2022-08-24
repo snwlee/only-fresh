@@ -31,21 +31,21 @@ public class CartMapperTest {
         Assert.assertSame(20, cart.getPdt_qty());
     }
 
-    @Test
-    @Transactional
-    public void 유저장바구니보기() {
-        // given
-        Cart cart = new Cart(1, 1, 20);
-        cartMapper.save(cart);
-
-        // when
-        CartProductResponseDto cartProductResponseDto = cartMapper.joinCartProductByCart(cart);
-
-        // then
-        Assert.assertEquals(cart.getUser_id(), cartProductResponseDto.getUser_id());
-        Assert.assertEquals(cart.getPdt_id(), cartProductResponseDto.getPdt_id());
-        Assert.assertEquals(cart.getPdt_qty(), cartProductResponseDto.getPdt_qty());
-    }
+//    @Test
+//    @Transactional
+//    public void 유저장바구니보기() {
+//        // given
+//        Cart cart = new Cart(1, 1, 20);
+//        cartMapper.save(cart);
+//
+//        // when
+////        CartProductResponseDto cartProductResponseDto = cartMapper.joinCartProductByCart(cart);
+//
+//        // then
+//        Assert.assertEquals(cart.getUser_id(), cartProductResponseDto.getUser_id());
+//        Assert.assertEquals(cart.getPdt_id(), cartProductResponseDto.getPdt_id());
+//        Assert.assertEquals(cart.getPdt_qty(), cartProductResponseDto.getPdt_qty());
+//    }
 
     @Test
     @Transactional
