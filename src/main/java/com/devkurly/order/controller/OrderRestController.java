@@ -1,5 +1,6 @@
 package com.devkurly.order.controller;
 
+import com.devkurly.address.domain.AddressDto;
 import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.coupon.domain.UserCouponDto;
 import com.devkurly.coupon.service.CouponService;
@@ -35,4 +36,11 @@ public class OrderRestController {
         Integer user_id = getMemberResponse(session);
         return memberService.findUpdateMember(user_id);
     }
+
+    @GetMapping("/address")
+    public AddressDto readAddress(HttpSession session) {
+        Integer user_id = getMemberResponse(session);
+        return memberService.findAddress(user_id);
+    }
+
 }

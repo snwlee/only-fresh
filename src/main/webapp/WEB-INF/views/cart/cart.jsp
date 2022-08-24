@@ -170,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="/orders" method="get" autocomplete="off">
+                <form id="form" action="/orders" method="get" autocomplete="off">
                     <input type="hidden" name="checked" id="checked" value="" />
                     <button id="order_submit" type="submit" style="cursor: pointer">
                         주문하기
@@ -181,8 +181,9 @@
     </div>
 </div>
 <script>
-
     $("#order_submit").click(function () {
+
+        $(this).prop('disabled', true);
 
         let checkArr = [];
 
@@ -191,6 +192,8 @@
         });
         console.log(checkArr);
         $("#checked").val(checkArr);
+
+        $('#form').submit();
     });
     String.prototype.insertAt = function (index, str) {
         return this.slice(0, index) + str + this.slice(index)

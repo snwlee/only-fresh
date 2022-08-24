@@ -1,5 +1,6 @@
 package com.devkurly.member.service;
 
+import com.devkurly.address.domain.AddressDto;
 import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.MemberMapper;
@@ -62,6 +63,10 @@ public class MemberService {
             throw new OrderException("사용 가능한 쿠폰이 없습니다.", ErrorCode.ORDER_ERROR);
         }
         return couponById;
+    }
+
+    public AddressDto findAddress(Integer user_id) {
+        return memberMapper.findAddressById(user_id);
     }
 
     private Member getMember(Integer user_id) {

@@ -25,6 +25,12 @@
         on UT.coupn_id = CT.coupn_id
         where user_id = #{user_id} and used = 0;
     </select>
+    <select id="findAddressById" parameterType="int" resultType="AddressDto">
+        select main_addr, sub_addr, addr_name, addr_tel
+        from ADDRESS_TB
+        where user_id = #{user_id}
+        and chk_addr = 1;
+    </select>
     <update id="update" parameterType="Member">
         update USER_TB
         set user_nm = #{user_nm},

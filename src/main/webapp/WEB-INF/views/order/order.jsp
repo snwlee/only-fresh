@@ -150,15 +150,7 @@
                     <h4 class="product_type">배송 정보</h4>
                     <div class="products_container">
                         <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
-                        <div id="delivery"></div>
-                        <div class="payment_row">
-                            <span>배송지</span>
-                            <span>서울 중구 서소문로 89-20 (삼정 아트테라스 정동) 지하2층</span>
-                        </div>
-                        <div class="payment_row">
-                            <span>상세 정보</span>
-                            <span>김OLD한, 010-0000-0000</span>
-                        </div>
+                        <div id="address"></div>
                     </div>
                     <h4 class="product_type">쿠폰 / 적립금</h4>
                     <div class="products_container">
@@ -168,22 +160,22 @@
                             <span style="margin-top: 15px;">쿠폰 적용</span>
                             <span>
                             <label>
-                                <select class="coupon-select" id="coupon-select" name='credit'>
-                                    <option value=''>사용가능 쿠폰 0 장 / 전체 0 장</option>
+                                <select class="coupon-select" id="coupon-select" name='coupn_id'>
+                                    <option data-coupon="0" value='0'>사용가능 쿠폰 0 장 / 전체 0 장</option>
                                 </select>
                             </label>
                         </span>
                         </div>
                         <div style="padding-top: 20px;" class="payment_row">
-                            <span style="margin-top: 30px;">적립금 적용</span>
-                            <span style="margin-top: 15px;"><input id="point-input" type="number"
-                                                                   placeholder="0"></span>
-
+                            <span style="margin-top: 30px;">보유한 적립금</span>
+                            <span id="point-text" style="padding-top: 25px; padding-left: 300px;">0원</span>
+                            <span><a id="point-btn">모두사용</a></span>
                         </div>
                         <div style="padding-top: 20px;" class="payment_row">
-                            <span style="margin-top: 25px;">사용한 적립금</span>
-                            <span style="padding-top: 25px; padding-left: 300px;">0원</span>
-                            <span><button id="point-btn">모두사용</button></span>
+                            <span style="margin-top: 25px;">사용할 적립금</span>
+                            <span style="margin-top: 15px;"><input id="point-input" type="number" max="0" min="0"
+                                                                   value="0"
+                                                                   placeholder="0" style="text-align: right"></span>
                         </div>
                     </div>
                     <h4 class="product_type">결제 수단</h4>
@@ -236,7 +228,6 @@
                         </div>
                             </span>
                         </div>
-
                     </div>
                 </div>
                 <div style="width: 284px;padding-left: 10px;">
@@ -264,11 +255,11 @@
                                 </div>
                                 <div class="payment_row">
                                     <span>쿠폰할인</span>
-                                    <span>0 원</span>
+                                    <span id="coupon_price">0 원</span>
                                 </div>
                                 <div class="payment_row">
                                     <span>적립금사용</span>
-                                    <span>0 원</span>
+                                    <span id="point_price">0 원</span>
                                 </div>
                                 <div class="payment_row total">
                                     <span>최종결제금액</span>
@@ -278,22 +269,27 @@
                         </div>
                     </div>
                     <input type="hidden" name="checked" id="checked" value=""/>
-                    <input type="number" name="all_amt" id="all_amt" value="${sum}" hidden>
+                    <input type="number" name="all_amt" id="all_amt" min="0" value="${sum}" hidden>
                     <button id="order_submit" type="submit" style="cursor: pointer; font-weight: 500; font-size: 16px;">
                         0 원 결제하기
                     </button>
                 </div>
             </div>
+        </form>
     </div>
-    <%--        -----%>
-    </form>
 </div>
 <script>
+    $('#order_submit').click(function () {
+        $(this).prop('disabled', true);
+        $('#form').submit();
+    });
+
     $('#order_submit').html((${sum}).toLocaleString('en-US') + ' 원 결제하기');
     $('#product_price').html((${pdtSum}).toLocaleString('en-US') + ' 원');
     $('#discount_price').html((${sum - pdtSum}).toLocaleString('en-US') + ' 원');
     $('#payment_price').html((${sum}).toLocaleString('en-US') + ' 원');
     $('#order_price').html((${sum}).toLocaleString('en-US') + ' 원');
+
     $('input:checkbox').prop('checked', true);
     $('.remember-payment-checked').css('display', '')
     $('.remember-payment-unchecked').css('display', 'none')
@@ -351,6 +347,7 @@
         });
     });
     $(document).ready(function () {
+
         /**
          * 쿠폰 요청
          */
@@ -362,7 +359,7 @@
                 $.each(result, function (index, CouponDto) {
                     let coupon =
                         `
-                        <option value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
+                        <option class='coupon-option' data-coupon='` + CouponDto.rate + `' value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
                         `;
                     $('#coupon-select').append(coupon);
                 })
@@ -380,6 +377,27 @@
             url: '/orders/userinfo',
             datatype: 'json',
             success: function (result) {
+                $('#point-input').prop('max', result.pnt);
+                $('#point-text').html(result.pnt.toLocaleString() + ' 원');
+                $('#point-btn').click(function () {
+                    $('#point-input').val(result.pnt);
+                    $('#point_price').html((-result.pnt).toLocaleString() + ' 원').css('color', '#FA7E54');
+                    $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
+                    $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
+                    $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                });
+                $('#point-input').change(function () {
+                    $('#point_price').html((-$('#point-input').val()).toLocaleString() + ' 원').css('color', '#FA7E54');
+                    $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
+                    $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
+                    $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                });
+                $('#coupon-select').change(function () {
+                    $('#coupon_price').html((-$("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원').css('color', '#FA7E54');
+                    $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
+                    $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
+                    $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                });
                 let user =
                     `
                         <div class="payment_row">
@@ -399,6 +417,32 @@
             },
             error: function () {
                 alert('회원 정보가 없습니다.')
+            }
+        });
+
+        /**
+         * 배송지 정보 요청
+         */
+        $.ajax({
+            type: 'GET',
+            url: '/orders/address',
+            datatype: 'json',
+            success: function (result) {
+                let user =
+                    `
+                        <div class="payment_row">
+                            <span>배송지</span>
+                            <span>` + result.main_addr + ` ` + result.sub_addr + `</span>
+                        </div>
+                        <div class="payment_row">
+                            <span>상세 정보</span>
+                            <span>` + result.addr_name + `, ` + result.addr_tel + `</span>
+                        </div>
+                        `;
+                $('#address').append(user);
+            },
+            error: function () {
+                alert('배송지 정보가 없습니다.')
             }
         });
     });

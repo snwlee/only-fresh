@@ -1,5 +1,6 @@
 package com.devkurly.mapper;
 
+import com.devkurly.address.domain.AddressDto;
 import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.member.domain.Member;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,7 @@ public interface MemberMapper {
     Member findByEmail(String user_email);
     Member findById(Integer user_id);
     List<CouponDto> findCouponById(Integer user_id);
+    AddressDto findAddressById(Integer user_id);
     Integer update(Member member);
     Integer delete(Integer user_id);
 
