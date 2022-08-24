@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
 
@@ -34,7 +33,6 @@ public class OrderController {
     @GetMapping("")
     public String requestOrder(@RequestParam(value = "checked") List<String> chArr, Model model, HttpSession session) {
         // 주문 하려는 상품이 장바구니에 있는지 확인
-
 
         Integer user_id = getMemberResponse(session);
 

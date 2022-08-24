@@ -180,12 +180,8 @@
                             <span style="margin-top: 15px;">쿠폰 적용</span>
                             <span>
                             <label>
-                                <select class="coupon-select" name='credit'>
+                                <select class="coupon-select" id="coupon-select" name='credit'>
                                     <option value=''>사용가능 쿠폰 0 장 / 전체 0 장</option>
-                                    <option value='30% 쿠폰'>30% 쿠폰</option>
-                                    <option value='35% 쿠폰'>35% 쿠폰</option>
-                                    <option value='20% 쿠폰'>20% 쿠폰</option>
-                                    <option value='10% 쿠폰'>10% 쿠폰</option>
                                 </select>
                             </label>
                         </span>
@@ -345,7 +341,28 @@
             }
         });
     });
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/orders/coupon',
+            datatype: 'json',
+            success: function (result) {
+                $.each(result, function (index, CouponDto) {
+                    let coupon =
+                        `
+                        <option value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
+                        `;
+                    $('#coupon-select').append(coupon);
+                })
+            },
+            error: function () {
+                alert('쿠폰이 없습니다.')
+            }
+        });
+    });
+
 </script>
+
 <%--    <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>--%>
 <%--<script>--%>
 <%--    --%>
