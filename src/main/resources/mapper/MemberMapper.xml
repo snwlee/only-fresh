@@ -18,6 +18,13 @@
         from USER_TB
         where user_id = #{user_id};
     </select>
+    <select id="findCouponById" parameterType="int" resultType="CouponDto">
+        select UT.coupn_id, used, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        from USER_COUPON_TB UT
+        join COUPON_TB CT
+        on UT.coupn_id = CT.coupn_id
+        where user_id = #{user_id} and used = 0;
+    </select>
     <update id="update" parameterType="Member">
         update USER_TB
         set user_nm = #{user_nm},

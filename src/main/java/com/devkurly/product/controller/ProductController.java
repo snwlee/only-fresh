@@ -121,7 +121,7 @@ public class ProductController {
         try {
             List<ProductDto> list = null;
             //Mapper에 있는 goodslist를 service까지 구현해서 cd_name을 매개값으로 적용(?)
-                list = productService.goodslist(cd_name);
+            list = productService.goodslist(cd_name);
             return new ResponseEntity<List>(list, HttpStatus.OK);
 
         } catch (Exception e) {
@@ -153,25 +153,56 @@ public class ProductController {
 
     @GetMapping("/call")
     @ResponseBody
-    public ResponseEntity<Map> main(){
-        Map <String,Object> map = new HashMap<String,Object>();
+    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Paging ph = null;
+        List list = null;
         try {
-            List list1 = productService.mainlist("P001");
-            List list2 =productService.mainlist("P002");
-            List list3 =productService.mainlist("P003");
-            List list4 =productService.mainlist("P004");
-            List list5 =productService.mainlist("P005");
-            map.put("list1", list1);
-            map.put("list2", list2);
-            map.put("list3", list3);
-            map.put("list4", list4);
-            map.put("list5", list5);
+            int totalCnt = productService.getSearchResultCnt(sc);
+            ph = new Paging(totalCnt, sc);
+            if(cd_name_num!=null){
+                list = productService.CodeNameSelect(cd_name_num, sc);
+                System.out.println("list = " + list);
+                map.put("totalCnt",totalCnt);
+                map.put("ph",ph);
+                map.put("list",list);
+                return new ResponseEntity<Map>(map, HttpStatus.OK);
+            }
+            if (sort == 1) {
+                list = productService.getSearchResultPage(sc);
+                map.put("totalCnt", totalCnt);
+                map.put("ph", ph);
+                map.put("list", list);
+            }else if(sort==2) {
+                list = productService.ProductBestList(sc);
+                map.put("totalCnt", totalCnt);
+                map.put("ph", ph);
+                map.put("list", list);
+            }else if(sort==3) {
+                list = productService.ProductThriftyList(sc);
+                map.put("totalCnt", totalCnt);
+                map.put("ph", ph);
+                map.put("list", list);
+                System.out.println("list = " + list);
+            }else if(sort==0){
+                List list1 = productService.mainlist("P001");
+                List list2 = productService.mainlist("P002");
+                List list3 = productService.mainlist("P003");
+                List list4 = productService.mainlist("P004");
+                List list5 = productService.mainlist("P005");
+                map.put("list1", list1);
+                map.put("list2", list2);
+                map.put("list3", list3);
+                map.put("list4", list4);
+                map.put("list5", list5);
+            }
             return new ResponseEntity<Map>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Map>(HttpStatus.BAD_REQUEST);
         }
     }
+
 
 
     @GetMapping("/list")
