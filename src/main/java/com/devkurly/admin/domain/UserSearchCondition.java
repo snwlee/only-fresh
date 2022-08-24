@@ -2,29 +2,28 @@ package com.devkurly.admin.domain;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class SearchCondition {
+public class UserSearchCondition {
     private Integer page = 1;
     private Integer pageSize = 10;
     private String keyword = "";
-    private String option =  "";
+    private String option = "";
 
-
-    public SearchCondition(){}
-    public SearchCondition(Integer page, Integer pageSize, String keyword, String option) {
+    public UserSearchCondition(){}
+    public UserSearchCondition(Integer page, Integer pageSize, String keyword, String option) {
         this.page = page;
         this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
     }
+
     public String getQueryString(Integer page) {
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
                 .queryParam("pageSize", pageSize)
-                .queryParam("option",  option)
+                .queryParam("option", option)
                 .queryParam("keyword", keyword)
                 .build().toString();
     }
-
     public String getQueryString() {
         return getQueryString(page);
     }
@@ -45,8 +44,9 @@ public class SearchCondition {
         this.pageSize = pageSize;
     }
 
-    public Integer getOffset() {return (page-1) * pageSize;}
-
+    public Integer getOffset() {
+        return (page-1)*pageSize;
+    }
 
     public String getKeyword() {
         return keyword;
@@ -64,10 +64,9 @@ public class SearchCondition {
         this.option = option;
     }
 
-
     @Override
     public String toString() {
-        return "SearchCondition{" +
+        return "UserSearchCondition{" +
                 "page=" + page +
                 ", pageSize=" + pageSize +
                 ", offset=" + getOffset() +

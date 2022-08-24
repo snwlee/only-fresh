@@ -2,6 +2,7 @@ package com.devkurly.admin.service;
 
 import com.devkurly.admin.dao.UserDao;
 import com.devkurly.admin.domain.UserDto;
+import com.devkurly.admin.domain.UserSearchCondition;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -11,6 +12,16 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
+
+    @Override
+    public List<UserDto> getUserSearchResultPage(UserSearchCondition sc) throws Exception {
+        return userDao.userSearchSelectPage(sc);
+    }
+
+    @Override
+    public int getUserSearchResultCnt(UserSearchCondition sc) throws Exception {
+        return userDao.userSearchResultCnt(sc);
+    }
 
     @Override
     public int getCount() throws Exception {

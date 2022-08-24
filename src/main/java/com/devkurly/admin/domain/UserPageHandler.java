@@ -1,9 +1,9 @@
 package com.devkurly.admin.domain;
 
+import org.springframework.web.util.*;
+
 public class UserPageHandler {
-    private SearchCondition sc;
-
-
+    private UserSearchCondition sc;
     private int totalCnt;
     private int naviSize = 10;
     private int totalPage;
@@ -12,17 +12,17 @@ public class UserPageHandler {
     private boolean showPrev;
     private boolean showNext;
 
-    public UserPageHandler(int totalCnt, SearchCondition sc) {
+    public UserPageHandler(int totalCnt, UserSearchCondition sc) {
         this.totalCnt = totalCnt;
         this.sc = sc;
 
         doPaging(totalCnt, sc);
     }
 
-    public void doPaging(int totalCnt, SearchCondition sc) {
+    public void doPaging(int totalCnt, UserSearchCondition sc) {
         this.totalCnt = totalCnt;
 
-        totalPage = (int) Math.ceil(totalCnt / (double) sc.getPageSize());
+        totalPage = (int)Math.ceil((totalCnt) / (double)sc.getPageSize());
         beginPage = (sc.getPage() - 1) / naviSize * naviSize + 1;
         endPage = Math.min(beginPage + naviSize - 1, totalPage);
         showPrev = beginPage != 1;
@@ -30,14 +30,9 @@ public class UserPageHandler {
     }
 
 
+    public UserSearchCondition getSc() {return sc;}
 
-    public SearchCondition getSc() {
-        return sc;
-    }
-
-    public void setSc(SearchCondition sc) {
-        this.sc = sc;
-    }
+    public void setSc(UserSearchCondition sc) {this.sc = sc;}
 
     public int getTotalCnt() {
         return totalCnt;
@@ -95,19 +90,9 @@ public class UserPageHandler {
         this.showNext = showNext;
     }
 
-    void print() {
-        System.out.println("page = " + sc.getPage());
-        System.out.print(showPrev ? "[PREV] " : "");
-        for (int i = beginPage; i <= endPage; i++) {
-            System.out.print(i + " ");
-        }
-        System.out.println(showNext ? " [NEXT]" : "");
-
-    }
-
     @Override
     public String toString() {
-        return "PageHandler{" +
+        return "UserPageHandler{" +
                 "sc=" + sc +
                 ", totalCnt=" + totalCnt +
                 ", naviSize=" + naviSize +
@@ -119,3 +104,4 @@ public class UserPageHandler {
                 '}';
     }
 }
+

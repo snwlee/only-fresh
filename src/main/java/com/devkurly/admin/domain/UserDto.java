@@ -158,8 +158,6 @@ public class UserDto {
         this.rcmdr_email = rcmdr_email;
         this.pnt = pnt;
     }
-
-    // constructor(all)
     public UserDto() {}
 
 }

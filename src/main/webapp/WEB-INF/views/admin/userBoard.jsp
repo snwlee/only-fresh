@@ -59,7 +59,7 @@
     .btn {
       background-color: rgb(236, 236, 236); /* Blue background */
       border: none; /* Remove borders */
-      color: black; /* White text */
+      color: rebeccapurple; /* White text */
       padding: 6px 12px; /* Some padding */
       font-size: 16px; /* Set a font size */
       cursor: pointer; /* Mouse pointer on hover */
@@ -88,7 +88,6 @@
 <div class="container">
   <h2 class="writing-header">회원정보 ${mode=="new" ? "등록" : "조회"}</h2>
   <form id="form" class="frm" action="" method="post">
-    <!--id는 어떤 상황에서든지 변경 불가해야하므로-->
     <input type="hidden" name="user_id" value="<c:out value='${userDto.user_id}'/>" ${mode=="new" ? "" : "readonly='readonly'"}><br>
     <td>이름</td>
     <input type="text" name="user_nm" value="<c:out value='${userDto.user_nm}'/>" ${mode=="new" ? "" : "readonly='readonly'"}><br>
@@ -114,19 +113,18 @@
       <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
       <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
       <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
-
   </form>
 </div>
 <script>
   $(document).ready(function(){
     $('#listBtn').on("click", function (){
-      location.href = "<c:url value='/admin/list'/>?page=${page}&pageSize=${pageSize}";
+      location.href = "<c:url value='/admin/list${userSearchCondition.queryString}'/>";
     });
 
     $("#writeBtn").on("click", function(){
       let form = $("#form");
       form.attr("action", "<c:url value='/admin/write'/>");
-      form.attr("method", "POST");  <!--post mapping이 Controller에서 잘 작동하는지 확인-->
+      form.attr("method", "POST");
       form.submit();
     });
 
@@ -134,7 +132,6 @@
     let form = $("#form");
     let isReadonly = $("input").attr('readonly');
 
-    // 1. 읽기 상태이면, 수정 상태로 변경
     if(isReadonly=='readonly') {
       $("input").attr('readonly',false);
       $("#modifyBtn").html("등록");
@@ -142,22 +139,29 @@
       return;
     }
 
-    // 2. 수정 상태이면, 수정된 내용을 서버로 전송
-    form.attr("action", "<c:url value='/admin/modify'/>");  //update
+    form.attr("action", "<c:url value='/admin/modify${userSearchCondition.queryString}'/>");  //update
     form.attr("method", "post");
-    form.submit();
+    if(formCheck())
+      form.submit();
   });
 
 
   $("#removeBtn").on("click", function(){
     if(!confirm("정말로 삭제하시겠습니까?")) return;
     let form = $("#form");
-    form.attr("action", "<c:url value='/admin/remove'/>?page=${page}&pageSize=${pageSize}");
+    form.attr("action", "<c:url value='/admin/remove${userSearchCondition.queryString}'/>");
     form.attr("method", "post");
     form.submit();
   });
 
 });
+</script>
+<script>
+  function formCheck(frm) {
+    let msg ='';
+
+    if(frm.)
+  }
 </script>
 </body>
 </html>

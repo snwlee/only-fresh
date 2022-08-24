@@ -28,6 +28,7 @@
     <delete id="deleteForAdmin">
         DELETE FROM USER_TB WHERE user_id = #{user_id}
     </delete>
+
     <delete id="delete" parameterType="int">
         DELETE FROM USER_TB WHERE user_id = #{user_id}
     </delete>
@@ -68,7 +69,7 @@
         FROM USER_TB
     </sql>
 
-    <select id="selectPage" parameterType="map" resultType="UserDto">
+    <select id="userSelectPage" parameterType="UserSearchCondition" resultType="UserDto">
         SELECT user_id,
                user_nm,
                user_email,
@@ -97,22 +98,22 @@
     </update>
 
 
-    <sql id="searchCondition">
+    <sql id="userSearchCondition">
         <choose>
             <when test='option=="T"'>
-                AND title LIKE concat('%', #{keyword}, '%')
+                And user_nm LIKE concat('%', #{keyword}, '%')
             </when>
             <when test='option=="W"'>
-                AND writer LIKE concat('%', #{keyword}, '%')
+                AND user_id LIKE concat('%', #{keyword}, '%')
             </when>
             <otherwise>
-                AND (title LIKE concat('%', #{keyword}, '%')
-                OR content LIKE concat('%', #{keyword}, '%'))
+                AND (user_nm LIKE concat('%', #{keyword}, '%')
+                OR user_email LIKE concat('%', #{keyword}, '%'))
             </otherwise>
         </choose>
     </sql>
 
-    <select id="searchSelectPage" parameterType="SearchCondition" resultType="UserDto">
+    <select id="userSearchSelectPage" parameterType="UserSearchCondition" resultType="UserDto">
         SELECT  user_id,
                 user_nm,
                 user_email,
@@ -124,16 +125,16 @@
                 rcmdr_email
         FROM USER_TB
         where true
-        <include refid="searchCondition"/>
+        <include refid="userSearchCondition"/>
         ORDER BY subs_dt DESC, user_id DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+    <select id="userSearchResultCnt" parameterType="UserSearchCondition" resultType="int">
         SELECT count(*)
         FROM USER_TB
         where true
-        <include refid="searchCondition"/>
+        <include refid="userSearchCondition"/>
     </select>
 
 </mapper>
