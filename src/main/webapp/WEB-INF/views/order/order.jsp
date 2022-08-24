@@ -145,19 +145,7 @@
                     <h4 class="product_type">주문자 정보</h4>
                     <div class="products_container">
                         <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
-                        <div id="user"></div>
-                        <div class="payment_row">
-                            <span>보내시는 분</span>
-                            <span>김OLD한</span>
-                        </div>
-                        <div class="payment_row">
-                            <span>휴대폰</span>
-                            <span>010-0000-0000</span>
-                        </div>
-                        <div class="payment_row">
-                            <span>이메일</span>
-                            <span>pgrrr119@gmail.com</span>
-                        </div>
+                        <div id="user-info"></div>
                     </div>
                     <h4 class="product_type">배송 정보</h4>
                     <div class="products_container">
@@ -249,30 +237,38 @@
                         <h4 style="font-weight: 500; font-size: 24px">결제 금액</h4>
                     </div>
                     <div id="shipping_payment">
-                        <div id="payment_box">
+                        <div id="payment_box" style="height: 260px;">
                             <div style="padding: 20px">
                                 <div class="payment_row">
                                     <span>주문금액</span>
-                                    <span id="product_price">0원</span>
+                                    <span id="product_price">0 원</span>
                                 </div>
                                 <div class="payment_row">
                                     <span>상품할인금액</span>
-                                    <span>0원</span>
+                                    <span>0 원</span>
                                 </div>
                                 <div class="payment_row">
                                     <span>배송비</span>
-                                    <span>0원</span>
+                                    <span>0 원</span>
+                                </div>
+                                <div class="payment_row">
+                                    <span>쿠폰할인</span>
+                                    <span>0 원</span>
+                                </div>
+                                <div class="payment_row">
+                                    <span>적립금사용</span>
+                                    <span>0 원</span>
                                 </div>
                                 <div class="payment_row total">
                                     <span>최종결제금액</span>
-                                    <span id="payment_price">0원</span>
+                                    <span id="payment_price">0 원</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="checked" id="checked" value=""/>
                     <input type="number" name="all_amt" value="${sum}" hidden>
-                    <button id="order_submit" type="submit" style="cursor: pointer">
+                    <button id="order_submit" type="submit" style="cursor: pointer;">
                         0 원 결제하기
                     </button>
                 </div>
@@ -342,6 +338,9 @@
         });
     });
     $(document).ready(function () {
+        /**
+         * 쿠폰 요청
+         */
         $.ajax({
             type: 'GET',
             url: '/orders/coupon',
@@ -357,6 +356,36 @@
             },
             error: function () {
                 alert('쿠폰이 없습니다.')
+            }
+        });
+
+        /**
+         * 회원 정보 요청
+         */
+        $.ajax({
+            type: 'GET',
+            url: '/orders/userinfo',
+            datatype: 'json',
+            success: function (result) {
+                let user =
+                    `
+                        <div class="payment_row">
+                            <span>보내시는 분</span>
+                            <span>` + result.user_nm + `</span>
+                        </div>
+                        <div class="payment_row">
+                            <span>휴대폰</span>
+                            <span>` + result.telno + `</span>
+                        </div>
+                        <div class="payment_row">
+                            <span>이메일</span>
+                            <span>` + result.user_email + `</span>
+                        </div>
+                        `;
+                $('#user-info').append(user);
+            },
+            error: function () {
+                alert('회원 정보가 없습니다.')
             }
         });
     });

@@ -201,7 +201,7 @@ h2 {
 
 #payment_box {
     width: 284px;
-    height: 198px;
+    height: 270px;
     background-color: #FAFAFA;
 }
 
@@ -231,7 +231,7 @@ h2 {
 }
 
 .products_container {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
 /*---*/
