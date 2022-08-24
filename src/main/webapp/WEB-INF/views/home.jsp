@@ -150,6 +150,7 @@
             <div style="margin-left: 15px;">
                 <a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
                 <a class="btn" href="/members/test2">[임시] 53번 유저로 로그인</a>
+                <a class="btn" href="/DevKurly">메인페이지 이동</a>
                 <a class="btn" href="/admin/list">회원관리</a>
                 <%--쿠폰--%>
                 <div class="content_box">
@@ -174,11 +175,10 @@
                 <%--상품 보기--%>
                 <div class="content_box">
                     <a class="btn" href="/product/list?page=1&pageSize=10"/>상품 보기</a>
-                    <a class="btn" href="/product/newlist?page=1&pageSize=10">신상품 보기</a>
-                    <a class="btn" href="/product/bestlist?page=1&pageSize=10">베스트 상품 보기</a>
-                    <a class="btn" href="/product/thriftylist?page=1&pageSize=10">알뜰쇼핑</a>
+                    <a class="btn" href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
+                    <a class="btn" href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
+                    <a class="btn" href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
                     <a class="btn" href="/product/EventList">이벤트 클릭 시 이동 상품페이지 </a>
-                    <a class="btn" href="/product/CateList">채소-친환경 테스트리스트</a>
                 </div>
             </div>
         </div>

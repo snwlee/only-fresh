@@ -32,6 +32,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
+        return session.selectList(namespace + "ProductThriftyList", map);
+    }
+    @Override
     public List<ProductDto> ProductNewList(Map map) throws Exception {
         return session.selectList(namespace + "ProductNewList", map);
     }
@@ -42,10 +46,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
 
-    @Override
-    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
-        return session.selectList(namespace + "ProductThriftyList", map);
-    }
+
 
     @Override
     public int count() throws Exception {
@@ -75,6 +76,9 @@ public class ProductDaoImpl implements ProductDao {
         return session.delete(namespace + "delete", map);
     }
 
+    public List<ProductDto> mainlist(String cd_type_id)throws Exception {
+        return session.selectList(namespace + "mainlist", cd_type_id);
+    }
 
 
 
@@ -107,6 +111,39 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductDto> CateList(Map map) throws Exception {
         return session.selectList(namespace+"CateList",map);
     }
+
+    @Override
+    public List<ProductDto> Vegetable(Map map) throws Exception {
+        return session.selectList(namespace+"Vegetable",map);
+    }
+
+    @Override
+    public List<ProductDto> EcoVegetable(Map map) throws Exception {
+        return session.selectList(namespace+"EcoVegetable",map);
+    }
+
+    @Override
+    public List<ProductDto> main(Map map) throws Exception {
+        return session.selectList(namespace+"main",map);
+    }
+
+    @Override
+    public List<ProductDto> goodslist(String cd_name) throws Exception {
+        return session.selectList(namespace+"goodslist",cd_name);
+    }
+
+
+
+
+    @Override
+    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        map.put("cd_name_num",cd_name_num);
+        return session.selectList(namespace+"CodeNameSelect",map);
+    }
+
 }
 
 
