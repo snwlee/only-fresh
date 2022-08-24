@@ -5,65 +5,87 @@
     padding: 0 200 160 200;
 }
 
-h3{
+.main_title{
     display: block;
     padding: 50 0 50 0;
     font-size: 28px;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center;
     margin-top: 150px;
-    background: pink;
+    height: auto;
 }
+
 #min{
-    width: 100%;
-    height:1200px;
-    background: greenyellow;
+    height:3500px;
+    width:800px;
     /* position:relative; */
-}
-#list{
-    margin-top: 100px;
-    text-align: center;
-    padding: 20px;
-    background: gold;
-}
-#count{
-    float: left;
-}
-a {
-    padding: 0 5px;
-}
-li{
-    float:right;
-}
-.de_type{
-    margin-bottom: 5px;
-}
+    /* overflow: hidden; */
 
+}
 /* product */
-
-.product_list{
-    display:inline-block;
+#product {
+    display: inline-block;
     margin-top: 100px;
-    background: yellow;
-    width: 338px;
-    height: 682px;
+    background: white;
     padding: 0 0px;
+    margin-bottom: 150px;
+    width: 2400px;
 }
-
+.product{
+    margin-bottom: 10px;
+}
+.products{
+    display:inline-block;
+    width: 253px;
+    height: 381px;
+    pading: 0px 5px;
+    margin-top: 50px;
+}
 .product_title{
-    font-size: 18px;
+    width: 100%;
+    overflow: hidden;
+    /* text-overflow: ellipsis;
+    white-space: nowrap; */
+    height: 38px;
+    font-size: 16px;
     font-weight: 500;
+    margin-top: 20px;
+    color:#333;
+
+}
+.product_sel_price{
+    font-size: 16px;
+    font-weight: bold;
+    color:#333;
+
 }
 .product_price{
-    font-size: 13px;
+    padding: 2px 0px 0px;
+    font-size: 16px;
+    color:#B5B5B5;
     font-weight: 500;
+    text-decoration: line-through;
 }
 .product_sub_title{
     font-size: 10px;
     margin-top: 10px;
 }
-#img{
-    width: 338px;
-    height: 435px;
+.product_ds_rate{
+    font-size: 16px;
+    color:red;
+    font-weight: bold;
+    margin: 0px 7px 0px 0px;
 }
+#product_name{
+    font-size: 30px;
+    font-weight: 700;
+    background: white;
+}
+p{
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 15px;
+    color:gray;
+}
+
 
