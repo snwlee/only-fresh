@@ -191,10 +191,10 @@
                 <span>카테고리</span>
             </div>
             <div id="menus">
-                <a href="/product/newlist?page=1&pageSize=12&option=&keyword=">신상품</a>
-                <span>베스트</span>
-                <span>알뜰쇼핑</span>
-                <span>특가/혜택</span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>

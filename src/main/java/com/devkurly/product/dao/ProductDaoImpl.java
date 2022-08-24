@@ -32,6 +32,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
+        return session.selectList(namespace + "ProductThriftyList", map);
+    }
+    @Override
     public List<ProductDto> ProductNewList(Map map) throws Exception {
         return session.selectList(namespace + "ProductNewList", map);
     }
@@ -42,10 +46,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
 
-    @Override
-    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
-        return session.selectList(namespace + "ProductThriftyList", map);
-    }
+
 
     @Override
     public int count() throws Exception {

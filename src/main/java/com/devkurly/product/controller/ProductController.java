@@ -170,9 +170,20 @@ public class ProductController {
             }
             if (sort == 1) {
                 list = productService.getSearchResultPage(sc);
-                map.put("totalCnt",totalCnt);
-                map.put("ph",ph);
-                map.put("list",list);
+                map.put("totalCnt", totalCnt);
+                map.put("ph", ph);
+                map.put("list", list);
+            }else if(sort==2) {
+                list = productService.ProductBestList(sc);
+                map.put("totalCnt", totalCnt);
+                map.put("ph", ph);
+                map.put("list", list);
+            }else if(sort==3) {
+                list = productService.ProductThriftyList(sc);
+                map.put("totalCnt", totalCnt);
+                map.put("ph", ph);
+                map.put("list", list);
+                System.out.println("list = " + list);
             }else if(sort==0){
                 List list1 = productService.mainlist("P001");
                 List list2 = productService.mainlist("P002");

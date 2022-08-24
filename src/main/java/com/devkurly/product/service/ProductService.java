@@ -23,9 +23,9 @@ public interface ProductService {
 
     List<ProductDto> ProductList(Map map) throws Exception;
 
-    List<ProductDto> ProductThriftyList(Map map) throws Exception;
+    List<ProductDto> ProductThriftyList(SearchCondition sc) throws Exception;
 
-    List<ProductDto> ProductBestList(Map map) throws Exception;
+    List<ProductDto> ProductBestList(SearchCondition sc) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
 
