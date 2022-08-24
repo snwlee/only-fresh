@@ -138,15 +138,23 @@
     <%--게시판--%>
     <div class="content_box">
         <a class="btn" href="/boardlist?pdt_id=&bbs_clsf_cd=1&page=1&pageSize=10">게시판 CRUD 페이지</a>
-2    </div>
+        2    </div>
     <%--상품 보기--%>
     <div class="content_box">
         <a class="btn" href="/product/list?page=1&pageSize=10"/>상품 보기</a>
-        <a class="btn" href="/product/newlist?page=1&pageSize=10">신상품 보기</a>
+        <a class="btn" href="/DevKurly">메인페이지 이동 </a>
+        <a class="btn" href="/product/newlist">신상품 보기</a>
         <a class="btn" href="/product/bestlist?page=1&pageSize=10">베스트 상품 보기</a>
         <a class="btn" href="/product/thriftylist?page=1&pageSize=10">알뜰쇼핑</a>
         <a class="btn" href="/product/EventList">이벤트 클릭 시 이동 상품페이지 </a>
-        <a class="btn" href="/product/CateList">채소-친환경 테스트리스트</a>
+        <a class="btn" href="/product/CateList">카테고리 ALL</a>
+        <a class="btn" href="/product/Vegetable">채소</a>
+        <a class="btn" href="/product/EcoVegetable">친환경</a>
+        <a class="btn" href="#">브로콜리·파프리카·양배추</a>
+        <a class="btn" href="#">양파·대파·마늘·배</a>
+        <a class="btn" href="#">오이·호박·고추</a>
+        <a class="btn" href="#">콩나물·버섯</a>
+
     </div>
     <%--관리자--%>
     <div class="content_box">
