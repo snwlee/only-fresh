@@ -113,7 +113,6 @@
       <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
       <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
       <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
-
   </form>
 </div>
 <script>
@@ -156,6 +155,13 @@
   });
 
 });
+</script>
+<script>
+  function formCheck(frm) {
+    let msg ='';
+
+    if(frm.)
+  }
 </script>
 </body>
 </html>
