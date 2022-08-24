@@ -1,9 +1,7 @@
 package com.devkurly.product.controller;
 
-import com.devkurly.product.domain.Paging;
-import com.devkurly.product.domain.ProductDto;
+import com.devkurly.product.domain.*;
 
-import com.devkurly.product.domain.SearchCondition;
 import com.devkurly.product.service.ProductService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -18,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/product")
@@ -170,6 +169,19 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Map>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/categories")
+    @ResponseBody
+    public ResponseEntity<Map<String, List<MainSubCatDto>>> getCategories(){
+        Map<String, List<MainSubCatDto>> map = null;
+        try {
+            List<MainSubCatDto> list = productService.getMainSubCats();
+            map = list.stream().collect(Collectors.groupingBy(MainSubCatDto::getCd_type_id));
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
     }
 

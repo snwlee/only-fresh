@@ -1,5 +1,6 @@
 package com.devkurly.product.dao;
 
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
@@ -52,6 +53,10 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectOne(namespace + "count");
     }
 
+    @Override
+    public List<MainSubCatDto> getCatList(){
+        return session.selectList(namespace+"selectCategories");
+    }
 
     // U
 
