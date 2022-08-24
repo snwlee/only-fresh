@@ -163,9 +163,9 @@
                     <a class="btn" href="/event/main">실제 이벤트 페이지</a>
                     <a class="btn" href="/event/admin">이벤트 CRUD 페이지</a>
                 </div>
-                <%--게시판--%>
+                <%--상품상세--%>
                 <div class="content_box">
-                    <a class="btn" href="/boardlist?pdt_id=&bbs_clsf_cd=1&page=1&pageSize=10">게시판 CRUD 페이지</a>
+                    <a class="btn" href="/detail/admin">상품상세 관리자 페이지</a>
                 </div>
                 <%--배송지--%>
                 <div class="content_box">
