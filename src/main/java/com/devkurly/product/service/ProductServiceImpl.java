@@ -150,8 +150,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List cate(String cd_type_name, SearchCondition sc) throws Exception {
-        return productDao.cate(sc, cd_type_name);
+    public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
+        return productDao.cate(cd_type_name, sc);
     }
         @Override
         public int cateCnt(String cd_type_name) throws Exception {

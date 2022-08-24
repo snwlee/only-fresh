@@ -137,11 +137,10 @@
     </select>
 
 
-    <select id="cate" resultType="Product">
+    <select id="cate" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
                 P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
                 P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
-
         FROM PRODUCT_TB P
                  JOIN PRODUCT_TAG_TB T
                       ON T.pdt_id = P.pdt_id
@@ -154,6 +153,7 @@
                  JOIN COMMON_CODE_TYPE_TB CCTT
                       ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE CCTT.cd_type_name =#{cd_type_name}
+        limit #{offset}, #{pageSize}
     </select>
     <select id="cateCnt" parameterType="String" resultType="int">
         SELECT  count(*)

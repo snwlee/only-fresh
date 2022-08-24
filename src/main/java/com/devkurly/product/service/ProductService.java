@@ -64,7 +64,7 @@ public interface ProductService {
 
     List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
 
-    List cate(String cd_type_name, SearchCondition sc) throws Exception;
+    List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
 
     int cateCnt(String cd_type_name) throws Exception;
 }
