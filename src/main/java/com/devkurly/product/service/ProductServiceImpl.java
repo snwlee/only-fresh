@@ -101,6 +101,32 @@ public class ProductServiceImpl implements ProductService {
         return productDao.CateList(map);
     }
 
+    @Override
+    public List<ProductDto> Vegetable(Map map) throws Exception {
+        return productDao.Vegetable(map);
+    }
+        @Override
+        public List<ProductDto> EcoVegetable(Map map) throws Exception {
+            return productDao.EcoVegetable(map);
+
+    }
+
+
+    @Override
+    public List<ProductDto> main(Map map) throws Exception {
+        return productDao.main(map);
+    }
+
+    @Override
+    public List<ProductDto> mainlist(String cd_type_id) throws Exception {
+        return productDao.mainlist(cd_type_id);
+    }
+
+    @Override
+    public List<ProductDto> goodslist(String cd_name) throws Exception {
+        return productDao.goodslist(cd_name);
+    }
+
 //    @Override
 //    public String isValid(ProductDto productDto) throws Exception {
 //        if (productDto.getPdt_id() != null || productDto.getTitle().length() > 50 || productDto.getImage().length() > 255 ||

@@ -154,7 +154,7 @@
         </form>
     </div>
     <table border="1">
-        <div>상품리스트</div>
+        <div>${ProductDto.title}</div>
         <c:forEach var="ProductDto" items="${list}">
             <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
                 <div id="product">
@@ -169,9 +169,11 @@
                         <td> 원가 :<fmt:formatNumber value="${ProductDto.price}" pattern="#,###"/>원</td>
                         <td><img id="img" src="${ProductDto.image}"/></td>
                         <td> 판매가 :<fmt:formatNumber value="${ProductDto.sel_price}" pattern="#,###"/>원</td>
-
-                        <td> 배송타입 : ${ProductDto.de_type}</td>
+                        <td> 배송타입 : ${ProductDto.de_type==true ? '샛별배송':'낮배송'}</td>
                         <td> 제조사 : ${ProductDto.company}</td>
+                        <td>${ProductDto.cd_type_name}</td>
+                        <td>${ProductDto.cd_name}</td>
+                        <td>${ProductDto.cat_code}</td>
                     </tr>
                 </div>
                 <br>

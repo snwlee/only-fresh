@@ -56,5 +56,14 @@ public interface ProductDao {
 
     List<ProductDto> CateList(Map map) throws Exception;
 
+    List<ProductDto> Vegetable(Map map) throws Exception;
+
+    List<ProductDto> EcoVegetable(Map map) throws Exception;
+
+    List<ProductDto> main(Map map) throws Exception;
+
+    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+
+    List<ProductDto> goodslist(String cd_name) throws Exception;
 
 }

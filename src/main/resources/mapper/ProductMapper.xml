@@ -33,16 +33,21 @@
     </insert>
 
     <select id="ProductNewList" parameterType="SearchCondition" resultType="Product">
-        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
-                P.ds_rate, P.price,P.sel_price,P.sales_rate,
-                P.de_type,P.company,P.stock,C.cat_code,C.cd_name
+       SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+        P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+
         FROM PRODUCT_TB P
-                 JOIN PRODUCT_TAG_TB T
-                      ON T.pdt_id = P.pdt_id
-                 JOIN TAG_TB TG
-                      ON TG.tag_id = T.tag_id
-                 JOIN CATEGORY_TB C
-                      ON C.pdt_id = P.pdt_id
+        JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+        JOIN TAG_TB TG
+        ON TG.tag_id = T.tag_id
+        JOIN CATEGORY_TB C
+        ON C.pdt_id = P.pdt_id
+        JOIN COMMON_CODE_TB CCT
+        ON CCT.cat_code = C.cat_code
+        JOIN COMMON_CODE_TYPE_TB CCTT
+        ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE TRUE
           AND title LIKE concat('%', #{keyword}, '%')
         ORDER BY in_date DESC
@@ -69,21 +74,45 @@
 
     <select id="ProductList"  parameterType="SearchCondition" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
-                P.ds_rate, P.price,P.sel_price,P.sales_rate,
-                P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.de_type
+        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+        P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+
         FROM PRODUCT_TB P
-                 JOIN PRODUCT_TAG_TB T
-                      ON T.pdt_id = P.pdt_id
-                 JOIN TAG_TB TG
-                      ON TG.tag_id = T.tag_id
-                 JOIN CATEGORY_TB C
-                      ON C.pdt_id = P.pdt_id
+        JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+        JOIN TAG_TB TG
+        ON TG.tag_id = T.tag_id
+        JOIN CATEGORY_TB C
+        ON C.pdt_id = P.pdt_id
+        JOIN COMMON_CODE_TB CCT
+        ON CCT.cat_code = C.cat_code
+        JOIN COMMON_CODE_TYPE_TB CCTT
+        ON CCTT.cd_type_id = CCT.cd_type_id
+        WHERE CCTT.cd_type_id = 'P003' and CCT.cd_name= 'CCT.cd_name'
         WHERE TRUE
         <include refid="searchCondition"/>
-        ORDER BY  P.pdt_id ASC
         limit #{offset}, #{pageSize}
     </select>
 
+    <select id="mainlist" resultType="Product">
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+        P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+
+        FROM PRODUCT_TB P
+        JOIN PRODUCT_TAG_TB T
+        ON T.pdt_id = P.pdt_id
+        JOIN TAG_TB TG
+        ON TG.tag_id = T.tag_id
+        JOIN CATEGORY_TB C
+        ON C.pdt_id = P.pdt_id
+        JOIN COMMON_CODE_TB CCT
+        ON CCT.cat_code = C.cat_code
+        JOIN COMMON_CODE_TYPE_TB CCTT
+        ON CCTT.cd_type_id = CCT.cd_type_id
+        WHERE CCTT.cd_type_id =#{cd_type_id}
+        limit 0, 4
+    </select>
 
     <select id="ProductListDESC" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
@@ -216,7 +245,7 @@
     <select id="CateList" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
                 P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
-                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name
+                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
 
         FROM PRODUCT_TB P
                  JOIN PRODUCT_TAG_TB T
@@ -229,6 +258,26 @@
                       ON CCT.cat_code = C.cat_code
                  JOIN COMMON_CODE_TYPE_TB CCTT
                       ON CCTT.cd_type_id = CCT.cd_type_id
-        WHERE CCTT.cd_type_name = '채소' and CCT.cd_name= '친환경'
+        WHERE CCTT.cd_type_name = CCTT.cd_type_name and CCT.cd_name= CCT.cd_name
+    </select>
+
+
+    <select id="goodslist" parameterType="map" resultType="Product">
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+                P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+
+        FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+                 JOIN COMMON_CODE_TB CCT
+                      ON CCT.cat_code = C.cat_code
+                 JOIN COMMON_CODE_TYPE_TB CCTT
+                      ON CCTT.cd_type_id = CCT.cd_type_id
+        WHERE CCT.cd_name= #{cd_name}
     </select>
 </mapper>

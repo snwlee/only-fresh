@@ -4,10 +4,12 @@ import com.devkurly.cart.domain.Cart;
 import com.devkurly.order.domain.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Calendar;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class OrderResponseDto {
     private Integer ord_id;
