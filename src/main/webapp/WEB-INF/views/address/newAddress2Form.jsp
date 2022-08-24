@@ -15,21 +15,14 @@
     <h2>배송지 추가</h2>
     <br>
     <form action="" id="form">
-        <div>${mode=="deli" ? "샛별배송" : "낮 배송"}지역 입니다.</div>
-        <div>${mode=="deli" ? "매일 아침, 문앞까지 신선함을 전해드려요" : "오늘 주문하면 다음 날 바로 도착해요. (일요일 휴무)"}</div>
-        <div>유저 id : <input type="text" name="user_id" value="${addressDto.user_id}"/></div>
+<%--        <div>${mode=="deli" ? "샛별배송" : "낮 배송"}지역 입니다.</div>--%>
+<%--        <div>${mode=="deli" ? "매일 아침, 문앞까지 신선함을 전해드려요" : "오늘 주문하면 다음 날 바로 도착해요. (일요일 휴무)"}</div>--%>
         <div>
             주소 : <input type="text" name="main_addr" value=""/>
             <button type="button" id="searchBtn" class="btn">재검색</button>
         </div>
         <div>상세주소 : <input type="text" name="sub_addr" value=""/></div>
         <div><input type="checkbox" name="chk_addr" value=""/>기본배송지로 저장</div>
-        <div>
-            deli_type : <input type="text" name="deli_type"
-                               value="" />
-        </div>
-        <div>city_code : <input type="text" name="city_code" value="" /></div>
-
         <div><button type="button" id="insertBtn" class="btn">저장</button> </div>
     </form>
     <script>

@@ -20,32 +20,32 @@
     <insert id="insert" parameterType="AddressDto">
         INSERT
         INTO ADDRESS_TB (user_id, chk_addr, main_addr, sub_addr,
-                         deli_type, city_code)
+                         deli_type)
         VALUES (#{user_id}, #{chk_addr}, #{main_addr}, #{sub_addr},
-                #{deli_type}, #{city_code})
+                #{deli_type})
     </insert>
 
-<!--    <select id="listSelect" parameterType="int"  resultType="AddressDto">-->
-<!--        SELECT addr_id, user_id, chk_addr, main_addr,-->
-<!--               sub_addr, addr_name, addr_tel-->
-<!--        FROM ADDRESS_TB-->
-<!--        WHERE user_id = #{user_id}-->
-<!--    </select>-->
-
-    <!-- join 연습  -->
     <select id="listSelect" parameterType="int"  resultType="AddressDto">
-        SELECT
-               T.addr_id, T.user_id, T.chk_addr,
-               T.main_addr, T.sub_addr, T.addr_name,
-               T.addr_tel, T.city_code, T.deli_type,
-               C.cd_name, C.cd_type_name
-        FROM
-            ADDRESS_TB T
-                INNER JOIN
-            CITY_CODE_TB C
-            ON T.city_code = C.city_code
+        SELECT addr_id, user_id, chk_addr, main_addr,
+               sub_addr, addr_name, addr_tel, deli_type
+        FROM ADDRESS_TB
         WHERE user_id = #{user_id}
     </select>
+
+    <!-- join 연습  -->
+<!--    <select id="listSelect" parameterType="int"  resultType="AddressDto">-->
+<!--        SELECT-->
+<!--               T.addr_id, T.user_id, T.chk_addr,-->
+<!--               T.main_addr, T.sub_addr, T.addr_name,-->
+<!--               T.addr_tel, T.city_code, T.deli_type,-->
+<!--               C.cd_name, C.cd_type_name-->
+<!--        FROM-->
+<!--            ADDRESS_TB T-->
+<!--                INNER JOIN-->
+<!--            CITY_CODE_TB C-->
+<!--            ON T.city_code = C.city_code-->
+<!--        WHERE user_id = #{user_id}-->
+<!--    </select>-->
 
     <select id="updateSelect" parameterType="int" resultType="AddressDto">
         SELECT main_addr, sub_addr, addr_name, addr_tel, chk_addr

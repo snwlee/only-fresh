@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class AddressServiceImpl implements AddressService {
-    @Autowired
-    AddressDao addressDao;
+
+    private final AddressDao addressDao;
+
+    public AddressServiceImpl(AddressDao addressDao) {
+        this.addressDao = addressDao;
+    }
 
     @Override
     public int getCount() throws Exception {

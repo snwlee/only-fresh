@@ -18,12 +18,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.devkurly.member.controller.MemberController.getMemberResponse;
+
 @Controller
 @RequestMapping("/address")
 public class AddressController {
 
-    @Autowired
-    AddressService addressService;
+    private final AddressService addressService;
+
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
 
     @GetMapping("/list")
     public String list(HttpServletRequest request, Integer addr_id, HttpSession session, Model m, AddressDto addressDto) throws Exception {
@@ -38,7 +43,7 @@ public class AddressController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "address/listAddressForm";
+        return "/address/mypageAddrList";
     }
 
     @GetMapping("/read")
@@ -109,9 +114,6 @@ public class AddressController {
 
     @GetMapping("/insert")
     public String insert(Model m, AddressDto addressDto, HttpSession session) {
-        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = responseDto.getUser_id(); // user_id
-
 //        m.addAttribute("mode", "deli");
         m.addAttribute(addressDto);
         return "/address/newAddress2Form";  // 샛별배송 표기에 사용
@@ -119,14 +121,18 @@ public class AddressController {
 
     @PostMapping("/create")
     public String create(AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
-        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = responseDto.getUser_id(); // user_id
-
-        System.out.println("addressDto = " + addressDto);
-
-        if(addressDto.getChk_addr()==null)
+        Integer user_id = getMemberResponse(session);
+        addressDto.setUser_id(user_id);
+        System.out.println("addressDto.getMain_addr() = " + addressDto.getMain_addr());
+        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기")) {
+            addressDto.setDeli_type(true);
+        } else {
+            addressDto.setDeli_type(false);
+        }
+        if (addressDto.getChk_addr() == null) {
             addressDto.setChk_addr(true);
-
+        }
+        System.out.println("addressDto = " + addressDto);
         try {
             int rowCnt = addressService.addrInsert(addressDto);
 
