@@ -44,6 +44,21 @@
             telno = #{telno}
         where user_id = #{user_id};
     </update>
+<!--    <update id="updatePnt" parameterType="int">-->
+<!--        update USER_TB-->
+<!--        set pnt = #{pnt}-->
+<!--        where user_id = #{user_id};-->
+<!--    </update>-->
+    <update id="updatePnt" parameterType="int">
+        update USER_TB UT
+        inner join USER_COUPON_TB UCT
+        on UT.user_id = UCT.user_id
+        set used = 1,
+            pnt = #{pnt}
+        where coupn_id = #{coupn_id}
+        and UCT.user_id = #{user_id};
+    </update>
+
     <delete id="delete" parameterType="int">
         delete
         from USER_TB

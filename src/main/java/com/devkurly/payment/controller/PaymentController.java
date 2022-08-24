@@ -59,6 +59,7 @@ public class PaymentController {
         paymentSaveRequestDto.savePayment(ord_id, user_id, all_dc_amt);
         orderService.updateOrder(orderSaveRequestDto);
         paymentService.addPayment(paymentSaveRequestDto);
+        memberService.updateMemberPnt(user_id, (memberById.getPnt() - used_acamt), orderSaveRequestDto.getCoupn_id());
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(ord_id);
         for (OrderResponseDto responseDto : orderResponseDto) {
             Cart cart = new Cart();
