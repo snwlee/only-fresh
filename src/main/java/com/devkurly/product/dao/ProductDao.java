@@ -1,6 +1,6 @@
 package com.devkurly.product.dao;
 
-import com.devkurly.board.domain.BoardDto;
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 
@@ -26,6 +26,10 @@ public interface ProductDao {
     List<ProductDto> ProductBestList(Map map) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
+
+    List<MainSubCatDto> getCatList() throws Exception;
+
+
 
     int count() throws Exception;
 

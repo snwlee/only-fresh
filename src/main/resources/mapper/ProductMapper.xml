@@ -276,4 +276,10 @@
                       ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE CCT.cd_name= #{cd_name}
     </select>
+
+    <select id="selectCategories" resultType="MainSubCategoryDto">
+        select DISTINCT CCT.cd_type_id, cd_name, cd_type_name, CCT.cd_name_num
+        from COMMON_CODE_TB CCT
+                 join COMMON_CODE_TYPE_TB CCTT on CCT.cd_type_id = CCTT.cd_type_id;
+    </select>
 </mapper>
