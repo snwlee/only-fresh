@@ -208,7 +208,7 @@ public class ProductController {
         Map<String, List<MainSubCatDto>> map = null;
         try {
             List<MainSubCatDto> list = productService.getMainSubCats();
-            map = list.stream().collect(Collectors.groupingBy(MainSubCatDto::getCd_type_id));
+            map = list.stream().collect(Collectors.groupingBy(MainSubCatDto::getCd_type_name));
             return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
