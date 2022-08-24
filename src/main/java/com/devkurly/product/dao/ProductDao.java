@@ -1,6 +1,9 @@
 package com.devkurly.product.dao;
 
+<<<<<<< HEAD
+=======
 import com.devkurly.product.domain.MainSubCatDto;
+>>>>>>> upstream/main
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 
@@ -66,9 +69,13 @@ public interface ProductDao {
 
     List<ProductDto> main(Map map) throws Exception;
 
-    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+    List<ProductDto> mainlist(String cd_type_name) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws Exception;
 
     List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception;
+
+    List cate(SearchCondition sc, String cd_type_name) throws Exception;
+
+    int cateCnt(String cd_type_name) throws Exception;
 }
