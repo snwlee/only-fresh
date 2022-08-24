@@ -75,6 +75,9 @@ public class ProductDaoImpl implements ProductDao {
         return session.delete(namespace + "delete", map);
     }
 
+    public List<ProductDto> mainlist(String cd_type_id)throws Exception {
+        return session.selectList(namespace + "mainlist", cd_type_id);
+    }
 
 
 
@@ -107,6 +110,27 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductDto> CateList(Map map) throws Exception {
         return session.selectList(namespace+"CateList",map);
     }
+
+    @Override
+    public List<ProductDto> Vegetable(Map map) throws Exception {
+        return session.selectList(namespace+"Vegetable",map);
+    }
+
+    @Override
+    public List<ProductDto> EcoVegetable(Map map) throws Exception {
+        return session.selectList(namespace+"EcoVegetable",map);
+    }
+
+    @Override
+    public List<ProductDto> main(Map map) throws Exception {
+        return session.selectList(namespace+"main",map);
+    }
+
+    @Override
+    public List<ProductDto> goodslist(String cd_name) throws Exception {
+        return session.selectList(namespace+"goodslist",cd_name);
+    }
+
 }
 
 
