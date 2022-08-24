@@ -145,19 +145,7 @@
                     <h4 class="product_type">주문자 정보</h4>
                     <div class="products_container">
                         <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
-                        <div id="user"></div>
-                        <div class="payment_row">
-                            <span>보내시는 분</span>
-                            <span>김OLD한</span>
-                        </div>
-                        <div class="payment_row">
-                            <span>휴대폰</span>
-                            <span>010-0000-0000</span>
-                        </div>
-                        <div class="payment_row">
-                            <span>이메일</span>
-                            <span>pgrrr119@gmail.com</span>
-                        </div>
+                        <div id="user-info"></div>
                     </div>
                     <h4 class="product_type">배송 정보</h4>
                     <div class="products_container">
@@ -180,19 +168,22 @@
                             <span style="margin-top: 15px;">쿠폰 적용</span>
                             <span>
                             <label>
-                                <select class="coupon-select" name='credit'>
+                                <select class="coupon-select" id="coupon-select" name='credit'>
                                     <option value=''>사용가능 쿠폰 0 장 / 전체 0 장</option>
-                                    <option value='30% 쿠폰'>30% 쿠폰</option>
-                                    <option value='35% 쿠폰'>35% 쿠폰</option>
-                                    <option value='20% 쿠폰'>20% 쿠폰</option>
-                                    <option value='10% 쿠폰'>10% 쿠폰</option>
                                 </select>
                             </label>
                         </span>
                         </div>
                         <div style="padding-top: 20px;" class="payment_row">
-                            <span>적립금 적용</span>
-                            <span>0원</span>
+                            <span style="margin-top: 30px;">적립금 적용</span>
+                            <span style="margin-top: 15px;"><input id="point-input" type="number"
+                                                                   placeholder="0"></span>
+
+                        </div>
+                        <div style="padding-top: 20px;" class="payment_row">
+                            <span style="margin-top: 25px;">사용한 적립금</span>
+                            <span style="padding-top: 25px; padding-left: 300px;">0원</span>
+                            <span><button id="point-btn">모두사용</button></span>
                         </div>
                     </div>
                     <h4 class="product_type">결제 수단</h4>
@@ -220,7 +211,7 @@
                             <span>
                                 <div class="payment-container">
                             <div style="display: flex;" class="select-payment">
-                                <input type="text" id="payment" name="setl_cd" hidden/>
+                                <input type="text" id="payment" name="setl_cd" value="credit" hidden/>
                                 <input
                                         type="radio"
                                         id="credit"
@@ -253,30 +244,42 @@
                         <h4 style="font-weight: 500; font-size: 24px">결제 금액</h4>
                     </div>
                     <div id="shipping_payment">
-                        <div id="payment_box">
+                        <div id="payment_box" style="height: 290px;">
                             <div style="padding: 20px">
                                 <div class="payment_row">
                                     <span>주문금액</span>
-                                    <span id="product_price">0원</span>
+                                    <span id="order_price">0 원</span>
                                 </div>
-                                <div class="payment_row">
-                                    <span>상품할인금액</span>
-                                    <span>0원</span>
+                                <div class="payment_row" style="font-size: 14px; color: #C5C5C5;">
+                                    <span>ㄴ 상품금액</span>
+                                    <span id="product_price">0 원</span>
+                                </div>
+                                <div class="payment_row" style="font-size: 14px; color: #C5C5C5;">
+                                    <span>ㄴ 상품할인금액</span>
+                                    <span id="discount_price">0 원</span>
                                 </div>
                                 <div class="payment_row">
                                     <span>배송비</span>
-                                    <span>0원</span>
+                                    <span>0 원</span>
+                                </div>
+                                <div class="payment_row">
+                                    <span>쿠폰할인</span>
+                                    <span>0 원</span>
+                                </div>
+                                <div class="payment_row">
+                                    <span>적립금사용</span>
+                                    <span>0 원</span>
                                 </div>
                                 <div class="payment_row total">
                                     <span>최종결제금액</span>
-                                    <span id="payment_price">0원</span>
+                                    <span id="payment_price" style="font-weight: bold; font-size: 22px;">0 원</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <input type="hidden" name="checked" id="checked" value=""/>
-                    <input type="number" name="all_amt" value="${sum}" hidden>
-                    <button id="order_submit" type="submit" style="cursor: pointer">
+                    <input type="number" name="all_amt" id="all_amt" value="${sum}" hidden>
+                    <button id="order_submit" type="submit" style="cursor: pointer; font-weight: 500; font-size: 16px;">
                         0 원 결제하기
                     </button>
                 </div>
@@ -287,8 +290,10 @@
 </div>
 <script>
     $('#order_submit').html((${sum}).toLocaleString('en-US') + ' 원 결제하기');
-    $('#product_price').html((${sum}).toLocaleString('en-US') + ' 원');
+    $('#product_price').html((${pdtSum}).toLocaleString('en-US') + ' 원');
+    $('#discount_price').html((${sum - pdtSum}).toLocaleString('en-US') + ' 원');
     $('#payment_price').html((${sum}).toLocaleString('en-US') + ' 원');
+    $('#order_price').html((${sum}).toLocaleString('en-US') + ' 원');
     $('input:checkbox').prop('checked', true);
     $('.remember-payment-checked').css('display', '')
     $('.remember-payment-unchecked').css('display', 'none')
@@ -306,33 +311,33 @@
     $(document).ready(function () {
         let credit =
             `<div>
-                                        <select class="credit-select" name='credit'>
-                                            <option value=''>카드를 선택해주세요</option>
-                                            <option value='현대'>현대</option>
-                                            <option value='신한'>신한</option>
-                                            <option value='비씨'>비씨</option>
-                                            <option value='KB국민'>KB국민</option>
-                                        </select>
-                                        <select class="credit-select" name='installment'>
-                                            <option value=''>할부를 선택해주세요</option>
-                                            <option value='일시불'>일시불</option>
-                                            <option value='2개월'>2개월</option>
-                                            <option value='4개월'>4개월</option>
-                                            <option value='6개월'>6개월</option>
-                                        </select>
-                                    </div>`;
+                <select class="credit-select" name='credit'>
+                    <option value=''>카드를 선택해주세요</option>
+                    <option value='현대'>현대</option>
+                    <option value='신한'>신한</option>
+                    <option value='비씨'>비씨</option>
+                    <option value='KB국민'>KB국민</option>
+                </select>
+                <select class="credit-select" name='installment'>
+                    <option value=''>할부를 선택해주세요</option>
+                    <option value='일시불'>일시불</option>
+                    <option value='2개월'>2개월</option>
+                    <option value='4개월'>4개월</option>
+                    <option value='6개월'>6개월</option>
+                </select>
+            </div>`;
         let pay =
             `
-                                    <div style="display: flex; justify-content: center">
-                                        <label class="container" for="kurly-pay">컬리페이
-                                            <input type="radio" id="kurly-pay" name="payment-pay" checked="checked">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="container" for="naver-pay">네이버페이
-                                            <input type="radio" id="naver-pay" name="payment-pay">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>`;
+                <div style="display: flex; justify-content: center">
+                    <label class="container" for="kurly-pay">컬리페이
+                        <input type="radio" id="kurly-pay" name="payment-pay" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container" for="naver-pay">네이버페이
+                        <input type="radio" id="naver-pay" name="payment-pay">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>`;
         $('#below-div').html(credit);
         $(".payment").click(function () {
             let now = this.innerText;
@@ -345,7 +350,61 @@
             }
         });
     });
+    $(document).ready(function () {
+        /**
+         * 쿠폰 요청
+         */
+        $.ajax({
+            type: 'GET',
+            url: '/orders/coupon',
+            datatype: 'json',
+            success: function (result) {
+                $.each(result, function (index, CouponDto) {
+                    let coupon =
+                        `
+                        <option value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
+                        `;
+                    $('#coupon-select').append(coupon);
+                })
+            },
+            error: function () {
+                alert('쿠폰이 없습니다.')
+            }
+        });
+
+        /**
+         * 회원 정보 요청
+         */
+        $.ajax({
+            type: 'GET',
+            url: '/orders/userinfo',
+            datatype: 'json',
+            success: function (result) {
+                let user =
+                    `
+                        <div class="payment_row">
+                            <span>보내시는 분</span>
+                            <span>` + result.user_nm + `</span>
+                        </div>
+                        <div class="payment_row">
+                            <span>휴대폰</span>
+                            <span>` + result.telno + `</span>
+                        </div>
+                        <div class="payment_row">
+                            <span>이메일</span>
+                            <span>` + result.user_email + `</span>
+                        </div>
+                        `;
+                $('#user-info').append(user);
+            },
+            error: function () {
+                alert('회원 정보가 없습니다.')
+            }
+        });
+    });
+
 </script>
+
 <%--    <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>--%>
 <%--<script>--%>
 <%--    --%>

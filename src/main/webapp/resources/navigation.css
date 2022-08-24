@@ -1,0 +1,202 @@
+#navigation {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    width: 100%;
+    height: 140px;
+    box-shadow: rgb(0 0 0 / 7%) 0px 3px 4px 0px;
+    padding-bottom: 20px;
+}
+
+#signup_signin {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding-right: 190px;
+}
+
+#signup_signin_container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#signup_signin a,div {
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+#signup {
+    color: #5f0080
+}
+
+#signup_signin div {
+    width: 0px;
+    border: 1px solid #d9d9d9;
+}
+
+/* nav �� 踰덉㎏ div */
+#search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#search_first {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 200px;
+}
+
+#search_first > * {
+    margin-right: 8px;
+}
+
+#search_first a {
+    font-size: 18px;
+    color:  #5f0080;
+}
+
+#search_first div {
+    width: 0px;
+    border: 1px solid #d9d9d9;
+}
+
+#input_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 400px;
+    height: 48px;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    margin-right: 80px;
+}
+
+#input_container input, input:focus {
+    border: none;
+    font-size: 16px;
+    margin-left: 10px;
+    outline:none;
+    width: 80%;
+}
+
+#input_container img {
+    margin-right: 14px;
+}
+
+#icon_container {
+    display: flex;
+    justify-content: space-between;
+    width: 148px;
+    align-items: center;
+    padding-right: 200px;
+}
+
+#icon_container img {
+    width: 26px;
+}
+
+#menubar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 200 0 200;
+    margin-top: 28px;
+    margin-bottom: 28px;
+}
+
+#menubar > * {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#category_container span {
+    white-space: nowrap;
+}
+
+
+
+
+#menus {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    padding: 0 200 0 200;
+}
+
+#deli_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #666666;
+    width: 121px;
+    height: 16px;
+    padding: 6 12;
+    font-size: 13px;
+    line-height: 16px;
+    border-radius: 18px;
+    white-space: nowrap;
+}
+
+#purple_deli_info {
+    color:#5f0080;
+    margin-right: 4px;
+    font-weight: 600;
+}
+
+/* #f7f7f7, #dddddd */
+/* 카테고리  */
+
+#show_category_button span{
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100px;
+}
+
+#show_category_button:hover #categories {
+    display:block;
+}
+
+
+#main_cat_container {
+    position: absolute;
+    display:none;
+    width: 250px;
+    left: 200px;
+    background-color: white;
+    border: 1px solid #ddd;
+    margin: 0;
+}
+
+
+.cat {
+    padding: 8px 0 8px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    list-style: none;
+    color: #949296;
+    /* border: 1px solid springgreen; */
+}
+
+.cat:hover {
+    color: #5f0080;
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+#sub_cat_container {
+    display:none;
+    position: absolute;
+    left: 452px;
+    width: 250px;;
+    margin:0;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+}

@@ -30,7 +30,7 @@ public class MyPageController {
     public ResponseEntity<String> addCouponToUser(HttpServletRequest req , String nm) {
         Integer user_id = ((MemberMainResponseDto) req.getSession().getAttribute("memberResponse")).getUser_id();
 
-        if(user_id == null || nm == ""){
+        if(user_id == null || nm.equals("")){
             return new ResponseEntity<>("" + HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST);
         }
 

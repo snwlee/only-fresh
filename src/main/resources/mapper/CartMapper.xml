@@ -36,7 +36,7 @@
         where pdt_id = #{pdt_id};
     </select>
     <select id="joinCartProductByUserId" parameterType="int" resultType="com.devkurly.cart.dto.CartProductResponseDto">
-        select user_id, CT.pdt_id, pdt_qty, image, sel_price, title, stock, company
+        select user_id, CT.pdt_id, pdt_qty, price, image, sel_price, title, stock, company
         from CART_TB CT
         join PRODUCT_TB PT
         on CT.pdt_id = PT.pdt_id
@@ -44,7 +44,7 @@
         order by CT.in_date DESC;
     </select>
     <select id="joinCartProductByCart" parameterType="Cart" resultType="com.devkurly.cart.dto.CartProductResponseDto">
-        select user_id, CT.pdt_id, pdt_qty, image, sel_price, title, stock, company
+        select user_id, CT.pdt_id, pdt_qty, price, image, sel_price, title, stock, company
         from CART_TB CT
         join PRODUCT_TB PT
         on CT.pdt_id = PT.pdt_id

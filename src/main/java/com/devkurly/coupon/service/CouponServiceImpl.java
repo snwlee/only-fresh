@@ -84,7 +84,6 @@ public class CouponServiceImpl implements CouponService {
 
         try {
             list = couponDao.readUserCoupons(user_id);
-            System.out.println("list = " + list);
             return list;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
