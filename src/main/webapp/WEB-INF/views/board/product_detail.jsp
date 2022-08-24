@@ -54,12 +54,30 @@
       width: 200px;
       height: 100px;
     }
+    .board_margin{
+      margin-bottom: 200px;
+    }
 
     #content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 30 200 160 200;
+    }
+    #review_board{
+      position: relative;
+      padding-bottom: 80.25%;
+    }
+    #inquiry_board{
+      position: relative;
+      padding-bottom: 80.25%;
+    }
+    iframe{
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
     }
 
     /* input {
@@ -168,7 +186,7 @@
           <div class="column_title">알레르기정보</div>
           <div>
             <p class="main_desc">${productDetailDto.allg_dt}</p>
-            <p class="sub_desc">본 제품은 대두,땅콩,알류,밀,복숭아,토마토,호두,메밀,아황산류,잣을 사용한 제품과 같은 시설에서 제조하고 있습니다.</p>
+            <p class="sub_desc"></p>
           </div>
         </div>
         <div class="detail_column">
@@ -217,23 +235,25 @@
       <div class="navi" value="#des2">
         <span class="navs">상세정보</span></a>
       </div>
-      <div class="navi" value="#review_board">
+      <div class="navi" value="#review_board_i">
         <span class="navs">후기 (${reviewCnt})</span></a>
       </div>
-      <div class="navi" value="#inquiry_board">
+      <div class="navi" value="#inquiry_board_i">
         <span class="navs">문의</span></a>
       </div>
     </nav>
-    <img id="des1" src="https://images.unsplash.com/photo-1552404200-b22566b2317b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=985&q=80" />
-    <img id="des2" src="${productDetailDto.prt_info}"/>
+    <img id="des1" src="${productDetailDto.prt_image}"/>
+    <img id="des2" src="${productDetailDto.prt_info}" />
 
     <div id ="board_container">
+      <div class="board_margin" id="review_board_i"></div>
       <div id="review_board">
-        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10" width="100%" height="1000px">
+        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10">
         </iframe>
       </div>
+      <div class="board_margin" id="inquiry_board_i"></div>
       <div id="inquiry_board">
-        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=2&page=1&pageSize=10" width="100%" height="1000px">
+        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=2&page=1&pageSize=10">
         </iframe>
       </div>
     </div>
@@ -265,7 +285,7 @@
     $(".navi").click(function(event){
 
       event.preventDefault();
-      x= $(this).attr("value");
+      let x= $(this).attr("value");
       $('html,body').animate({scrollTop:$(x).offset().top}, 500);
 
     });

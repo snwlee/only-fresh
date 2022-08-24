@@ -104,15 +104,15 @@
         where bbs_id = #{bbs_id}
     </update>
 
-    <update id="IsRepliedStatus" parameterType="int">
+    <update id="IsRepliedStatus" parameterType="map">
         update INQ_BOARD_TB
         set is_replied = #{replyst}
         where bbs_id = #{bbs_id}
     </update>
 
-    <update id="IsSecretStatus" parameterType="int">
+    <update id="IsSecretStatus" parameterType="map">
         update INQ_BOARD_TB
-        set is_secret = 1
+        set is_secret = #{is_secret}
         where bbs_id = #{bbs_id}
     </update>
 

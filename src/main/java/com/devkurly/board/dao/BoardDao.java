@@ -24,7 +24,7 @@ public interface BoardDao {
     int update(BoardDto boardDto) throws Exception;
     int updateCn(BoardDto boardDto) throws Exception;
     int isRepliedStatus(Integer bbs_id, int replyst)throws Exception;
-    int isSecretStatus(Integer bbs_id) throws Exception;
+    int isSecretStatus(Integer bbs_id, boolean is_secret) throws Exception;
     int increaseLike(Integer bbs_id) throws Exception;
     int selectUserLike(Map map) throws Exception;
     int userLikeNo(BoardDto boardDto) throws Exception;

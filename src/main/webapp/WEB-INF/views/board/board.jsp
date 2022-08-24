@@ -63,7 +63,7 @@
             margin-left: 28px;
         }
         #review_view .review_content {
-            width: 120%;
+            width: 100%;
             word-break: break-word;
             padding: 20px 9px 30px;
             line-height: 25px
@@ -444,17 +444,10 @@
                 url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
                 headers : { "content-type": "application/json"},
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
-                success : function(result){
-                    alert(result);
-                    relocateCn();
-                    readStatus = false;
-                    showList(pdt_id);
-                    deleteModalValue();
-                    $(".modal").css("display","none");
-                },
                 error   : function(){ alert("error") }
             });
-            $(".close").trigger("click");
+            $(location).prop("href", location.href);
+            alert("글이 작성되었습니다.");
         });
 
         $(".close").click(function(){
@@ -473,15 +466,10 @@
             $.ajax({
                 type:'DELETE',
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
-                success : function(result){
-                    alert(result)
-                    relocateCn();
-                    readStatus = false;
-                    showList(pdt_id);
-                },
                 error   : function(){ alert("error") }
             });
-
+            $(location).prop("href", location.href);
+            alert("글이 삭제되었습니다.");
         });
 
         $("#board").on("click", ".mod_btn", function(e){
@@ -517,16 +505,10 @@
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 headers : { "content-type": "application/json"},
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
-                success : function(result){
-                    alert(result);
-                    relocateCn();
-                    readStatus = false;
-                    showList(pdt_id);
-                    $(".modal").css("display","none");
-                },
                 error   : function(){ alert("error") }
             });
-            $(".close").trigger("click");
+            $(location).prop("href", location.href);
+            alert("글이 수정되었습니다.");
         });
 
         if(${sessionScope.memberResponse !=null}) {

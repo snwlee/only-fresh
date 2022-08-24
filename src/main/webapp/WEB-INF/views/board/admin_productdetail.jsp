@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+\<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -82,6 +82,7 @@
                 <p>알레르기 정보(allg_dt)<input class="update_input" name="allg_dt"></p>
                 <p>유통기한(ex_dt)<input class="update_input" name="ex_dt"></p>
                 <p>안내사항(notice)<input class="update_input" name="notice"></p>
+                <p>고화질이미지(prt_image)<input class="update_input" name="prt_image"></p>
                 <p>상품설명(prt_info)<input class="update_input" name="prt_info"></p>
                 <button id="update_button">상품 디테일 추가하기</button>
                 <button id="test_button">상품 디테일 수정하기</button>
