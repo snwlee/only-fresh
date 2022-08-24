@@ -155,7 +155,7 @@
                       ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE CCTT.cd_type_name =#{cd_type_name}
     </select>
-    <select id="cateCnt" parameterType="cd_type_name" resultType="int">
+    <select id="cateCnt" parameterType="String" resultType="int">
         SELECT  count(*)
         FROM PRODUCT_TB P
                  JOIN PRODUCT_TAG_TB T
@@ -193,7 +193,7 @@
         limit #{offset}, #{pageSize}
     </select>
 
-    <select id="codeNameSelectCnt" parameterType="cd_type_name" resultType="int">
+    <select id="codeNameSelectCnt" parameterType="int" resultType="int">
         SELECT  count(*)
         FROM PRODUCT_TB P
                  JOIN PRODUCT_TAG_TB T
@@ -206,7 +206,7 @@
                       ON CCT.cat_code = C.cat_code
                  JOIN COMMON_CODE_TYPE_TB CCTT
                       ON CCTT.cd_type_id = CCT.cd_type_id
-        WHERE CCTT.cd_type_name =#{cd_type_name}
+        WHERE CCT.cd_name_num =#{cd_name_num}
     </select>
     <select id="ProductListDESC" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,

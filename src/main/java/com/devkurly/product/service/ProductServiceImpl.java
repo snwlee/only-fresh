@@ -144,6 +144,10 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception {
         return productDao.CodeNameSelect(sc,cd_name_num);
     }
+    @Override
+    public int codeNameSelectCnt(Integer cd_name_num)throws Exception {
+        return productDao.codeNameSelectCnt(cd_name_num);
+    }
 
     @Override
     public List cate(String cd_type_name, SearchCondition sc) throws Exception {

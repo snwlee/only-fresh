@@ -29,7 +29,7 @@ public interface ProductDao {
 
     List<MainSubCatDto> getCatList() throws Exception;
 
-
+    int codeNameSelectCnt(Integer cd_name_num)throws Exception;
 
     int count() throws Exception;
 

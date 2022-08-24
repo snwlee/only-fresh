@@ -79,6 +79,9 @@
       width:100%;
       height:100%;
     }
+    a{
+      text-decoration:none;
+    }
 
     /* input {
         width: 80%;
@@ -102,9 +105,9 @@
     <div id="search">
       <div id="search_first">
         <img style="width:82px; height: 42px" src="/product_detail/logo.png" alt="logo" />
-        <a>마켓컬리</a>
+        <a href="/DevKurly">마켓컬리</a>
         <div></div>
-        <a>뷰티컬리</a>
+        <a href="/DevKurly">뷰티컬리</a>
       </div>
       <div id="input_container">
         <input placeholder="검색어를 입력해주세요" />
@@ -113,7 +116,7 @@
       <div id="icon_container">
         <img src="/product_detail/imgs/location.png" />
         <img src="/product_detail/imgs/heart.png" />
-        <img src="/product_detail/imgs/shopping-cart.png" />
+        <a href="carts/"><img src="/main/imgs/shopping-cart.png" /></a>
       </div>
     </div>
     <div id="menubar">
@@ -122,10 +125,10 @@
         <span>카테고리</span>
       </div>
       <div id="menus">
-        <span onclick="location.href='/product/newlist?sort=1&page=1&pageSize=12'">신상품</span>
-        <span onclick="location.href='/product/newlist?sort=2&page=1&pageSize=12'">베스트</span>
-        <span onclick="location.href='/product/newlist?sort=3&page=1&pageSize=12'">알뜰쇼핑</span>
-        <span>특가/혜택</span>
+        <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
+        <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
+        <a href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
+        <a href="/event/main">특가/혜택</a>
       </div>
       <div id="deli_info">
         <span id="purple_deli_info">샛별·낮</span>

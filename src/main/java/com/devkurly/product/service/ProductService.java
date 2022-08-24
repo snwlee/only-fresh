@@ -30,7 +30,7 @@ public interface ProductService {
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
     List<MainSubCatDto> getMainSubCats() throws Exception;
-
+    int codeNameSelectCnt(Integer cd_name_num)throws Exception;
 
 
     List<ProductDto> selectProductId() throws Exception;
