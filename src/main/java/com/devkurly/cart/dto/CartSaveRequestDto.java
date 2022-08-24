@@ -1,10 +1,7 @@
 package com.devkurly.cart.dto;
 
 import com.devkurly.cart.domain.Cart;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -16,6 +13,12 @@ public class CartSaveRequestDto {
     private Integer pdt_id;
     private Integer pdt_qty;
 
+    public CartSaveRequestDto(Cart cart) {
+        this.user_id = cart.getUser_id();
+        this.pdt_id = cart.getPdt_id();
+        this.pdt_qty = cart.getPdt_qty();
+    }
+
     public void saveCart(Integer user_id, Integer pdt_id) {
         this.user_id = user_id;
         this.pdt_id = pdt_id;
@@ -25,6 +28,11 @@ public class CartSaveRequestDto {
         this.user_id = user_id;
         this.pdt_id = pdt_id;
         this.pdt_qty = pdt_qty;
+    }
+
+    public CartSaveRequestDto(Integer user_id, Integer pdt_id) {
+        this.user_id = user_id;
+        this.pdt_id = pdt_id;
     }
 
     @Builder

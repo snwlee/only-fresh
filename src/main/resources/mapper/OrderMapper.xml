@@ -12,30 +12,49 @@
         insert into ORDER_PRODUCT_TB(ord_id, pdt_id, pdt_qty)
         values (#{ord_id}, #{pdt_id}, #{pdt_qty});
     </insert>
-    <select id="findById" parameterType="int" resultType="int">
+    <select id="findByUserId" parameterType="int" resultType="int">
         select ord_id
         from ORDER_TB
         where user_id = #{user_id}
         order by in_date DESC
         limit 1;
     </select>
+    <select id="findByOrderId" parameterType="int" resultType="Order">
+        select *
+        from ORDER_TB
+        where ord_id = #{ord_id};
+    </select>
     <select id="joinOrderProduct" parameterType="int" resultType="com.devkurly.order.dto.OrderResponseDto">
-        select OT.ord_id, user_id, coupn_id, stus_cd, req_plc_cd, req_dtls, used_acamt, dlvr_yn, pdt_id, pdt_qty
+        select OT.ord_id,
+               user_id,
+               coupn_id,
+               stus_cd,
+               req_plc_cd,
+               req_dtls,
+               used_acamt,
+               dlvr_yn,
+               pdt_id,
+               pdt_qty
         from ORDER_TB OT
-        join ORDER_PRODUCT_TB OPT
-        on OT.ord_id = OPT.ord_id
+                 join ORDER_PRODUCT_TB OPT
+                      on OT.ord_id = OPT.ord_id
         where OT.ord_id = #{ord_id}
         order by OT.in_date DESC;
     </select>
+    <!--    <update id="update" parameterType="Order">-->
+    <!--        update ORDER_TB-->
+    <!--        set addr_id    = #{addr_id},-->
+    <!--            coupn_id   = #{coupn_id},-->
+    <!--            stus_cd    = #{stus_cd},-->
+    <!--            req_plc_cd = #{req_plc_cd},-->
+    <!--            req_dtls   = #{req_dtls},-->
+    <!--            used_acamt = #{used_acamt},-->
+    <!--            dlvr_yn    = #{dlvr_yn}-->
+    <!--        where ord_id = #{ord_id};-->
+    <!--    </update>-->
     <update id="update" parameterType="Order">
         update ORDER_TB
-        set addr_id    = #{addr_id},
-            coupn_id   = #{coupn_id},
-            stus_cd    = #{stus_cd},
-            req_plc_cd = #{req_plc_cd},
-            req_dtls   = #{req_dtls},
-            used_acamt = #{used_acamt},
-            dlvr_yn    = #{dlvr_yn}
+        set all_amt = #{all_amt}
         where ord_id = #{ord_id};
     </update>
     <delete id="delete" parameterType="int">

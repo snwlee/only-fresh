@@ -18,9 +18,10 @@ public class Order {
     private String req_dtls;
     private Integer used_acamt;
     private Boolean dlvr_yn;
+    private Integer all_amt;
 
     @Builder
-    public Order(Integer ord_id, Integer user_id, Integer addr_id, Integer coupn_id, String stus_cd, String req_plc_cd, String req_dtls, Integer used_acamt, Boolean dlvr_yn) {
+    public Order(Integer ord_id, Integer user_id, Integer addr_id, Integer coupn_id, String stus_cd, String req_plc_cd, String req_dtls, Integer used_acamt, Boolean dlvr_yn, Integer all_amt) {
         this.ord_id = ord_id;
         this.user_id = user_id;
         this.addr_id = addr_id;
@@ -30,5 +31,6 @@ public class Order {
         this.req_dtls = req_dtls;
         this.used_acamt = used_acamt;
         this.dlvr_yn = dlvr_yn;
+        this.all_amt = all_amt;
     }
 }

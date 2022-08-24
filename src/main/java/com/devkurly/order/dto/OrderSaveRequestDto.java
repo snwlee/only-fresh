@@ -15,8 +15,6 @@ import javax.validation.constraints.*;
 public class OrderSaveRequestDto {
 
     @NotNull
-    private Integer ord_id;
-    @NotNull
     private Integer user_id;
     @NotNull
     private Integer addr_id;
@@ -29,8 +27,7 @@ public class OrderSaveRequestDto {
     private Boolean dlvr_yn;
 
     @Builder
-    public OrderSaveRequestDto(Integer ord_id, Integer user_id, Integer addr_id, Integer coupn_id, String stus_cd, String req_plc_cd, String req_dtls, Integer used_acamt, Boolean dlvr_yn) {
-        this.ord_id = ord_id;
+    public OrderSaveRequestDto(Integer user_id, Integer addr_id, Integer coupn_id, String stus_cd, String req_plc_cd, String req_dtls, Integer used_acamt, Boolean dlvr_yn) {
         this.user_id = user_id;
         this.addr_id = addr_id;
         this.coupn_id = coupn_id;
@@ -43,7 +40,6 @@ public class OrderSaveRequestDto {
 
     public Order toEntity() {
         return Order.builder()
-                .ord_id(ord_id)
                 .user_id(user_id)
                 .addr_id(addr_id)
                 .stus_cd(stus_cd)
