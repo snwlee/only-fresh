@@ -139,7 +139,6 @@
         2    </div>
     <%--상품 보기--%>
     <div class="content_box">
-        <a class="btn" href="/product/list?page=1&pageSize=10"/>상품 보기</a>
         <a class="btn" href="/DevKurly">메인페이지 이동</a>
         <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
         <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>

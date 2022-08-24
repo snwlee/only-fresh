@@ -56,11 +56,15 @@ public interface ProductService {
     List<ProductDto> main(Map map) throws Exception;
 
 
-    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+    List<ProductDto> mainlist(String cd_type_name) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws  Exception;
 
     List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
+
+    List cate(String cd_type_name, SearchCondition sc) throws Exception;
+
+    int cateCnt(String cd_type_name) throws Exception;
 }
 
 

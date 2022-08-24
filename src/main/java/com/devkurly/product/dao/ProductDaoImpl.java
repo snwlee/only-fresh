@@ -76,8 +76,8 @@ public class ProductDaoImpl implements ProductDao {
         return session.delete(namespace + "delete", map);
     }
 
-    public List<ProductDto> mainlist(String cd_type_id)throws Exception {
-        return session.selectList(namespace + "mainlist", cd_type_id);
+    public List<ProductDto> mainlist(String cd_type_name)throws Exception {
+        return session.selectList(namespace + "mainlist", cd_type_name);
     }
 
 
@@ -142,6 +142,16 @@ public class ProductDaoImpl implements ProductDao {
         map.put("pageSize",sc.getPageSize());
         map.put("cd_name_num",cd_name_num);
         return session.selectList(namespace+"CodeNameSelect",map);
+    }
+
+    @Override
+    public List cate(SearchCondition sc, String cd_type_name) throws Exception {
+        return session.selectList(namespace+"cate",cd_type_name);
+    }
+
+    @Override
+    public int cateCnt(String cd_type_name) throws Exception {
+        return session.selectOne(namespace+"cateCnt",cd_type_name);
     }
 
 }
