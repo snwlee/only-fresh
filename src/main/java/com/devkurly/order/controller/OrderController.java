@@ -63,12 +63,17 @@ public class OrderController {
 
         // 생성한 주문 기반으로 주문서 출력
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(order_id);
+        int pdtSum = 0;
+        for (CartProductResponseDto responseDto : checkedCartProduct) {
+            pdtSum += responseDto.getPrice() * responseDto.getPdt_qty();
+        }
         int sum = 0;
         for (CartProductResponseDto responseDto : checkedCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
         orderService.modifyOrder(new OrderUpdateRequestDto(order_id, sum));
         model.addAttribute("sum", sum);
+        model.addAttribute("pdtSum", pdtSum);
         model.addAttribute("order_id", order_id);
         model.addAttribute("cart", checkedCartProduct);
         model.addAttribute("order", orderResponseDto);

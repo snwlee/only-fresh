@@ -157,7 +157,7 @@
                             </div>
                             <div class="payment_row">
                                 <span>상품할인금액</span>
-                                <span>0원</span>
+                                <span id="discount_price">0원</span>
                             </div>
                             <div class="payment_row">
                                 <span>배송비</span>
@@ -221,6 +221,7 @@
                             <button id="plus-btn-` + index + `">+</button>
                         </div>
                         <div class="cart-sum" id="cart-sum-hidden-` + CartResponseDto.pdt_id + `" data-status="1" hidden>` + CartResponseDto.pdt_qty * CartResponseDto.sel_price + `</div>
+                        <div class="cart-sum-pdt" id="cart-sum-pdt-hidden-` + CartResponseDto.pdt_id + `" data-status="1" hidden>` + CartResponseDto.pdt_qty * CartResponseDto.price + `</div>
                         <p id="cart-sum-` + index + `" style="margin-bottom: 0px;
                             ">` + (CartResponseDto.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + `원</p>
                         <a href="/carts/delete/` + CartResponseDto.pdt_id + `"><button style="
@@ -240,6 +241,16 @@
                         return sum;
                     }
 
+                    function totalPdt() {
+                        let sum = 0;
+                        $('.cart-sum-pdt').each(function () {
+                            if ($(this).attr('data-status') === '1') {
+                                sum += parseInt($(this).text());
+                            }
+                        });
+                        return sum;
+                    }
+
                     $('#select_all').click(function () {
                         if ($('#allCheck').is(':checked')) {
                             $('input:checkbox').prop('checked', false);
@@ -248,11 +259,13 @@
                             $('.cart-checked').css('display', 'none')
                             $('.cart-unchecked').css('display', '')
                             $('.cart-sum').attr('data-status', '0');
+                            $('.cart-sum-pdt').attr('data-status', '0');
                             $('#order_submit').css('background-color', '#DDDDDD');
                             $('#order_submit').attr('disabled', true);
                             $('#order_submit').text('상품을 선택해주세요');
-                            $('#product_price').html(total().toLocaleString('en-US') + '원');
+                            $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
+                            $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                         } else {
                             $('input:checkbox').prop('checked', true);
                             $('#select_all_checked').css('display', '');
@@ -260,17 +273,19 @@
                             $('.cart-checked').css('display', '')
                             $('.cart-unchecked').css('display', 'none')
                             $('.cart-sum').attr('data-status', '1');
+                            $('.cart-sum-pdt').attr('data-status', '1');
                             $('#order_submit').css('background-color', '#5F0080');
                             $('#order_submit').attr('disabled', false);
                             $('#order_submit').text('주문하기');
-                            $('#product_price').html(total().toLocaleString('en-US') + '원');
+                            $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
+                            $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                         }
                     });
 
-                    $('#product_price').html(total().toLocaleString('en-US') + '원');
+                    $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                     $('#payment_price').html(total().toLocaleString('en-US') + '원');
-
+                    $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                     $('input:checkbox').prop('checked', true);
                     $('#select_all_checked').css('display', '');
                     $('#select_all_unchecked').css('display', 'none');
@@ -283,11 +298,13 @@
                             $('#cart-checked-' + CartResponseDto.pdt_id).css('display', 'none');
                             $('#cart-unchecked-' + CartResponseDto.pdt_id).css('display', '');
                             $('#cart-sum-hidden-' + CartResponseDto.pdt_id).attr('data-status', '0');
+                            $('#cart-sum-pdt-hidden-' + CartResponseDto.pdt_id).attr('data-status', '0');
                             $('#select_all_checked').css('display', 'none');
                             $('#select_all_unchecked').css('display', '');
                             $('#allCheck').prop('checked', false);
-                            $('#product_price').html(total().toLocaleString('en-US') + '원');
+                            $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
+                            $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             $('.cart-sum').each(function () {
                                 if ($(this).attr('data-status') === '0') {
                                     $('#order_submit').css('background-color', '#DDDDDD');
@@ -308,8 +325,10 @@
                             $('#cart-checked-' + CartResponseDto.pdt_id).css('display', '');
                             $('#cart-unchecked-' + CartResponseDto.pdt_id).css('display', 'none');
                             $('#cart-sum-hidden-' + CartResponseDto.pdt_id).attr('data-status', '1');
-                            $('#product_price').html(total().toLocaleString('en-US') + '원');
+                            $('#cart-sum-pdt-hidden-' + CartResponseDto.pdt_id).attr('data-status', '1');
+                            $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
+                            $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             $('.cart-sum').each(function () {
                                 if ($(this).attr('data-status') === '1') {
                                     $('#select_all_checked').css('display', '');
@@ -353,8 +372,10 @@
                                 cartJs = JSON.parse(result);
                                 $('#cart-sum-' + index).html((cartJs.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + '원');
                                 $('#cart-sum-hidden-' + CartResponseDto.pdt_id).html(cartJs.pdt_qty * CartResponseDto.sel_price);
-                                $('#product_price').html(total().toLocaleString('en-US') + '원');
+                                $('#cart-sum-pdt-hidden-' + CartResponseDto.pdt_id).html(cartJs.pdt_qty * CartResponseDto.price);
+                                $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                                 $('#payment_price').html(total().toLocaleString('en-US') + '원');
+                                $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             },
                             error: function () {
                                 alert('제품의 재고가 부족합니다.');
@@ -386,8 +407,10 @@
                                 cartJs = JSON.parse(result);
                                 $('#cart-sum-' + index).html((cartJs.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + '원');
                                 $('#cart-sum-hidden-' + CartResponseDto.pdt_id).html(cartJs.pdt_qty * CartResponseDto.sel_price);
-                                $('#product_price').html(total().toLocaleString('en-US') + '원');
+                                $('#cart-sum-pdt-hidden-' + CartResponseDto.pdt_id).html(cartJs.pdt_qty * CartResponseDto.price);
+                                $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                                 $('#payment_price').html(total().toLocaleString('en-US') + '원');
+                                $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             },
                             error: function () {
                                 alert('error')
