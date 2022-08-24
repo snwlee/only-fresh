@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
 
@@ -34,7 +33,6 @@ public class OrderController {
     @GetMapping("")
     public String requestOrder(@RequestParam(value = "checked") List<String> chArr, Model model, HttpSession session) {
         // 주문 하려는 상품이 장바구니에 있는지 확인
-
 
         Integer user_id = getMemberResponse(session);
 
@@ -65,12 +63,17 @@ public class OrderController {
 
         // 생성한 주문 기반으로 주문서 출력
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(order_id);
+        int pdtSum = 0;
+        for (CartProductResponseDto responseDto : checkedCartProduct) {
+            pdtSum += responseDto.getPrice() * responseDto.getPdt_qty();
+        }
         int sum = 0;
         for (CartProductResponseDto responseDto : checkedCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
         orderService.modifyOrder(new OrderUpdateRequestDto(order_id, sum));
         model.addAttribute("sum", sum);
+        model.addAttribute("pdtSum", pdtSum);
         model.addAttribute("order_id", order_id);
         model.addAttribute("cart", checkedCartProduct);
         model.addAttribute("order", orderResponseDto);

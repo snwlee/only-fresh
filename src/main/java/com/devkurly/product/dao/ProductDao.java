@@ -70,4 +70,5 @@ public interface ProductDao {
 
     List<ProductDto> goodslist(String cd_name) throws Exception;
 
+    List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception;
 }

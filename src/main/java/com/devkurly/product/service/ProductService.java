@@ -24,9 +24,9 @@ public interface ProductService {
 
     List<ProductDto> ProductList(Map map) throws Exception;
 
-    List<ProductDto> ProductThriftyList(Map map) throws Exception;
+    List<ProductDto> ProductThriftyList(SearchCondition sc) throws Exception;
 
-    List<ProductDto> ProductBestList(Map map) throws Exception;
+    List<ProductDto> ProductBestList(SearchCondition sc) throws Exception;
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
     List<MainSubCatDto> getMainSubCats() throws Exception;
@@ -61,6 +61,8 @@ public interface ProductService {
     List<ProductDto> mainlist(String cd_type_id) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws  Exception;
+
+    List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
 }
 
 
