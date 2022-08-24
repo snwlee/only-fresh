@@ -201,7 +201,7 @@ h2 {
 
 #payment_box {
     width: 284px;
-    height: 198px;
+    height: 270px;
     background-color: #FAFAFA;
 }
 
@@ -231,7 +231,7 @@ h2 {
 }
 
 .products_container {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
 /*---*/
@@ -242,6 +242,30 @@ h2 {
     color: #808080;
     background-color: #FAFAFA;
     border: 1px solid rgb(221, 221, 221);
+}
+
+#point-input {
+    width: 450px;
+    height: 45px;
+    color: #808080;
+    background-color: #FAFAFA;
+    border: 1px solid rgb(221, 221, 221);
+}
+
+#point-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    width: 150px;
+    border: 1px solid #cacaca;
+    border-radius: 5px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
 }
 
 .credit-select {
