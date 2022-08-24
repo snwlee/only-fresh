@@ -26,8 +26,44 @@
 <html>
 <head>
     <title>DevKurly :: 얼마나 좋아</title>
+    <style>
+        #contents_container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .content_box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 400px;
+            height: 300px;
+            border: 1px solid #5F0080;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .btn {
+            cursor: pointer;
+            width: 380px;
+            height: 50px;
+            border-radius: 5px;
+            border: none;
+            background-color: #5F0080;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 400;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+<h1>메인화면</h1>
 <div>로그인 상태 : 유저 번호 ${sessionScope.memberResponse.user_id}</div>
 <a href="${nameLink}">${name}</a>
 <c:if test="${sessionScope.memberResponse != null}">
@@ -57,6 +93,7 @@
     </div>
     <%--배송지--%>
     <div class="content_box">
+        <a class="btn" href="/address/list">배송지 목록</a>
     </div>
 </div>
 </body>
