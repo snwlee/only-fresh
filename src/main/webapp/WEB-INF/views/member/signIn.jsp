@@ -120,50 +120,53 @@
         </div>
     </div>
     <%--    header--%>
-
-    <form action="/members" method="post" autocomplete="off">
-        <div class="member-submit-box">
-            <div class="member-title">로그인</div>
-            <button
-                    id="kakao"
-                    class="member-btn-sns"
-                    onclick="location.href=''"
-                    type="button"
-            >
-                <img
-                        id="kakao-img"
-                        src="https://www.svgrepo.com/show/368252/kakao.svg"
-                        style="height: 24px"
+    <div class="member-out-box">
+        <form action="/members" method="post" autocomplete="off">
+            <div class="member-submit-box">
+                <div class="member-title">로그인</div>
+                <button
+                        id="kakao"
+                        class="member-btn-sns"
+                        onclick="location.href=''"
+                        type="button"
+                >
+                    <img
+                            id="kakao-img"
+                            src="https://www.svgrepo.com/show/368252/kakao.svg"
+                            style="height: 24px"
+                    />
+                    <span class="sns-text">카카오 로그인</span>
+                </button>
+                <div class="warning-msg" id="msg">${param.error}</div>
+                <input
+                        class="member-input-text"
+                        type="text"
+                        name="user_email"
+                        value="${cookie.email.value}"
+                        placeholder="이메일"
                 />
-                <span class="sns-text">카카오 로그인</span>
-            </button>
-            <div class="warning-msg" id="msg">${param.error}</div>
-            <input
-                    class="member-input-text"
-                    type="text"
-                    name="user_email"
-                    value="${cookie.email.value}"
-                    placeholder="이메일"
-            />
-            <input
-                    class="member-input-text"
-                    id="password"
-                    type="password"
-                    name="pwd"
-                    placeholder="비밀번호"
-            />
-            <button class="password-view" type="button" onclick="change();">비밀번호 보기</button>
-            <label class="remember-id">
-                <input type="checkbox" name="rememberId" ${empty cookie.email.value ? "" : "checked"}>
-                ID 기억하기
-            </label>
-            <input type="hidden" name="toURL" value="${param.toURL}"/>
-            <a href="#">아이디 찾기</a>
-            <a href="#">비밀번호 찾기</a>
-            <button class="member-btn-a" type="submit">로그인</button>
-        </div>
-    </form>
-    <button class="member-btn-b" onclick="location.href='/members/signup'">회원가입</button>
+                <input
+                        class="member-input-text"
+                        id="password"
+                        type="password"
+                        name="pwd"
+                        placeholder="비밀번호"
+                />
+                <button class="password-view" type="button" onclick="change();"><img
+                        src="https://cdn-icons-png.flaticon.com/512/6803/6803345.png"
+                        style="width: 20px; height: 20px"/></button>
+                <label class="remember-id">
+                    <input type="checkbox" name="rememberId" ${empty cookie.email.value ? "" : "checked"}>
+                    ID 기억하기
+                </label>
+                <input type="hidden" name="toURL" value="${param.toURL}"/>
+                <a href="#">아이디 찾기</a>
+                <a href="#">비밀번호 찾기</a>
+                <button class="member-btn-a" type="submit">로그인</button>
+                <a class="member-btn-b" href="/members/signup">회원가입</a>
+            </div>
+        </form>
+    </div>
 </div>
 <script>
     let change = function () {

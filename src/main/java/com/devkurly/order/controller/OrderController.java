@@ -3,10 +3,13 @@ package com.devkurly.order.controller;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
+import com.devkurly.cart.exception.EmptyCartException;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.global.ErrorCode;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
+import com.devkurly.order.exception.OrderException;
 import com.devkurly.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
 
@@ -29,6 +33,9 @@ public class OrderController {
 
     @GetMapping("")
     public String requestOrder(@RequestParam(value = "checked") List<String> chArr, Model model, HttpSession session) {
+        // 주문 하려는 상품이 장바구니에 있는지 확인
+
+
         Integer user_id = getMemberResponse(session);
 
         // 유저 기반 주문 테이블 생성
@@ -42,7 +49,13 @@ public class OrderController {
         List<CartProductResponseDto> checkedCartProduct = new ArrayList<>();
         for (String str : chArr) {
             pdt_id = Integer.parseInt(str);
-            List<Cart> carts = cartService.viewCheckedCart(new CartSaveRequestDto(user_id, pdt_id));
+            List<Cart> carts;
+            try {
+                carts = cartService.viewCheckedCart(new CartSaveRequestDto(user_id, pdt_id));
+            } catch (EmptyCartException e) {
+                orderService.removeOrder(user_id, order_id);
+                throw new OrderException("주문하려는 제품이 장바구니에 없습니다.", ErrorCode.ORDER_ERROR);
+            }
             for (Cart cart : carts) {
                 orderService.insertOrderProduct(new OrderProduct(order_id, cart.getPdt_id(), cart.getPdt_qty()));
                 List<CartProductResponseDto> viewCartProduct = cartService.viewCheckedCartProduct(new CartSaveRequestDto(cart));
@@ -61,7 +74,7 @@ public class OrderController {
         model.addAttribute("order_id", order_id);
         model.addAttribute("cart", checkedCartProduct);
         model.addAttribute("order", orderResponseDto);
-        return "order/order";
+        return "/order/order";
     }
 //
 //
