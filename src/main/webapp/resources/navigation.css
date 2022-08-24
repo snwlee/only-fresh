@@ -119,9 +119,6 @@
     white-space: nowrap;
 }
 
-
-
-
 #menus {
     display: flex;
     justify-content: space-between;
@@ -164,7 +161,6 @@
     display:block;
 }
 
-
 #main_cat_container {
     position: absolute;
     display:none;
@@ -174,7 +170,6 @@
     border: 1px solid #ddd;
     margin: 0;
 }
-
 
 .cat {
     padding: 8px 0 8px 10px;
@@ -199,4 +194,14 @@
     margin:0;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
+}
+
+#main_cat_container  a, #sub_cat_container a {
+    display: block;
+    text-decoration: none;
+    color: #333333;
+}
+
+#main_cat_container a:hover, #sub_cat_container a:hover {
+    color: #5F0080 ;
 }

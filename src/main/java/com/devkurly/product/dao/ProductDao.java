@@ -29,7 +29,7 @@ public interface ProductDao {
 
     List<MainSubCatDto> getCatList() throws Exception;
 
-
+    int codeNameSelectCnt(Integer cd_name_num)throws Exception;
 
     int count() throws Exception;
 
@@ -72,7 +72,7 @@ public interface ProductDao {
 
     List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception;
 
-    List cate(SearchCondition sc, String cd_type_name) throws Exception;
+    List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
 
     int cateCnt(String cd_type_name) throws Exception;
 }

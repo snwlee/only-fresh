@@ -148,10 +148,18 @@ public class ProductDaoImpl implements ProductDao {
         map.put("cd_name_num",cd_name_num);
         return session.selectList(namespace+"CodeNameSelect",map);
     }
+    @Override
+    public int codeNameSelectCnt(Integer cd_name_num)throws Exception {
+        return session.selectOne(namespace + "codeNameSelectCnt", cd_name_num);
+    }
 
     @Override
-    public List cate(SearchCondition sc, String cd_type_name) throws Exception {
-        return session.selectList(namespace+"cate",cd_type_name);
+    public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        map.put("cd_type_name",cd_type_name);
+        return session.selectList(namespace+"cate",map);
     }
 
     @Override

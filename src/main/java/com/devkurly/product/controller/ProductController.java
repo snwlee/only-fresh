@@ -137,47 +137,28 @@ public class ProductController {
     @ResponseBody
     public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name) {
         Map<String, Object> map = new HashMap<String, Object>();
-        Paging ph = null;
         List list = null;
         try {
             if(sort==null){
-                System.out.println("sort가 널입니다.");
                 if(cd_type_name!=null){ // 대분류 카테고리 코드
-                    int totalCnt = productService.cateCnt(cd_type_name);
-                    ph = new Paging(totalCnt, sc);
                     list = productService.cate(cd_type_name,sc);
-                    map.put("totalCnt",totalCnt);
-                    map.put("ph",ph);
                     map.put("list",list);
                 }
                 if(cd_name_num!=null){ // 소분류 카테고리 코드
                     list = productService.CodeNameSelect(cd_name_num,sc);
-                    int totalCnt = list.size();
-                    ph = new Paging(totalCnt, sc);
-                    map.put("totalCnt",totalCnt);
-                    map.put("ph",ph);
                     map.put("list",list);
                 }
                 return new ResponseEntity<Map>(map, HttpStatus.OK);
             }
-            int totalCnt = productService.getSearchResultCnt(sc);
-            ph = new Paging(totalCnt, sc);
             if (sort == 1) { // 신상품
                 list = productService.getSearchResultPage(sc);
-                map.put("totalCnt", totalCnt);
-                map.put("ph", ph);
                 map.put("list", list);
             }else if(sort==2) { // 베스트
                 list = productService.ProductBestList(sc);
-                map.put("totalCnt", totalCnt);
-                map.put("ph", ph);
                 map.put("list", list);
             }else if(sort==3) { // 알뜰쇼핑
                 list = productService.ProductThriftyList(sc);
-                map.put("totalCnt", totalCnt);
-                map.put("ph", ph);
                 map.put("list", list);
-                System.out.println("list = " + list);
             }
             else if(sort==0){ // 메인페이지
                 List list1 = productService.mainlist("채소");
@@ -197,6 +178,76 @@ public class ProductController {
             return new ResponseEntity<Map>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/newlist")
+    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m) {
+        Paging ph = null;
+        try {
+            if (sort == null) {
+                if (cd_type_name != null) { // 대분류 카테고리 코드
+                    int totalCnt = productService.cateCnt(cd_type_name);
+                    ph = new Paging(totalCnt, sc);
+                    m.addAttribute("totalCnt", totalCnt);
+                    m.addAttribute("ph", ph);
+                }
+                if (cd_name_num != null) { // 소분류 카테고리 코드
+                    int totalCnt = productService.codeNameSelectCnt(cd_name_num);
+                    ph = new Paging(totalCnt, sc);
+                    m.addAttribute("totalCnt", totalCnt);
+                    m.addAttribute("ph", ph);
+                }
+                return "product/productNewlist";
+            }
+            int totalCnt = productService.getSearchResultCnt(sc);
+            ph = new Paging(totalCnt, sc);
+            if (sort == 1) { // 신상품
+                m.addAttribute("totalCnt", totalCnt);
+                m.addAttribute("ph", ph);
+            } else if (sort == 2) { // 베스트
+                m.addAttribute("totalCnt", totalCnt);
+                m.addAttribute("ph", ph);
+            } else if (sort == 3) { // 알뜰쇼핑
+                m.addAttribute("totalCnt", totalCnt);
+                m.addAttribute("ph", ph);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "product/productNewlist";
+    }
+
+
+    @GetMapping("/bestlist")
+
+    public String bestlist(SearchCondition sc, String option, Model m, HttpServletRequest request, HttpSession session, String order_sc){
+        Paging ph = null;
+        try {
+            int totalCnt = productService.getSearchResultCnt(sc);
+            m.addAttribute("totalCnt", totalCnt);
+            ph = new Paging(totalCnt,sc);
+            List<ProductDto> list = null;
+
+            if(order_sc==null || order_sc == ""){
+                list = productService.getSearchResultPage(sc);
+            }else{
+                Map map = new HashMap();
+                map.put("order_sc",order_sc);
+                map.put("offset",sc.getOffset());
+                map.put("pageSize",sc.getPageSize());
+                map.put("keyword",sc.getKeyword());
+                list = productService.ProductListDESC(map);
+            }
+            m.addAttribute("list", list);
+            m.addAttribute("ph",ph);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "product/productBestlist";
+    }
+
+
 
     @GetMapping("/categories")
     @ResponseBody
@@ -236,64 +287,6 @@ public class ProductController {
         }
         return "/product/list";
     }
-
-    @GetMapping("/newlist")
-    public String main(SearchCondition sc, String option, Model m, HttpServletRequest request, HttpSession session, String order_sc) {
-        Paging ph = null;
-        try {
-            int totalCnt = productService.getSearchResultCnt(sc);
-            m.addAttribute("totalCnt", totalCnt);
-            ph = new Paging(totalCnt,sc);
-            List<ProductDto> list = null;
-
-            if(order_sc==null || order_sc == ""){
-                list = productService.getSearchResultPage(sc);
-            }else{
-                Map map = new HashMap();
-                map.put("order_sc",order_sc);
-                map.put("offset",sc.getOffset());
-                map.put("pageSize",sc.getPageSize());
-                map.put("keyword",sc.getKeyword());
-                list = productService.ProductListDESC(map);
-            }
-            m.addAttribute("list", list);
-            m.addAttribute("ph",ph);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "product/productNewlist";
-    }
-
-    @GetMapping("/bestlist")
-
-    public String bestlist(SearchCondition sc, String option, Model m, HttpServletRequest request, HttpSession session, String order_sc){
-        Paging ph = null;
-        try {
-            int totalCnt = productService.getSearchResultCnt(sc);
-            m.addAttribute("totalCnt", totalCnt);
-            ph = new Paging(totalCnt,sc);
-            List<ProductDto> list = null;
-
-            if(order_sc==null || order_sc == ""){
-                list = productService.getSearchResultPage(sc);
-            }else{
-                Map map = new HashMap();
-                map.put("order_sc",order_sc);
-                map.put("offset",sc.getOffset());
-                map.put("pageSize",sc.getPageSize());
-                map.put("keyword",sc.getKeyword());
-                list = productService.ProductListDESC(map);
-            }
-            m.addAttribute("list", list);
-            m.addAttribute("ph",ph);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "product/productBestlist";
-    }
-
-
 
 
     @GetMapping("/thriftylist")
