@@ -22,6 +22,8 @@ public class NewController {
         return"product/productlist";
     }
 
+
+
     @GetMapping("/goodslist") // /goodslist?cd_name='친환경'
     public String goodslist(Model m, SearchCondition sc){
         Paging ph = null;

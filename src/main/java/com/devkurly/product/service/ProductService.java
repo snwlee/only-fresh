@@ -30,7 +30,7 @@ public interface ProductService {
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
     List<MainSubCatDto> getMainSubCats() throws Exception;
-
+    int codeNameSelectCnt(Integer cd_name_num)throws Exception;
 
 
     List<ProductDto> selectProductId() throws Exception;
@@ -58,11 +58,15 @@ public interface ProductService {
     List<ProductDto> main(Map map) throws Exception;
 
 
-    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+    List<ProductDto> mainlist(String cd_type_name) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws  Exception;
 
     List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
+
+    List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
+
+    int cateCnt(String cd_type_name) throws Exception;
 }
 
 

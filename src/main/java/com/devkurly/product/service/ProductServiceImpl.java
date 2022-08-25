@@ -131,8 +131,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> mainlist(String cd_type_id) throws Exception {
-        return productDao.mainlist(cd_type_id);
+    public List<ProductDto> mainlist(String cd_type_name) throws Exception {
+        return productDao.mainlist(cd_type_name);
     }
 
     @Override
@@ -144,8 +144,19 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception {
         return productDao.CodeNameSelect(sc,cd_name_num);
     }
+    @Override
+    public int codeNameSelectCnt(Integer cd_name_num)throws Exception {
+        return productDao.codeNameSelectCnt(cd_name_num);
+    }
 
-
+    @Override
+    public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
+        return productDao.cate(cd_type_name, sc);
+    }
+        @Override
+        public int cateCnt(String cd_type_name) throws Exception {
+            return productDao.cateCnt(cd_type_name);
+    }
 
 
 
