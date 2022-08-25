@@ -28,17 +28,11 @@ public class AddressServiceImpl implements AddressService {
             addressDao.chkUpdateF(addressDto.getUser_id());
             addressDao.chkUpdateT(addressDto);
         }
-
-
-
-
         return addressDao.insert(addressDto);
     }
 
     @Override
     public List<AddressDto> getListSelect(Integer user_id) throws Exception {
-
-
         return addressDao.listSelect(user_id);
     }
 

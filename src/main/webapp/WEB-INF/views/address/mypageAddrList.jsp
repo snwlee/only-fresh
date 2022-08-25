@@ -163,8 +163,6 @@
                                 </div>
                                 <div class="coupon_name first_col">
                                     <h4>${addressDto.main_addr}</h4>
-                                        <%--                            <p>2</p>--%>
-                                        <%--                            <p>3</p>--%>
                                 </div>
                                 <div class="coupon_func second_col col">
                                         ${addressDto.addr_name}
@@ -172,8 +170,8 @@
                                 <div class="coupon_rate third_col col">
                                         ${addressDto.addr_tel}
                                 </div>
-                                <div class="coupon_due fourth_col col">
-                                        ${addressDto.deli_type}
+                                <div class="coupon_due fourth_col col" >
+                                        ${addressDto.deli_type==true ? '샛별배송':'낮배송'}
                                 </div>
                                 <div class="coupon_used fifth_col col">
                                     <a href="<c:url value='/address/read?addr_id=${addressDto.addr_id}'/>">수정</a>
@@ -188,6 +186,14 @@
 </div>
 </div>
 <script>
+
+    <%--let msg = "${param.msg}"--%>
+    <%--if(msg=="WRT_OK") alert("성공적으로 등록되었습니다.");--%>
+    <%--if(msg=="DEL_OK") alert("성공적으로 삭제되었습니다.");--%>
+    <%--if(msg=="DEL_ERR") alert("삭제에 실패했습니다.");--%>
+    <%--if(msg=="INS_OK") alert("성공적으로 등록되었습니다.");--%>
+    <%--if(msg=="INS_ERR") alert("등록에 실패했습니다.");--%>
+
 </script>
 </body>
 </html>

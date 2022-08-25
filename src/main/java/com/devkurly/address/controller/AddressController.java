@@ -39,6 +39,7 @@ public class AddressController {
 
             List<AddressDto> list = addressService.getListSelect(user_id);
             m.addAttribute("list", list);
+            m.addAttribute("addressDto", addressDto);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,19 +48,21 @@ public class AddressController {
     }
 
     @GetMapping("/read")
-    public String addrModify(Integer addr_id, HttpSession session, Model m) throws Exception { //user_id, addressDto 하드코딩
+    public String addrModify(Integer addr_id, HttpSession session, Model m, AddressDto addressDto) throws Exception { //user_id, addressDto 하드코딩
         MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
         Integer user_id = responseDto.getUser_id(); // user_id
 
+        addressDto.setUser_id(user_id);
+        addressDto.setAddr_id(addr_id);
+
         try {
-            AddressDto addressDto = addressService.read(addr_id);
-            addressDto.setAddr_id(addr_id);
-            m.addAttribute(addressDto); // model에 담아서 view로 전달
+            addressDto = addressService.read(addr_id);
+            m.addAttribute("addressDto", addressDto); // model에 담아서 view로 전달
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/address/modifyAddressForm";
+        return "/address/mypageAddrModify";
     }
 
     @PostMapping("/remove")
@@ -68,6 +71,7 @@ public class AddressController {
         Integer user_id = responseDto.getUser_id(); // user_id 세션 받기
 
         addressDto.setUser_id(user_id); // 세션으로 받아온 user_id를 Dto에 넣어준다.
+        addressDto.setAddr_id(addr_id);
 
         try {
             int rowCnt = addressService.remove(addressDto);
@@ -82,22 +86,24 @@ public class AddressController {
             rattr.addFlashAttribute("msg", "DEL_ERR"); // 삭제 실패
         }
 
-        return "redirect:/address/list"; // user_id 임시 하드코딩
+        return "redirect:/address/list";
     }
 
     @PostMapping("/modify")
-    public String modify( Integer addr_id,  AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
-        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = responseDto.getUser_id();
-        addressDto.setUser_id(user_id);
+        public String modify(Integer addr_id, AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
+            MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
+            Integer user_id = responseDto.getUser_id();
 
+            addressDto.setAddr_id(addr_id);
+            addressDto.setUser_id(user_id);
+
+        System.out.println("addressDto = " + addressDto);
         if(addressDto.getChk_addr()==null)
             addressDto.setChk_addr(false);
 
         try {
             int rowCnt = addressService.modify(addressDto);
-            m.addAttribute(addressDto);
-
+            m.addAttribute("addressDto", addressDto);
             if (rowCnt != 1) {
                 throw new Exception("Modify failed");
             }
@@ -106,17 +112,18 @@ public class AddressController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute(addressDto);
-            m.addAttribute("msg", "MOD_ERR");
-            return "/address/modifyAddressForm";
+            m.addAttribute("addressDto", addressDto);
+//            m.addAttribute("msg", "MOD_ERR");
+            return "/address/mypageAddrModify";
         }
+        return "redirect:/address/list";
     }
 
     @GetMapping("/insert")
     public String insert(Model m, AddressDto addressDto, HttpSession session) {
 //        m.addAttribute("mode", "deli");
         m.addAttribute(addressDto);
-        return "/address/newAddress2Form";  // 샛별배송 표기에 사용
+        return "/address/mypageAddrAdd";  // 샛별배송 표기에 사용
     }
 
     @PostMapping("/create")
@@ -146,7 +153,7 @@ public class AddressController {
             e.printStackTrace();
             rattr.addFlashAttribute(addressDto);
             m.addAttribute("msg", "INS_ERR");
-            return "/address/newAddress2Form";
+            return "/address/mypageAddrAdd";
         }
 
     }
