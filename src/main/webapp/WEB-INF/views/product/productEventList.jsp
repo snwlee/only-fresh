@@ -134,9 +134,7 @@
 <div id="container" style="width:100%; background-color:white; color:black; text-align:center">
   <ul>
     <li><a class="btn" href="<c:url value="/"/>">DevKurly</a></li>
-    <li>
 
-    </li>
     <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sel_price'/>">높은 가격순</a></li>
     <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=ds_rate'/>">혜택순</a></li>
     <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sales_rate'/>">판매량순</a></li>

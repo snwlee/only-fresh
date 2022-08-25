@@ -269,11 +269,10 @@
     $(document).ready(function () {
         showList();
         $('#ascBtn').on("click", function () {
-            window.location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
-            window.location.href = "<c:url value='/product/list?order_asc=sel_price'/>";
-            window.location.href = "<c:url value='/product/list?order_sc=ds_rate'/>";
-            window.location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
-            window.location.href = "<c:url value='/product/list?order_sc=in_date'/>";
+            location.href = "<c:url value='/product/list?order_sc=sel_price'/>";
+            location.href = "<c:url value='/product/list?order_sc=ds_rate'/>";
+            location.href = "<c:url value='/product/list?order_sc=sales_rate'/>";
+            location.href = "<c:url value='/product/list?order_sc=in_date'/>";
         });
 
     });
