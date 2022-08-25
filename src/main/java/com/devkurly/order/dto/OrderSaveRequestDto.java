@@ -14,6 +14,7 @@ import javax.validation.constraints.*;
 @ValidOrderForm
 public class OrderSaveRequestDto {
 
+    private Integer ord_id;
     @NotNull
     private Integer user_id;
     @NotNull
@@ -26,8 +27,14 @@ public class OrderSaveRequestDto {
     private Integer used_acamt;
     private Boolean dlvr_yn;
 
+    public void saveOrder(Integer ord_id, Integer user_id) {
+        this.ord_id = ord_id;
+        this.user_id = user_id;
+    }
+
     @Builder
-    public OrderSaveRequestDto(Integer user_id, Integer addr_id, Integer coupn_id, String stus_cd, String req_plc_cd, String req_dtls, Integer used_acamt, Boolean dlvr_yn) {
+    public OrderSaveRequestDto(Integer ord_id, Integer user_id, Integer addr_id, Integer coupn_id, String stus_cd, String req_plc_cd, String req_dtls, Integer used_acamt, Boolean dlvr_yn) {
+        this.ord_id = ord_id;
         this.user_id = user_id;
         this.addr_id = addr_id;
         this.coupn_id = coupn_id;
@@ -40,8 +47,10 @@ public class OrderSaveRequestDto {
 
     public Order toEntity() {
         return Order.builder()
+                .ord_id(ord_id)
                 .user_id(user_id)
                 .addr_id(addr_id)
+                .coupn_id(coupn_id)
                 .stus_cd(stus_cd)
                 .req_plc_cd(req_plc_cd)
                 .req_dtls(req_dtls)

@@ -209,7 +209,7 @@
         let tmp = '';
 
         res.forEach(el => {
-            tmp += '<a href="/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
         })
 
         return tmp;
@@ -274,7 +274,7 @@
                     categories = res;
 
                     $.each(res, (el)=>{
-                        $("#main_cat_container").append('<a href="/newlist?cd_type_name='+el+'&page=1&pageSize=12"<li class="cat main_cat">'+el+'</li></a>');
+                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12"<li class="cat main_cat">'+el+'</li></a>');
                     })
                 },
                 error: function (result) {
