@@ -4,6 +4,7 @@ import com.devkurly.order.domain.Order;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.mapper.OrderMapper;
+import com.devkurly.order.dto.OrderSaveRequestDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,13 @@ public class OrderService {
         return orderMapper.joinOrderProduct(order_id);
     }
     public Integer addOrder(Integer user_id) {
-        return orderMapper.save(user_id);
+        return orderMapper.add(user_id);
+    }
+    public Integer updateOrder(OrderSaveRequestDto requestDto) {
+        return orderMapper.updateOrder(requestDto.toEntity());
     }
     public Integer modifyOrder(OrderUpdateRequestDto requestDto) {
-        return orderMapper.update(requestDto.toEntity());
+        return orderMapper.updateAmt(requestDto.toEntity());
     }
     public Integer removeOrder(Integer user_id, Integer ord_id) {
         return orderMapper.delete(user_id, ord_id);

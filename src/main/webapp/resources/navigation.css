@@ -119,6 +119,9 @@
     white-space: nowrap;
 }
 
+
+
+
 #menus {
     display: flex;
     justify-content: space-between;
@@ -161,6 +164,7 @@
     display: block;
 }
 
+
 #main_cat_container {
     position: absolute;
     display: none;
@@ -170,6 +174,7 @@
     border: 1px solid #ddd;
     margin: 0;
 }
+
 
 .cat {
     padding: 8px 0 8px 10px;

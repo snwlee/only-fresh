@@ -4,6 +4,8 @@ import com.devkurly.payment.domain.Payment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Getter
 @NoArgsConstructor
 public class PaymentResponseDto {
@@ -14,6 +16,7 @@ public class PaymentResponseDto {
     private Integer all_amt;
     private Integer all_dc_amt;
     private Integer dlvr_amt;
+    private Date in_date;
 
     public PaymentResponseDto(Payment payment) {
         this.ord_id = payment.getOrd_id();
@@ -23,5 +26,6 @@ public class PaymentResponseDto {
         this.all_amt = payment.getAll_amt();
         this.all_dc_amt = payment.getAll_dc_amt();
         this.dlvr_amt = payment.getDlvr_amt();
+        this.in_date = payment.getIn_date();
     }
 }

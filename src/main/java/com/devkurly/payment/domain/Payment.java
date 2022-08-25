@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,9 +18,10 @@ public class Payment {
     private Integer all_amt;
     private Integer all_dc_amt;
     private Integer dlvr_amt;
+    private Date in_date;
 
     @Builder
-    public Payment(Integer ord_id, Integer user_id, String setl_cd, String setl_stus_cd, Integer all_amt, Integer all_dc_amt, Integer dlvr_amt) {
+    public Payment(Integer ord_id, Integer user_id, String setl_cd, String setl_stus_cd, Integer all_amt, Integer all_dc_amt, Integer dlvr_amt, Date in_date) {
         this.ord_id = ord_id;
         this.user_id = user_id;
         this.setl_cd = setl_cd;
@@ -26,5 +29,6 @@ public class Payment {
         this.all_amt = all_amt;
         this.all_dc_amt = all_dc_amt;
         this.dlvr_amt = dlvr_amt;
+        this.in_date = in_date;
     }
 }

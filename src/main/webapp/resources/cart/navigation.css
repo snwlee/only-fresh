@@ -148,3 +148,28 @@
     margin-right: 4px;
     font-weight: 600;
 }
+
+/*카테고리*/
+
+#show_category_button span{
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100px;
+}
+
+#show_category_button:hover #categories {
+    display:block;
+}
+
+
+#main_cat_container {
+    position: absolute;
+    display:none;
+    width: 250px;
+    left: 200px;
+    background-color: white;
+    border: 1px solid #ddd;
+    margin: 0;
+}
