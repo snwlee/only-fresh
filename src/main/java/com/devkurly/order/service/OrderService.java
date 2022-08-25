@@ -6,6 +6,7 @@ import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.mapper.OrderMapper;
 import com.devkurly.order.dto.OrderSaveRequestDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
+import com.devkurly.product.domain.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class OrderService {
     }
     public Integer checkRecentOrderId(Integer user_id) {
         return orderMapper.findByUserId(user_id);
+    }
+    public ProductDto checkProduct(Integer pdt_id) {
+        return orderMapper.findByPdtId(pdt_id);
     }
     public Integer insertOrderProduct(OrderProduct orderProduct) {
         return orderMapper.insertOrderProduct(orderProduct);

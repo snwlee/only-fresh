@@ -371,7 +371,7 @@
 </script>
 <script>
     $('#order_submit').click(function () {
-        $(this).prop('disabled', true);
+        $(this).prop('disabled', true).css('cursor', 'wait').css('background-color', '#DDDDDD').text('결제 대기중 입니다');
         $('#form').submit();
     });
 

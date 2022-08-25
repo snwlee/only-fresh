@@ -30,6 +30,9 @@ public class CartRestController {
     @PostMapping("/qty")
     public CartProductResponseDto modifyCartQty(@RequestBody CartProductResponseDto responseDto) {
         cartService.checkProductStock(responseDto.toEntity());
+        if (responseDto.getPdt_qty() < 1) {
+            responseDto.setPdt_qty(1);
+        }
         cartService.modifyCart(responseDto.toEntity());
         return responseDto;
     }

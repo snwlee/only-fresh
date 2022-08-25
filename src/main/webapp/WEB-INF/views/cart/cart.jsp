@@ -134,12 +134,14 @@
                 <div class="select_or_delete">
                     <span id="select_all" style="display: flex;">
                     <img id="select_all_checked"
+                         class="select_all"
                          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3Ni4wMDAwMDAsIC0xMDkwLjAwMDAwMCkgdHJhbnNsYXRlKDEwMC4wMDAwMDAsIDkzNi4wMDAwMDApIHRyYW5zbGF0ZSg2MC4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzVGMDA4MCIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"
                          alt=""/>
                     <img id="select_all_unchecked"
+                         class="select_all"
                          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgc3Ryb2tlPSIjREREIj4KICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICA8Zz4KICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjY5LjAwMDAwMCwgLTEwOTAuMDAwMDAwKSB0cmFuc2xhdGUoMTAwLjAwMDAwMCwgOTM2LjAwMDAwMCkgdHJhbnNsYXRlKDU1My4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMS41Ii8+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"
                          alt="" style="display: none"/>
-                    <span style="padding-top: 5px;">전체선택</span>
+                    <span id="select_all_text" style="padding-top: 5px;">전체선택</span>
                         <input type="checkbox" id="allCheck" checked hidden>
                     </span>
                     <span class="select_contour"></span>
@@ -240,11 +242,11 @@
         sub_cat_container.hide();
     })
 
-    let catToLi = function(res) {
+    let catToLi = function (res) {
         let tmp = '';
 
         res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12"<li class="cat main_cat">' + el.cd_name + '</li></a>'
         })
 
         return tmp;
@@ -277,9 +279,10 @@
     });
 </script>
 <script>
+
     $("#order_submit").click(function () {
 
-        $(this).prop('disabled', true);
+        $(this).prop('disabled', true).css('cursor', 'wait').css('background-color', '#DDDDDD').text('재주문시 새로고침 해주세요');
 
         let checkArr = [];
 
@@ -352,35 +355,39 @@
                         return sum;
                     }
 
-                    $('#select_all').click(function () {
-                        if ($('#allCheck').is(':checked')) {
-                            $('input:checkbox').prop('checked', false);
+                    $('#select_all').off().on('click', function () {
+                        console.log("clicked");
+                        if ($('#allCheck').prop('checked') === true) {
+                            console.log("TEST1");
                             $('#select_all_checked').css('display', 'none');
-                            $('#select_all_unchecked').css('display', '');
+                            $('#select_all_unchecked').css('display', 'block');
                             $('.cart-checked').css('display', 'none')
-                            $('.cart-unchecked').css('display', '')
+                            $('.cart-unchecked').css('display', 'block')
                             $('.cart-sum').attr('data-status', '0');
                             $('.cart-sum-pdt').attr('data-status', '0');
-                            $('#order_submit').css('background-color', '#DDDDDD');
-                            $('#order_submit').attr('disabled', true);
-                            $('#order_submit').text('상품을 선택해주세요');
+                            $('#order_submit').attr('disabled', true).text('상품을 선택해주세요').css('background-color', '#DDDDDD').css('cursor', 'default');
                             $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
                             $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
+                            $('.checked-cart').prop('checked', false);
                         } else {
-                            $('input:checkbox').prop('checked', true);
-                            $('#select_all_checked').css('display', '');
+                            console.log("TEST2");
+                            $('#select_all_checked').css('display', 'block');
                             $('#select_all_unchecked').css('display', 'none');
-                            $('.cart-checked').css('display', '')
+                            $('.cart-checked').css('display', 'block')
                             $('.cart-unchecked').css('display', 'none')
                             $('.cart-sum').attr('data-status', '1');
                             $('.cart-sum-pdt').attr('data-status', '1');
-                            $('#order_submit').css('background-color', '#5F0080');
-                            $('#order_submit').attr('disabled', false);
-                            $('#order_submit').text('주문하기');
+                            $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#5F0080').css('cursor', 'pointer');
                             $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
                             $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
+                            $('.checked-cart').prop('checked', true);
+                        }
+                        if ($('#select_all_checked').css('display') === 'none') {
+                            $('#allCheck').prop('checked', false);
+                        } else {
+                            $('#allCheck').prop('checked', true);
                         }
                     });
 
@@ -388,42 +395,36 @@
                     $('#payment_price').html(total().toLocaleString('en-US') + '원');
                     $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                     $('input:checkbox').prop('checked', true);
-                    $('#select_all_checked').css('display', '');
+                    $('#select_all_checked').css('display', 'block');
                     $('#select_all_unchecked').css('display', 'none');
-                    $('.cart-checked').css('display', '')
+                    $('.cart-checked').css('display', 'block')
                     $('.cart-unchecked').css('display', 'none')
 
                     $('#cart-select-' + CartResponseDto.pdt_id).click(function () {
                         if ($('#checked-cart-' + CartResponseDto.pdt_id).is(':checked')) {
                             $('#checked-cart-' + CartResponseDto.pdt_id).prop('checked', false);
                             $('#cart-checked-' + CartResponseDto.pdt_id).css('display', 'none');
-                            $('#cart-unchecked-' + CartResponseDto.pdt_id).css('display', '');
+                            $('#cart-unchecked-' + CartResponseDto.pdt_id).css('display', 'block');
                             $('#cart-sum-hidden-' + CartResponseDto.pdt_id).attr('data-status', '0');
                             $('#cart-sum-pdt-hidden-' + CartResponseDto.pdt_id).attr('data-status', '0');
                             $('#select_all_checked').css('display', 'none');
-                            $('#select_all_unchecked').css('display', '');
+                            $('#select_all_unchecked').css('display', 'block');
                             $('#allCheck').prop('checked', false);
                             $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                             $('#payment_price').html(total().toLocaleString('en-US') + '원');
                             $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             $('.cart-sum').each(function () {
                                 if ($(this).attr('data-status') === '0') {
-                                    $('#order_submit').css('background-color', '#DDDDDD');
-                                    $('#order_submit').attr('disabled', true);
-                                    $('#order_submit').text('상품을 선택해주세요');
+                                    $('#order_submit').text('상품을 선택해주세요').attr('disabled', true).css('background-color', '#DDDDDD').css('cursor', 'default');
                                 } else {
-                                    $('#order_submit').css('background-color', '#5F0080');
-                                    $('#order_submit').attr('disabled', false);
-                                    $('#order_submit').text('주문하기');
+                                    $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#5F0080').css('cursor', 'pointer');
                                     return false;
                                 }
                             });
                         } else {
-                            $('#order_submit').css('background-color', '#5F0080');
-                            $('#order_submit').text('주문하기');
-                            $('#order_submit').attr('disabled', false);
+                            $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#5F0080').css('cursor', 'pointer');
                             $('#checked-cart-' + CartResponseDto.pdt_id).prop('checked', true);
-                            $('#cart-checked-' + CartResponseDto.pdt_id).css('display', '');
+                            $('#cart-checked-' + CartResponseDto.pdt_id).css('display', 'block');
                             $('#cart-unchecked-' + CartResponseDto.pdt_id).css('display', 'none');
                             $('#cart-sum-hidden-' + CartResponseDto.pdt_id).attr('data-status', '1');
                             $('#cart-sum-pdt-hidden-' + CartResponseDto.pdt_id).attr('data-status', '1');
@@ -432,12 +433,12 @@
                             $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             $('.cart-sum').each(function () {
                                 if ($(this).attr('data-status') === '1') {
-                                    $('#select_all_checked').css('display', '');
+                                    $('#select_all_checked').css('display', 'block');
                                     $('#select_all_unchecked').css('display', 'none');
                                     $('#allCheck').prop('checked', true);
                                 } else {
                                     $('#select_all_checked').css('display', 'none');
-                                    $('#select_all_unchecked').css('display', '');
+                                    $('#select_all_unchecked').css('display', 'block');
                                     $('#allCheck').prop('checked', false);
                                     return false;
                                 }
@@ -447,6 +448,7 @@
 
                     $('#allCheck').click(function () {
                         if ($('#allCheck').is(':checked')) {
+
                             $('input:checkbox').prop('checked', true);
                         } else {
                             $('input:checkbox').prop('checked', false);
@@ -455,6 +457,11 @@
 
 
                     $('#plus-btn-' + index).click(function () {
+                        if ($('#cart-qty-' + index).text() < 1) {
+                            $('#cart-qty-' + index).text(1);
+                            return;
+                        }
+                        $('#minus-btn-' + index).attr('disabled', false);
                         $('#cart-qty-' + index).text(parseInt($('#cart-qty-' + index).text()) + 1);
                         let cart = {
                             user_id: ${id},
@@ -487,7 +494,9 @@
                     });
                     $('#minus-btn-' + index).click(function () {
                         if ($('#cart-qty-' + index).text() <= 1) {
-                            $('#minus-btn-' + index).css(disabled);
+                            $('#minus-btn-' + index).attr('disabled', true);
+                            $('#cart-qty-' + index).text(1);
+                            return;
                         }
                         $('#cart-qty-' + index).text($('#cart-qty-' + index).text() - 1);
                         $('#plus-btn-' + index).attr('disabled', false);

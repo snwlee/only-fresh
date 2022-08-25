@@ -24,6 +24,11 @@
         from ORDER_TB
         where ord_id = #{ord_id};
     </select>
+    <select id="findByPdtId" parameterType="int" resultType="Product">
+        select *
+        from PRODUCT_TB
+        where pdt_id = #{pdt_id};
+    </select>
     <select id="joinOrderProduct" parameterType="int" resultType="com.devkurly.order.dto.OrderResponseDto">
         select OT.ord_id,
                user_id,
@@ -41,17 +46,6 @@
         where OT.ord_id = #{ord_id}
         order by OT.in_date DESC;
     </select>
-    <!--    <update id="update" parameterType="Order">-->
-    <!--        update ORDER_TB-->
-    <!--        set addr_id    = #{addr_id},-->
-    <!--            coupn_id   = #{coupn_id},-->
-    <!--            stus_cd    = #{stus_cd},-->
-    <!--            req_plc_cd = #{req_plc_cd},-->
-    <!--            req_dtls   = #{req_dtls},-->
-    <!--            used_acamt = #{used_acamt},-->
-    <!--            dlvr_yn    = #{dlvr_yn}-->
-    <!--        where ord_id = #{ord_id};-->
-    <!--    </update>-->
     <update id="updateAmt" parameterType="Order">
         update ORDER_TB
         set all_amt = #{all_amt}
