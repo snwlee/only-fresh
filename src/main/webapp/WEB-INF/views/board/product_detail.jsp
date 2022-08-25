@@ -324,7 +324,7 @@
   let catToLi = function(res) {
     let tmp = '';
     res.forEach(el => {
-      tmp += '<a href="/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+      tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
     })
     return tmp;
   }
