@@ -31,8 +31,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly :: 결제 정보</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
-    <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/payment/payment.css">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {
             width: 100%;
@@ -104,7 +105,7 @@
         <div id="menubar">
             <div id="category_container">
                 <img src=""/>
-                <span>카테고리</span>
+                <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
                 <span>신상품</span>
@@ -118,6 +119,14 @@
             </div>
         </div>
     </div>
+    <div id="cat_wrapper">
+        <div id="main_cat_container">
+            <%--            <li class="cat main_cat">채소</li>--%>
+        </div>
+        <div id="sub_cat_container">
+            <%--            <li class="cat sub_cat">채소</li>--%>
+        </div>
+    </div>
     <%--    header--%>
     <div id="content">
         <h2>결제 정보</h2>
@@ -128,7 +137,7 @@
                     <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
                     <div id="user-info"></div>
                     <div class="payment_row">
-                        <span style="font-size: 24px;">2022. 8. 18 주문 • <span style="font-size: 24px; color: #cacaca;">주문번호 11000148462930</span></span>
+                        <span style="font-size: 24px;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" dateStyle="full"/>  주문 • <span style="font-size: 24px; color: #cacaca;">주문번호 ${paymentResponse.ord_id}</span></span>
                         <span></span>
                     </div>
                     <div class="product">
@@ -139,7 +148,7 @@
                             <div id="order-qty">1 개</div>
                         </div>
                         <p id="order-sum" style="margin-bottom: 0px;padding-left: 100px;">
-                            <fmt:formatNumber value="10000" pattern="###,###"/>원</p>
+                            <fmt:formatNumber value="${paymentResponse.all_amt}" pattern="###,###"/> 원</p>
                     </div>
                 </div>
                 <h4 class="product_type">배송 정보</h4>
@@ -147,7 +156,7 @@
                     <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
                     <div id="address"></div>
                     <div class="payment_row">
-                        <span style="font-size: 24px;">배송 중 • <span style="font-size: 24px; color: green;">8/29(월) 도착 예정</span></span>
+                        <span style="font-size: 24px;">배송 중 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
                         <span></span>
                     </div>
                     <div class="payment_row">
@@ -173,14 +182,97 @@
                     </div>
                     <div class="payment_row">
                         <span>총 결제금액</span>
-                        <span>1,000 원</span>
+                        <span><fmt:formatNumber value="${paymentResponse.all_amt}" pattern="###,###"/> 원</span>
                     </div>
                     <button id="order_submit" type="submit" style="cursor: pointer; font-weight: 500; font-size: 16px; margin-left: 5px;">
                         계속해서 쇼핑하기
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
+    <footer>
+        <img src="/logo.svg" alt="logo">
+        <div id="member_container">
+            <a href="https://github.com/dr94406">
+                <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+            </a>
+            <a href="https://github.com/PGRRR">
+                <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+            </a>
+            <a href="https://github.com/Riiver-J">
+                <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+            </a>
+            <a href="https://github.com/narlae">
+                <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+            </a>
+            <a href="https://github.com/xpmxf4">
+                <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+            </a>
+            <a href="https://github.com/didqksrla">
+                <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+            </a>
+        </div>
+    </footer>
 </div>
+<script>
+    /**
+     * 카테고리
+     */
+    let wrapper = $("#cat_wrapper");
+    let show_category_button = $("#show_category_button");
+    let main_cat_container = $("#main_cat_container");
+    let sub_cat_container = $("#sub_cat_container");
+    let sub_cat = $(".sub_cat");
+
+    show_category_button.hover(() => {
+        main_cat_container.show();
+    })
+
+    wrapper.mouseleave(() => {
+        main_cat_container.hide();
+        sub_cat_container.hide();
+    })
+
+    sub_cat_container.mouseleave(() => {
+        sub_cat_container.hide();
+    })
+
+    let catToLi = function(res) {
+        let tmp = '';
+
+        res.forEach(el => {
+            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+        })
+
+        return tmp;
+    }
+
+    let categories = null;
+
+    $(document).ready(function () {
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/product/categories',  // 요청 URI
+            success: function (res) {
+                categories = res;
+
+                $.each(res, (el) => {
+                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
+                })
+            },
+            error: function (result) {
+                alert("쿠폰 불러오기 실패");
+            }, // 에러가 발생했을 때, 호출될 함수
+            complete: function () {
+                $(".main_cat").mouseenter((e) => {
+                    sub_cat_container.show();
+                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
+                })
+            }
+        })
+    });
+</script>
+</body>
+</html>
