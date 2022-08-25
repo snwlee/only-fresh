@@ -192,7 +192,7 @@
             <div id="icon_container">
                 <img src="/main/imgs/location.png" />
                 <img src="/main/imgs/heart.png" />
-                <a href="carts/"><img src="/main/imgs/shopping-cart.png" /></a>
+                <a href="/carts/"><img src="/main/imgs/shopping-cart.png" /></a>
             </div>
         </div>
         <div id="menubar">
@@ -216,7 +216,6 @@
     <div id="content">
         <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
 <%--            <div id="count">총 ${ProductDao.searchResultCnt}개</div>--%>
-
             <div id="product" style="display: flex;">
 
             </div>
@@ -266,10 +265,10 @@
         lists.forEach(function (ProductDto) {
             tmp += '<div class="products" style="margin-top:50px">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
-            tmp += '<span class="de_type">' +ProductDto.de_type===true?'샛별배송':'낮배송'+'</span>'
-            tmp += '<div class="product_title">' + ProductDto.title + '<h3/>'
+            tmp += '<span class="de_type">' +ProductDto.de_type==true?'샛별배송':'낮배송'+'</span>'
+            tmp += '<div class="product_title">'+ProductDto.title+'</div>'
+            tmp +=  '<span class="product_ds_rate">' + ProductDto.ds_rate+ '%'+ '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
             tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span></div>'
-            tmp += '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></div>'
         })
         return tmp;
     }
