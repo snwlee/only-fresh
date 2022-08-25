@@ -1,6 +1,6 @@
 #navigation {
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     justify-content: space-between;
     width: 100%;
     height: 140px;
@@ -21,7 +21,7 @@
     width: 100%;
 }
 
-#signup_signin a, div {
+#signup_signin a,div {
     font-size: 12px;
     margin-right: 8px;
 }
@@ -57,7 +57,7 @@
 
 #search_first a {
     font-size: 18px;
-    color: #5f0080;
+    color:  #5f0080;
 }
 
 #search_first div {
@@ -80,7 +80,7 @@
     border: none;
     font-size: 16px;
     margin-left: 10px;
-    outline: none;
+    outline:none;
     width: 80%;
 }
 
@@ -119,6 +119,9 @@
     white-space: nowrap;
 }
 
+
+
+
 #menus {
     display: flex;
     justify-content: space-between;
@@ -141,7 +144,7 @@
 }
 
 #purple_deli_info {
-    color: #5f0080;
+    color:#5f0080;
     margin-right: 4px;
     font-weight: 600;
 }
@@ -149,7 +152,7 @@
 /* #f7f7f7, #dddddd */
 /* 카테고리  */
 
-#show_category_button span {
+#show_category_button span{
     color: #333;
     font-size: 16px;
     font-weight: 600;
@@ -158,18 +161,20 @@
 }
 
 #show_category_button:hover #categories {
-    display: block;
+    display:block;
 }
+
 
 #main_cat_container {
     position: absolute;
-    display: none;
+    display:none;
     width: 250px;
     left: 200px;
     background-color: white;
     border: 1px solid #ddd;
     margin: 0;
 }
+
 
 .cat {
     padding: 8px 0 8px 10px;
@@ -187,26 +192,21 @@
 }
 
 #sub_cat_container {
-    display: none;
+    display:none;
     position: absolute;
     left: 452px;
     width: 250px;;
-    margin: 0;
+    margin:0;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
 }
 
-#main_cat_container a, #sub_cat_container a {
-
+#main_cat_container  a, #sub_cat_container a {
     display: block;
     text-decoration: none;
     color: #333333;
 }
 
 #main_cat_container a:hover, #sub_cat_container a:hover {
-    color: #5F0080;
+    color: #5F0080 ;
 }
-
-
-
-
