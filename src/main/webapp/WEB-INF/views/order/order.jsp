@@ -452,7 +452,7 @@
                 $.each(result, function (index, CouponDto) {
                     let coupon =
                         `
-                        <option class='coupon-option' data-coupon='` + CouponDto.rate + `' value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
+                        <option class='coupon-option' data-coupon='` + CouponDto.value + `' value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
                         `;
                     $('#coupon-select').append(coupon);
                 })
@@ -480,8 +480,8 @@
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
                 });
                 $('#point-input').change(function () {
-                    if ($(this).val() < 1) {
-                        $(this).val(1);
+                    if ($(this).val() < 0) {
+                        $(this).val(0);
                     } else if ($(this).val() > result.pnt) {
                         $(this).val(result.pnt);
                     }
@@ -541,7 +541,8 @@
                 $('#address').append(user);
             },
             error: function () {
-                alert('배송지 정보가 없습니다.')
+                alert('배송지를 등록해 주세요');
+                location.href = '/address/list';
             }
         });
     });

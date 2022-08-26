@@ -158,8 +158,8 @@
         <h2>관리자</h2>
         <div id="container">
             <div style="margin-left: 15px;">
-                <a class="btn" href="/members/test">[임시] 34번 유저로 로그인</a>
-                <a class="btn" href="/members/test2">[임시] 53번 유저로 로그인</a>
+                <a class="btn" href="/members/test">[임시] 34번 관리자 유저로 로그인</a>
+                <a class="btn" href="/members/test2">[임시] 64번 일반 유저로 로그인</a>
                 <a class="btn" href="/DevKurly">메인페이지 이동</a>
                 <a class="btn" href="/admin/list">회원관리</a>
                 <%--쿠폰--%>

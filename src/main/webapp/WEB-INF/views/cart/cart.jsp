@@ -163,9 +163,9 @@
                 <div id="shipping_payment">
                     <div id="shipping">
                         <h4>배송지</h4>
-                        <p>서울 중구 서소문로 89-20 (삼정 아트테라스 정동) 지하2층</p>
-                        <p id="is_star_deli">샛별배송</p>
-                        <button>배송지 변경</button>
+                        <p id="is_star_deli">배송지를 등록하고</p>
+                        <p>구매 가능한 상품을 확인하세요!</p>
+                        <a href="/address/list"><button>배송지 등록</button></a>
                     </div>
                     <div id="payment_box">
                         <div style="padding: 20px">
@@ -297,6 +297,51 @@
     });
     String.prototype.insertAt = function (index, str) {
         return this.slice(0, index) + str + this.slice(index)
+    }
+
+    /**
+     * 쿠키 가져오기
+     */
+    function getCookie(key) {
+        let result = null;
+        let cookie = document.cookie.split(';');
+        cookie.some(function (item) {
+            // 공백을 제거
+            item = item.replace(' ', '');
+
+            let dic = item.split('=');
+
+            if (key === dic[0]) {
+                result = dic[1];
+                return true;
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 배송지 정보 요청
+     */
+    if (getCookie('tempCart') === null) {
+        $.ajax({
+            type: 'GET',
+            url: '/orders/address',
+            datatype: 'json',
+            success: function (result) {
+                let user =
+                    `
+                    <h4>배송지</h4>
+                    <p>` + result.main_addr + ` ` + result.sub_addr + `</p>
+                    <p id="is_star_deli">샛별배송</p>
+                    <a href="/address/list"><button>배송지 변경</button></a>
+                    `;
+                $('#shipping').html(user);
+            },
+            error: function () {
+                alert('배송지를 등록해 주세요');
+                location.href = '/address/list';
+            }
+        });
     }
 
     $(document).ready(function () {

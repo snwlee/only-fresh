@@ -74,12 +74,10 @@ public class OrderController {
             ProductDto productDto = orderService.checkProduct(responseDto.getPdt_id());
             pdtSum += productDto.getPrice() * responseDto.getPdt_qty();
         }
-        System.out.println("pdtSum = " + pdtSum);
         int sum = 0;
         for (CartProductResponseDto responseDto : checkedCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
-        System.out.println("sum = " + sum);
         orderService.modifyOrder(new OrderUpdateRequestDto(order_id, sum));
         model.addAttribute("sum", sum);
         model.addAttribute("pdtSum", pdtSum);
