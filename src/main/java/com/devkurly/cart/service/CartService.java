@@ -61,13 +61,14 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
-    public ProductDto checkProductStock(Cart cart) {
+    public Cart checkProductStock(Cart cart) {
         ProductDto productDto = cartMapper.findProductByPdtId(cart.getPdt_id());
         Integer stock = productDto.getStock();
         if (cart.getPdt_qty() > stock) {
+            cart.setPdt_qty(stock);
             throw new OutOfStockException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
         }
-        return productDto;
+        return cart;
     }
 
     public Integer addCart(CartSaveRequestDto requestDto) {

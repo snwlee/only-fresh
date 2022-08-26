@@ -11,6 +11,7 @@ import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
 import com.devkurly.order.exception.OrderException;
 import com.devkurly.order.service.OrderService;
+import com.devkurly.product.domain.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,13 +37,13 @@ public class OrderController {
 
         Integer user_id = getMemberResponse(session);
 
-        // 유저 기반 주문 테이블 생성
+        // 유저 기반 주문 빈 테이블 생성
         orderService.addOrder(user_id);
 
         // 생성한 주문 테이블의 주문 번호
         Integer order_id = orderService.checkRecentOrderId(user_id);
 
-        // 선택한 장바구니만 주문 - 상품 테이블에 추가
+        // 선택한 장바구니만 주문 & 상품 테이블에 추가
         int pdt_id;
         List<CartProductResponseDto> checkedCartProduct = new ArrayList<>();
         for (String str : chArr) {
@@ -65,12 +66,20 @@ public class OrderController {
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(order_id);
         int pdtSum = 0;
         for (CartProductResponseDto responseDto : checkedCartProduct) {
-            pdtSum += responseDto.getPrice() * responseDto.getPdt_qty();
+            if (responseDto.getPdt_qty() < 0) {
+                throw new OrderException("제품 수량이 올바르지 않습니다.", ErrorCode.ORDER_ERROR);
+            } else if (!responseDto.getPrice().equals(orderService.checkProduct(responseDto.getPdt_id()).getPrice())) {
+                throw new OrderException("제품 가격이 올바르지 않습니다.", ErrorCode.ORDER_ERROR);
+            }
+            ProductDto productDto = orderService.checkProduct(responseDto.getPdt_id());
+            pdtSum += productDto.getPrice() * responseDto.getPdt_qty();
         }
+        System.out.println("pdtSum = " + pdtSum);
         int sum = 0;
         for (CartProductResponseDto responseDto : checkedCartProduct) {
             sum += responseDto.getSel_price() * responseDto.getPdt_qty();
         }
+        System.out.println("sum = " + sum);
         orderService.modifyOrder(new OrderUpdateRequestDto(order_id, sum));
         model.addAttribute("sum", sum);
         model.addAttribute("pdtSum", pdtSum);
@@ -79,23 +88,4 @@ public class OrderController {
         model.addAttribute("order", orderResponseDto);
         return "/order/order";
     }
-//
-//
-//    @GetMapping("/1/{ord_id}")
-//    public String viewOrder(@PathVariable Integer ord_id) {
-//
-//        return "/order/order";
-//    }
-//
-//    @PostMapping("/3")
-//    public String modifyOrder(OrderUpdateRequestDto requestDto) {
-//        orderService.modifyOrder(requestDto.toEntity());
-//        return "redirect:/orders";
-//    }
-//
-//    @PostMapping("/4/{ord_id}")
-//    public String deleteOrder(@PathVariable Integer ord_id, HttpSession session) {
-//        orderService.removeOrder((Integer) session.getAttribute("memberResponse"), ord_id);
-//        return "redirect:/orders";
-//    }
 }
