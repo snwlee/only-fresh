@@ -470,31 +470,71 @@
             url: '/orders/userinfo',
             datatype: 'json',
             success: function (result) {
-                $('#point-input').prop('max', result.pnt);
-                $('#point-text').html(result.pnt.toLocaleString() + ' 원');
+                let maxPnt;
+                if ($('#all_amt').val() < result.pnt) {
+                    maxPnt = parseInt($('#all_amt').val());
+                } else {
+                    maxPnt = result.pnt;
+                }
+
+                $('#point-input').prop('max', maxPnt);
+                $('#point-text').html((result.pnt).toLocaleString() + ' 원');
                 $('#point-btn').click(function () {
-                    $('#point-input').val(result.pnt);
-                    $('#point_price').html((-result.pnt).toLocaleString() + ' 원').css('color', '#FA7E54');
+                    $('#point-input').val(maxPnt);
+                    $('#point_price').html((-maxPnt).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                    if (${sum} -$('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon') < 0) {
+                        $("#coupon-select").val("0").prop("selected", true);
+                        $('#coupon_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#point-input').val(0);
+                        $('#point_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#all_amt').val(${sum});
+                        $('#payment_price').html((${sum}).toLocaleString() + ' 원');
+                        $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
+                        alert('할인 금액이 결제 금액보다 클 수 없습니다.');
+                        return;
+                    }
                 });
                 $('#point-input').change(function () {
                     if ($(this).val() < 0) {
                         $(this).val(0);
-                    } else if ($(this).val() > result.pnt) {
-                        $(this).val(result.pnt);
+                    } else if ($(this).val() > maxPnt) {
+                        $(this).val(maxPnt);
                     }
                     $('#point_price').html((-$('#point-input').val()).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                    if (${sum} -$('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon') < 0) {
+                        $("#coupon-select").val("0").prop("selected", true);
+                        $('#coupon_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#point-input').val(0);
+                        $('#point_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#all_amt').val(${sum});
+                        $('#payment_price').html((${sum}).toLocaleString() + ' 원');
+                        $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
+                        alert('할인 금액이 결제 금액보다 클 수 없습니다.');
+                        return;
+                    }
                 });
                 $('#coupon-select').change(function () {
                     $('#coupon_price').html((-$("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                    if (${sum} -$('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon') < 0) {
+                        $("#coupon-select").val("0").prop("selected", true);
+                        $('#coupon_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#point-input').val(0);
+                        $('#point_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#all_amt').val(${sum});
+                        $('#payment_price').html((${sum}).toLocaleString() + ' 원');
+                        $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
+                        alert('할인 금액이 결제 금액보다 클 수 없습니다.');
+                        return;
+                    }
                 });
                 let user =
                     `

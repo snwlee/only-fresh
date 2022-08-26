@@ -382,6 +382,11 @@
                     $('#cart-empty').html('');
                     $('#cart').append(cart);
 
+                    if ($('#cart-qty-' + index).text() <= 1) {
+                        $('#minus-btn-' + index).attr('disabled', true);
+                        $('#cart-qty-' + index).text(1);
+                    }
+
                     function total() {
                         let sum = 0;
                         $('.cart-sum').each(function () {
@@ -501,11 +506,11 @@
 
 
                     $('#plus-btn-' + index).click(function () {
+                        $('#minus-btn-' + index).attr('disabled', false);
                         if ($('#cart-qty-' + index).text() < 1) {
                             $('#cart-qty-' + index).text(1);
                             return;
                         }
-                        $('#minus-btn-' + index).attr('disabled', false);
                         $('#cart-qty-' + index).text(parseInt($('#cart-qty-' + index).text()) + 1);
                         let cart = {
                             user_id: ${id},
@@ -537,7 +542,8 @@
                         });
                     });
                     $('#minus-btn-' + index).click(function () {
-                        if ($('#cart-qty-' + index).text() <= 1) {
+                        $('#plus-btn-' + index).attr('disabled', false);
+                        if ($('#cart-qty-' + index).text() <= 2) {
                             $('#minus-btn-' + index).attr('disabled', true);
                             $('#cart-qty-' + index).text(1);
                             return;
@@ -567,7 +573,9 @@
                                 $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             },
                             error: function () {
-                                alert('error')
+                                alert('제품의 재고가 부족합니다.');
+                                $('#cart-qty-' + index).text($('#pdt-stock-' + CartResponseDto.pdt_id).val())
+                                $('#plus-btn-' + index).attr('disabled', true);
                             }
                         });
                     });

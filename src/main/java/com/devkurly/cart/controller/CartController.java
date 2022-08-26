@@ -32,6 +32,9 @@ public class CartController {
 
     @PostMapping("/{pdt_id}")
     public String addCart(@PathVariable Integer pdt_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
+        if (requestDto.getPdt_qty() < 1) {
+            requestDto.setPdt_qty(1);
+        }
         int id = getId(tempCart, response, session);
         requestDto.saveCart(id, pdt_id);
         cartService.checkProductStock(requestDto.toEntity());
