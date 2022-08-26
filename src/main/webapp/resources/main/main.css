@@ -101,15 +101,14 @@ button {
     background: white;
 }
 p{
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
     margin-top: 15px;
     color:gray;
 }
 a{
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
-    /*color: rgb(95, 0, 128);*/
     text-decoration: none;
 }
 a:visited {

@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css">
-    <link rel="stylesheet" type="text/css" href="/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/main/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product/productlist.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
@@ -109,8 +109,6 @@
         <div id="menubar">
             <div id="category_container">
                 <img src=""/>
-                <span>카테고리</span>
-                <img src="" />
                 <p style="font-size: 16px; width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
@@ -138,17 +136,8 @@
         <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
             <%--<div id="count">총 ${ProductDao.searchResultCnt}개</div>--%>
             <span id="page_title"></span>
-            <span id="cd_name" style="
-            display: flex;
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
-            align-content: center;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px">
-            </span>
+                <span id="cd_type_name"></span>
+            <span id="cd_name"></span>
             <div id="product" style="display: flex;">
 
             </div>
@@ -211,6 +200,7 @@
             // http://localhost/product/newlist?page=1&pageSize=12&cd_name_num=1&cd_type_name=%27%EC%B1%84%EC%86%8C%27&sort=0
             success: function (result) {
                 $("#product").html(toHtml(result.list)); // 상품 리스트를 가져온다.
+                $("#cd_type_name").text(result.cd_type_name);
                 $("#cd_name").text(result.cd_name); // 카테고리의 이름을 가져온다.
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
 
@@ -230,7 +220,8 @@
             tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "샛별배송" : "낮배송") + '</span>'
             tmp += '<div class="product_title">' + ProductDto.title + '</div>'
             tmp += '<span class="product_ds_rate">' + ProductDto.ds_rate + '%' + '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
-            tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span></div>'
+            tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span>'
+            tmp += '<span class="product_tag">' + ProductDto.tag_name +'</span></div>'
         })
         return tmp;
     }

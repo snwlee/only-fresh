@@ -85,6 +85,10 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectList(namespace + "mainlist", cd_type_name);
     }
 
+    @Override
+    public int ThriftyCnt(Integer sel_price)throws Exception{
+        return session.selectOne(namespace+"ThriftyCnt",sel_price);
+    }
 
 
     @Override
