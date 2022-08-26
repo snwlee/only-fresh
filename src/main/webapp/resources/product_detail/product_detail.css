@@ -191,10 +191,15 @@ nav div {
     font-weight: 500;
     color: rgb(95, 0, 128);
 }
+.menu_nav{
+    z-index: 1000;
+}
 .navi{
     background-color: rgb(255, 255, 255);
     text-decoration: none;
+    border: 1px solid #5F0080;
     color: inherit;
+    z-index: 10000;
 }
 
 #inquire_tab {
@@ -203,6 +208,11 @@ nav div {
 
 #review_board {
     padding-top: 50px;
+    z-index: 20;
+}
+#inquiry_board {
+    padding-top: 50px;
+    z-index: 20;
 }
 
 #title_desc_filter_container {

@@ -56,7 +56,7 @@
       height: 100px;
     }
     .board_margin{
-      margin-bottom: 200px;
+      margin-bottom: 70px;
     }
 
     #content {

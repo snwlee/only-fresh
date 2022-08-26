@@ -272,7 +272,9 @@
                             <td>제목</td>
                             <td>
                                 <div class="field_cmt">
-                                    <input class="form-control1" id="bbs_title" type="text" placeholder="제목을 입력해주세요">
+                                    <input class="form-control1" id="bbs_title" type="text"
+                                           onkeyup="characterCheck(this)" onkeydown="characterCheck(this)"
+                                           placeholder="제목을 입력해주세요" maxlength="60">
                                 </div>
                             </td>
                         </tr>
@@ -281,7 +283,7 @@
                             <td>
                                 <div class="field_cmt">
                                     <textarea class="form-control2" id="contents" cols="100" rows="10"
-                                              placeholder="내용을 입력해주세요"></textarea>
+                                              placeholder="내용을 입력해주세요" maxlength="2000"></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -372,6 +374,15 @@
         let ss = addZero(date.getSeconds());
 
         return yyyy+"."+mm+"."+dd;
+    }
+    let regExp = /[\{\}\[\]\/;|\)*~`^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+    function characterCheck(obj){
+        // 허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
+        if( regExp.test(obj.value) ){
+            alert("특수문자는 입력하실수 없습니다.");
+            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
+        }
     }
 
     let relocateCn = function(){
@@ -518,6 +529,10 @@
                 $("#myModal #contents").focus()
                 return;
             }
+            if(regExp.test(bbs_title)||regExp.test(bbs_cn)) {
+                alert("제목 또는 내용에 허용되지 않은 특수문자를 지워주세요.");
+                return;
+            }
             $.ajax({
                 type:'POST',
                 url: '/board?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd,
@@ -582,6 +597,10 @@
                 $("#myModal #contents").focus()
                 return;
             }
+            if(regExp.test(bbs_title)||regExp.test(bbs_cn)) {
+                alert("제목 또는 내용에 허용되지 않은 특수문자를 지워주세요.");
+                return;
+            }
             $.ajax({
                 type:'PATCH',
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
@@ -602,7 +621,10 @@
                 let inq_ans = $("#rep_textarea").val();
                 let bbs_id = $(this).attr("data-bbs_id");
                 let replyst = 1;
-
+                if(regExp.test(inq_ans)) {
+                    alert("답글에 허용되지 않은 특수문자를 지워주세요.");
+                    return;
+                }
                 if(inq_ans.trim()==''){
                     alert("답변을 입력해주세요.");
                     $("#rep_textarea").focus()
@@ -661,6 +683,10 @@
                     $("#rep_textarea").focus()
                     return;
                 }
+                if(regExp.test(inq_ans)) {
+                    alert("답글에 허용되지 않은 특수문자를 지워주세요.");
+                    return;
+                }
                 $.ajax({
                     type:'PATCH',
                     url: '/board/comment/'+bbs_id,
@@ -672,8 +698,6 @@
                 alert("댓글이 수정되었습니다.");
             })
         });
-
-
     });
 </script>
 </body>

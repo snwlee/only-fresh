@@ -32,7 +32,7 @@ public class BoardController {
         return value;
     }
     @GetMapping("/boardlist")
-    public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
+    public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize,  String sortType, Model m) {
         try {
             int totalCnt = boardService.getCount(bbs_clsf_cd, pdt_id);
             PageHandler ph = new PageHandler(totalCnt, page, pageSize);
@@ -40,6 +40,7 @@ public class BoardController {
             m.addAttribute("ph", ph);
             m.addAttribute("pdt_id", pdt_id);
             m.addAttribute("bbs_clsf_cd", bbs_clsf_cd);
+            System.out.println("sortType = " + sortType);
             if(bbs_clsf_cd.equals("2"))
                 return "board/board_answer";
 
@@ -150,7 +151,7 @@ public class BoardController {
     }
     @PatchMapping("/like/{bbs_id}")
     @ResponseBody
-    public ResponseEntity<String> likeUp(@PathVariable Integer bbs_id, HttpSession session) {
+    public ResponseEntity<String> likeUp(@PathVariable Integer bbs_id, Integer likeUpDown, HttpSession session) {
         Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
         BoardDto boardDto = new BoardDto();
         boardDto.setUser_id(user_id);
@@ -158,7 +159,7 @@ public class BoardController {
         try {
             if(user_id==null)
                 throw new Exception("비로그인 상태입니다.");
-            int rowCnt = boardService.reviewLike(boardDto);
+            boardService.reviewLike(boardDto, likeUpDown);
             return new ResponseEntity<String>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

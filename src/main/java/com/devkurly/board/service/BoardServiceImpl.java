@@ -99,8 +99,8 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.count(map);
     }
     @Override
-    public int increaseLike(Integer bbs_id) throws Exception {
-        return boardDao.increaseLike(bbs_id);
+    public int upDownLike(Integer bbs_id, Integer likeUpDown) throws Exception {
+        return boardDao.upDownLike(bbs_id, likeUpDown);
     }
     @Override
     public int userLikeNo(BoardDto boardDto) throws Exception {
@@ -108,17 +108,21 @@ public class BoardServiceImpl implements BoardService {
     }
     @Override
     @Transactional
-    public int reviewLike(BoardDto boardDto) throws Exception {
-        Map map = new HashMap<>();
-        map.put("user_id",boardDto.getUser_id());
-        map.put("bbs_id",boardDto.getBbs_id());
-        if(boardDao.selectUserLike(map)==1) {
-            throw new Exception();
-        }else{
-            boardDto.setLike_no(1);
-            boardDao.userLikeNo(boardDto);
-            return boardDao.increaseLike(boardDto.getBbs_id());
+    public int reviewLike(BoardDto boardDto, Integer likeUpDown) throws Exception {
+        if(boardDao.checkLikeNoTB(boardDto)==0){ //첫 추천이라면
+            boardDao.userLikeNo(boardDto); //USER_LIKE_NO TB 생성
+            boardDao.updateUserLikeNo(boardDto,1); //like_no를 1
+        } else if(boardDao.checkLikeNoTB(boardDto)==1){
+            if(likeUpDown==-1){ //만약 이미 추천하여 예외가 발생했고 취소를 하려는 상황이라면
+                boardDao.updateUserLikeNo(boardDto,0); //like_no를 0
+            }else{ //추천수를 올리려는 시도
+                if(boardDao.selectUserLike(boardDto)==1) { //like_no가 이미 1이면
+                    throw new Exception(); //예외 발생
+                }
+                boardDao.updateUserLikeNo(boardDto,1); //like_no를 1
+            }
         }
+        return boardDao.upDownLike(boardDto.getBbs_id(),likeUpDown); //likeUpDown값을 revew_like에 더한다.
     }
     @Transactional
     @Override
