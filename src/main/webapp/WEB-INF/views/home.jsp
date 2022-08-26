@@ -110,7 +110,7 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px"
+                <img style="width:82px; height: 42px" src="main/imgs/DevKurly.png"
                      alt="logo"/>
                 <a href="/DevKurly">데브컬리</a>
                 <a href="/">
