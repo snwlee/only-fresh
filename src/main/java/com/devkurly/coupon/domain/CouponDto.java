@@ -155,7 +155,7 @@ public class CouponDto {
         this.expi_dd = expi_dd;
     }
 
-    public boolean isUsed() {
+    public boolean getUsed() {
         return used;
     }
 

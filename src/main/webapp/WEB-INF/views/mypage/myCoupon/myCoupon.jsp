@@ -145,8 +145,16 @@
                     </button>
                 </form>
             </div>
+            <div id="is_used_tab_container">
+                <div id="unused_coupons"  class="is_used_tabs">
+                    사용 가능 쿠폰
+                </div>
+                <div id="used_coupons" class="is_used_tabs">
+                    쿠폰 사용 내역
+                </div>
+            </div>
             <div id="optional_function">
-
+                사용 가능 쿠폰 0 장
             </div>
             <div id="mypage_content_body">
                 <div class="cols">
@@ -205,6 +213,8 @@
         sub_cat_container.hide();
     })
 
+    let categories = null;
+
     let catToLi = function (res) {
         let tmp = '';
 
@@ -247,8 +257,8 @@
             tmp += (el.lmtt_cnd == null ? "" : el.lmtt_cnd)
             tmp += '</p> </div><div class="coupon_func second_col col">'
             tmp += el.func + '</div><div class="coupon_rate third_col col">'
-            tmp += el.value
-            tmp += '%</div><div class="coupon_due fourth_col col">'
+            tmp += el.value + `\${el.unit_type ? "%" : " 원"}`
+            tmp += '</div><div class="coupon_due fourth_col col">'
             tmp += dateParse(el.expi_dd)
             tmp += '까지</div><div class="coupon_used fifth_col col">'
             tmp += (el.used ? "사용" : "미사용")
@@ -258,17 +268,54 @@
         return tmp;
     }
 
-    let categories = null;
+    let coupon_container = {};
+
+    let onOff = true;
+
+    $(".is_used_tabs").click((e) => {
+        let coupons = $("#coupons");
+
+        onOff = !onOff;
+
+        if(onOff){
+            $("#unused_coupons").css("background-color", "#dddddd");
+            $("#used_coupons").css("background-color","white")
+        } else {
+            $("#unused_coupons").css("background-color", "white");
+            $("#used_coupons").css("background-color","#dddddd")
+        }
+
+        if (coupon_container[e.currentTarget.id].length === 0) {
+            coupons.html("<div class='no_coupon_box'>쿠폰이 없습니다!</div>");
+            return;
+        } else if (e.currentTarget.innerText === "사용 가능 쿠폰") {
+            coupons.html(toCouponHtml(coupon_container.unused_coupons));
+            return;
+        }
+        coupons.html(toCouponHtml(coupon_container.used_coupons));
+    })
 
     $(document).ready(() => {
             $.ajax({
                 type: 'GET',       // 요청 메서드
                 url: '/mypage/coupon',  // 요청 URI
                 success: function (result) {
-                    $("#optional_function").html(`사용 가능 쿠폰 \${result.length} 장`);
-                    $("#coupons").html(toCouponHtml(result));
+                    if (!result.false) {
+                        coupon_container.unused_coupons = [];
+                        $("#coupons").html("<div class='no_coupon_box'>쿠폰이 없습니다!</div>");
+                    } else {
+                        coupon_container.unused_coupons = result.false;
+                        $("#optional_function").html(`사용 가능 쿠폰 \${result.false.length} 장`);
+                        $("#coupons").html(toCouponHtml(result.false));
+                    }
+
+                    if (!result.true) {
+                        coupon_container.used_coupons = [];
+                    } else {
+                        coupon_container.used_coupons = result.true;
+                    }
                 },
-                error: function (result) {
+                error: function () {
                     alert("쿠폰 불러오기 실패");
                 } // 에러가 발생했을 때, 호출될 함수
             });
@@ -278,7 +325,6 @@
                 url: '/product/categories',  // 요청 URI
                 success: function (res) {
                     categories = res;
-
                     $.each(res, (el) => {
                         $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
                     })
