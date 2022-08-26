@@ -480,6 +480,11 @@
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
                 });
                 $('#point-input').change(function () {
+                    if ($(this).val() < 1) {
+                        $(this).val(1);
+                    } else if ($(this).val() > result.pnt) {
+                        $(this).val(result.pnt);
+                    }
                     $('#point_price').html((-$('#point-input').val()).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
