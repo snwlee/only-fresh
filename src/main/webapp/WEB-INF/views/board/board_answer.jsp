@@ -165,8 +165,7 @@
         }
         .modal-footer p {
             float: right;
-            height: 34px;
-            padding: 0 13px 0 12px;
+            padding: 0 13px 0 13px;
             font-size: 12px;
             color: #5f0080;
             line-height: 32px;
@@ -174,6 +173,14 @@
             border: 1px solid #5f0080;
             margin-top: 10px;
             margin-left: 28px;
+        }
+        #good{
+            width: 220px;
+        }
+
+        #secret_input{
+            width:30px;
+            margin: 0 auto;
         }
         /*modal css end*/
 
@@ -289,11 +296,12 @@
                         </tr>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <label><input type="checkbox" name="secret1" value="true" style="margin-top:10px">비밀글로 문의하기</label>
+                <div class="modal-footer" style="vertical-align: center">
+                    <label id="good">
+                        <input type="checkbox" id="secret_input" name="secret1" value="true">비밀글로 문의하기</input>
+                    </label>
                     <p class="btn-cancel">취소</p>
                     <p class="btn-write">등록</p>
-
                 </div>
             </div>
         </div>

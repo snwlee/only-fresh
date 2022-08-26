@@ -21,7 +21,7 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
