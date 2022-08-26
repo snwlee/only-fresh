@@ -5,11 +5,11 @@
 <mapper namespace="com.devkurly.coupon.dao.CouponMapper">
     <!--C-->
     <insert id="create" parameterType="couponDto">
-        insert into COUPON_TB(event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd)
+        insert into COUPON_TB(event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, value, expi_dd)
         values (#{event_id}, #{nm}, #{ds_max_posbl_amt}, #{use_cnd}, #{lmtt_cnd}, #{func}, ${rate}, ${expi_dd})
     </insert>
     <insert id="createWithId" parameterType="couponDto">
-        insert into COUPON_TB(coupn_id, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd)
+        insert into COUPON_TB(coupn_id, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, value, expi_dd)
         values (#{coupn_id}, #{event_id}, #{nm}, #{ds_max_posbl_amt}, #{use_cnd}, #{lmtt_cnd}, #{func}, ${rate},
                 ${expi_dd})
     </insert>
@@ -29,7 +29,7 @@
         from COUPON_TB
     </select>
     <select id="readUserCoupons" parameterType="int" resultType="CouponDto">
-        select u.coupn_id, u.used, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        select u.coupn_id, u.used, event_id, nm, ds_max_posbl_amt, unit_type, use_cnd, lmtt_cnd, func, value, expi_dd
         from USER_COUPON_TB as u
                  join COUPON_TB as c
                       on user_id = #{user_id} and u.coupn_id = c.coupn_id;
@@ -43,7 +43,7 @@
             use_cnd          = #{use_cnd},
             lmtt_cnd         = #{lmtt_cnd},
             func             = #{func},
-            rate             = #{rate},
+            value             = #{rate},
             expi_dd          = #{expi_dd}
         where coupn_id = #{coupn_id}
     </update>

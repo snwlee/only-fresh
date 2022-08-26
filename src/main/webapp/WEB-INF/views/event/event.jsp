@@ -88,7 +88,8 @@
             let tmp = "";
 
             res.forEach(el => {
-                tmp += "<a style='margin-bottom: 29px' href='"+ "/product?cat_code=" + el.cat_cd +"'><img style='width: 1050px; height: 200px;' src='"+ el.photo + "'/></a>";
+
+                tmp += "<a style='margin-bottom: 29px' href='"+ "/product/newlist?cd_name_num=" + el.cat_cd +"&page=1&pageSize=12'><img style='width: 1050px; height: 200px;' src='"+ el.photo + "'/></a>";
                 // tmp += "<img width='200' height='100' src='" + el.photo + "'/>"
             })
 
@@ -100,7 +101,6 @@
                 type: 'GET',       // 요청 메서드
                 url: '/event/list',  // 요청 URI
                 success: function (result) {
-                    console.log(result);
                     $("#content").html(resToImgs(result));
                 },
                 error: function () {
