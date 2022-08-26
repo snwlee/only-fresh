@@ -23,6 +23,6 @@ public interface CouponService {
 
     // D
     int delete(int coupn_id) throws Exception;
-
     int deleteAll() throws Exception;
+    int deleteUserCoupon(Integer coupn_id, Integer user_id) throws Exception;
 }
