@@ -112,11 +112,9 @@
                 <span>바다의 참맛을 누리기 위한 해산물 모음집</span>
                 <p>귀하디 귀한 바다의 보배를 누리세요</p>
             </div>
-            <div id="product2" style="display: flex;">
-            </div>
-
             <div id="product3" style="display: flex;">
             </div>
+
 
 
 
@@ -171,8 +169,8 @@
                 $("#product").html(toHtml(result.list1));
                 $("#product2").html(toHtml(result.list2));
                 $("#product3").html(toHtml(result.list3));
-                // $("#product4").html(toHtml(result.list4));
-                // $("#product5").html(toHtml(result.list5));
+                 $("#product4").html(toHtml(result.list4));
+                 $("#product5").html(toHtml(result.list5));
             },
             error : function(){alert("error")}
         });

@@ -49,6 +49,7 @@ button {
 }
 #product3{
     display: flex;
+    margin-top: 50px;
 }
 .product{
     margin-bottom: 10px;
@@ -108,7 +109,7 @@ p{
 a{
     font-size: 17px;
     font-weight: bold;
-    color: rgb(95, 0, 128);
+    /*color: rgb(95, 0, 128);*/
     text-decoration: none;
 }
 a:visited {

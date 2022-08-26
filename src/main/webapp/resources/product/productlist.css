@@ -24,6 +24,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
+    align-content: center;
     margin-top: 100px;
 }
 
@@ -211,9 +212,16 @@ table {
 .search-button:hover {
     color: rgb(165, 165, 165);
 }
-
-#product2{
-
+#page_title{
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(51, 51, 51);
+    line-height: 35px;
+    letter-spacing: -1px;
+    text-align: center;
 }
+
+
+
 
 
