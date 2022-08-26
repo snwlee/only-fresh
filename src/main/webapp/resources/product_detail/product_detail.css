@@ -167,6 +167,10 @@
     border: none;
 }
 
+#addCart{
+    cursor:pointer;
+}
+
 nav {
     display: flex;
     width: 100%;
@@ -193,6 +197,7 @@ nav div {
 }
 .menu_nav{
     z-index: 1000;
+    cursor:pointer;
 }
 .navi{
     background-color: rgb(255, 255, 255);

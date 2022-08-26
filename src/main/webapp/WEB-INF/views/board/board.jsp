@@ -1,7 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page session="true"%>
-
+<c:set
+        var="selectLatest"
+        value="${(param.sortType=='latest'||'') ? 'selected' : ''}"
+/>
+<c:set
+        var="selectLike"
+        value="${(param.sortType=='like') ? 'selected' : ''}"
+/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +22,9 @@
         .title {
             padding-left: 50px;
             text-align: left;
+        }
+        .title_cn{
+            cursor:pointer;
         }
         .no, .grade, .writer, .reg_date, .like_cnt{
             text-align: center;
@@ -50,6 +60,7 @@
             text-align: center;
             line-height:30px;
             width:130px;
+            cursor:pointer;
         }
         #review_view #buttons p{
             float:right;
@@ -61,6 +72,7 @@
             text-align: center;
             border: 1px solid #5f0080;
             margin-left: 28px;
+            cursor:pointer;
         }
         #review_view .review_content {
             width: 100%;
@@ -124,6 +136,15 @@
             color: #333333;
 
         }
+        .btn-cancel{
+            cursor:pointer;
+        }
+        .btn-write{
+            cursor:pointer;
+        }
+        .btn-modify{
+            cursor:pointer;
+        }
         .table td {
             padding: 10px 0 10px 20px;
             border-top: 1px solid #dddfe1;
@@ -186,8 +207,8 @@
                     </p>
                 </div>
                 <select id="sort-option" name="option">
-                    <option value="latest" selected>최근등록순</option>
-                    <option value="like">추천</option>
+                    <option value="latest" ${selectLatest}>최근등록순</option>
+                    <option value="like" ${selectLike}>추천</option>
                 </select>
             </div>
         </div>
@@ -235,13 +256,13 @@
         </c:if>
         <c:if test="${totalCnt!=null && totalCnt!=0}">
             <c:if test="${ph.showPrev}">
-                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.beginPage-1}&pageSize=${ph.pageSize}&sortType=${sortType}'/>"><</a>
+                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.beginPage-1}&pageSize=${ph.pageSize}&sortType=${param.sortType}'/>"><</a>
             </c:if>
             <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${i}&pageSize=${ph.pageSize}&sortType=${sortType}"/>">${i}</a>
+                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${i}&pageSize=${ph.pageSize}&sortType=${param.sortType}"/>">${i}</a>
             </c:forEach>
             <c:if test="${ph.showNext}">
-                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.endPage+1}&pageSize=${ph.pageSize}&sortType=${sortType}'/>">&gt;</a>
+                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.endPage+1}&pageSize=${ph.pageSize}&sortType=${param.sortType}'/>">&gt;</a>
             </c:if>
         </c:if>
     </div></div>
@@ -289,6 +310,7 @@
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
     let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
+    let sortType = '<c:out value="${param.sortType}"/>';
     let showList = function(pdt_id, sortType){
         $.ajax({
             type:'GET',
@@ -382,7 +404,7 @@
     };
 
     $(document).ready(function(){
-        showList(pdt_id);
+        showList(pdt_id,sortType);
         let readStatus = false;
         resetButtons();
         if(${sessionScope.memberResponse==null}) {
@@ -427,14 +449,9 @@
             }
         })
 
-
         $("#sort-option").change(function(){
             let sortType = this.value;
-            console.log(sortType);
-            $("#sort-option").data("sortType", sortType);
-            console.log($("#sort-option").data("sortType"));
-            showList(pdt_id, sortType);
-            console.log($("#sort-option").data("sortType"));
+            location.href = '/boardlist?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType='+sortType;
         });
 
         $(".p_write_btn").click(function(){

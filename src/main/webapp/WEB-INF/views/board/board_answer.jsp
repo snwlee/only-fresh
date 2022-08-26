@@ -16,6 +16,9 @@
             padding-left: 50px;
             text-align: left;
         }
+        .title_cn{
+            cursor:pointer;
+        }
         .no, .writer, .reg_date, .is_replied{
             text-align: center;
         }
@@ -50,6 +53,13 @@
             text-align: center;
             line-height:30px;
             width:130px;
+            cursor:pointer;
+        }
+        .btn-cancel{
+            cursor:pointer;
+        }
+        .btn-write{
+            cursor:pointer;
         }
         #review_view .buttons p{
             float:right;
@@ -61,6 +71,7 @@
             text-align: center;
             border: 1px solid #5f0080;
             margin-left: 28px;
+            cursor:pointer;
         }
         #review_view .review_content {
             width: 100%;
@@ -74,6 +85,9 @@
             line-height: 25px
         }
         .ph{text-align: center;}
+        #rep_textarea{
+            resize: none;
+        }
 
         .paging-active {
             background-color: rgb(216, 216, 216);
@@ -116,6 +130,9 @@
             top: -100px;
             padding: 30px;
 
+        }
+        #good{
+            cursor: pointer;
         }
         .modal-content {
             border-top: 1px solid #522772;
@@ -239,7 +256,7 @@
         <div>
             <img id="answer_mark" src="/product_detail/imgs/answer.svg">
             <div class="Inq_answer"></div>
-            <textarea id="rep_textarea" rows="10" cols="100" style="display:none"></textarea>
+            <textarea id="rep_textarea" rows="10" cols="100" style="display:none" placeholder="답변을 입력해주세요."></textarea>
             <div class="buttons">
                 <p class="aw_wrt_btn">등록</p>
                 <p class="aw_mod_btn">수정</p>

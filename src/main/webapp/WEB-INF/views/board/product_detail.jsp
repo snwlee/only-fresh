@@ -260,7 +260,7 @@
     <div id ="board_container">
       <div class="board_margin" id="review_board_i"></div>
       <div id="review_board">
-        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10">
+        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10&sortType=latest">
         </iframe>
       </div>
       <div class="board_margin" id="inquiry_board_i"></div>

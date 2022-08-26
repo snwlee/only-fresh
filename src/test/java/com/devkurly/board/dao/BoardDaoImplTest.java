@@ -63,7 +63,7 @@ public class BoardDaoImplTest {
 
     @Test
     public void TestBoardInsert() throws Exception {
-
+        boardService.deleteAll();
         int insertBoardCnt = 200;
         Integer pdt_id = 27;
         String bbs_clsf_cd = "1";
