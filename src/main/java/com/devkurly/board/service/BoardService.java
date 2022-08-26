@@ -23,11 +23,11 @@ public interface BoardService {
 
     int getCount(String bbs_clsf_cd, Integer pdt_id) throws Exception;
 
-    int increaseLike(Integer bbs_id) throws Exception;
+    int upDownLike(Integer bbs_id, Integer likeUpDown) throws Exception;
 
     int userLikeNo(BoardDto boardDto) throws Exception;
 
-    int reviewLike(BoardDto boardDto)throws Exception;
+    int reviewLike(BoardDto boardDto, Integer likeUpDown)throws Exception;
     int writeAnswer(CommentDto commentDto)throws Exception;
     int modifyAnswer(CommentDto commentDto)throws Exception;
     int deleteAnswer(Integer bbs_id, int replyst) throws Exception;

@@ -1,7 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page session="true"%>
-
+<c:set
+        var="selectLatest"
+        value="${(param.sortType=='latest'||'') ? 'selected' : ''}"
+/>
+<c:set
+        var="selectLike"
+        value="${(param.sortType=='like') ? 'selected' : ''}"
+/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +22,9 @@
         .title {
             padding-left: 50px;
             text-align: left;
+        }
+        .title_cn{
+            cursor:pointer;
         }
         .no, .grade, .writer, .reg_date, .like_cnt{
             text-align: center;
@@ -50,6 +60,7 @@
             text-align: center;
             line-height:30px;
             width:130px;
+            cursor:pointer;
         }
         #review_view #buttons p{
             float:right;
@@ -61,6 +72,7 @@
             text-align: center;
             border: 1px solid #5f0080;
             margin-left: 28px;
+            cursor:pointer;
         }
         #review_view .review_content {
             width: 100%;
@@ -124,6 +136,15 @@
             color: #333333;
 
         }
+        .btn-cancel{
+            cursor:pointer;
+        }
+        .btn-write{
+            cursor:pointer;
+        }
+        .btn-modify{
+            cursor:pointer;
+        }
         .table td {
             padding: 10px 0 10px 20px;
             border-top: 1px solid #dddfe1;
@@ -186,8 +207,8 @@
                     </p>
                 </div>
                 <select id="sort-option" name="option">
-                    <option value="latest" selected>최근등록순</option>
-                    <option value="like">추천</option>
+                    <option value="latest" ${selectLatest}>최근등록순</option>
+                    <option value="like" ${selectLike}>추천</option>
                 </select>
             </div>
         </div>
@@ -235,13 +256,13 @@
         </c:if>
         <c:if test="${totalCnt!=null && totalCnt!=0}">
             <c:if test="${ph.showPrev}">
-                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>"><</a>
+                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.beginPage-1}&pageSize=${ph.pageSize}&sortType=${param.sortType}'/>"><</a>
             </c:if>
             <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${i}&pageSize=${ph.pageSize}"/>">${i}</a>
+                <a class="page ${i==ph.page? "paging-active" : ""}" href="<c:url value="/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${i}&pageSize=${ph.pageSize}&sortType=${param.sortType}"/>">${i}</a>
             </c:forEach>
             <c:if test="${ph.showNext}">
-                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+                <a class="page" href="<c:url value='/boardlist?pdt_id=${pdt_id}&bbs_clsf_cd=${bbs_clsf_cd}&page=${ph.endPage+1}&pageSize=${ph.pageSize}&sortType=${param.sortType}'/>">&gt;</a>
             </c:if>
         </c:if>
     </div></div>
@@ -259,7 +280,8 @@
                             <td>제목</td>
                             <td>
                                 <div class="field_cmt">
-                                    <input class="form-control1" id="bbs_title" type="text" placeholder="제목을 입력해주세요">
+                                    <input class="form-control1" id="bbs_title" type="text"
+                                           onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" placeholder="제목을 입력해주세요" maxlength="60">
                                 </div>
                             </td>
                         </tr>
@@ -268,7 +290,7 @@
                             <td>
                                 <div class="field_cmt">
                                     <textarea class="form-control2" id="contents" cols="100" rows="10"
-                                              placeholder="내용을 입력해주세요"></textarea>
+                                              placeholder="내용을 입력해주세요" maxlength="2000"></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -288,7 +310,7 @@
     let pageSize = ${param.pageSize};
     let bbs_clsf_cd = ${param.bbs_clsf_cd};
     let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
-
+    let sortType = '<c:out value="${param.sortType}"/>';
     let showList = function(pdt_id, sortType){
         $.ajax({
             type:'GET',
@@ -348,6 +370,15 @@
 
         return yyyy+"."+mm+"."+dd;
     }
+    let regExp = /[\{\}\[\]\/;|\)*~`^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+
+    function characterCheck(obj){
+        // 허용하고 싶은 특수문자가 있다면 여기서 삭제하면 됨
+        if( regExp.test(obj.value) ){
+            alert("특수문자는 입력하실수 없습니다.");
+            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
+        }
+    }
 
     let relocateCn = function(){
         $("#review_view").css("display", "none");
@@ -373,10 +404,9 @@
     };
 
     $(document).ready(function(){
-        showList(pdt_id);
+        showList(pdt_id,sortType);
         let readStatus = false;
         resetButtons();
-
         if(${sessionScope.memberResponse==null}) {
             $(".p_write_btn").click(function () {
                 window.parent.location.href = "/members";
@@ -419,10 +449,9 @@
             }
         })
 
-
         $("#sort-option").change(function(){
             let sortType = this.value;
-            showList(pdt_id, sortType);
+            location.href = '/boardlist?pdt_id='+pdt_id+'&bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&sortType='+sortType;
         });
 
         $(".p_write_btn").click(function(){
@@ -430,13 +459,16 @@
         })
 
         $("#myModal").on("click", ".btn-write", function(){
-
             let bbs_title = $("#myModal #bbs_title").val();
             let bbs_cn = $("#myModal #contents").val();
 
             if(bbs_cn.trim()==''|bbs_title.trim()==''){
                 alert("제목 또는 내용을 입력해주세요.");
                 $("#myModal #contents").focus()
+                return;
+            }
+            if(regExp.test(bbs_title)||regExp.test(bbs_cn)) {
+                alert("제목 또는 내용에 허용되지 않은 특수문자를 지워주세요.");
                 return;
             }
             $.ajax({
@@ -500,6 +532,10 @@
                 $("#myModal #contents").focus()
                 return;
             }
+            if(regExp.test(bbs_title)||regExp.test(bbs_cn)) {
+                alert("제목 또는 내용에 허용되지 않은 특수문자를 지워주세요.");
+                return;
+            }
             $.ajax({
                 type:'PATCH',
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
@@ -514,15 +550,32 @@
         if(${sessionScope.memberResponse !=null}) {
             $("#board").on("click", ".like_button", function () {
                 let bbs_id = $(this).attr("data-bbs_id");
+                let likeUpDown = 1;
                 $.ajax({
                     type: 'PATCH',
-                    url: '/like/' + bbs_id,
+                    url: '/like/' + bbs_id+'?likeUpDown='+likeUpDown,
                     success: function (result) {
                         relocateCn();
                         readStatus = false;
                         showList(pdt_id);
                     },
-                    error : function(){ alert("you pushed like-btn in this review already.")}
+                    error : function(){
+                        if (!confirm("이미 추천하신 리뷰입니다. 추천을 취소하시겠습니까?")){
+                            return;
+                        }else{
+                            let likeUpDown = -1;
+                            $.ajax({
+                                type: 'PATCH',
+                                url: '/like/' + bbs_id+'?likeUpDown='+likeUpDown,
+                                success: function (result) {
+                                    relocateCn();
+                                    readStatus = false;
+                                    showList(pdt_id);
+                                },
+                                error : function(){ alert("추천 취소 ERROR")}
+                            });
+                        }
+                    }
                 });
             });
         }
