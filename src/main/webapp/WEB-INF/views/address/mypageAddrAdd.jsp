@@ -157,10 +157,11 @@
                 <div id="coupons">
                     <form action="" id="form">
                     <div>
-                        <p id="main_addr">${addressDto.main_addr}</p>
+                        <input type="text" id="main_addr" value="${addressDto.main_addr}"/>
                     </div>
                     <div>
-                        <input type="text" id="sub_addr" name="sub_addr" value="${addressDto.sub_addr}"/></div>
+                        <input type="text" id="sub_addr" name="sub_addr" value="${addressDto.sub_addr}"/>
+                    </div>
                 </div>
                 <div>
                    <span>받으실분</span><br>
@@ -175,12 +176,10 @@
                 <div>
                     <input type="checkbox" name="chk_addr" value="true" onclick="checkAlert()">기본배송지로 저장
                 </div>
-                <div id="add_coupon_box">
-                    <a href="/address/modify">
-                        <button id="add_coupon_button">
+                <div>
+                    <button id="add_coupon_button">
                             저장
-                        </button>
-                    </a>
+                    </button>
                 </div>
                 <div id="add_coupon_box">
                     <a href="/address/remove">

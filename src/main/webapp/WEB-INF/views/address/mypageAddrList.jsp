@@ -162,7 +162,10 @@
                                     </span>
                                 </div>
                                 <div class="coupon_name first_col">
-                                    <h4>${addressDto.main_addr}</h4>
+                                    <p aria-readonly="true">${addressDto.main_addr}</p>
+                                    <div>
+                                        ${addressDto.sub_addr}
+                                    </div>
                                 </div>
                                 <div class="coupon_func second_col col">
                                         ${addressDto.addr_name}

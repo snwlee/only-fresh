@@ -152,7 +152,7 @@
             </ul>
         </div>
         <div id="mypage_content">
-            <h3>배송지 수정</h3>
+            <h3>배송지 추가</h3>
             <form id="mypage_content_body">
                 <div id="coupons">
                     <form action="" id="form">
@@ -177,18 +177,14 @@
                     <input type="checkbox" name="chk_addr" value="true" onclick="checkAlert()">기본배송지로 저장
                 </div>
                 <div>
-<%--                    <a href="/address/modify">--%>
-                        <button id="modifyBtn" class="btn">
-                            수정
-                        </button>
-<%--                    </a>--%>
+                    <button id="modifyBtn" class="btn">
+                        수정
+                    </button>
                 </div>
                 <div>
-<%--                    <a href="/address/remove">--%>
-                        <button id="removeBtn" class="btn">
-                            삭제
-                        </button>
-<%--                    </a>--%>
+                    <button id="removeBtn" class="btn">
+                        삭제
+                    </button>
                 </div>
             </form>
             </div>
@@ -199,9 +195,7 @@
 </div>
 <script>
     $(document).ready(function() {  // main()와 같다. jquery
-    <%--    $('#listBtn').on("click", function (){--%>
-    <%--        location.href="<c:url value='/address/list'/>";--%>
-    <%--    });--%>
+
         $('#removeBtn').on("click", function (){
                 // if(!confirm("정말로 삭제하시겠습니까?")) return;
                 let form = $('#mypage_content_body');
