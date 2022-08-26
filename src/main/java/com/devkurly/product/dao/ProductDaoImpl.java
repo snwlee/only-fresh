@@ -128,9 +128,14 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductDto> main(Map map) throws Exception {
+    public List<ProductDto> main(Map map, SearchCondition sc) throws Exception {
         return session.selectList(namespace+"main",map);
     }
+
+    /*@Override
+    public List<ProductDto> main(Map map) throws Exception {
+        return session.selectList(namespace+"main",map);
+    }*/
 
     @Override
     public List<ProductDto> goodslist(String cd_name) throws Exception {
@@ -165,6 +170,12 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public int cateCnt(String cd_type_name) throws Exception {
         return session.selectOne(namespace+"cateCnt",cd_type_name);
+    }
+
+
+    @Override
+    public String selectCate(Integer cd_name_num) throws Exception {
+        return session.selectOne(namespace+"selectCate",cd_name_num);
     }
 
 }
