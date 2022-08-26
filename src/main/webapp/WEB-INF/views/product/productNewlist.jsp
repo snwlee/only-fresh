@@ -24,102 +24,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 신상품페이지</title>
+    <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css">
     <link rel="stylesheet" type="text/css" href="/main/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product/productlist.css">
     <style>
-        #whole_container {
-            width: 100%;
-            height: 100vh;
-        }
-
-        button {
-            width: 200px;
-            height: 100px;
-        }
-
-        a {
+        a{
             text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
         }
-
-        #search_first a {
-            font-weight: 600;
-        }
-
-        a:visited {
-            text-decoration: none;
-            color: black;
-        }
-
-        .btn {
-            cursor: pointer;
-            width: 200px;
-            height: 50px;
-            border-radius: 5px;
-            border: none;
-            background-color: #5F0080;
-            color: white;
-            font-size: 16px;
-            font-weight: 400;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #container {
-            width: 100%;
-            background: white;
-            color: white;
-            padding: 30px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            border-top: 2px solid rgb(39, 39, 39);
-        }
-
-
-        .search-container {
-            margin-top: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .search-form {
-            height: 37px;
-            display: flex;
-        }
-
-        .search-option {
-            outline: none;
-            margin-right: 5px;
-            border: 1px solid #ccc;
-            color: gray;
-        }
-
-        .search-option > option {
-            text-align: center;
-        }
-
-        .search-button {
-            /* 메뉴바의 검색 버튼 아이콘  */
-            background-color: rgb(22, 22, 22);
-            color: rgb(209, 209, 209);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-        }
-
-        .search-button:hover {
-            color: rgb(165, 165, 165);
-        }
-
         .paging {
             display: flex;
             color: black;
@@ -159,8 +73,6 @@
             flex-direction: column;
             justify-content: center;
         }
-
-
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -169,9 +81,9 @@
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
-                <a id="signup" href="${nameLink}">이름</a>
+                <a id="signup" href="${nameLink}">${name}</a>
                 <div></div>
-                <a id="signin" href="${signInOutLink}">로그아웃</a>
+                <a id="signin" href="${signInOutLink}">${signInOut}</a>
                 <div></div>
                 <a id="cust">고객센터</a>
             </div>
@@ -190,7 +102,7 @@
                 <img src="/main/imgs/loupe.png" style="width: 20px; height: 20px" />
             </div>
             <div id="icon_container">
-                <img src="/main/imgs/location.png" />
+                <a href="#" class="location"><img src="/main/imgs/location.png"/></a>
                 <img src="/main/imgs/heart.png" />
                 <a href="/carts/"><img src="/main/imgs/shopping-cart.png" /></a>
             </div>
@@ -202,7 +114,7 @@
             </div>
             <div id="menus">
 
-                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a></span>
                 <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
                 <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
                 <a href="/event/main">특가/혜택</a>
@@ -265,9 +177,9 @@
         lists.forEach(function (ProductDto) {
             tmp += '<div class="products" style="margin-top:50px">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
-            tmp += '<span class="de_type">' +ProductDto.de_type==true?'샛별배송':'낮배송'+'</span>'
+            tmp += '<span class="de_type">'+(ProductDto.de_type==true? "샛별배송":"낮배송")+'</span>'
             tmp += '<div class="product_title">'+ProductDto.title+'</div>'
-            tmp +=  '<span class="product_ds_rate">' + ProductDto.ds_rate+ '%'+ '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
+            tmp += '<span class="product_ds_rate">' + ProductDto.ds_rate+ '%'+ '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
             tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span></div>'
         })
         return tmp;

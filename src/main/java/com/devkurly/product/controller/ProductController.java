@@ -217,39 +217,7 @@ public class ProductController {
         return "product/productNewlist";
     }
 
-
-    @GetMapping("/bestlist")
-
-    public String bestlist(SearchCondition sc, String option, Model m, HttpServletRequest request, HttpSession session, String order_sc){
-        Paging ph = null;
-        try {
-            int totalCnt = productService.getSearchResultCnt(sc);
-            m.addAttribute("totalCnt", totalCnt);
-            ph = new Paging(totalCnt,sc);
-            List<ProductDto> list = null;
-
-            if(order_sc==null || order_sc == ""){
-                list = productService.getSearchResultPage(sc);
-            }else{
-                Map map = new HashMap();
-                map.put("order_sc",order_sc);
-                map.put("offset",sc.getOffset());
-                map.put("pageSize",sc.getPageSize());
-                map.put("keyword",sc.getKeyword());
-                list = productService.ProductListDESC(map);
-            }
-            m.addAttribute("list", list);
-            m.addAttribute("ph",ph);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "product/productBestlist";
-    }
-
-
-
-    @GetMapping("/categories")
+    @GetMapping("/categories") // 카테고리 기능
     @ResponseBody
     public ResponseEntity<Map<String, List<MainSubCatDto>>> getCategories(){
         Map<String, List<MainSubCatDto>> map = null;
@@ -264,7 +232,7 @@ public class ProductController {
 
 
 
-    @GetMapping("/list")
+    @GetMapping("/list") //메인 페이지
     public String list(SearchCondition sc, String option, Model m, HttpServletRequest request, HttpSession session, String order_sc){
         Paging ph = null;
         try {
@@ -285,7 +253,7 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/product/list";
+        return "/product/MainPage";
     }
 
 
