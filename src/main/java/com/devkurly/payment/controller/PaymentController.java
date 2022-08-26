@@ -45,7 +45,7 @@ public class PaymentController {
         Integer all_dc_amt;
         if (orderSaveRequestDto.getCoupn_id() != 0) {
             CouponDto couponByCouponId = memberService.findCouponByCouponId(orderSaveRequestDto.getCoupn_id());
-            all_dc_amt = used_acamt + couponByCouponId.getRate();
+            all_dc_amt = used_acamt + couponByCouponId.getValue();
         } else {
             all_dc_amt = used_acamt;
         }

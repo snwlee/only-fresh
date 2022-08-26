@@ -50,17 +50,20 @@
             <div id="select_result"></div>
         </div>
         <div class="content create_event">
-            <p>이름 : <input class="create_input" name="nm"></p>
-            <p>설명 :<input class="create_input" name="des"></p>
-            <p>사진(설명x) :<input class="create_input" name="photo"></p>
-            <p>사진 대체 설명<input class="create_input" name="photo_alt"></p>
-            <p>카테고리코드<input class="create_input" name="cat_cd"></p>
+            <h2>이벤트 생성창</h2>
+            <p>이름 : <input required maxlength="50" class="create_input" name="nm"></p>
+            <p>설명 :<input required maxlength="200" class="create_input" name="des"></p>
+            <p>사진(설명x) :<input required maxlength="100" class="create_input" name="photo"></p>
+            <p>사진 대체 설명<input required maxlength="100" class="create_input" name="photo_alt"></p>
+            <p>카테고리코드 -><input class="create_input" name="cat_cd"></p>
             <p>결제방식<input class="create_input" name="setl_methd_cd"></p>
-            <p>시작일<input class="create_input" name="stpt_dd"></p>
-            <p>종료일<input class="create_input" name="expi_dd"></p>
+            <p>시작일<input class="create_input" name="stpt_dd" pattern="(?<!\d)(?:(?:(?:1[6-9]|[2-9]\d)?\d{2})(?:(?:(?:0[13578]|1[02])31)|(?:(?:0[1,3-9]|1[0-2])(?:29|30)))|(?:(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))0229)|(?:(?:1[6-9]|[2-9]\d)?\d{2})(?:(?:0?[1-9])|(?:1[0-2]))(?:0?[1-9]|1\d|2[0-8]))(?!\d)
+"></p>
+            <p>종료일<input class="create_input" name="expi_dd" pattern="(?<!\d)(?:(?:(?:1[6-9]|[2-9]\d)?\d{2})(?:(?:(?:0[13578]|1[02])31)|(?:(?:0[1,3-9]|1[0-2])(?:29|30)))|(?:(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))0229)|(?:(?:1[6-9]|[2-9]\d)?\d{2})(?:(?:0?[1-9])|(?:1[0-2]))(?:0?[1-9]|1\d|2[0-8]))(?!\d)
+"></p>
             <p>조기종료상태<input class="create_input" name="early_end_stus"></p>
-            <p>할인율<input class="create_input" name="ds_rate"></p>
-            <button id="create_button" class="">CREATE</button>
+            <p>할인율<input min="0" max="99" class="create_input" name="ds_rate"></p>
+            <input type="submit" id="create_button" class=""></input>
         </div>
         <div class="content">
             <h2>수정할 이벤트를 선택해 주세요</h2>
@@ -69,16 +72,16 @@
                 </select>
             </p>
             <div id="update_inputs" style="visibility : hidden">
-                <p>이름 : <input class="update_input" name="nm"></p>
-                <p>설명 :<input class="update_input" name="des"></p>
-                <p>사진(설명x) :<input class="update_input" name="photo"></p>
-                <p>사진 대체 설명<input class="update_input" name="photo_alt"></p>
+                <p>이름 : <input required maxlength="50" class="update_input" name="nm"></p>
+                <p>설명 :<input required maxlength="200" class="update_input" name="des"></p>
+                <p>사진(설명x) :<input required maxlength="100" class="update_input" name="photo"></p>
+                <p>사진 대체 설명<input required maxlength="100" class="update_input" name="photo_alt"></p>
                 <p>카테고리코드<input class="update_input" name="cat_cd"></p>
                 <p>결제방식<input class="update_input" name="setl_methd_cd"></p>
                 <p>시작일<input class="update_input" name="stpt_dd"></p>
                 <p>종료일<input class="update_input" name="expi_dd"></p>
                 <p>조기종료상태<input class="update_input" name="early_end_stus"></p>
-                <p>할인율<input class="update_input" name="ds_rate"></p>
+                <p>할인율<input min="0" max="99" class="update_input" name="ds_rate"></p>
                 <button id="update_button">UPDATE</button>
             </div>
         </div>
@@ -93,7 +96,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    let test = document.cookie
     // UTILS
     let toLiTags = function (result) {
         let tmp = "<ul>";
@@ -197,11 +199,11 @@
                 data: JSON.stringify(obj),
                 contentType: "application/json",
                 success: function () {
-                    alert("success");CART_TB
+                    alert("success");
                     bringEventOptions();
                 },
-                error: function () {
-                    if(HttpStatus.code == 404)
+                error: function (res) {
+                    if(res.code === 404)
                         // alert(this.error.message());
                     alert("error")
                 }, // 에러가 발생했을 때, 호출될 함수
