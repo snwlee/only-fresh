@@ -94,10 +94,10 @@
     </div>
     <div id="cat_wrapper">
         <div id="main_cat_container">
-<%--            <li class="cat main_cat">채소</li>--%>
+            <%--            <li class="cat main_cat">채소</li>--%>
         </div>
         <div id="sub_cat_container">
-<%--            <li class="cat sub_cat">채소</li>--%>
+            <%--            <li class="cat sub_cat">채소</li>--%>
         </div>
     </div>
     <div id="content">
@@ -205,11 +205,15 @@
         sub_cat_container.hide();
     })
 
-    let catToLi = function(res) {
+    let catToLi = function (res) {
         let tmp = '';
 
         res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+            tmp += '<a href="/product/newlist?cd_name_num='
+            tmp += el.cd_name_num
+            tmp += '&page=1&pageSize=12"<li class="cat main_cat">'
+            tmp += el.cd_name
+            tmp += '</li></a>'
         })
 
         return tmp;
@@ -234,19 +238,21 @@
         let tmp = '';
 
         res.forEach(el => {
-            tmp += '<div class="coupon cols">' +
-                '<div class="coupon_name first_col"> <h4>' +
-                el.nm + '</h4><p>최대 ' +
-                el.ds_max_posbl_amt.toLocaleString() +
-                '원 할인</p> <p>' +
-                (el.lmtt_cnd == null ? "" : el.lmtt_cnd) +
-                '</p> </div><div class="coupon_func second_col col">' +
-                el.func + '</div><div class="coupon_rate third_col col">' +
-                el.rate + '%</div><div class="coupon_due fourth_col col">' +
-                dateParse(el.expi_dd) +
-                '까지</div><div class="coupon_used fifth_col col">' +
-                (el.used ? "사용" : "미사용") +
-                '</div></div>';
+            tmp += '<div class="coupon cols">'
+            tmp += '<div class="coupon_name first_col"> <h4>'
+            tmp += el.nm
+            tmp += '</h4><p>최대 '
+            tmp += el.ds_max_posbl_amt.toLocaleString()
+            tmp += '원 할인</p> <p>'
+            tmp += (el.lmtt_cnd == null ? "" : el.lmtt_cnd)
+            tmp += '</p> </div><div class="coupon_func second_col col">'
+            tmp += el.func + '</div><div class="coupon_rate third_col col">'
+            tmp += el.value
+            tmp += '%</div><div class="coupon_due fourth_col col">'
+            tmp += dateParse(el.expi_dd)
+            tmp += '까지</div><div class="coupon_used fifth_col col">'
+            tmp += (el.used ? "사용" : "미사용")
+            tmp += '</div></div>';
         })
 
         return tmp;
@@ -273,14 +279,14 @@
                 success: function (res) {
                     categories = res;
 
-                    $.each(res, (el)=>{
-                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12"<li class="cat main_cat">'+el+'</li></a>');
+                    $.each(res, (el) => {
+                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
                     })
                 },
                 error: function (result) {
                     alert("쿠폰 불러오기 실패");
                 }, // 에러가 발생했을 때, 호출될 함수
-                complete: function(){
+                complete: function () {
                     $(".main_cat").mouseenter((e) => {
                         sub_cat_container.show();
                         sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
