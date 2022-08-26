@@ -330,6 +330,8 @@
   }
   let categories = null;
 
+  let regExp = /[`~!@#$%\-^&*|\\\'\";:\/?]/gi;
+
   $(document).ready(function(){
 
     let jbOffset = $(".menu_nav").offset();
@@ -361,15 +363,24 @@
       $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
     });
 
-      $("#addCart").click(function(){
+    $("#addCart").click(function(){
       let pdt_qty = parseInt($("#pdt_qty").text());
+      if(pdt_qty==0){
+        alert("구매수량이 0이면 장바구니에 넣을 수 없습니다.");
+        return;
+      }
+      let testValue = $("#pdt_qty").text();
+      if(regExp.test(testValue)||testValue.includes("-")){
+        console.log("didn't pass the regExp test");
+        alert("구매수량에 음수값이나 특수문자를 입력할 수 없습니다."); //두번쨰 클릭이 통과하는 문제
+        return;
+      }
       $.ajax({
         type:'POST',
         url: '/carts/'+pdt_id+'?pdt_qty='+pdt_qty,
         success : function(result){
           window.location.href = '/carts';
         },
-        error   : function(){ alert("error") }
       });
     });
 
@@ -393,17 +404,7 @@
         })
       }
     })
-
-
-
-
-
-
   });
-
-
-
-
 </script>
 
 </body>

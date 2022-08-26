@@ -40,7 +40,6 @@ public class BoardController {
             m.addAttribute("ph", ph);
             m.addAttribute("pdt_id", pdt_id);
             m.addAttribute("bbs_clsf_cd", bbs_clsf_cd);
-            System.out.println("sortType = " + sortType);
             if(bbs_clsf_cd.equals("2"))
                 return "board/board_answer";
 
