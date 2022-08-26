@@ -334,4 +334,10 @@
         from COMMON_CODE_TB CCT
                  join COMMON_CODE_TYPE_TB CCTT on CCT.cd_type_id = CCTT.cd_type_id;
     </select>
+
+
+    <select id="selectCate"  parameterType="int" resultType="String">
+        select DISTINCT cd_name from COMMON_CODE_TB
+        where cd_name_num = #{cd_name_num}
+    </select>
 </mapper>

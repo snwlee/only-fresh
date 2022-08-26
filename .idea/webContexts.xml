@@ -10,6 +10,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/productDetail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/product_detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cart/cartRestApi.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/verify.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage/myCoupon/myCoupon.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mypage/myCoupon" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/order.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order" />
