@@ -19,7 +19,7 @@
         where user_id = #{user_id};
     </select>
     <select id="findCouponById" parameterType="int" resultType="CouponDto">
-        select UT.coupn_id, used, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        select UT.coupn_id, used, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, value, expi_dd
         from USER_COUPON_TB UT
         join COUPON_TB CT
         on UT.coupn_id = CT.coupn_id
@@ -27,7 +27,7 @@
         and used = 0;
     </select>
     <select id="findCouponByCouponId" parameterType="int" resultType="CouponDto">
-        select event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, rate, expi_dd
+        select event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, value, expi_dd
         from COUPON_TB CT
         where CT.coupn_id = #{coupn_id};
     </select>

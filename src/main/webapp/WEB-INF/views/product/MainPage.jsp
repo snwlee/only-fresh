@@ -127,6 +127,30 @@
         </div>
     </div>
 </div>
+<footer>
+    <img src="/logo.svg" alt="logo">
+    <div id="member_container">
+        <a href="https://github.com/dr94406">
+            <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+        </a>
+        <a href="https://github.com/PGRRR">
+            <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+        </a>
+        <a href="https://github.com/Riiver-J">
+            <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+        </a>
+        <a href="https://github.com/narlae">
+            <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+        </a>
+        <a href="https://github.com/xpmxf4">
+            <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+        </a>
+        <a href="https://github.com/didqksrla">
+            <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+        </a>
+    </div>
+</footer>
+</div>
 
 <script>
     <%--let page = ${param.page};--%>
