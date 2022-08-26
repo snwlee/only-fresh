@@ -25,12 +25,13 @@ private String tag_name;
 private String company;
 private String cd_name;
 private String cd_type_name;
+private Integer cd_name_num;
 
 public ProductDto(){}
     public ProductDto (Integer pdt_id, String cat_code, String title, Integer price, String image, Integer sel_price,
                        String sub_title, String rec_info, boolean adt_sts,Integer stock, Date in_date,
                        String in_user,  Date up_date, String up_user, boolean de_type, Integer sales_rate,
-                       String tag_name, String company, String cd_name, String cd_type_name, Integer ds_rate) {
+                       String tag_name, String company, String cd_name, String cd_type_name, Integer ds_rate, Integer cd_name_num) {
 
         this.pdt_id = pdt_id;
         this.cat_code = cat_code;
@@ -53,6 +54,7 @@ public ProductDto(){}
         this.cd_name = cd_name;
         this.cd_type_name = cd_type_name;
         this.ds_rate = ds_rate;
+        this.cd_name_num = cd_name_num;
 
     }
 
@@ -81,6 +83,7 @@ public ProductDto(){}
                 ", cd_name='" + cd_name + '\'' +
                 ", cd_type_name='" + cd_type_name + '\'' +
                 ", ds_rate='" + ds_rate + '\'' +
+                ", cd_name_num='" + cd_name_num + '\'' +
                 '}';
     }
 
@@ -269,7 +272,12 @@ public ProductDto(){}
     }
 
 
+    public Integer getCd_name_num() {
+        return cd_name_num;
+    }
 
-
+    public void setCd_name_num(Integer cd_name_num) {
+        this.cd_name_num = cd_name_num;
+    }
 }
 
