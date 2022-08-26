@@ -33,7 +33,7 @@ public class CouponDaoImplTest {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
-        CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000,1, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         assertTrue(couponDao.create(dto) == 1);
     }
     @Test
@@ -55,7 +55,7 @@ public class CouponDaoImplTest {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
-        CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000,1, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         couponDao.create(dto);
         assertTrue(couponDao.readAll().size() == 1);
 
@@ -68,12 +68,12 @@ public class CouponDaoImplTest {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
-        CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto = new CouponDto(86, "현대카드 쿠폰", 1000000,1, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         couponDao.create(dto);
         assertTrue(couponDao.readAll().size() == 1);
 
 
-        CouponDto dto2 = new CouponDto(86, "신한카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto2 = new CouponDto(86, "신한카드 쿠폰", 1000000, 1, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         couponDao.create(dto2);
         assertTrue(couponDao.readAll().size() == 2);
     }
@@ -89,12 +89,12 @@ public class CouponDaoImplTest {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
-        CouponDto dto = new CouponDto(1, 86, "현대카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto = new CouponDto(1, 86, "현대카드 쿠폰",1, 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         int rowCnt = couponDao.createWithId(dto);
         assertTrue(rowCnt == 1);
         assertTrue(couponDao.readAll().size() == 1);
 
-        CouponDto dto2 = new CouponDto(1, 86, "신한카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto2 = new CouponDto(1, 86, "신한카드 쿠폰",1, 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         assertTrue(couponDao.update(dto2) == 1);
 
         CouponDto res = couponDao.readAll().get(0);
@@ -108,7 +108,7 @@ public class CouponDaoImplTest {
         couponDao.deleteAll();
         assertTrue(couponDao.readAll().size() == 0);
 
-        CouponDto dto = new CouponDto(1, 86, "현대카드 쿠폰", 1000000, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
+        CouponDto dto = new CouponDto(1, 86, "현대카드 쿠폰", 1000000,1, "내일까지만 가능", "현대카드만", "할인", 30, "20220829");
         int rowCnt = couponDao.createWithId(dto);
         assertTrue(rowCnt == 1);
         assertTrue(couponDao.readAll().size() == 1);
