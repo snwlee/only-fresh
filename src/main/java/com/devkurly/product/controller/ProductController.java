@@ -257,7 +257,7 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/product/MainPage";
+        return "MainPage";
     }
 
 

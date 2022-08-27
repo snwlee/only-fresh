@@ -87,9 +87,6 @@
                 <a id="cust">고객센터</a>
             </div>
         </div>
-        <div class="search-container">
-
-        </div>
         <div id="search">
             <div id="search_first">
                 <img style="width:82px; height: 42px"
@@ -139,7 +136,7 @@
         <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
 
             <h3 id="page_title"></h3>
-            <ul id="sortList"><a href=/product/newlist?&sort=sort&page=page&pageSize=pageSize&NewAscBtn=sel_price id="NewAscBtn">신상품순</a>
+            <ul id="sortList"><a href=# id="NewAscBtn">신상품순</a>
                 <a href=# id="SelAscBtn">판매량순</a>
                 <a href=# id="DcAscBtn">혜택순</a>
                 <a href=# id="DescBtn">낮은가격순</a></ul>
@@ -212,8 +209,6 @@
                 $("#cd_type_name").text(result.cd_type_name);
                 $("#cd_name").text(result.cd_name); // 카테고리의 이름을 가져온다.
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
-
-
             },
             error: function () {
                 alert("error")
@@ -236,72 +231,6 @@
     }
     $(document).ready(function () {
         showList();
-    })
-    /**
-     * 카테고리
-     */
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-
-    let catToLi = function (res) {
-        let tmp = '';
-
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12"<li class="cat main_cat">' + el.cd_name + '</li></a>'
-        })
-
-        return tmp;
-    }
-
-    let categories = null;
-
-    $(document).ready(function () {
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/product/categories',  // 요청 URI
-            success: function (res) {
-                categories = res;
-
-                $.each(res, (el) => {
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
-                })
-            },
-            error: function (result) {
-                alert("쿠폰 불러오기 실패");
-            }, // 에러가 발생했을 때, 호출될 함수
-            complete: function () {
-                $(".main_cat").mouseenter((e) => {
-                    sub_cat_container.show();
-                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
-                })
-            }
-        })
-    });
-
-    $("#NewAscBtn").click(function () {
-        $.ajax({
-            type: 'GET',
-            url: '/product/newlist?sort=' + sort + '&page=' + page + '&pageSize=' + pageSize + '&NewAscBtn=sel_price',
-            success: function (result) {
-            }
-
-        })
     })
 </script>
 </body>

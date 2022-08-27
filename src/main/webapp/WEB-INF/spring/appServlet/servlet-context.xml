@@ -25,7 +25,7 @@
 	</beans:bean>
 
 
-	<view-controller path="/" view-name="home"/>
+	<view-controller path="/" view-name="MainPage"/>
 
 	<context:component-scan base-package="com.devkurly"/>
 

@@ -75,7 +75,7 @@
         <div id="menubar">
             <div id="category_container">
                 <img src="" />
-                <p style="width: 80px;" id="show_category_button">카테고리</p>
+                <p style="font-size: 16px;width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
                 <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a>
@@ -90,6 +90,14 @@
         </div>
     </div>
     <div id="content">
+        <div id="cat_wrapper">
+            <div id="main_cat_container">
+                <%--            <li class="cat main_cat">채소</li>--%>
+            </div>
+            <div id="sub_cat_container">
+                <%--            <li class="cat sub_cat">채소</li>--%>
+            </div>
+        </div>
         <div id="min" style="display: flex; flex-direction: column; align-items: center;">
 
             <div class="main_title">
@@ -131,6 +139,7 @@
 </div>
 
 <script>
+
     let showList = function(){
         let sort = 0
         $.ajax({
@@ -163,59 +172,6 @@
     $(document).ready(function () {
         showList();
     })
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-
-    let catToLi = function(res) {
-        let tmp = '';
-
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
-        })
-
-        return tmp;
-    }
-
-    let categories = null;
-
-    $(document).ready(() => {
-            $.ajax({
-                type: 'GET',       // 요청 메서드
-                url: '/product/categories',  // 요청 URI
-                success: function (res) {
-                    categories = res;
-                    $.each(res, (el)=>{
-                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12"<li class="cat main_cat">'+el+'</li></a>');
-                    })
-                },
-                error: function (result) {
-                    alert("쿠폰 불러오기 실패");
-                }, // 에러가 발생했을 때, 호출될 함수
-                complete: function(){
-                    $(".main_cat").mouseenter((e) => {
-                        sub_cat_container.show();
-                        sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
-                    })
-                }
-            })
-        }
-    )
 </script>
 </body>
 <%--<footer>--%>
