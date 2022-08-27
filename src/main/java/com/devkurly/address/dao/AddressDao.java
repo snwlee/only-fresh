@@ -17,6 +17,12 @@ public interface AddressDao {
 
     int update(AddressDto addressDto) throws Exception;
 
+    int updateDef(AddressDto addressDto) throws Exception;
+
+    int updateDefaultFalse(Integer user_id) throws Exception;
+
+    int updateDefaultTrue(AddressDto addressDto) throws Exception;
+
     int delete(AddressDto addressDto) throws Exception;
 
     int deleteAll() throws Exception;

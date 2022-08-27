@@ -62,8 +62,6 @@
 
             $('input:checkbox[id="checkbox_id"]').val();
 
-
-
         });
     </script>
 </body>
