@@ -52,13 +52,11 @@
 
         }
 
-        #main_addr {
+/*        #main_addr {  // 다음주소 API를 통해서 자동으로 입력되게 해야함 하지만 일단은 하드코딩으로 작섣하는 방식으로 선택
             border: none;
             width: 80%;
             margin-top: 10px;
             margin-bottom: 10px;
-
-            /*margin: 20px 50px 30px 50px;*/
         }
 
         #sub_addr {
@@ -152,72 +150,65 @@
             </ul>
         </div>
         <div id="mypage_content">
-            <h3>배송지 수정</h3>
+            <h3>배송지 등록</h3>
             <form id="mypage_content_body">
                 <div id="coupons">
-                    <form action="" id="form">
                     <div>
-                        <input type="text" id="main_addr" value="${addressDto.main_addr}"/>
+                        <span>주소</span><br>
+                        <input type="text" id="main_addr" name="main_addr" value="${addressDto.main_addr}"/>
                     </div>
                     <div>
+                        <span>상세주소</span><br>
                         <input type="text" id="sub_addr" name="sub_addr" value="${addressDto.sub_addr}"/>
                     </div>
-                </div>
-                <div>
-                   <span>받으실분</span><br>
-                    <input type="text" name="addr_name" placeholder="이름을 입력해주세요" value="${addressDto.addr_name}"/>
-                </div>
-                <div>
-                    <span>휴대폰</span><br>
-                    <input type="text" name="addr_tel" placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}"
-                           maxlength="11"
-                           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                    <div>
+                        <span>받으실 분</span><br>
+                        <input type="text" name="addr_name" placeholder="이름을 입력해주세요" value="${addressDto.addr_name}"/>
+                    </div>
+                    <div>
+                        <span>연락처</span><br>
+                        <input type="text" name="addr_tel" placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}"
+                               maxlength="11"
+                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                    </div>
                 </div>
                 <div>
                     <input type="checkbox" name="chk_addr" value="true" onclick="checkAlert()">기본배송지로 저장
                 </div>
                 <div>
-                    <button id="add_coupon_button">
-                            저장
-                    </button>
+                    <a href="/address/create">
+                        <button id="insertBtn">
+                            배송지 등록
+                        </button>
+                    </a>
                 </div>
-                <div id="add_coupon_box">
-                    <a href="/address/remove">
-                        <button id="add_coupon_button">
-                            삭제
+                <div>
+                    <a href="/address/list">
+                        <button id="listBtn">
+                            목록으로 돌아가기
                         </button>
                     </a>
                 </div>
             </form>
-            </div>
         </div>
     </div>
 </div>
 </div>
 </div>
+</div>
 <script>
-    <%--$(document).ready(function() {  // main()와 같다. jquery--%>
-    <%--    $('#listBtn').on("click", function (){--%>
+    $(document).ready(function() {  // main()와 같다. jquery
+        $('#listBtn').on("click", function (){
+            location.href="<c:url value='/address/list'/>";
+        });
 
-    <%--        location.href="<c:url value='/address/list'/>";--%>
-    <%--    });--%>
-
-    <%--    $('#removeBtn').on("click", function (){--%>
-    <%--        // if(!confirm("정말로 삭제하시겠습니까?")) return;--%>
-    <%--        let form = $('#form');--%>
-    <%--        form.attr("action", "<c:url value='/address/remove'/>?addr_id=${addressDto.addr_id}");--%>
-    <%--        form.attr("method", "post");--%>
-    <%--        form.submit();--%>
-    <%--    });--%>
-
-    <%--    $('#modifyBtn').on("click", function (){--%>
-    <%--        let form = $('#form');--%>
-    <%--        form.attr("action", "<c:url value='/address/modify'/>?addr_id=${addressDto.addr_id}");--%>
-    <%--        form.attr("method", "post");--%>
-    <%--        form.submit();--%>
-    <%--    });--%>
-    <%--    --%>
-    <%--});--%>
+        $('#insertBtn').on("click", function (){
+            let form = $('#mypage_content_body');
+            form.attr("action", "<c:url value='/address/create'/>");
+            form.attr("method", "post");
+            form.submit();
+        });
+    });
 </script>
 </body>
 </html>

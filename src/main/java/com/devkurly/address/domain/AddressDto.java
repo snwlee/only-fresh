@@ -10,6 +10,7 @@ public class AddressDto {
     private Integer user_id;    // 유저 id (FK)
     private String addr;        // 기본 배송지 정보(장바구니, 주문시 보여지는 컬럼)
     private Boolean chk_addr;   // 체크하면 기본 배송지
+    private Boolean ba_addr;    // 선택 배송지 체크여부, 배송지 목록 창에서만 선택여부
     private String main_addr;   // 메인주소
     private String sub_addr;    // 서브 상세 주소
     private Boolean deli_type;  // 배송유형 t:샛별, f:낮배송
@@ -25,11 +26,12 @@ public class AddressDto {
 
     public AddressDto() { }
 
-    public AddressDto(Integer addr_id, Integer user_id, Boolean chk_addr, String main_addr, String sub_addr, Boolean deli_type,String cd_type_name, String city_code, String in_user, String up_user)  {
+    public AddressDto(Integer addr_id, Integer user_id, Boolean chk_addr, String main_addr,Boolean ba_addr, String sub_addr, Boolean deli_type,String cd_type_name, String city_code, String in_user, String up_user)  {
         this.addr_id = addr_id;
         this.user_id = user_id;
         this.chk_addr = chk_addr;
         this.main_addr = main_addr;
+        this.ba_addr = ba_addr;
         this.sub_addr = sub_addr;
         this.deli_type = deli_type;
         this.city_code = city_code;
@@ -58,6 +60,7 @@ public class AddressDto {
                 ", user_id=" + user_id +
                 ", addr='" + addr + '\'' +
                 ", chk_addr=" + chk_addr +
+                ", ba_addr=" + ba_addr +
                 ", main_addr='" + main_addr + '\'' +
                 ", sub_addr='" + sub_addr + '\'' +
                 ", deli_type=" + deli_type +
@@ -70,6 +73,14 @@ public class AddressDto {
                 ", up_user='" + up_user + '\'' +
                 ", up_date=" + up_date +
                 '}';
+    }
+
+    public Boolean getBa_addr() {
+        return ba_addr;
+    }
+
+    public void setBa_addr(Boolean ba_addr) {
+        this.ba_addr = ba_addr;
     }
 
     public String getCd_type_name() {

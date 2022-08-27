@@ -20,19 +20,29 @@
     <insert id="insert" parameterType="AddressDto">
         INSERT
         INTO ADDRESS_TB (user_id, chk_addr, main_addr, sub_addr,
-                         deli_type)
+                         addr_name, addr_tel, deli_type)
         VALUES (#{user_id}, #{chk_addr}, #{main_addr}, #{sub_addr},
-                #{deli_type})
+                #{addr_name}, #{addr_tel}, #{deli_type})
     </insert>
 
     <select id="listSelect" parameterType="int"  resultType="AddressDto">
-        SELECT addr_id, user_id, chk_addr, main_addr,
+        SELECT addr_id, user_id, chk_addr, ba_addr, main_addr,
                sub_addr, addr_name, addr_tel, deli_type
         FROM ADDRESS_TB
         WHERE user_id = #{user_id}
+        ORDER BY chk_addr DESC
     </select>
 
-    <!-- join 연습  -->
+<!--    <select id="listSelect" parameterType="int"  resultType="AddressDto">
+        SELECT addr_id, user_id, chk_addr, ba_addr, main_addr,
+               sub_addr, addr_name, addr_tel, deli_type
+        FROM ADDRESS_TB
+        ORDER BY (chk_addr is true) AND (ba_addr is true) OR (chk_addr is true) OR (ba_addr is true) DESC
+        WHERE user_id = #{user_id}
+    </select>
+-!>
+
+    <!- join 연습  -->
 <!--    <select id="listSelect" parameterType="int"  resultType="AddressDto">-->
 <!--        SELECT-->
 <!--               T.addr_id, T.user_id, T.chk_addr,-->
@@ -60,6 +70,24 @@
                addr_name = #{addr_name},
                addr_tel = #{addr_tel}
         WHERE  user_id = #{user_id} AND addr_id = #{addr_id}
+    </update>
+
+    <update id="updateDef" parameterType="AddressDto">
+        UPDATE ADDRESS_TB
+        SET    ba_addr = #{ba_addr}
+        WHERE  addr_id = #{addr_id}
+    </update>
+
+    <update id="updateDefaultFalse" parameterType="AddressDto">
+        UPDATE ADDRESS_TB
+        SET    ba_addr = 0
+        WHERE  user_id = #{user_id}
+    </update>
+
+    <update id="updateDefaultTrue" parameterType="AddressDto">
+        UPDATE ADDRESS_TB
+        SET    ba_addr = 1
+        WHERE  addr_id = #{addr_id} AND user_id = #{user_id}
     </update>
 
     <delete id="delete" parameterType="AddressDto">

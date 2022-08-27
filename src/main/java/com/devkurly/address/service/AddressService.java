@@ -18,6 +18,12 @@ public interface AddressService {
 
     int modify(AddressDto addressDto) throws Exception;
 
+    int modifybaaadr(AddressDto addressDto) throws Exception;
+
+    int modifyDefaultFalse(Integer user_id) throws Exception;
+
+    int modifyDefaultTrue(AddressDto addressDto) throws Exception;
+
     int remove(AddressDto addressDto) throws Exception;
 
     int removeAll() throws Exception;

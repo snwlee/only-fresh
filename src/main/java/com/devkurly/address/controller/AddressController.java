@@ -3,6 +3,8 @@ package com.devkurly.address.controller;
 import com.devkurly.address.domain.AddressDto;
 import com.devkurly.address.service.AddressService;
 import com.devkurly.member.dto.MemberMainResponseDto;
+import org.apache.ibatis.javassist.runtime.Desc;
+import org.junit.experimental.theories.DataPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,23 @@ public class AddressController {
             e.printStackTrace();
         }
         return "/address/mypageAddrList";
+    }
+
+    @PostMapping("/default")
+    public String modifyDefault(AddressDto addressDto, Model m, HttpSession session) throws Exception {
+        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
+        Integer user_id = responseDto.getUser_id();
+
+//        addressDto.setBa_addr(addressDto.getBa_addr() != null);
+
+        if(addressDto.getBa_addr()==null)
+            addressDto.setBa_addr(false);
+        
+        addressService.modifybaaadr(addressDto);
+
+        m.addAttribute("addressDto", addressDto);
+
+        return "redirect:/address/list";
     }
 
     @GetMapping("/read")
@@ -97,7 +116,6 @@ public class AddressController {
             addressDto.setAddr_id(addr_id);
             addressDto.setUser_id(user_id);
 
-        System.out.println("addressDto = " + addressDto);
         if(addressDto.getChk_addr()==null)
             addressDto.setChk_addr(false);
 
@@ -108,7 +126,6 @@ public class AddressController {
                 throw new Exception("Modify failed");
             }
             rattr.addFlashAttribute("msg", "MOD_OK");
-            return "redirect:/address/list";
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,8 +147,9 @@ public class AddressController {
     public String create(AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
         Integer user_id = getMemberResponse(session);
         addressDto.setUser_id(user_id);
-        System.out.println("addressDto.getMain_addr() = " + addressDto.getMain_addr());
-        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기")) {
+
+        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기") ||
+            addressDto.getMain_addr().contains("인천") ){
             addressDto.setDeli_type(true);
         } else {
             addressDto.setDeli_type(false);
@@ -139,7 +157,7 @@ public class AddressController {
         if (addressDto.getChk_addr() == null) {
             addressDto.setChk_addr(true);
         }
-        System.out.println("addressDto = " + addressDto);
+
         try {
             int rowCnt = addressService.addrInsert(addressDto);
 
@@ -162,5 +180,18 @@ public class AddressController {
         String regEx = "(\\d{2,3})(\\d{3,4})(\\d{4})";
         return addr_tel.replaceAll(regEx, "$1-$2-$3");
     }
+
+        public static String phone(String src) {
+            if(src == null) {
+                return"";
+            } if(src.length()==8) {
+                return src.replaceFirst("^([0-9]{4})([0-9]{4})$","$1-$2");
+            }else if(src.length()==12) {
+                return src.replaceFirst("(^[0-9]{4})([0-9]{4})([0-9]{4})$","$1-$2-$3");
+            }
+            return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$","$1-$2-$3");
+        }
+
+
 
 }

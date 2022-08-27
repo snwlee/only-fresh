@@ -48,10 +48,6 @@
             height: auto;
         }
 
-        #mypage_content_body {
-
-        }
-
         #main_addr {
             border: none;
             width: 80%;
@@ -60,13 +56,6 @@
 
             /*margin: 20px 50px 30px 50px;*/
         }
-
-        #sub_addr {
-            width: 80%;
-            padd
-        }
-
-
 
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -155,7 +144,6 @@
             <h3>배송지 추가</h3>
             <form id="mypage_content_body">
                 <div id="coupons">
-                    <form action="" id="form">
                     <div>
                         <p id="main_addr">${addressDto.main_addr}</p>
                     </div>
@@ -164,7 +152,7 @@
                     </div>
                 </div>
                 <div>
-                   <span>받으실분</span><br>
+                    <span>받으실분</span><br>
                     <input type="text" name="addr_name" placeholder="이름을 입력해주세요" value="${addressDto.addr_name}"/>
                 </div>
                 <div>
@@ -180,6 +168,7 @@
                     <button id="modifyBtn" class="btn">
                         수정
                     </button>
+
                 </div>
                 <div>
                     <button id="removeBtn" class="btn">
@@ -187,34 +176,34 @@
                     </button>
                 </div>
             </form>
-            </div>
         </div>
     </div>
 </div>
 </div>
 </div>
+</div>
 <script>
-    $(document).ready(function() {  // main()와 같다. jquery
+    $(document).ready(function () {  // main()와 같다. jquery
 
-        $('#removeBtn').on("click", function (){
-                // if(!confirm("정말로 삭제하시겠습니까?")) return;
-                let form = $('#mypage_content_body');
-                form.attr("action", "<c:url value='/address/remove'/>?addr_id=${param.addr_id}");
-                form.attr("method", "post");
-                form.submit();
-            });
+        $('#removeBtn').on("click", function () {
+            // if(!confirm("정말로 삭제하시겠습니까?")) return;
+            let form = $('#mypage_content_body');
+            form.attr("action", "<c:url value='/address/remove'/>?addr_id=${param.addr_id}");
+            form.attr("method", "post");
+            form.submit();
+        });
 
-            $('#modifyBtn').on("click", function (){
-                let form = $('#mypage_content_body');
-                form.attr("action", "<c:url value='/address/modify'/>?addr_id=${param.addr_id}");
-                form.attr("method", "post");
-                form.submit();
-            });
+        $('#modifyBtn').on("click", function () {
+            let form = $('#mypage_content_body');
+            form.attr("action", "<c:url value='/address/modify'/>?addr_id=${param.addr_id}");
+            form.attr("method", "post");
+            form.submit();
+        });
 
 
-    <%--    $('input:checkbox[id="checkbox_id"]').val();--%>
+        <%--    $('input:checkbox[id="checkbox_id"]').val();--%>
 
-    <%--    $("#select_all_checked").attr("checked", "#select_all_unchecked");--%>
+        <%--    $("#select_all_checked").attr("checked", "#select_all_unchecked");--%>
     });
 </script>
 </body>
