@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                <form id="form" action="/orders" method="get" autocomplete="off">
+                <form id="form" action="/orders/" method="get" autocomplete="off">
                     <input type="hidden" name="checked" id="checked" value=""/>
                     <button id="order_submit" type="submit" style="cursor: pointer">
                         주문하기
@@ -280,6 +280,18 @@
     });
 </script>
 <script>
+    let checkArr = [];
+
+    $("input[class='checked-cart']:checked").each(function () {
+        checkArr.push($(this).attr("data-pdt-id"));
+    });
+
+    if (checkArr.length === 0) {
+        $('#select_all_checked').css('display', 'none');
+        $('#select_all_unchecked').css('display', 'block');
+        $('#order_submit').attr('disabled', true).text('상품을 선택해주세요').css('background-color', '#DDDDDD').css('cursor', 'default');
+        $('#allCheck').prop('checked', false);
+    }
 
     $("#order_submit").click(function () {
 
@@ -290,7 +302,7 @@
         $("input[class='checked-cart']:checked").each(function () {
             checkArr.push($(this).attr("data-pdt-id"));
         });
-        console.log(checkArr);
+
         $("#checked").val(checkArr);
 
         $('#form').submit();

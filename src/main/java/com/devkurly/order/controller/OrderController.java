@@ -6,6 +6,7 @@ import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.exception.EmptyCartException;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.global.ErrorCode;
+import com.devkurly.member.exception.SignInException;
 import com.devkurly.order.domain.OrderProduct;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.dto.OrderUpdateRequestDto;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
 
@@ -32,9 +34,17 @@ public class OrderController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String requestOrder(@RequestParam(value = "checked") List<String> chArr, Model model, HttpSession session) {
-        // 주문 하려는 상품이 장바구니에 있는지 확인
+    public String requestOrder(@RequestParam(value = "checked", required = false) List<String> chArr, Model model, HttpSession session) {
 
+        // 상품이 있는지 확인
+        Optional.ofNullable(chArr).orElseThrow(() -> new EmptyCartException("선택한 상품이 없습니다.", ErrorCode.EMPTY_CART_PRODUCT));
+
+        // 체크 상품이 있는지 확인
+        if (chArr.isEmpty()) {
+            throw new EmptyCartException("선택한 상품이 없습니다.", ErrorCode.EMPTY_CART_PRODUCT);
+        }
+
+        // 주문 하려는 상품이 장바구니에 있는지 확인
         Integer user_id = getMemberResponse(session);
 
         // 유저 기반 주문 빈 테이블 생성

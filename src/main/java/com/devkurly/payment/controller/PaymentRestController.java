@@ -1,0 +1,53 @@
+package com.devkurly.payment.controller;
+
+import com.devkurly.cart.dto.CartProductResponseDto;
+import com.devkurly.cart.dto.CartSaveRequestDto;
+import com.devkurly.cart.service.CartService;
+import com.devkurly.coupon.domain.CouponDto;
+import com.devkurly.order.domain.Order;
+import com.devkurly.order.dto.OrderResponseDto;
+import com.devkurly.order.service.OrderService;
+import com.devkurly.payment.dto.PaymentResponseDto;
+import com.devkurly.payment.service.PaymentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.devkurly.member.controller.MemberController.getMemberResponse;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/payments")
+public class PaymentRestController {
+
+    private final CartService cartService;
+    private final OrderService orderService;
+    private final PaymentService paymentService;
+
+    @GetMapping("/method")
+    public PaymentResponseDto readPayment(HttpSession session) {
+        Integer ord_id = getOrdId(session);
+        return paymentService.viewPayment(ord_id);
+    }
+
+//    @GetMapping("/product")
+//    public List<OrderResponseDto> readProduct(HttpSession session) {
+//        Integer ord_Id = getOrdId(session);
+//        List<OrderResponseDto> orderResponseList = orderService.viewOrderProduct(ord_Id);
+//        List<CartProductResponseDto> CartProductList = new ArrayList<>();
+//        for (OrderResponseDto orderResponseDto : orderResponseList) {
+////            orderService.
+//        }
+//    }
+
+    private Integer getOrdId(HttpSession session) {
+        Integer user_id = getMemberResponse(session);
+        Integer ord_id = orderService.checkRecentOrderId(user_id);
+        return ord_id;
+    }
+}

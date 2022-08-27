@@ -459,6 +459,7 @@
             },
             error: function () {
                 alert('쿠폰이 없습니다.')
+                location.href = '/mypage';
             }
         });
 
@@ -494,10 +495,13 @@
                         $('#payment_price').html((${sum}).toLocaleString() + ' 원');
                         $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
                         alert('할인 금액이 결제 금액보다 클 수 없습니다.');
-                        return;
                     }
                 });
                 $('#point-input').change(function () {
+                    if ($(this).prop('type') !== 'number') {
+                        $(this).prop('type', 'number');
+                        $(this).val(0);
+                    }
                     if ($(this).val() < 0) {
                         $(this).val(0);
                     } else if ($(this).val() > maxPnt) {
@@ -516,7 +520,6 @@
                         $('#payment_price').html((${sum}).toLocaleString() + ' 원');
                         $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
                         alert('할인 금액이 결제 금액보다 클 수 없습니다.');
-                        return;
                     }
                 });
                 $('#coupon-select').change(function () {
@@ -533,7 +536,6 @@
                         $('#payment_price').html((${sum}).toLocaleString() + ' 원');
                         $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
                         alert('할인 금액이 결제 금액보다 클 수 없습니다.');
-                        return;
                     }
                 });
                 let user =
@@ -554,7 +556,8 @@
                 $('#user-info').append(user);
             },
             error: function () {
-                alert('회원 정보가 없습니다.')
+                alert('회원 정보를 입력 해주세요.')
+                location.href = '/mypage';
             }
         });
 
@@ -588,60 +591,5 @@
     });
 
 </script>
-
-<%--    <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>--%>
-<%--<script>--%>
-<%--    --%>
-<%--    $(document).ready(function () {--%>
-<%--        $.ajax({--%>
-<%--            type: 'GET',--%>
-<%--            url: '/carts/view',--%>
-<%--            datatype: 'json',--%>
-<%--            success: function (result) {--%>
-<%--                $.each(result, function (index, CartResponseDto) {--%>
-<%--                    let cart =--%>
-<%--                        `--%>
-<%--                        <div class="product">--%>
-<%--                        <img src="` + CartResponseDto.image + `"--%>
-<%--                             alt="" class="product_img"/>--%>
-<%--                        <h4>[` + CartResponseDto.company + `] ` + CartResponseDto.title + `</h4>--%>
-<%--                        <div class="quantity_control_box">--%>
-<%--                            <div id="cart-qty-` + index + `">` + CartResponseDto.pdt_qty + ` 개</div>--%>
-<%--                        </div>--%>
-<%--                        <div class="cart-sum" id="cart-sum-hidden-` + CartResponseDto.pdt_id + `" data-status="1" hidden>` + CartResponseDto.pdt_qty * CartResponseDto.sel_price + `</div>--%>
-<%--                        <p id="cart-sum-` + index + `" style="margin-bottom: 0px;padding-left: 60px;">` + (CartResponseDto.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + `원</p>--%>
-<%--                        </div>--%>
-<%--                        `;--%>
-<%--                    $('#order').append(cart);--%>
-<%--                })--%>
-<%--            },--%>
-<%--            error: function () {--%>
-<%--                alert('error')--%>
-<%--            }--%>
-<%--        })--%>
-<%--    });--%>
-<%--</script>--%>
 </body>
 </html>
-<%--$(function () {--%>
-<%--$('#submit').on("click", function () {--%>
-<%--let form = $("#form").serialize();--%>
-<%--let formJs = {};--%>
-<%--console.log(form);--%>
-<%--$.ajax({--%>
-<%--type: "POST",--%>
-<%--url: "/payments/${order_id}",--%>
-<%--headers: {"content-type": "application/json"},--%>
-<%--dataType: 'text',--%>
-<%--data: JSON.stringify(form),--%>
-<%--success: function (result) {--%>
-<%--formJs = JSON.parse(result);--%>
-<%--alert("success");--%>
-<%--console.log(result);--%>
-<%--},--%>
-<%--error: function (request, status, error) {--%>
-<%--console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);--%>
-<%--}--%>
-<%--});--%>
-<%--});--%>
-<%--});--%>
