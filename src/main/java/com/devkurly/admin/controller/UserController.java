@@ -27,6 +27,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping("")
+    public String admin(){
+
+        return "/admin/admin";
+    }
+
     //  회원정보목록 (R)
     @GetMapping("/list")
     public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
