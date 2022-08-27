@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css?ver=1">
-    <link rel="stylesheet" type="text/css" href="/main/navigation.css?ver=1">
+    <link rel="stylesheet" type="text/css" href="/main/navigation.css?after">
     <link rel="stylesheet" type="text/css" href="/main/main.css?ver=1">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -42,17 +42,17 @@
                 <a id="cust">고객센터</a>
             </div>
         </div>
-<%--        <div class="input-container">--%>
-<%--            <form action="<c:url value="/DevKurly"/>" class="search-form" method="get">--%>
-<%--                <select class="search-option" name="option">--%>
-<%--                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>검색</option>--%>
-<%--                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>상품명</option>--%>
-<%--                    <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>제조사명</option>--%>
-<%--                </select>--%>
-<%--                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">--%>
-<%--                <input type="submit" class="search-button" value="검색">--%>
-<%--            </form>--%>
-<%--        </div>--%>
+        <%--        <div class="input-container">--%>
+        <%--            <form action="<c:url value="/DevKurly"/>" class="search-form" method="get">--%>
+        <%--                <select class="search-option" name="option">--%>
+        <%--                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>검색</option>--%>
+        <%--                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>상품명</option>--%>
+        <%--                    <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>제조사명</option>--%>
+        <%--                </select>--%>
+        <%--                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">--%>
+        <%--                <input type="submit" class="search-button" value="검색">--%>
+        <%--            </form>--%>
+        <%--        </div>--%>
         <div id="search">
             <div id="search_first">
                 <img style="width:82px; height: 42px"
@@ -63,8 +63,8 @@
                 <a href="/">뷰티컬리</a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요" />
-                <img src="/main/imgs/loupe.png" style="width: 20px; height: 20px" />
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="/main/imgs/loupe.png" style="width: 20px; height: 20px" /><%--검색--%>
             </div>
             <div id="icon_container">
                 <img src="/main/imgs/location.png" />
@@ -78,8 +78,8 @@
                 <p style="font-size: 16px;width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a>
-                <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
                 <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
                 <a href="/event/main">특가/혜택</a>
             </div>
@@ -126,12 +126,12 @@
 
 
 
-<%--            <div id="product3" style="display: flex;">--%>
-<%--            </div>--%>
-<%--            <div id="product4" style="display: flex;">--%>
-<%--            </div>--%>
-<%--            <div id="product5" style="display: flex;">--%>
-<%--            </div>--%>
+            <%--            <div id="product3" style="display: flex;">--%>
+            <%--            </div>--%>
+            <%--            <div id="product4" style="display: flex;">--%>
+            <%--            </div>--%>
+            <%--            <div id="product5" style="display: flex;">--%>
+            <%--            </div>--%>
         </div>
     </div>
 </div>
@@ -144,13 +144,13 @@
         let sort = 0
         $.ajax({
             type: 'GET',
-            url: '/product/call?sort='+sort,
+            url: '/product/call?sort='+sort+'&order_sc=""',
             success : function(result){
                 $("#product").html(toHtml(result.list1));
                 $("#product2").html(toHtml(result.list2));
                 $("#product3").html(toHtml(result.list3));
-                 $("#product4").html(toHtml(result.list4));
-                 $("#product5").html(toHtml(result.list5));
+                $("#product4").html(toHtml(result.list4));
+                $("#product5").html(toHtml(result.list5));
             },
             error : function(){alert("error")}
         });
@@ -168,9 +168,65 @@
         })
         return tmp;
     }
+    /* 카테고리 */
+    let wrapper = $("#cat_wrapper");
+    let show_category_button = $("#show_category_button");
+    let main_cat_container = $("#main_cat_container");
+    let sub_cat_container = $("#sub_cat_container");
+    let sub_cat = $(".sub_cat");
+    show_category_button.hover(() => {
+        main_cat_container.show();
+    })
+    wrapper.mouseleave(() => {
+        main_cat_container.hide();
+        sub_cat_container.hide();
+    })
+    sub_cat_container.mouseleave(() => {
+        sub_cat_container.hide();
+    })
+    let catToLi = function(res) {
+        let tmp = '';
+        res.forEach(el => {
+            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+        })
+        return tmp;
+    }
+    let categories = null;
 
     $(document).ready(function () {
         showList();
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/product/categories',  // 요청 URI
+            success: function (res) {
+                categories = res;
+
+                $.each(res, (el)=>{
+                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el+'</li></a>');
+                })
+            },
+            error: function (result) {
+                alert("쿠폰 불러오기 실패");
+            }, // 에러가 발생했을 때, 호출될 함수
+            complete: function(){
+                $(".main_cat").mouseenter((e) => {
+                    sub_cat_container.show();
+                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
+                })
+            }
+        })
+
+        //검색
+        $("#search_btn").click(function(){
+            let keyword = $("#keyword").val();
+            window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+        });
+        $("input[id=keyword]").keydown(function (key){
+            if(key.keyCode==13)
+                $("#search_btn").trigger("click");
+        }); //검색 끝
+
     })
 </script>
 </body>

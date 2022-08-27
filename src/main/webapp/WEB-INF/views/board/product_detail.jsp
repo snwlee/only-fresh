@@ -324,7 +324,7 @@
   let catToLi = function(res) {
     let tmp = '';
     res.forEach(el => {
-      tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+      tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el.cd_name+'</li></a>'
     })
     return tmp;
   }
@@ -353,7 +353,7 @@
     });
 
     $("#down_qty").click(function(){
-      if(parseInt($("#pdt_qty").text())>=1)
+      if(parseInt($("#pdt_qty").text())>1)
         $("#pdt_qty").text(parseInt($("#pdt_qty").text())-1);
       $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
     });
@@ -391,7 +391,7 @@
         categories = res;
 
         $.each(res, (el)=>{
-          $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12"<li class="cat main_cat">'+el+'</li></a>');
+          $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el+'</li></a>');
         })
       },
       error: function (result) {
