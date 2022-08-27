@@ -11,6 +11,8 @@ public class SearchCondition {
     private String option = "";
     private String order_sc;
     private String cat_code;
+    private String AscBtn;
+    private String DescBtn;
 
     public SearchCondition(){}
     public SearchCondition(Integer page, Integer pageSize, String keyword, String option) {

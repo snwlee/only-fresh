@@ -50,7 +50,7 @@
         ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE TRUE
           AND title LIKE concat('%', #{keyword}, '%')
-        ORDER BY in_date DESC
+        ORDER BY in_date DESC, ${AscBtn}Asc
         limit #{offset}, #{pageSize}
     </select>
 
@@ -132,7 +132,7 @@
         limit #{offset}, #{pageSize}
     </select>
 
-    <select id="mainlist" resultType="Product">
+    <select id="mainlist" resultType="Product" parameterType="SearchCondition">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
         P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
         P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
