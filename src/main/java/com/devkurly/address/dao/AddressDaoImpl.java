@@ -43,6 +43,18 @@ public class AddressDaoImpl implements AddressDao {
         return session.update(namespace + "update", addressDto);
     }
 
+    public int updateDef(AddressDto addressDto) throws Exception {
+        return session.update(namespace + "updateDef", addressDto);
+    }
+
+    public int updateDefaultFalse(Integer user_id) throws Exception {
+        return session.update(namespace + "updateDefaultFalse", user_id);
+    }
+
+    public int updateDefaultTrue(AddressDto addressDto) throws Exception {
+        return session.update(namespace + "updateDefaultTrue", addressDto);
+    }
+
     @Override
     public int delete(AddressDto addressDto) throws Exception {
         return session.delete(namespace + "delete", addressDto);
