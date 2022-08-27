@@ -32,6 +32,7 @@ public interface ProductService {
     List<MainSubCatDto> getMainSubCats() throws Exception;
     int codeNameSelectCnt(Integer cd_name_num)throws Exception;
 
+    int ThriftyCnt(Integer sel_price)throws Exception;
 
     List<ProductDto> selectProductId() throws Exception;
     // U

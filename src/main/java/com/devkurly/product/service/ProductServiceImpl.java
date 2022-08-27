@@ -153,6 +153,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public int ThriftyCnt(Integer sel_price) throws Exception {
+        return productDao.ThriftyCnt(sel_price);
+    }
+
+    @Override
     public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
         return productDao.cate(cd_type_name, sc);
     }

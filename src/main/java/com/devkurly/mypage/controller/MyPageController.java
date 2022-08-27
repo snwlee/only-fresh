@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/mypage")
@@ -49,16 +51,17 @@ public class MyPageController {
     }
 
     @GetMapping("/coupon")
-    public ResponseEntity<List<CouponDto>> bringUserCoupons(HttpSession session) {
-        List<CouponDto> list = null;
+    public ResponseEntity<Map<Boolean, List<CouponDto>>> bringUserCoupons(HttpSession session) {
+        Map<Boolean, List<CouponDto>> map = null;
 
         Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
 
         try {
-            list = couponService.selectUserCoupons(user_id);
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            List<CouponDto>  list = couponService.selectUserCoupons(user_id);
+            map = list.stream().collect(Collectors.groupingBy(CouponDto::getUsed));
+            return new ResponseEntity<>(map, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

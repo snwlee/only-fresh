@@ -126,6 +126,8 @@ public class ProductController {
             if(sort==null){
                 if(cd_type_name!=null){ // 대분류 카테고리 코드
                     list = productService.cate(cd_type_name,sc);
+                    map.put("cd_type_name",cd_type_name);
+                    System.out.println("cd_type_name = " + cd_type_name);
                     map.put("list",list);
                 }
                 if(cd_name_num!=null){ // 소분류 카테고리 코드
@@ -133,7 +135,6 @@ public class ProductController {
                     map.put("list",list);
                     String cd_name=productService.selectCate(cd_name_num);
                     map.put("cd_name",cd_name);
-                    System.out.println("cd_name = " + cd_name);
                 }
                 return new ResponseEntity<Map>(map, HttpStatus.OK);
             }
@@ -171,7 +172,7 @@ public class ProductController {
     }
 
     @GetMapping("/newlist") // 신상품, 베스트, 알뜰쇼핑
-    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m) {
+    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m, Integer sel_price) {
         Paging ph = null;
         try {
             if (sort == null) {
@@ -198,7 +199,9 @@ public class ProductController {
                 m.addAttribute("totalCnt", totalCnt);
                 m.addAttribute("ph", ph);
             } else if (sort == 3) { // 알뜰쇼핑
-                m.addAttribute("totalCnt", totalCnt);
+                int total= productService.ThriftyCnt(sel_price);
+                System.out.println("total = " + total);
+                m.addAttribute("total",total);
                 m.addAttribute("ph", ph);
             }
 

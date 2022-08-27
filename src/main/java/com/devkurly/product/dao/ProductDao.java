@@ -33,6 +33,8 @@ public interface ProductDao {
 
     int count() throws Exception;
 
+    int ThriftyCnt(Integer sel_price)throws Exception;
+
     // U
 
     int update(ProductDto dto) throws Exception // 상품 업데이트
