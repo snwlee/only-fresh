@@ -16,8 +16,8 @@
 
 #add_input_wrapper input {
     width: 100%;
-    padding:0px;
-    border:none;
+    padding: 0px;
+    border: none;
     outline: none;
 }
 
@@ -34,6 +34,26 @@
     cursor: pointer;
 }
 
+#is_used_tab_container {
+    display: flex;
+    width: 730px;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.is_used_tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    border: 1px solid #dddddd;
+    margin: 0;
+    font-size: 14px;
+    color: #333333;
+    font-weight: 500;
+    cursor: pointer;
+}
+
 #optional_function {
     display: flex;
     justify-content: flex-end;
@@ -45,9 +65,9 @@
 .cols {
     width: 100%;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     /* border: 1px solid salmon; */
-    border-bottom : 1px solid #333;
+    border-bottom: 1px solid #333;
 }
 
 .col {
@@ -72,7 +92,7 @@
     width: 70px;
 }
 
-.third_col{
+.third_col {
     width: 80px;
 }
 
@@ -85,11 +105,11 @@
 }
 
 .coupon {
-    border-bottom: 1px solid #F4F4F4; 
+    border-bottom: 1px solid #F4F4F4;
 }
 
 .coupon_name {
-    padding: 20px 0px 10px 0px;
+    padding: 20px 0 10px 0;
 }
 
 .coupon_name * {
@@ -98,4 +118,18 @@
 
 #coupon_form {
     display: flex;
+}
+
+.no_coupon_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333333;
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+#unused_coupons {
+    background-color: #dddddd;
 }

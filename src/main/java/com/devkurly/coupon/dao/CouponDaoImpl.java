@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CouponDaoImpl implements CouponDao {
@@ -59,5 +60,9 @@ public class CouponDaoImpl implements CouponDao {
     @Override
     public int deleteAll() throws Exception {
         return session.delete(namespace+"deleteAll");
+    }
+    @Override
+    public int deleteUserCoupon(Map<String, Integer> map) throws Exception {
+        return session.delete(namespace+"deleteUserCoupon", map);
     }
 }

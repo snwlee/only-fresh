@@ -38,33 +38,23 @@ public class BoardDaoImplTest {
         return new Random().nextInt(max - min + 1) + min;
     }
     @Test
-    @Transactional
     public void insert()throws Exception {
-        boardDao.deleteAll();
-        assertTrue(boardDao.boardAllCnt()==0);
-        String bbs_clsf_cd = "1";
-        Integer user_id = 1;
-
-        int insertBoardCnt = rand(1,30);
-        List<ProductDto> list = productDao.selectProductId();
-        for (int j = 0; j < list.size(); j++) {
-            Integer pdt_id = list.get(j).getPdt_id();
-
-            for (int i = 0; i < insertBoardCnt; i++) {
-                BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1",'0');
-                boardDao.insert(boardDto); //BOARD_TB 생성
-                Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
-                boardDto.setBbs_id(bbs_id);
-                assertTrue(boardDao.insertCn(boardDto)==1); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 BOARD_CN_TB 생성
-                boardDao.insertReview(bbs_id, user_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
-            }
-        }
-
-        assertTrue(boardDao.boardAllCnt()==insertBoardCnt* list.size());
-        System.out.println("list.size() = " + list.size());
-        System.out.println("insertBoardCnt = " + insertBoardCnt);
-        System.out.println("boardDao.boardAllCnt() = " + boardDao.boardAllCnt());
-
+//        String bbs_clsf_cd = "1";
+//        Integer user_id = 1;
+//
+////        int insertBoardCnt = rand(1,30);
+//        int insertBoardCnt = 300;
+//            Integer pdt_id = list.get(j).getPdt_id();
+//
+//            for (int i = 0; i < insertBoardCnt; i++) {
+//                BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1",'0');
+//                boardDao.insert(boardDto); //BOARD_TB 생성
+//                Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
+//                boardDto.setBbs_id(bbs_id);
+//                assertTrue(boardDao.insertCn(boardDto)==1); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 BOARD_CN_TB 생성
+//                boardDao.insertReview(bbs_id, user_id); //생성되는 BOARD_TB과 같은 bbs_id를 가지는 REVIEW_BOARD_TB 생성
+//            }
+//        }
 
 //        BoardDto boardDto = new BoardDto(300, user_id, "title", "bbs_cn", 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1");
 //        boardService.write(boardDto);
@@ -73,11 +63,9 @@ public class BoardDaoImplTest {
 
     @Test
     public void TestBoardInsert() throws Exception {
-        boardDao.deleteAll();
-        assertTrue(boardDao.boardAllCnt()==0);
-
-        int insertBoardCnt = rand(30,100);
-        Integer pdt_id = 1;
+        boardService.deleteAll();
+        int insertBoardCnt = 200;
+        Integer pdt_id = 27;
         String bbs_clsf_cd = "1";
         Integer user_id = 1;
 
