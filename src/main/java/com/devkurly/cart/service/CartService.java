@@ -3,10 +3,7 @@ package com.devkurly.cart.service;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
-import com.devkurly.cart.exception.DuplicateCartException;
-import com.devkurly.cart.exception.EmptyCartException;
-import com.devkurly.cart.exception.EmptyCartRestException;
-import com.devkurly.cart.exception.OutOfStockException;
+import com.devkurly.cart.exception.*;
 import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.CartMapper;
 import com.devkurly.product.domain.ProductDto;
@@ -34,9 +31,6 @@ public class CartService {
         return cartMapper.findByCart(cart);
     }
 
-    /**
-     * temp
-     */
     @Transactional(readOnly = true)
     public List<Cart> viewAllCart(Integer user_id) {
         return cartMapper.findAllByUserId(user_id);

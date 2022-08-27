@@ -2,7 +2,9 @@ package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartSaveRequestDto;
+import com.devkurly.cart.exception.MaxCartException;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.global.ErrorCode;
 import com.devkurly.member.dto.MemberMainResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +38,7 @@ public class CartController {
             requestDto.setPdt_qty(1);
         }
         int id = getId(tempCart, response, session);
+        cartService.viewAllCart(id);
         requestDto.saveCart(id, pdt_id);
         cartService.checkProductStock(requestDto.toEntity());
         cartService.addCart(requestDto);
@@ -56,14 +60,15 @@ public class CartController {
         return "redirect:/carts";
     }
 
-    /**
-     * temp
-     */
     @GetMapping("/delete/checked")
-    public String removeCheckedCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, List<Cart> cartList, HttpServletResponse response, HttpSession session) {
+    public String removeCheckedCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, @RequestParam(value = "checked", required = false) List<String> chArr, HttpServletResponse response, HttpSession session) {
         int id = getId(tempCart, response, session);
-        for (Cart cart : cartList) {
-            cart.setUser_id(id);
+        List<Cart> cartList = new ArrayList<>();
+        for (String s : chArr) {
+            int pdt_id = Integer.parseInt(s);
+            Cart cart = new Cart();
+            cart.updateCart(id, pdt_id);
+            cartList.add(cart);
         }
         cartService.removeCheckedCart(cartList);
         return "redirect:/carts";

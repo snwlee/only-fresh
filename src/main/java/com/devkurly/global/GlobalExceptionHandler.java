@@ -2,6 +2,7 @@ package com.devkurly.global;
 
 import com.devkurly.cart.exception.EmptyCartException;
 import com.devkurly.cart.exception.EmptyCartRestException;
+import com.devkurly.cart.exception.MaxCartException;
 import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
@@ -25,6 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmptyCartException.class)
     public void cartCatcher(HttpServletResponse response) throws IOException {
         System.out.println("GlobalExceptionHandler: 장바구니가 비어 있습니다. (redirect)");
+        // redirect 작동
         response.sendRedirect("/carts?error=1");
     }
 
@@ -32,6 +34,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> cartRestCatcher() {
         System.out.println("GlobalExceptionHandler: 장바구니가 비어 있습니다. (rest)");
         return ResponseEntity.badRequest().body(ErrorCode.EMPTY_CART_PRODUCT.getMessage());
+    }
+
+    @ExceptionHandler(MaxCartException.class)
+    public void cartMaxCatcher(HttpServletResponse response) throws IOException {
+        System.out.println("GlobalExceptionHandler: 장바구니 최대치에 도달 했습니다. (redirect)");
+        // redirect 작동 안함
+        response.sendRedirect("/carts?error=4");
     }
 
     @ExceptionHandler(OutOfStockException.class)
