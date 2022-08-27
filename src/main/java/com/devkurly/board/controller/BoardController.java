@@ -165,4 +165,28 @@ public class BoardController {
             return new ResponseEntity<String>("like_ERR",HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/getMyList")
+    @ResponseBody
+    public ResponseEntity<List<BoardDto>> myList(String bbs_clsf_cd, Integer page, Integer pageSize, HttpSession session) {
+        Integer user_id = ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
+
+        Map map = new HashMap();
+        map.put("offset", (page - 1) * pageSize);
+        map.put("pageSize", pageSize);
+        map.put("bbs_clsf_cd", bbs_clsf_cd);
+        map.put("user_id", user_id);
+        List<BoardDto> list = null;
+        try {
+            if(bbs_clsf_cd.equals("2")){list = boardService.selectMyInq(map);}
+            else {
+                list = boardService.selectMyReview(map);
+            }
+            return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<BoardDto>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

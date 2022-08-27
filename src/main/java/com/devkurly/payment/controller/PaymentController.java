@@ -49,8 +49,11 @@ public class PaymentController {
         } else {
             all_dc_amt = used_acamt;
         }
+        if (paymentSaveRequestDto.getAll_amt() < 0) {
+            throw new PaymentException("결제 금액이 음수가 될 수 없습니다.", ErrorCode.PAYMENT_ERROR);
+        }
         if (memberById.getPnt() < used_acamt) {
-            throw new PaymentException("보유한 포인트보다 많은 포인트가 사용됬습니다.", ErrorCode.PAYMENT_ERROR);
+            throw new PaymentException("보유한 포인트보다 많은 포인트를 사용할 수 없습니다.", ErrorCode.PAYMENT_ERROR);
         }
         if ((orderService.checkOrder(ord_id).getAll_amt() - all_dc_amt) != paymentSaveRequestDto.getAll_amt()) {
             throw new PaymentException("주문 가격과 결제 가격이 일치하지 않습니다.", ErrorCode.PAYMENT_ERROR);

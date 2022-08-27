@@ -452,13 +452,14 @@
                 $.each(result, function (index, CouponDto) {
                     let coupon =
                         `
-                        <option class='coupon-option' data-coupon='` + CouponDto.rate + `' value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
+                        <option class='coupon-option' data-coupon='` + CouponDto.value + `' value='` + CouponDto.coupn_id + `'>` + CouponDto.nm + `</option>
                         `;
                     $('#coupon-select').append(coupon);
                 })
             },
             error: function () {
                 alert('쿠폰이 없습니다.')
+                location.href = '/mypage';
             }
         });
 
@@ -470,31 +471,72 @@
             url: '/orders/userinfo',
             datatype: 'json',
             success: function (result) {
-                $('#point-input').prop('max', result.pnt);
-                $('#point-text').html(result.pnt.toLocaleString() + ' 원');
+                let maxPnt;
+                if ($('#all_amt').val() < result.pnt) {
+                    maxPnt = parseInt($('#all_amt').val());
+                } else {
+                    maxPnt = result.pnt;
+                }
+
+                $('#point-input').prop('max', maxPnt);
+                $('#point-text').html((result.pnt).toLocaleString() + ' 원');
                 $('#point-btn').click(function () {
-                    $('#point-input').val(result.pnt);
-                    $('#point_price').html((-result.pnt).toLocaleString() + ' 원').css('color', '#FA7E54');
+                    $('#point-input').val(maxPnt);
+                    $('#point_price').html((-maxPnt).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                    if (${sum} -$('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon') < 0) {
+                        $("#coupon-select").val("0").prop("selected", true);
+                        $('#coupon_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#point-input').val(0);
+                        $('#point_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#all_amt').val(${sum});
+                        $('#payment_price').html((${sum}).toLocaleString() + ' 원');
+                        $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
+                        alert('할인 금액이 결제 금액보다 클 수 없습니다.');
+                    }
                 });
                 $('#point-input').change(function () {
-                    if ($(this).val() < 1) {
-                        $(this).val(1);
-                    } else if ($(this).val() > result.pnt) {
-                        $(this).val(result.pnt);
+                    if ($(this).prop('type') !== 'number') {
+                        $(this).prop('type', 'number');
+                        $(this).val(0);
+                    }
+                    if ($(this).val() < 0) {
+                        $(this).val(0);
+                    } else if ($(this).val() > maxPnt) {
+                        $(this).val(maxPnt);
                     }
                     $('#point_price').html((-$('#point-input').val()).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                    if (${sum} -$('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon') < 0) {
+                        $("#coupon-select").val("0").prop("selected", true);
+                        $('#coupon_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#point-input').val(0);
+                        $('#point_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#all_amt').val(${sum});
+                        $('#payment_price').html((${sum}).toLocaleString() + ' 원');
+                        $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
+                        alert('할인 금액이 결제 금액보다 클 수 없습니다.');
+                    }
                 });
                 $('#coupon-select').change(function () {
                     $('#coupon_price').html((-$("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원').css('color', '#FA7E54');
                     $('#all_amt').val(${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon'));
                     $('#payment_price').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원');
                     $('#order_submit').html((${sum} - $('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon')).toLocaleString() + ' 원 결제하기');
+                    if (${sum} -$('#point-input').val() - $("#coupon-select option:selected").attr('data-coupon') < 0) {
+                        $("#coupon-select").val("0").prop("selected", true);
+                        $('#coupon_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#point-input').val(0);
+                        $('#point_price').html((0).toLocaleString() + ' 원').css('color', '#FA7E54');
+                        $('#all_amt').val(${sum});
+                        $('#payment_price').html((${sum}).toLocaleString() + ' 원');
+                        $('#order_submit').html((${sum}).toLocaleString() + ' 원 결제하기');
+                        alert('할인 금액이 결제 금액보다 클 수 없습니다.');
+                    }
                 });
                 let user =
                     `
@@ -514,7 +556,8 @@
                 $('#user-info').append(user);
             },
             error: function () {
-                alert('회원 정보가 없습니다.')
+                alert('회원 정보를 입력 해주세요.')
+                location.href = '/mypage';
             }
         });
 
@@ -541,66 +584,12 @@
                 $('#address').append(user);
             },
             error: function () {
-                alert('배송지 정보가 없습니다.')
+                alert('배송지를 등록해 주세요');
+                location.href = '/address/list';
             }
         });
     });
 
 </script>
-
-<%--    <button class="btn" id="submit" type="submit">${sum} 원 결제하기</button>--%>
-<%--<script>--%>
-<%--    --%>
-<%--    $(document).ready(function () {--%>
-<%--        $.ajax({--%>
-<%--            type: 'GET',--%>
-<%--            url: '/carts/view',--%>
-<%--            datatype: 'json',--%>
-<%--            success: function (result) {--%>
-<%--                $.each(result, function (index, CartResponseDto) {--%>
-<%--                    let cart =--%>
-<%--                        `--%>
-<%--                        <div class="product">--%>
-<%--                        <img src="` + CartResponseDto.image + `"--%>
-<%--                             alt="" class="product_img"/>--%>
-<%--                        <h4>[` + CartResponseDto.company + `] ` + CartResponseDto.title + `</h4>--%>
-<%--                        <div class="quantity_control_box">--%>
-<%--                            <div id="cart-qty-` + index + `">` + CartResponseDto.pdt_qty + ` 개</div>--%>
-<%--                        </div>--%>
-<%--                        <div class="cart-sum" id="cart-sum-hidden-` + CartResponseDto.pdt_id + `" data-status="1" hidden>` + CartResponseDto.pdt_qty * CartResponseDto.sel_price + `</div>--%>
-<%--                        <p id="cart-sum-` + index + `" style="margin-bottom: 0px;padding-left: 60px;">` + (CartResponseDto.pdt_qty * CartResponseDto.sel_price).toLocaleString('en-US') + `원</p>--%>
-<%--                        </div>--%>
-<%--                        `;--%>
-<%--                    $('#order').append(cart);--%>
-<%--                })--%>
-<%--            },--%>
-<%--            error: function () {--%>
-<%--                alert('error')--%>
-<%--            }--%>
-<%--        })--%>
-<%--    });--%>
-<%--</script>--%>
 </body>
 </html>
-<%--$(function () {--%>
-<%--$('#submit').on("click", function () {--%>
-<%--let form = $("#form").serialize();--%>
-<%--let formJs = {};--%>
-<%--console.log(form);--%>
-<%--$.ajax({--%>
-<%--type: "POST",--%>
-<%--url: "/payments/${order_id}",--%>
-<%--headers: {"content-type": "application/json"},--%>
-<%--dataType: 'text',--%>
-<%--data: JSON.stringify(form),--%>
-<%--success: function (result) {--%>
-<%--formJs = JSON.parse(result);--%>
-<%--alert("success");--%>
-<%--console.log(result);--%>
-<%--},--%>
-<%--error: function (request, status, error) {--%>
-<%--console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);--%>
-<%--}--%>
-<%--});--%>
-<%--});--%>
-<%--});--%>

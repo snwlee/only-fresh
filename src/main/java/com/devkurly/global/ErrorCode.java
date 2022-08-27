@@ -6,6 +6,7 @@ import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
 import com.devkurly.member.exception.SignUpException;
+import com.devkurly.order.exception.AddressException;
 import com.devkurly.order.exception.OrderException;
 import com.devkurly.payment.exception.PaymentException;
 import lombok.Getter;
@@ -20,7 +21,8 @@ public enum ErrorCode {
     DUPLICATE_CART_PRODUCT(200, "DCP1", "이미 장바구니에 제품이 있습니다.", DuplicateCartException.class),
     OUT_OF_STOCK(200, "OOS1", "제품 재고가 부족합니다.", OutOfStockException.class),
     PAYMENT_ERROR(500, "PE1", "결제 중 오류가 발생 했습니다.", PaymentException.class),
-    ORDER_ERROR(400, "OE1", "주문 중 오류가 발생 했습니다.", OrderException.class);
+    ORDER_ERROR(400, "OE1", "주문 중 오류가 발생 했습니다.", OrderException.class),
+    NO_ADDRESS_ERROR(400, "NAE1", "등록된 배송지가 없습니다.", AddressException.class);
 
     private final int status;
     private final String code;

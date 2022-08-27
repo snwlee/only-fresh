@@ -139,56 +139,32 @@
                     <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
                     <div id="user-info"></div>
                     <div class="payment_row">
-                        <span style="font-size: 24px;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" dateStyle="full"/>  주문 • <span style="font-size: 24px; color: #cacaca;">주문번호 ${paymentResponse.ord_id}</span></span>
+                        <span style="font-size: 24px;"><fmt:formatDate value="${paymentResponse.in_date}" type="date"
+                                                                       dateStyle="full"/>  주문 • <span
+                                style="font-size: 24px; color: #cacaca;">주문번호 ${paymentResponse.ord_id}</span></span>
                         <span></span>
                     </div>
-                    <div class="product">
-                        <img src="https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1631585500477l0.jpg"
-                             alt="" class="product_img"/>
-                        <h4>[테스트] 테스트</h4>
-                        <div class="quantity_control_box">
-                            <div id="order-qty">1 개</div>
-                        </div>
-                        <p id="order-sum" style="margin-bottom: 0px;padding-left: 100px;">
-                            <fmt:formatNumber value="${paymentResponse.all_amt}" pattern="###,###"/> 원</p>
-                    </div>
+                    <div class="product"></div>
                 </div>
                 <h4 class="product_type">배송 정보</h4>
                 <div class="products_container">
                     <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
                     <div id="address"></div>
-                    <div class="payment_row">
-                        <span style="font-size: 24px;">배송 중 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
-                        <span></span>
-                    </div>
-                    <div class="payment_row">
-                        <span>받으시는 분</span>
-                        <span>이선우</span>
-                    </div>
-                    <div class="payment_row">
-                        <span>연락처</span>
-                        <span>010-0000-0000</span>
-                    </div>
-                    <div class="payment_row">
-                        <span>받는 주소</span>
-                        <span>경기도 용인시 수지구</span>
-                    </div>
                 </div>
                 <h4 class="product_type">결제 정보</h4>
                 <div class="products_container">
                     <!-- 여기에 상품들을 jquery, ajax 로 원하는 만큼 넣기 -->
                     <div id="payment"></div>
                     <div class="payment_row">
-                        <span>결제 수단</span>
-                        <span>신한카드 / 일시불</span>
-                    </div>
-                    <div class="payment_row">
                         <span>총 결제금액</span>
                         <span><fmt:formatNumber value="${paymentResponse.all_amt}" pattern="###,###"/> 원</span>
                     </div>
-                    <button id="order_submit" type="submit" style="cursor: pointer; font-weight: 500; font-size: 16px; margin-left: 5px;">
-                        계속해서 쇼핑하기
-                    </button>
+                    <a href="/">
+                        <button id="order_submit" type="button"
+                                style="cursor: pointer; font-weight: 500; font-size: 16px; margin-left: 5px;">
+                            계속해서 쇼핑하기
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -240,11 +216,11 @@
         sub_cat_container.hide();
     })
 
-    let catToLi = function(res) {
+    let catToLi = function (res) {
         let tmp = '';
 
         res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12"<li class="cat main_cat">' + el.cd_name + '</li></a>'
         })
 
         return tmp;
@@ -274,6 +250,100 @@
                 })
             }
         })
+    });
+</script>
+<script>
+    /**
+     * 배송지 정보 요청
+     */
+    $.ajax({
+        type: 'GET',
+        url: '/orders/address',
+        datatype: 'json',
+        success: function (result) {
+            let address =
+                `<div class="payment_row">
+                        <span style="font-size: 24px;">배송 중 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
+                        <span></span>
+                    </div>
+                    <div class="payment_row">
+                        <span>받으시는 분</span>
+                        <span>` + result.addr_name + `</span>
+                    </div>
+                    <div class="payment_row">
+                        <span>연락처</span>
+                        <span>` + result.addr_tel + `</span>
+                    </div>
+                    <div class="payment_row">
+                        <span>받는 주소</span>
+                        <span>` + result.main_addr + ` ` + result.sub_addr + `</span>
+                    </div>`;
+            $('#address').append(address);
+        },
+        error: function () {
+            alert('배송지를 등록해 주세요');
+            location.href = '/address/list';
+        }
+    });
+
+    /**
+     * 결제 정보 요청
+     */
+    $.ajax({
+        type: 'GET',
+        url: '/payments/method',
+        success: function (result) {
+            let paymentMethod;
+            switch (result.setl_cd) {
+                case 'credit':
+                    paymentMethod = '신용카드';
+                    break;
+                case 'pay':
+                    paymentMethod = '간편결제';
+                    break;
+                case 'phone':
+                    paymentMethod = '휴대폰결제';
+                    break;
+                default:
+                    paymentMethod = '무통장입금';
+            }
+            let payment = `
+                        <div class="payment_row">
+                            <span>결제 수단</span>
+                            <span>` + paymentMethod + ` / 일시불</span>
+                        </div>
+                          `;
+            $('#payment').append(payment);
+        },
+        error: function () {
+            alert('결제 중 오류가 발생 했습니다. 장바구니로 돌아갑니다.');
+            location.href = '/carts';
+        }
+    });
+
+    /**
+     * 상품 정보 요청
+     */
+    $.ajax({
+        type: 'GET',
+        url: '/payments/product',
+        datatype: 'json',
+        success: function (result) {
+            let address =
+                `<img src="https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1631585500477l0.jpg"
+                    alt="" class="product_img"/>
+                    <h4>[테스트] 테스트</h4>
+                    <div class="quantity_control_box">
+                    <div id="order-qty">1 개</div>
+                    </div>
+                    <p id="order-sum" style="margin-bottom: 0px;padding-left: 100px;">
+                    <fmt:formatNumber value="${paymentResponse.all_amt}" pattern="###,###"/> 원</p>`;
+            $('#address').append(address);
+        },
+        error: function () {
+            alert('배송지를 등록해 주세요');
+            location.href = '/address/list';
+        }
     });
 </script>
 </body>

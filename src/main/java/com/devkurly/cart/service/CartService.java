@@ -86,6 +86,14 @@ public class CartService {
         return cartMapper.update(requestDto.toEntity());
     }
 
+    public int getCookieId(Cookie tempCart) {
+        int id = 0;
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            id = Integer.parseInt(tempCart.getValue());
+        }
+        return id;
+    }
+
     public int getCookieId(Cookie tempCart, HttpServletResponse response) {
         int id;
         if (Optional.ofNullable(tempCart).isPresent()) {

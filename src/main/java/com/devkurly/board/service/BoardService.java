@@ -11,7 +11,8 @@ public interface BoardService {
     List<BoardDto> selectReviewPage(Map map) throws Exception;
     List<BoardDto> selectReviewPageLike(Map map) throws Exception;
     List<BoardDto> selectInqPage(Map map) throws Exception;
-
+    List<BoardDto> selectMyInq(Map map) throws Exception;
+    List<BoardDto> selectMyReview(Map map)throws Exception;
     int remove(Integer bbs_id, Integer pdt_id, Integer user_id) throws Exception;
 
     int deleteAll() throws Exception;

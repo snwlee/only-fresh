@@ -163,9 +163,9 @@
                 <div id="shipping_payment">
                     <div id="shipping">
                         <h4>배송지</h4>
-                        <p>서울 중구 서소문로 89-20 (삼정 아트테라스 정동) 지하2층</p>
-                        <p id="is_star_deli">샛별배송</p>
-                        <button>배송지 변경</button>
+                        <p id="is_star_deli">배송지를 등록하고</p>
+                        <p>구매 가능한 상품을 확인하세요!</p>
+                        <a href="/address/list"><button>배송지 등록</button></a>
                     </div>
                     <div id="payment_box">
                         <div style="padding: 20px">
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                <form id="form" action="/orders" method="get" autocomplete="off">
+                <form id="form" action="/orders/" method="get" autocomplete="off">
                     <input type="hidden" name="checked" id="checked" value=""/>
                     <button id="order_submit" type="submit" style="cursor: pointer">
                         주문하기
@@ -280,6 +280,18 @@
     });
 </script>
 <script>
+    let checkArr = [];
+
+    $("input[class='checked-cart']:checked").each(function () {
+        checkArr.push($(this).attr("data-pdt-id"));
+    });
+
+    if (checkArr.length === 0) {
+        $('#select_all_checked').css('display', 'none');
+        $('#select_all_unchecked').css('display', 'block');
+        $('#order_submit').attr('disabled', true).text('상품을 선택해주세요').css('background-color', '#DDDDDD').css('cursor', 'default');
+        $('#allCheck').prop('checked', false);
+    }
 
     $("#order_submit").click(function () {
 
@@ -290,13 +302,58 @@
         $("input[class='checked-cart']:checked").each(function () {
             checkArr.push($(this).attr("data-pdt-id"));
         });
-        console.log(checkArr);
+
         $("#checked").val(checkArr);
 
         $('#form').submit();
     });
     String.prototype.insertAt = function (index, str) {
         return this.slice(0, index) + str + this.slice(index)
+    }
+
+    /**
+     * 쿠키 가져오기
+     */
+    function getCookie(key) {
+        let result = null;
+        let cookie = document.cookie.split(';');
+        cookie.some(function (item) {
+            // 공백을 제거
+            item = item.replace(' ', '');
+
+            let dic = item.split('=');
+
+            if (key === dic[0]) {
+                result = dic[1];
+                return true;
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 배송지 정보 요청
+     */
+    if (getCookie('tempCart') === null) {
+        $.ajax({
+            type: 'GET',
+            url: '/orders/address',
+            datatype: 'json',
+            success: function (result) {
+                let user =
+                    `
+                    <h4>배송지</h4>
+                    <p>` + result.main_addr + ` ` + result.sub_addr + `</p>
+                    <p id="is_star_deli">샛별배송</p>
+                    <a href="/address/list"><button>배송지 변경</button></a>
+                    `;
+                $('#shipping').html(user);
+            },
+            error: function () {
+                alert('배송지를 등록해 주세요');
+                location.href = '/address/list';
+            }
+        });
     }
 
     $(document).ready(function () {
@@ -336,6 +393,11 @@
                         `;
                     $('#cart-empty').html('');
                     $('#cart').append(cart);
+
+                    if ($('#cart-qty-' + index).text() <= 1) {
+                        $('#minus-btn-' + index).attr('disabled', true);
+                        $('#cart-qty-' + index).text(1);
+                    }
 
                     function total() {
                         let sum = 0;
@@ -456,11 +518,11 @@
 
 
                     $('#plus-btn-' + index).click(function () {
+                        $('#minus-btn-' + index).attr('disabled', false);
                         if ($('#cart-qty-' + index).text() < 1) {
                             $('#cart-qty-' + index).text(1);
                             return;
                         }
-                        $('#minus-btn-' + index).attr('disabled', false);
                         $('#cart-qty-' + index).text(parseInt($('#cart-qty-' + index).text()) + 1);
                         let cart = {
                             user_id: ${id},
@@ -492,7 +554,8 @@
                         });
                     });
                     $('#minus-btn-' + index).click(function () {
-                        if ($('#cart-qty-' + index).text() <= 1) {
+                        $('#plus-btn-' + index).attr('disabled', false);
+                        if ($('#cart-qty-' + index).text() <= 2) {
                             $('#minus-btn-' + index).attr('disabled', true);
                             $('#cart-qty-' + index).text(1);
                             return;
@@ -522,7 +585,9 @@
                                 $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                             },
                             error: function () {
-                                alert('error')
+                                alert('제품의 재고가 부족합니다.');
+                                $('#cart-qty-' + index).text($('#pdt-stock-' + CartResponseDto.pdt_id).val())
+                                $('#plus-btn-' + index).attr('disabled', true);
                             }
                         });
                     });

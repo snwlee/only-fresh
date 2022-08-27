@@ -8,6 +8,7 @@ import com.devkurly.member.domain.Member;
 import com.devkurly.member.dto.*;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
+import com.devkurly.order.exception.AddressException;
 import com.devkurly.order.exception.OrderException;
 import com.devkurly.util.EncryptSha256;
 import lombok.RequiredArgsConstructor;
@@ -74,7 +75,7 @@ public class MemberService {
     }
 
     public AddressDto findAddress(Integer user_id) {
-        return memberMapper.findAddressById(user_id);
+        return Optional.ofNullable(memberMapper.findAddressById(user_id)).orElseThrow(() -> new AddressException("배송지 등록이 필요 합니다.", ErrorCode.NO_ADDRESS_ERROR));
     }
 
     public Member findMemberById(Integer user_id) {
