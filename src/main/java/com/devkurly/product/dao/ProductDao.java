@@ -33,6 +33,8 @@ public interface ProductDao {
 
     int count() throws Exception;
 
+    int ThriftyCnt(Integer sel_price)throws Exception;
+
     // U
 
     int update(ProductDto dto) throws Exception // 상품 업데이트
@@ -64,7 +66,7 @@ public interface ProductDao {
 
     List<ProductDto> EcoVegetable(Map map) throws Exception;
 
-    List<ProductDto> main(Map map) throws Exception;
+    List<ProductDto> main(Map map, SearchCondition sc) throws Exception;
 
     List<ProductDto> mainlist(String cd_type_name) throws Exception;
 
@@ -75,4 +77,6 @@ public interface ProductDao {
     List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
 
     int cateCnt(String cd_type_name) throws Exception;
+
+    String selectCate(Integer cd_name_num) throws Exception;
 }

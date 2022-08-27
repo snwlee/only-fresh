@@ -12,7 +12,9 @@ import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    public ProductServiceImpl(){}
+    public ProductServiceImpl() {
+    }
+
     @Autowired
     ProductDao productDao;
 
@@ -36,8 +38,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
-
     @Override
     public String isValid(ProductDto productDto) throws Exception {
         return null;
@@ -56,6 +56,7 @@ public class ProductServiceImpl implements ProductService {
         int list = productDao.update(productDto);
         return productDao.update(productDto);
     }
+
     @Override
     public List<ProductDto> selectProductId() throws Exception {//board용 남겨주세요.
         return productDao.selectProductId();
@@ -69,19 +70,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> ProductThriftyList(SearchCondition sc) throws Exception { // 알뜰상품
-       Map map = new HashMap<>();
-       map.put("offset", sc.getOffset());
-       map.put("pageSize", sc.getPageSize());
+        Map map = new HashMap<>();
+        map.put("offset", sc.getOffset());
+        map.put("pageSize", sc.getPageSize());
         return productDao.ProductThriftyList(map);
     }
 
- @Override
- public List<ProductDto> ProductBestList(SearchCondition sc) throws  Exception { // 베스트상품
+    @Override
+    public List<ProductDto> ProductBestList(SearchCondition sc) throws Exception { // 베스트상품
         Map map = new HashMap<>();
-        map.put("offset",sc.getOffset());
-        map.put("pageSize",sc.getPageSize());
+        map.put("offset", sc.getOffset());
+        map.put("pageSize", sc.getPageSize());
         return productDao.ProductBestList(map);
- }
+    }
 
 
     @Override
@@ -110,25 +111,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<MainSubCatDto> getMainSubCats() throws Exception{
+    public List<MainSubCatDto> getMainSubCats() throws Exception {
         return productDao.getCatList();
     }
 
     @Override
-    public List<ProductDto> Vegetable(Map map) throws Exception {
-        return productDao.Vegetable(map);
-    }
-        @Override
-        public List<ProductDto> EcoVegetable(Map map) throws Exception {
-            return productDao.EcoVegetable(map);
+    public List<ProductDto> EcoVegetable(Map map) throws Exception {
+        return productDao.EcoVegetable(map);
 
     }
-
 
     @Override
+    public List<ProductDto> main(Map map, SearchCondition sc) throws Exception {
+        return productDao.main(map, sc);
+    }
+
+
+    /*@Override
     public List<ProductDto> main(Map map) throws Exception {
         return productDao.main(map);
-    }
+    }*/
 
     @Override
     public List<ProductDto> mainlist(String cd_type_name) throws Exception {
@@ -141,23 +143,35 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception {
-        return productDao.CodeNameSelect(sc,cd_name_num);
+    public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws Exception {
+        return productDao.CodeNameSelect(sc, cd_name_num);
     }
+
     @Override
-    public int codeNameSelectCnt(Integer cd_name_num)throws Exception {
+    public int codeNameSelectCnt(Integer cd_name_num) throws Exception {
         return productDao.codeNameSelectCnt(cd_name_num);
+    }
+
+    @Override
+    public int ThriftyCnt(Integer sel_price) throws Exception {
+        return productDao.ThriftyCnt(sel_price);
     }
 
     @Override
     public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
         return productDao.cate(cd_type_name, sc);
     }
-        @Override
-        public int cateCnt(String cd_type_name) throws Exception {
-            return productDao.cateCnt(cd_type_name);
+
+    @Override
+    public int cateCnt(String cd_type_name) throws Exception {
+        return productDao.cateCnt(cd_type_name);
     }
 
+
+    @Override
+    public String selectCate(Integer cd_name_num) throws Exception {
+        return productDao.selectCate(cd_name_num);
+    }
 
 
 //    @Override
@@ -168,7 +182,7 @@ public class ProductServiceImpl implements ProductService {
 //            throw new Exception(String.valueOf(HttpStatus.BAD_REQUEST));
 //        }
 //        return null;
-    }
+}
 
 
 

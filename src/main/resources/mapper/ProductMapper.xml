@@ -50,7 +50,7 @@
         ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE TRUE
           AND title LIKE concat('%', #{keyword}, '%')
-        ORDER BY in_date DESC
+        ORDER BY in_date DESC, ${AscBtn}Asc
         limit #{offset}, #{pageSize}
     </select>
 
@@ -75,6 +75,22 @@
         limit #{offset}, #{pageSize}
     </select>
 
+    <select id="ThriftyCnt" parameterType="int" resultType="int">
+        SELECT count(*)
+        FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+                 JOIN COMMON_CODE_TB CCT
+                      ON CCT.cat_code = C.cat_code
+                 JOIN COMMON_CODE_TYPE_TB CCTT
+                      ON CCTT.cd_type_id = CCT.cd_type_id
+        where P.sel_price <![CDATA[<]]>10000
+        ORDER BY P.sel_price DESC
+    </select>
     <select id="ProductBestList" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
                 P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
@@ -116,7 +132,7 @@
         limit #{offset}, #{pageSize}
     </select>
 
-    <select id="mainlist" resultType="Product">
+    <select id="mainlist" resultType="Product" parameterType="SearchCondition">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
         P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
         P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
@@ -333,5 +349,11 @@
         select DISTINCT CCT.cd_type_id, cd_name, cd_type_name, CCT.cd_name_num
         from COMMON_CODE_TB CCT
                  join COMMON_CODE_TYPE_TB CCTT on CCT.cd_type_id = CCTT.cd_type_id;
+    </select>
+
+
+    <select id="selectCate"  parameterType="int" resultType="String">
+        select DISTINCT cd_name from COMMON_CODE_TB
+        where cd_name_num = #{cd_name_num}
     </select>
 </mapper>

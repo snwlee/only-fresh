@@ -19,10 +19,8 @@ public class NewController {
 
     @GetMapping("/DevKurly") // DevKurly MainPage
     public String main() {
-        return"product/productlist";
+        return "/product/MainPage";
     }
-
-
 
     @GetMapping("/goodslist") // /goodslist?cd_name='친환경'
     public String goodslist(Model m, SearchCondition sc){

@@ -62,6 +62,16 @@
             limit #{offset}, #{pageSize}
     </select>
 
+    <select id="selectMyReview" parameterType="map" resultType="BoardDto">
+        select REVIEW_BOARD_TB.bbs_id, revw_like, revw_img, pdt_id, user_id, bbs_title, wrt_dt, user_nm, bbs_clsf_cd, notice
+        from REVIEW_BOARD_TB
+                 right join BOARD_TB
+                            on REVIEW_BOARD_TB.bbs_id = BOARD_TB.bbs_id
+        where bbs_clsf_cd = #{bbs_clsf_cd} and user_id = #{user_id}
+        order by bbs_id desc, wrt_dt desc
+        limit #{offset}, #{pageSize}
+    </select>
+
     <select id="selectInqPage" parameterType="map" resultType="BoardDto">
         select INQ_BOARD_TB.bbs_id, bbs_title, user_nm, wrt_dt, is_secret, is_replied, pdt_id, user_id, bbs_clsf_cd, notice
         from INQ_BOARD_TB
@@ -69,6 +79,16 @@
                             on INQ_BOARD_TB.bbs_id = BOARD_TB.bbs_id
         where pdt_id = #{pdt_id} and bbs_clsf_cd = #{bbs_clsf_cd}
         order by notice desc, bbs_id desc, wrt_dt desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectMyInq" parameterType="map" resultType="BoardDto">
+        select INQ_BOARD_TB.bbs_id, bbs_title, user_nm, wrt_dt, is_secret, is_replied, pdt_id, user_id, bbs_clsf_cd, notice
+        from INQ_BOARD_TB
+                 right join BOARD_TB
+                            on INQ_BOARD_TB.bbs_id = BOARD_TB.bbs_id
+        where bbs_clsf_cd = #{bbs_clsf_cd} and user_id = #{user_id}
+        order by bbs_id desc, wrt_dt desc
         limit #{offset}, #{pageSize}
     </select>
 
@@ -116,22 +136,34 @@
         where bbs_id = #{bbs_id}
     </update>
 
-    <update id="increaseLike" parameterType="int">
+    <update id="upDownLike" parameterType="map">
         update REVIEW_BOARD_TB
-        set revw_like = revw_like + 1
+        set revw_like = revw_like + #{likeUpDown}
         where bbs_id = #{bbs_id}
     </update>
 
-    <select id="selectUserLike" parameterType="map" resultType="int">
+    <select id="selectUserLike" parameterType="BoardDto" resultType="int">
+        select like_no
+        from USER_LIKE_NO
+        where user_id = #{user_id} and bbs_id = #{bbs_id}
+    </select>
+
+    <select id="checkLikeNoTB" parameterType="BoardDto" resultType="int">
         select count(*)
         from USER_LIKE_NO
         where user_id = #{user_id} and bbs_id = #{bbs_id}
     </select>
 
     <insert id="UserLikeNo" parameterType="BoardDto">
-        insert into USER_LIKE_NO (user_id, bbs_id, like_no, in_user, up_user)
-        values (#{user_id}, #{bbs_id}, #{like_no}, #{user_id}, #{user_id})
+        insert into USER_LIKE_NO (user_id, bbs_id, in_user, up_user)
+        values (#{user_id}, #{bbs_id}, #{user_id}, #{user_id})
     </insert>
+
+    <update id="updateUserLikeNo" parameterType="map">
+        update USER_LIKE_NO
+        set like_no = #{like_no}
+        where user_id = #{user_id} and bbs_id = #{bbs_id}
+    </update>
 
     <insert id="insertAnswer" parameterType="CommentDto">
         insert into ANSWER_TB (bbs_id, inq_ans, int_user, up_user)

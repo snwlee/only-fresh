@@ -21,7 +21,7 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
@@ -56,7 +56,7 @@
       height: 100px;
     }
     .board_margin{
-      margin-bottom: 200px;
+      margin-bottom: 70px;
     }
 
     #content {
@@ -260,7 +260,7 @@
     <div id ="board_container">
       <div class="board_margin" id="review_board_i"></div>
       <div id="review_board">
-        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10">
+        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10&sortType=latest">
         </iframe>
       </div>
       <div class="board_margin" id="inquiry_board_i"></div>
@@ -330,6 +330,8 @@
   }
   let categories = null;
 
+  let regExp = /[`~!@#$%\-^&*|\\\'\";:\/?]/gi;
+
   $(document).ready(function(){
 
     let jbOffset = $(".menu_nav").offset();
@@ -361,15 +363,24 @@
       $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
     });
 
-      $("#addCart").click(function(){
+    $("#addCart").click(function(){
       let pdt_qty = parseInt($("#pdt_qty").text());
+      if(pdt_qty==0){
+        alert("구매수량이 0이면 장바구니에 넣을 수 없습니다.");
+        return;
+      }
+      let testValue = $("#pdt_qty").text();
+      if(regExp.test(testValue)||testValue.includes("-")){
+        console.log("didn't pass the regExp test");
+        alert("구매수량에 음수값이나 특수문자를 입력할 수 없습니다.");
+        return;
+      }
       $.ajax({
         type:'POST',
         url: '/carts/'+pdt_id+'?pdt_qty='+pdt_qty,
         success : function(result){
           window.location.href = '/carts';
         },
-        error   : function(){ alert("error") }
       });
     });
 
@@ -393,17 +404,7 @@
         })
       }
     })
-
-
-
-
-
-
   });
-
-
-
-
 </script>
 
 </body>

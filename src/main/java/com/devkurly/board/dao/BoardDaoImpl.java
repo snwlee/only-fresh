@@ -67,6 +67,14 @@ public class BoardDaoImpl implements BoardDao {
     public List<BoardDto> selectInqPage(Map map) throws Exception {
         return session.selectList(namespace + "selectInqPage", map);
     }
+    @Override
+    public List<BoardDto> selectMyInq(Map map) throws Exception {
+        return session.selectList(namespace + "selectMyInq", map);
+    }
+    @Override
+    public List<BoardDto> selectMyReview(Map map) throws Exception {
+        return session.selectList(namespace + "selectMyReview", map);
+    }
 
     @Override
     public BoardDto selectCn(Integer bbs_id) throws Exception {
@@ -84,7 +92,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int insertCn(BoardDto boardDto) throws Exception {
         int cnLength = boardDto.getBbs_cn().length();
-        if(cnLength>5000||cnLength==0)
+        if(cnLength>2000||cnLength==0)
             throw new Exception("내용에 적절하지 않은 글자수입니다.");
         return session.insert(namespace + "insertCn", boardDto);
     }
@@ -135,16 +143,32 @@ public class BoardDaoImpl implements BoardDao {
         return session.update(namespace + "IsSecretStatus", map);
     }
     @Override
-    public int increaseLike(Integer bbs_id) throws Exception {
-        return session.update(namespace + "increaseLike", bbs_id);
+    public int upDownLike(Integer bbs_id, Integer likeUpDown) throws Exception {
+        Map map = new HashMap<>();
+        map.put("bbs_id", bbs_id);
+        map.put("likeUpDown", likeUpDown);
+        return session.update(namespace + "upDownLike", map);
     }
     @Override
-    public int selectUserLike(Map map) throws Exception {
-        return session.selectOne(namespace + "selectUserLike", map);
+    public int checkLikeNoTB(BoardDto boardDto)throws Exception {
+        return session.selectOne(namespace + "checkLikeNoTB", boardDto);
+    }
+    @Override
+    public int selectUserLike(BoardDto boardDto) throws Exception {
+        return session.selectOne(namespace + "selectUserLike", boardDto);
     }
     @Override
     public int userLikeNo(BoardDto boardDto) throws Exception {
         return session.insert(namespace + "UserLikeNo", boardDto);
+    }
+    @Override
+    public int updateUserLikeNo(BoardDto boardDto, Integer like_no)throws Exception {
+        Map map = new HashMap<>();
+        map.put("user_id", boardDto.getUser_id());
+        map.put("bbs_id", boardDto.getBbs_id());
+        map.put("like_no", like_no);
+        System.out.println("map = " + map);
+        return session.update(namespace + "updateUserLikeNo", map);
     }
     @Override
     public int insertAnswer(CommentDto commentDto)throws Exception {

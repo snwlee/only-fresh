@@ -32,6 +32,7 @@ public interface ProductService {
     List<MainSubCatDto> getMainSubCats() throws Exception;
     int codeNameSelectCnt(Integer cd_name_num)throws Exception;
 
+    int ThriftyCnt(Integer sel_price)throws Exception;
 
     List<ProductDto> selectProductId() throws Exception;
     // U
@@ -43,6 +44,8 @@ public interface ProductService {
 
     List<ProductDto> EventList(Map map) throws Exception;
 
+
+
     List<ProductDto> ProductListDESC(Map map);
 
     List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception;
@@ -51,11 +54,10 @@ public interface ProductService {
 
     List<ProductDto> CateList(Map map) throws Exception;
 
-    List<ProductDto> Vegetable(Map map) throws Exception;
 
     List<ProductDto> EcoVegetable(Map map) throws Exception;
 
-    List<ProductDto> main(Map map) throws Exception;
+    List<ProductDto> main(Map map, SearchCondition sc) throws Exception;
 
 
     List<ProductDto> mainlist(String cd_type_name) throws Exception;
@@ -67,6 +69,9 @@ public interface ProductService {
     List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
 
     int cateCnt(String cd_type_name) throws Exception;
+
+
+    String selectCate(Integer cd_name_num) throws Exception;
 }
 
 
