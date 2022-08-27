@@ -119,7 +119,7 @@ public class ProductController {
 
     @GetMapping("/call")
     @ResponseBody
-    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name) {
+    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, String AscBtn, String DescBtn) {
         Map<String, Object> map = new HashMap<String, Object>();
         List list = null;
         try {
@@ -129,10 +129,14 @@ public class ProductController {
                     map.put("cd_type_name",cd_type_name);
                     System.out.println("cd_type_name = " + cd_type_name);
                     map.put("list",list);
+                    map.put("AscBtn",AscBtn);
+                    map.put("DescBtn",DescBtn);
                 }
                 if(cd_name_num!=null){ // 소분류 카테고리 코드
                     list = productService.CodeNameSelect(cd_name_num,sc);
                     map.put("list",list);
+                    map.put("AscBtn",AscBtn);
+                    map.put("DescBtn",DescBtn);
                     String cd_name=productService.selectCate(cd_name_num);
                     map.put("cd_name",cd_name);
                 }
@@ -142,14 +146,20 @@ public class ProductController {
                 list = productService.getSearchResultPage(sc);
                 map.put("list", list);
                 map.put("title","신상품");
+                map.put("AscBtn",AscBtn);
+                map.put("DescBtn",DescBtn);
             }else if(sort==2) { // 베스트
                 list = productService.ProductBestList(sc);
                 map.put("list", list);
                 map.put("title","베스트");
+                map.put("AscBtn",AscBtn);
+                map.put("DescBtn",DescBtn);
             }else if(sort==3) { // 알뜰쇼핑
                 list = productService.ProductThriftyList(sc);
                 map.put("list", list);
                 map.put("title","알뜰쇼핑");
+                map.put("AscBtn",AscBtn);
+                map.put("DescBtn",DescBtn);
             }
             else if(sort==0){ // 메인페이지
 
@@ -172,7 +182,7 @@ public class ProductController {
     }
 
     @GetMapping("/newlist") // 신상품, 베스트, 알뜰쇼핑
-    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m, Integer sel_price) {
+    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m, Integer sel_price, String DescBtn,String AscBtn) {
         Paging ph = null;
         try {
             if (sort == null) {

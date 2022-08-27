@@ -17,7 +17,6 @@
 
 #min{
     display: flex;
-    height:3000px;
     width:2000px;
     position: relative;
     overflow: hidden;
@@ -131,10 +130,6 @@ p{
     flex-wrap: nowrap;
     align-content: center;
     align-items: center;
-}
-button {
-    width: 200px;
-    height: 100px;
 }
 
 #search_first a {

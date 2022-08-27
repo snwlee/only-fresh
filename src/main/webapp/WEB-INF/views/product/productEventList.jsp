@@ -153,6 +153,7 @@
   </div>
   <table border="1">
     <div>상품리스트</div>
+    <div>상품리스트</div>
     <c:forEach var="ProductDto" items="${list}">
       <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
         <div id="product">
