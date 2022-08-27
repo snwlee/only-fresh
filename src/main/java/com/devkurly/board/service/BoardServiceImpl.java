@@ -44,6 +44,14 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardDto> selectInqPage(Map map) throws Exception {
         return boardDao.selectInqPage(map);
     }
+    @Override
+    public List<BoardDto> selectMyInq(Map map) throws Exception {
+        return boardDao.selectMyInq(map);
+    }
+    @Override
+    public List<BoardDto> selectMyReview(Map map)throws Exception {
+        return boardDao.selectMyReview(map);
+    }
 
     @Override
     public int remove(Integer bbs_id, Integer pdt_id, Integer user_id) throws Exception {

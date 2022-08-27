@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이 쿠폰 페이지</title>
+    <title>상품 후기</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
@@ -41,6 +41,17 @@
         #content {
             display: flex;
             padding: 30px 200px 160px 200px;
+        }
+        #review_view {
+            display: none;
+            padding: 10px 10px 11px;
+            border-top: 1px solid #e3e3e3;
+        }
+        #review_view .review_content {
+            width: 100%;
+            word-break: break-word;
+            padding: 20px 9px 30px;
+            line-height: 25px
         }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -134,31 +145,28 @@
             </ul>
         </div>
         <div id="mypage_content">
-            <h3>쿠폰</h3>
+            <h3>상품 후기</h3>
             <div id="add_coupon_box">
-                <form id="coupon_form" onsubmit="return false;">
-                    <div id="add_input_wrapper">
-                        <input id="coupn_to_add" type="text" placeholder="발급된 쿠폰번호를 입력해 주세요">
-                    </div>
-                    <button id="add_coupon_button" onclick="addCoupon()">
-                        쿠폰 등록
-                    </button>
-                </form>
+                ㄴㅁㅇㄹㅇㄴㅁㄹㄴㅇㄹ
             </div>
             <div id="optional_function">
 
             </div>
             <div id="mypage_content_body">
                 <div class="cols">
-                    <div class="first_col col">쿠폰명</div>
-                    <div class="second_col col">기능</div>
-                    <div class="third_col col">할인/적립</div>
-                    <div class="fourth_col col">사용가능기간</div>
-                    <div class="fifth_col col">사용여부</div>
+                    <div class="first_col col">제목</div>
+                    <div class="second_col col">작성일</div>
+                    <div class="third_col col">추천</div>
                 </div>
-                <div id="coupons">
+                <div id="list_container">
+
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="review_view">
+        <div>
+            <div class="review_content"></div>
         </div>
     </div>
     <footer>
@@ -191,6 +199,51 @@
     let main_cat_container = $("#main_cat_container");
     let sub_cat_container = $("#sub_cat_container");
     let sub_cat = $(".sub_cat");
+    let page = ${param.page};
+    let pageSize = ${param.pageSize};
+    let bbs_clsf_cd = '1';
+    let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
+
+    let showList = function(){
+        $.ajax({
+            type:'GET',
+            url: '/getMyList?bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&user_id='+user_id,
+            success : function(result){
+                $("#list_container").html(toHtml(result));
+            },
+            error   : function(){ alert("error") }
+        });
+    }
+    let toHtml =function(lists){
+        let tmp = "";
+        lists.forEach(function(BoardDto){
+
+            tmp += '<div class="cols">'+BoardDto.pdt_id+''
+            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
+            tmp += '<div class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</div>'
+            tmp += '<div class="like_cnt" style="text-align: center">'+BoardDto.revw_like+'</div></div>'
+
+        })
+        return tmp;
+    }
+    let addZero = function(value=1){
+        return value > 9 ? value : "0"+value;
+    }
+
+    let dateToString = function(ms=0) {
+        let date = new Date(ms);
+
+        let yyyy = date.getFullYear();
+        let mm = addZero(date.getMonth() + 1);
+        let dd = addZero(date.getDate());
+
+        let HH = addZero(date.getHours());
+        let MM = addZero(date.getMinutes());
+        let ss = addZero(date.getSeconds());
+
+        return yyyy+"."+mm+"."+dd;
+    }
+
 
     show_category_button.hover(() => {
         main_cat_container.show();
@@ -218,60 +271,49 @@
 
         return tmp;
     }
+    let relocateCn = function(){
+        $("#review_view").css("display", "none");
+        $(".review_content").text('');
+        $("#review_view").appendTo(".p_write_btn");
+    };
 
-    let dateParse = function (str) {
-        let y = str.substring(0, 4),
-            m = str.substring(4, 6),
-            d = str.substring(6, 8);
-        return y + "년 " + m + "월 " + d + "일";
+    let locateCn = function(bbs_id){
+        $("#review_view").appendTo($("div[data-bbs_id=" + bbs_id + "]"));
+        $("#review_view").css("display", "block");
     }
 
-    let isExpired = function (str) {
-        let y = str.substring(0, 4),
-            m = str.substring(4, 2),
-            d = str.substring(6, 2);
-
-        return new Date(y, m, d) < new Date(0);
-    }
-
-    let toCouponHtml = function (res) {
-        let tmp = '';
-
-        res.forEach(el => {
-            tmp += '<div class="coupon cols">'
-            tmp += '<div class="coupon_name first_col"> <h4>'
-            tmp += el.nm
-            tmp += '</h4><p>최대 '
-            tmp += el.ds_max_posbl_amt.toLocaleString()
-            tmp += '원 할인</p> <p>'
-            tmp += (el.lmtt_cnd == null ? "" : el.lmtt_cnd)
-            tmp += '</p> </div><div class="coupon_func second_col col">'
-            tmp += el.func + '</div><div class="coupon_rate third_col col">'
-            tmp += el.value
-            tmp += '%</div><div class="coupon_due fourth_col col">'
-            tmp += dateParse(el.expi_dd)
-            tmp += '까지</div><div class="coupon_used fifth_col col">'
-            tmp += (el.used ? "사용" : "미사용")
-            tmp += '</div></div>';
-        })
-
-        return tmp;
-    }
 
     let categories = null;
 
     $(document).ready(() => {
-            $.ajax({
-                type: 'GET',       // 요청 메서드
-                url: '/mypage/coupon',  // 요청 URI
-                success: function (result) {
-                    $("#optional_function").html(`사용 가능 쿠폰 \${result.length} 장`);
-                    $("#coupons").html(toCouponHtml(result));
-                },
-                error: function (result) {
-                    alert("쿠폰 불러오기 실패");
-                } // 에러가 발생했을 때, 호출될 함수
-            });
+        showList();
+        let readStatus = false;
+
+        $("#list_container").on("click", ".title_cn", function() {
+            if (!readStatus) {
+                let bbs_id = $(this).attr("data-bbs_id");
+                readStatus = true;
+                $.ajax({
+                    type: 'GET',
+                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
+                    headers: {"content-type": "application/json"},
+                    success: function (result) {
+                        $(".review_content").text(result.boardDto.bbs_cn);
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+                });
+                locateCn(bbs_id);
+            } else {
+                relocateCn();
+                readStatus = false;
+            }
+        })
+
+
+
+
 
             $.ajax({
                 type: 'GET',       // 요청 메서드
@@ -295,29 +337,6 @@
             })
         }
     )
-
-    let addCoupon = function () {
-        let nm = encodeURI($("#coupn_to_add").val());
-
-        if (nm !== "") {
-            $.ajax({
-                type: 'POST',       // 요청 메서드
-                url: '/mypage/coupon?nm=' + nm,  // 요청 URI
-                success: function (res) {
-                    window.location.reload();
-                },
-                error: function (res) {
-                    if (res.status === 400) {
-                        alert("쿠폰 이름을 잘못 입력하였습니다")
-                    } else {
-                        alert("서버에 문제가 있습니다");
-                    }
-                } // 에러가 발생했을 때, 호출될 함수
-            })
-        } else {
-            alert("등록할 쿠폰의 이름을 넣어주세요!");
-        }
-    }
 </script>
 </body>
 </html>

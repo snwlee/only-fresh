@@ -372,7 +372,7 @@
       let testValue = $("#pdt_qty").text();
       if(regExp.test(testValue)||testValue.includes("-")){
         console.log("didn't pass the regExp test");
-        alert("구매수량에 음수값이나 특수문자를 입력할 수 없습니다."); //두번쨰 클릭이 통과하는 문제
+        alert("구매수량에 음수값이나 특수문자를 입력할 수 없습니다.");
         return;
       }
       $.ajax({

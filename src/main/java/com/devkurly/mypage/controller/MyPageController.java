@@ -26,6 +26,11 @@ public class MyPageController {
         return "/mypage/myCoupon/myCoupon";
     }
 
+    @GetMapping("/product_inquiry")
+    public String showMyInquiry(){ return "mypage/myBoard/inquiry";}
+    @GetMapping("/myReview")
+    public String showMyReview(){ return "mypage/myBoard/review";}
+
     @PostMapping("/coupon")
     public ResponseEntity<String> addCouponToUser(HttpServletRequest req , String nm) {
         Integer user_id = ((MemberMainResponseDto) req.getSession().getAttribute("memberResponse")).getUser_id();
