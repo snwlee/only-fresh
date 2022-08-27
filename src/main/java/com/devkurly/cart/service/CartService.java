@@ -5,6 +5,7 @@ import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.exception.DuplicateCartException;
 import com.devkurly.cart.exception.EmptyCartException;
+import com.devkurly.cart.exception.EmptyCartRestException;
 import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.CartMapper;
@@ -57,7 +58,11 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
-        return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
+        List<CartProductResponseDto> dtoList = cartMapper.joinCartProductByUserId(user_id);
+        if (dtoList.isEmpty()) {
+            throw new EmptyCartRestException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT);
+        }
+        return dtoList;
     }
 
     @Transactional(readOnly = true)

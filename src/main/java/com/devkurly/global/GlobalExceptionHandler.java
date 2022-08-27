@@ -1,6 +1,7 @@
 package com.devkurly.global;
 
 import com.devkurly.cart.exception.EmptyCartException;
+import com.devkurly.cart.exception.EmptyCartRestException;
 import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
@@ -20,16 +21,21 @@ import java.io.IOException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(EmptyCartException.class)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cartCatcher(HttpServletResponse response, Exception e) throws IOException {
-        System.out.println("GlobalExceptionHandler: 장바구니가 비어 있습니다.");
+    public void cartCatcher(HttpServletResponse response) throws IOException {
+        System.out.println("GlobalExceptionHandler: 장바구니가 비어 있습니다. (redirect)");
         response.sendRedirect("/carts?error=1");
-        return ResponseEntity.ok().body(ErrorCode.EMPTY_CART_PRODUCT.getMessage());
+    }
+
+    @ExceptionHandler(EmptyCartRestException.class)
+    public ResponseEntity<String> cartRestCatcher() {
+        System.out.println("GlobalExceptionHandler: 장바구니가 비어 있습니다. (rest)");
+        return ResponseEntity.badRequest().body(ErrorCode.EMPTY_CART_PRODUCT.getMessage());
     }
 
     @ExceptionHandler(OutOfStockException.class)
-    public ResponseEntity<String> productCatcher(Exception e){
+    public ResponseEntity<String> productCatcher(Exception e) {
         System.out.println("GlobalExceptionHandler: 제품 재고가 부족합니다.");
         return ResponseEntity.badRequest().body(ErrorCode.OUT_OF_STOCK.getMessage());
     }
@@ -38,7 +44,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> signInCatcher(HttpServletResponse response, HttpServletRequest request, Exception e) throws IOException {
         System.out.println("GlobalExceptionHandler: 로그인에 실패했습니다.");
-        response.sendRedirect("/members?error=1&toURL="+ request.getRequestURL());
+        response.sendRedirect("/members?error=1&toURL=" + request.getRequestURL());
         return ResponseEntity.badRequest().body(ErrorCode.SIGN_IN_FAIL.getMessage());
     }
 
@@ -73,7 +79,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AddressException.class)
-    protected ResponseEntity<String> addressCatcher(){
+    protected ResponseEntity<String> addressCatcher() {
         System.out.println("GlobalExceptionHandler: 배송지가 없습니다.");
         return ResponseEntity.badRequest().body(ErrorCode.ORDER_ERROR.getMessage());
     }
