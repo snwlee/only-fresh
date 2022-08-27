@@ -21,7 +21,7 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
@@ -30,8 +30,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[${productDetailDto.company}] ${productDetailDto.title} :: DevKurly</title>
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-  <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css?after">
+  <link rel="stylesheet" type="text/css" href="/navigation_detail.css">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
+  <link rel="stylesheet" type="text/css" href="/footer.css">
   <style>
     #whole_container {
       width: 100%;
@@ -54,12 +55,33 @@
       width: 200px;
       height: 100px;
     }
+    .board_margin{
+      margin-bottom: 70px;
+    }
 
     #content {
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 30 200 160 200;
+    }
+    #review_board{
+      position: relative;
+      padding-bottom: 80.25%;
+    }
+    #inquiry_board{
+      position: relative;
+      padding-bottom: 80.25%;
+    }
+    iframe{
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+    }
+    a{
+      text-decoration:none;
     }
 
     /* input {
@@ -84,9 +106,9 @@
     <div id="search">
       <div id="search_first">
         <img style="width:82px; height: 42px" src="/product_detail/logo.png" alt="logo" />
-        <a>마켓컬리</a>
+        <a href="/DevKurly">마켓컬리</a>
         <div></div>
-        <a>뷰티컬리</a>
+        <a href="/DevKurly">뷰티컬리</a>
       </div>
       <div id="input_container">
         <input placeholder="검색어를 입력해주세요" />
@@ -95,24 +117,32 @@
       <div id="icon_container">
         <img src="/product_detail/imgs/location.png" />
         <img src="/product_detail/imgs/heart.png" />
-        <img src="/product_detail/imgs/shopping-cart.png" />
+        <a href="carts/"><img src="/main/imgs/shopping-cart.png" /></a>
       </div>
     </div>
     <div id="menubar">
       <div id="category_container">
         <img src="" />
-        <span>카테고리</span>
+        <p style="width: 80px;" id="show_category_button">카테고리</p>
       </div>
       <div id="menus">
-        <span>신상품</span>
-        <span>베스트</span>
-        <span>알뜰쇼핑</span>
-        <span>특가/혜택</span>
+        <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
+        <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
+        <a href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
+        <a href="/event/main">특가/혜택</a>
       </div>
       <div id="deli_info">
         <span id="purple_deli_info">샛별·낮</span>
         <span id="gray_deli_info">배송안내</span>
       </div>
+    </div>
+  </div>
+  <div id="cat_wrapper">
+    <div id="main_cat_container">
+      <%--            <li class="cat main_cat">채소</li>--%>
+    </div>
+    <div id="sub_cat_container">
+      <%--            <li class="cat sub_cat">채소</li>--%>
     </div>
   </div>
   <div id="content">
@@ -168,7 +198,7 @@
           <div class="column_title">알레르기정보</div>
           <div>
             <p class="main_desc">${productDetailDto.allg_dt}</p>
-            <p class="sub_desc">본 제품은 대두,땅콩,알류,밀,복숭아,토마토,호두,메밀,아황산류,잣을 사용한 제품과 같은 시설에서 제조하고 있습니다.</p>
+            <p class="sub_desc"></p>
           </div>
         </div>
         <div class="detail_column">
@@ -217,27 +247,52 @@
       <div class="navi" value="#des2">
         <span class="navs">상세정보</span></a>
       </div>
-      <div class="navi" value="#review_board">
+      <div class="navi" value="#review_board_i">
         <span class="navs">후기 (${reviewCnt})</span></a>
       </div>
-      <div class="navi" value="#inquiry_board">
+      <div class="navi" value="#inquiry_board_i">
         <span class="navs">문의</span></a>
       </div>
     </nav>
-    <img id="des1" src="https://images.unsplash.com/photo-1552404200-b22566b2317b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=985&q=80" />
-    <img id="des2" src="${productDetailDto.prt_info}"/>
+    <img id="des1" src="${productDetailDto.prt_image}"/>
+    <img id="des2" src="${productDetailDto.prt_info}" />
 
     <div id ="board_container">
+      <div class="board_margin" id="review_board_i"></div>
       <div id="review_board">
-        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10" width="100%" height="1000px">
+        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=1&page=1&pageSize=10&sortType=latest">
         </iframe>
       </div>
+      <div class="board_margin" id="inquiry_board_i"></div>
       <div id="inquiry_board">
-        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=2&page=1&pageSize=10" width="100%" height="1000px">
+        <iframe src="/boardlist?pdt_id=${param.pdt_id}&bbs_clsf_cd=2&page=1&pageSize=10">
         </iframe>
       </div>
     </div>
   </div>
+  <footer>
+    <img src="/logo.svg" alt="logo">
+    <div id="member_container">
+      <a href="https://github.com/dr94406">
+        <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+      </a>
+      <a href="https://github.com/PGRRR">
+        <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+      </a>
+      <a href="https://github.com/Riiver-J">
+        <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+      </a>
+      <a href="https://github.com/narlae">
+        <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+      </a>
+      <a href="https://github.com/xpmxf4">
+        <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+      </a>
+      <a href="https://github.com/didqksrla">
+        <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+      </a>
+    </div>
+  </footer>
 </div>
 <script>
   let pdt_id = ${param.pdt_id};
@@ -249,6 +304,33 @@
   $("#sel_price").text(priceLocale);
   $("#price").text(priceLocale2 + "원");
   $("#actual_price").text(priceLocale);
+
+  /* 카테고리 */
+  let wrapper = $("#cat_wrapper");
+  let show_category_button = $("#show_category_button");
+  let main_cat_container = $("#main_cat_container");
+  let sub_cat_container = $("#sub_cat_container");
+  let sub_cat = $(".sub_cat");
+  show_category_button.hover(() => {
+    main_cat_container.show();
+  })
+  wrapper.mouseleave(() => {
+    main_cat_container.hide();
+    sub_cat_container.hide();
+  })
+  sub_cat_container.mouseleave(() => {
+    sub_cat_container.hide();
+  })
+  let catToLi = function(res) {
+    let tmp = '';
+    res.forEach(el => {
+      tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+    })
+    return tmp;
+  }
+  let categories = null;
+
+  let regExp = /[`~!@#$%\-^&*|\\\'\";:\/?]/gi;
 
   $(document).ready(function(){
 
@@ -265,7 +347,7 @@
     $(".navi").click(function(event){
 
       event.preventDefault();
-      x= $(this).attr("value");
+      let x= $(this).attr("value");
       $('html,body').animate({scrollTop:$(x).offset().top}, 500);
 
     });
@@ -281,28 +363,48 @@
       $("#actual_price").text((parseInt($("#pdt_qty").text())*sel_price).toLocaleString());
     });
 
-      $("#addCart").click(function(){
+    $("#addCart").click(function(){
       let pdt_qty = parseInt($("#pdt_qty").text());
+      if(pdt_qty==0){
+        alert("구매수량이 0이면 장바구니에 넣을 수 없습니다.");
+        return;
+      }
+      let testValue = $("#pdt_qty").text();
+      if(regExp.test(testValue)||testValue.includes("-")){
+        console.log("didn't pass the regExp test");
+        alert("구매수량에 음수값이나 특수문자를 입력할 수 없습니다.");
+        return;
+      }
       $.ajax({
         type:'POST',
         url: '/carts/'+pdt_id+'?pdt_qty='+pdt_qty,
         success : function(result){
           window.location.href = '/carts';
         },
-        error   : function(){ alert("error") }
       });
     });
 
+    $.ajax({
+      type: 'GET',       // 요청 메서드
+      url: '/product/categories',  // 요청 URI
+      success: function (res) {
+        categories = res;
 
-
-
-
-
+        $.each(res, (el)=>{
+          $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12"<li class="cat main_cat">'+el+'</li></a>');
+        })
+      },
+      error: function (result) {
+        alert("쿠폰 불러오기 실패");
+      }, // 에러가 발생했을 때, 호출될 함수
+      complete: function(){
+        $(".main_cat").mouseenter((e) => {
+          sub_cat_container.show();
+          sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
+        })
+      }
+    })
   });
-
-
-
-
 </script>
 
 </body>

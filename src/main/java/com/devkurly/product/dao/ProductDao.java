@@ -1,6 +1,6 @@
 package com.devkurly.product.dao;
 
-import com.devkurly.board.domain.BoardDto;
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 
@@ -27,7 +27,13 @@ public interface ProductDao {
 
     List<ProductDto> ProductNewList(Map map) throws Exception;
 
+    List<MainSubCatDto> getCatList() throws Exception;
+
+    int codeNameSelectCnt(Integer cd_name_num)throws Exception;
+
     int count() throws Exception;
+
+    int ThriftyCnt(Integer sel_price)throws Exception;
 
     // U
 
@@ -60,10 +66,17 @@ public interface ProductDao {
 
     List<ProductDto> EcoVegetable(Map map) throws Exception;
 
-    List<ProductDto> main(Map map) throws Exception;
+    List<ProductDto> main(Map map, SearchCondition sc) throws Exception;
 
-    List<ProductDto> mainlist(String cd_type_id) throws Exception;
+    List<ProductDto> mainlist(String cd_type_name) throws Exception;
 
     List<ProductDto> goodslist(String cd_name) throws Exception;
 
+    List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception;
+
+    List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
+
+    int cateCnt(String cd_type_name) throws Exception;
+
+    String selectCate(Integer cd_name_num) throws Exception;
 }

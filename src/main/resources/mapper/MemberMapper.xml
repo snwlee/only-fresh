@@ -18,6 +18,25 @@
         from USER_TB
         where user_id = #{user_id};
     </select>
+    <select id="findCouponById" parameterType="int" resultType="CouponDto">
+        select UT.coupn_id, used, event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, value, expi_dd
+        from USER_COUPON_TB UT
+        join COUPON_TB CT
+        on UT.coupn_id = CT.coupn_id
+        where user_id = #{user_id}
+        and used = 0;
+    </select>
+    <select id="findCouponByCouponId" parameterType="int" resultType="CouponDto">
+        select event_id, nm, ds_max_posbl_amt, use_cnd, lmtt_cnd, func, value, expi_dd
+        from COUPON_TB CT
+        where CT.coupn_id = #{coupn_id};
+    </select>
+    <select id="findAddressById" parameterType="int" resultType="AddressDto">
+        select addr_id, main_addr, sub_addr, addr_name, addr_tel
+        from ADDRESS_TB
+        where user_id = #{user_id}
+        and chk_addr = 1;
+    </select>
     <update id="update" parameterType="Member">
         update USER_TB
         set user_nm = #{user_nm},
@@ -25,6 +44,21 @@
             telno = #{telno}
         where user_id = #{user_id};
     </update>
+<!--    <update id="updatePnt" parameterType="int">-->
+<!--        update USER_TB-->
+<!--        set pnt = #{pnt}-->
+<!--        where user_id = #{user_id};-->
+<!--    </update>-->
+    <update id="updatePnt" parameterType="int">
+        update USER_TB UT
+        inner join USER_COUPON_TB UCT
+        on UT.user_id = UCT.user_id
+        set used = 1,
+            pnt = #{pnt}
+        where coupn_id = #{coupn_id}
+        and UCT.user_id = #{user_id};
+    </update>
+
     <delete id="delete" parameterType="int">
         delete
         from USER_TB

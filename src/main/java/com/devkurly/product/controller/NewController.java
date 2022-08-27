@@ -19,7 +19,7 @@ public class NewController {
 
     @GetMapping("/DevKurly") // DevKurly MainPage
     public String main() {
-        return"product/productlist";
+        return "MainPage";
     }
 
     @GetMapping("/goodslist") // /goodslist?cd_name='친환경'

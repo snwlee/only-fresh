@@ -61,13 +61,14 @@ public class CartService {
     }
 
     @Transactional(readOnly = true)
-    public ProductDto checkProductStock(Cart cart) {
+    public Cart checkProductStock(Cart cart) {
         ProductDto productDto = cartMapper.findProductByPdtId(cart.getPdt_id());
         Integer stock = productDto.getStock();
         if (cart.getPdt_qty() > stock) {
+            cart.setPdt_qty(stock);
             throw new OutOfStockException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
         }
-        return productDto;
+        return cart;
     }
 
     public Integer addCart(CartSaveRequestDto requestDto) {
@@ -83,6 +84,14 @@ public class CartService {
             throw new RuntimeException();
         }
         return cartMapper.update(requestDto.toEntity());
+    }
+
+    public int getCookieId(Cookie tempCart) {
+        int id = 0;
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            id = Integer.parseInt(tempCart.getValue());
+        }
+        return id;
     }
 
     public int getCookieId(Cookie tempCart, HttpServletResponse response) {

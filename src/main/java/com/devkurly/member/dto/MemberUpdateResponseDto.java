@@ -11,10 +11,12 @@ public class MemberUpdateResponseDto {
     private String user_nm;
     private String user_email;
     private String telno;
+    private Integer pnt;
 
     public MemberUpdateResponseDto(Member member) {
         this.user_nm = member.getUser_nm();
         this.user_email = member.getUser_email();
         this.telno = member.getTelno();
+        this.pnt = member.getPnt();
     }
 }

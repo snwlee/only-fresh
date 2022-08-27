@@ -1,5 +1,6 @@
 package com.devkurly.cart.controller;
 
+import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.MemberMainResponseDto;
@@ -29,7 +30,11 @@ public class CartRestController {
 
     @PostMapping("/qty")
     public CartProductResponseDto modifyCartQty(@RequestBody CartProductResponseDto responseDto) {
-        cartService.checkProductStock(responseDto.toEntity());
+        Cart cart = cartService.checkProductStock(responseDto.toEntity());
+        responseDto.setPdt_qty(cart.getPdt_qty());
+        if (responseDto.getPdt_qty() < 1) {
+            responseDto.setPdt_qty(1);
+        }
         cartService.modifyCart(responseDto.toEntity());
         return responseDto;
     }

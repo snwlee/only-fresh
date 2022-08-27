@@ -24,80 +24,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 신상품페이지</title>
+    <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css">
     <link rel="stylesheet" type="text/css" href="/main/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product/productlist.css">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
-        #whole_container {
-            width: 100%;
-            height: 100vh;
-        }
-
-        button {
-            width: 200px;
-            height: 100px;
-        }
-
-        /* input {
-            width: 80%;
-        } */
         a {
             text-decoration: none;
-        }
-
-        #search_first a {
-            font-weight: 600;
-        }
-
-        .search-container {
-            margin-top: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .search-form {
-            height: 37px;
-            display: flex;
-        }
-
-        .search-option {
-            outline: none;
-            margin-right: 5px;
-            border: 1px solid #ccc;
-            color: gray;
-        }
-
-        .search-option > option {
-            text-align: center;
-        }
-
-        .search-button {
-            /* 메뉴바의 검색 버튼 아이콘  */
-            background-color: rgb(22, 22, 22);
-            color: rgb(209, 209, 209);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-        }
-
-        .search-button:hover {
-            color: rgb(165, 165, 165);
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .paging {
+            display: flex;
             color: black;
-            width: 100%;
             align-items: center;
         }
 
         .page {
-            color: black;
-            padding: 6px;
-            margin-right: 10px;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-top: 1px solid rgb(221, 221, 221);
+            border-right: 1px solid rgb(221, 221, 221);
+            border-bottom: 1px solid rgb(221, 221, 221);
+            border-image: initial;
+            border-left: none;
+            cursor: pointer;
+            background-color: rgb(247, 247, 247);
         }
 
         .paging-active {
@@ -107,18 +66,12 @@
         }
 
         .paging-container {
-            width: 100%;
-            height: 70px;
             display: flex;
-            margin-top: 50px;
-            margin: auto;
+            margin-top: 100px;
+            margin: 0 auto;
+            flex-direction: column;
+            justify-content: center;
         }
-
-        #img {
-            width: 249px;
-            height: 320px;
-        }
-
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -127,9 +80,9 @@
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
-                <a id="signup" href="${nameLink}">이름</a>
+                <a id="signup" href="${nameLink}">${name}</a>
                 <div></div>
-                <a id="signin" href="${signInOutLink}">로그아웃</a>
+                <a id="signin" href="${signInOutLink}">${signInOut}</a>
                 <div></div>
                 <a id="cust">고객센터</a>
             </div>
@@ -148,21 +101,22 @@
                 <img src="/main/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <img src="/main/imgs/location.png"/>
+                <a href="#" class="location"><img src="/main/imgs/location.png"/></a>
                 <img src="/main/imgs/heart.png"/>
-                <a href="carts/"><img src="/main/imgs/shopping-cart.png"/></a>
+                <a href="/carts/"><img src="/main/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
             <div id="category_container">
                 <img src=""/>
-                <span>카테고리</span>
+                <p style="font-size: 16px; width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <a href="/newlist">신상품</a>
-                <span>베스트</span>
-                <span>알뜰쇼핑</span>
-                <span>특가/혜택</span>
+
+                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a></span>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>
@@ -170,85 +124,114 @@
             </div>
         </div>
     </div>
-
-    <div class="search-container">
-        <form action="<c:url value="/product/newlist"/>" class="search-form" method="get">
-            <select class="search-option" name="option">
-                <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>검색</option>
-                <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>상품명</option>
-                <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>제조사명</option>
-            </select>
-            <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}"
-                   placeholder="검색어를 입력해주세요">
-            <input type="submit" class="search-button" value="검색">
-        </form>
+    <div id="cat_wrapper">
+        <div id="main_cat_container">
+            <%--            <li class="cat main_cat">채소</li>--%>
+        </div>
+        <div id="sub_cat_container">
+            <%--            <li class="cat sub_cat">채소</li>--%>
+        </div>
     </div>
-
     <div id="content">
-        <div id="min">
-                <h3>신상품</h3>
-                <div id="list">
-                <div id="count">총 000건</div>
+        <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
+
+            <h3 id="page_title"></h3>
+            <ul id="sortList"><a href=# id="NewAscBtn">신상품순</a>
+                <a href=# id="SelAscBtn">판매량순</a>
+                <a href=# id="DcAscBtn">혜택순</a>
+                <a href=# id="DescBtn">낮은가격순</a></ul>
+            <span id="cd_type_name"></span>
+            <span id="cd_name"></span>
+
+
+            <div id="product" style="display: flex;">
 
             </div>
-            <div style="display: flex; justify-content:center; flex-wrap: wrap; border: 5px solid salmon;">
-                <div class="product_list">
-                <div id="newproduct">
 
+            <div class="paging-container">
+                <div class="paging">
+                    <c:if test="${totalCnt!=null && totalCnt!=0}">
+                        <c:if test="${ph.showPrev}">
+                            <a class="page"
+                               href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.beginPage-1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">&lt;</a>
+                        </c:if>
+                        <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                            <a class="page ${i==ph.sc.page? "paging-active" : ""}"
+                               href="<c:url value="/product/newlist${ph.sc.getQueryString(i)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">${i}</a>
+                        </c:forEach>
+                        <c:if test="${ph.showNext}">
+                            <a class="page"
+                               href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.endPage+1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">&gt;</a>
+                        </c:if>
+                    </c:if>
                 </div>
-
-                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <img src="/logo.svg" alt="logo">
+        <div id="member_container">
+            <a href="https://github.com/dr94406">
+                <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+            </a>
+            <a href="https://github.com/PGRRR">
+                <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+            </a>
+            <a href="https://github.com/Riiver-J">
+                <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+            </a>
+            <a href="https://github.com/narlae">
+                <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+            </a>
+            <a href="https://github.com/xpmxf4">
+                <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+            </a>
+            <a href="https://github.com/didqksrla">
+                <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+            </a>
+        </div>
+    </footer>
+</div>
 
 <script>
-    let showList = function (){
+    let page = '<c:out value="${param.page}"/>';
+    let pageSize = '<c:out value="${param.pageSize}"/>';
+    let sort = '<c:out value="${param.sort}"/>';
+    let cd_name_num = '<c:out value="${param.cd_name_num}"/>';
+    let cd_type_name = '<c:out value="${param.cd_type_name}"/>';
+    let showList = function () {
         $.ajax({
             type: 'GET',
-            url: '/product/call',
+            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize,
+            // http://localhost/product/newlist?page=1&pageSize=12&cd_name_num=1&cd_type_name=%27%EC%B1%84%EC%86%8C%27&sort=0
             success: function (result) {
-                $("#newproduct").html(toHtml(result.list1));
+                $("#product").html(toHtml(result.list)); // 상품 리스트를 가져온다.
+                $("#cd_type_name").text(result.cd_type_name);
+                $("#cd_name").text(result.cd_name); // 카테고리의 이름을 가져온다.
+                $("#page_title").text(result.title); // 상품의 제목을 가져온다.
             },
-            error: function () {alert("error")}
+            error: function () {
+                alert("error")
+            }
         });
     }
 
     let toHtml = function (lists) {
         let tmp = "";
         lists.forEach(function (ProductDto) {
-            tmp += '<div class="newproduct">'
+            tmp += '<div class="products" style="margin-top:50px">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
-            tmp += '<span class="de_type">[' + ProductDto.de_type + ']+</span>'
-            tmp += '<div class="product_title">' + ProductDto.title + '<h3/>'
-            tmp += '<span class="product_price">' + ProductDto.price + '원</span></div>'
-            tmp += '<span class="product_sel_price">' + ProductDto.sel_price + '원</span></div>'
+            tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "샛별배송" : "낮배송") + '</span>'
+            tmp += '<div class="product_title">' + ProductDto.title + '</div>'
+            tmp += '<span class="product_ds_rate">' + ProductDto.ds_rate + '%' + '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
+            tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span>'
+            tmp += '<span class="product_tag">' + ProductDto.tag_name + '</span></div>'
         })
         return tmp;
     }
-    $(document).ready(function (){
+    $(document).ready(function () {
         showList();
-}
+    })
 </script>
-    <div class="paging-container">
-        <div class="paging">
-                        <c:if test="${totalCnt!=null && totalCnt!=0}">
-                            <c:if test="${ph.showPrev}">
-                                <a class="page"
-                                   href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
-                            </c:if>
-                            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                                <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-                                   href="<c:url value="/product/newlist${ph.sc.getQueryString(i)}"/>">${i}</a>
-                            </c:forEach>
-                            <c:if test="${ph.showNext}">
-                                <a class="page"
-                                   href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>
-                            </c:if>
-                        </c:if>
-
-    </div>
-    </div>
-    </div>
-</div>
-    </div>
-</div>
 </body>
 </html>

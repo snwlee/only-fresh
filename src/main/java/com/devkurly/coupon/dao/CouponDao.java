@@ -5,6 +5,7 @@ import com.devkurly.coupon.domain.UserCouponDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CouponDao {
     // C
@@ -22,6 +23,6 @@ public interface CouponDao {
 
     // D
     int delete(int coupn_id) throws Exception;
-
     int deleteAll() throws Exception;
+    int deleteUserCoupon(Map<String, Integer> map) throws Exception;
 }

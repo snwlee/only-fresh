@@ -134,9 +134,7 @@
 <div id="container" style="width:100%; background-color:white; color:black; text-align:center">
   <ul>
     <li><a class="btn" href="<c:url value="/"/>">DevKurly</a></li>
-    <li>
 
-    </li>
     <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sel_price'/>">높은 가격순</a></li>
     <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=ds_rate'/>">혜택순</a></li>
     <li><a class="btn" href="<c:url value='/product/list?page=1&pageSize=10&order_sc=sales_rate'/>">판매량순</a></li>
@@ -154,6 +152,7 @@
     </form>
   </div>
   <table border="1">
+    <div>상품리스트</div>
     <div>상품리스트</div>
     <c:forEach var="ProductDto" items="${list}">
       <form action="/carts/${ProductDto.pdt_id}" id="form" method="post">
@@ -211,7 +210,7 @@
 
   <br>
   <div class="paging-container">
-    <div class="paging">
+    <div class="paging" >
       <%--                    <c:if test="${totalCnt==null || totalCnt==0}">--%>
       <%--                        <div> 게시물이 없습니다. </div>--%>
       <%--                    </c:if>--%>

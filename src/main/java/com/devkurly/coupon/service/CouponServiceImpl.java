@@ -5,8 +5,13 @@ import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.coupon.domain.UserCouponDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CouponServiceImpl implements CouponService {
@@ -77,14 +82,25 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
+    @Transactional
     public List<CouponDto> selectUserCoupons(Integer user_id) throws Exception {
         if (user_id <= 0) throw new Exception("" + HttpStatus.BAD_REQUEST);
 
         List<CouponDto> list = null;
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
         try {
             list = couponDao.readUserCoupons(user_id);
-            System.out.println("list = " + list);
+            // 불러온 list 에 유효기간이 지난 쿠폰이 있다면, list 에서 지우고 동시에 DB 에서도 지운다
+            for (int i = 0; i < list.size(); i++) {
+                CouponDto coupon = list.get(i);
+                Date expi_dd = dateFormat.parse(coupon.getExpi_dd());
+                if (expi_dd.before(new Date())) {
+                    list.remove(i);
+                    this.deleteUserCoupon(coupon.getCoupn_id(), user_id);
+                }
+            }
             return list;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -134,4 +150,13 @@ public class CouponServiceImpl implements CouponService {
         }
     }
 
+    @Override
+    public int deleteUserCoupon(Integer coupn_id, Integer user_id) throws Exception {
+        Map<String, Integer> map = new HashMap<>();
+
+        map.put("coupn_id", coupn_id);
+        map.put("user_id", user_id);
+
+        return couponDao.deleteUserCoupon(map);
+    }
 }

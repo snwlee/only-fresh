@@ -14,18 +14,19 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>여기에 상품 제목 들어가유 c 태그로 잘 넣어주세용</title>
+    <title>마이 쿠폰 페이지</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
-    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
+    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {
             width: 100%;
@@ -77,7 +78,7 @@
         <div id="menubar">
             <div id="category_container">
                 <img src=""/>
-                <span>카테고리</span>
+                <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
                 <span><a href="">신상품</a></span>
@@ -89,6 +90,14 @@
                 <span id="purple_deli_info">샛별·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
+        </div>
+    </div>
+    <div id="cat_wrapper">
+        <div id="main_cat_container">
+            <%--            <li class="cat main_cat">채소</li>--%>
+        </div>
+        <div id="sub_cat_container">
+            <%--            <li class="cat sub_cat">채소</li>--%>
         </div>
     </div>
     <div id="content">
@@ -107,16 +116,16 @@
                 <a href="">
                     <li>배송지 관리</li>
                 </a>
-                <a href="">
+                <a href="/mypage/myReview?page=1&pageSize=10">
                     <li>상품 후기</li>
                 </a>
-                <a href="">
+                <a href="/mypage/product_inquiry?page=1&pageSize=10">
                     <li>상품 문의</li>
                 </a>
                 <a href="">
                     <li>적립금</li>
                 </a>
-                <a href="">
+                <a href="/mypage">
                     <li>쿠폰</li>
                 </a>
                 <a href="">
@@ -136,8 +145,16 @@
                     </button>
                 </form>
             </div>
+            <div id="is_used_tab_container">
+                <div id="unused_coupons"  class="is_used_tabs">
+                    사용 가능 쿠폰
+                </div>
+                <div id="used_coupons" class="is_used_tabs">
+                    쿠폰 사용 내역
+                </div>
+            </div>
             <div id="optional_function">
-
+                사용 가능 쿠폰 0 장
             </div>
             <div id="mypage_content_body">
                 <div class="cols">
@@ -152,9 +169,66 @@
             </div>
         </div>
     </div>
+    <footer>
+        <img src="/logo.svg" alt="logo">
+        <div id="member_container">
+            <a href="https://github.com/dr94406">
+                <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+            </a>
+            <a href="https://github.com/PGRRR">
+                <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+            </a>
+            <a href="https://github.com/Riiver-J">
+                <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+            </a>
+            <a href="https://github.com/narlae">
+                <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+            </a>
+            <a href="https://github.com/xpmxf4">
+                <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+            </a>
+            <a href="https://github.com/didqksrla">
+                <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+            </a>
+        </div>
+    </footer>
 </div>
-
 <script>
+    let wrapper = $("#cat_wrapper");
+    let show_category_button = $("#show_category_button");
+    let main_cat_container = $("#main_cat_container");
+    let sub_cat_container = $("#sub_cat_container");
+    let sub_cat = $(".sub_cat");
+
+    show_category_button.hover(() => {
+        main_cat_container.show();
+    })
+
+    wrapper.mouseleave(() => {
+        main_cat_container.hide();
+        sub_cat_container.hide();
+    })
+
+    sub_cat_container.mouseleave(() => {
+        sub_cat_container.hide();
+    })
+
+    let categories = null;
+
+    let catToLi = function (res) {
+        let tmp = '';
+
+        res.forEach(el => {
+            tmp += '<a href="/product/newlist?cd_name_num='
+            tmp += el.cd_name_num
+            tmp += '&page=1&pageSize=12"<li class="cat main_cat">'
+            tmp += el.cd_name
+            tmp += '</li></a>'
+        })
+
+        return tmp;
+    }
+
     let dateParse = function (str) {
         let y = str.substring(0, 4),
             m = str.substring(4, 6),
@@ -170,41 +244,102 @@
         return new Date(y, m, d) < new Date(0);
     }
 
-    let toHtml = function (res) {
+    let toCouponHtml = function (res) {
         let tmp = '';
 
         res.forEach(el => {
-            console.log(el.used);
-            tmp += '<div class="coupon cols">' +
-                '<div class="coupon_name first_col"> <h4>' +
-                el.nm + '</h4><p>최대 ' +
-                el.ds_max_posbl_amt.toLocaleString() +
-                '원 할인</p> <p>' +
-                (el.lmtt_cnd == null ? "" : el.lmtt_cnd) +
-                '</p> </div><div class="coupon_func second_col col">' +
-                el.func + '</div><div class="coupon_rate third_col col">' +
-                el.rate + '%</div><div class="coupon_due fourth_col col">' +
-                dateParse(el.expi_dd) +
-                '까지</div><div class="coupon_used fifth_col col">' +
-                (el.used ? "사용" : "미사용") +
-                '</div></div>';
+            tmp += '<div class="coupon cols">'
+            tmp += '<div class="coupon_name first_col"> <h4>'
+            tmp += el.nm
+            tmp += '</h4><p>최대 '
+            tmp += el.ds_max_posbl_amt.toLocaleString()
+            tmp += '원 할인</p> <p>'
+            tmp += (el.lmtt_cnd == null ? "" : el.lmtt_cnd)
+            tmp += '</p> </div><div class="coupon_func second_col col">'
+            tmp += el.func + '</div><div class="coupon_rate third_col col">'
+            tmp += el.value + `\${el.unit_type ? "%" : " 원"}`
+            tmp += '</div><div class="coupon_due fourth_col col">'
+            tmp += dateParse(el.expi_dd)
+            tmp += '까지</div><div class="coupon_used fifth_col col">'
+            tmp += (el.used ? "사용" : "미사용")
+            tmp += '</div></div>';
         })
 
         return tmp;
     }
 
-    $(document).ready(
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/mypage/coupon',  // 요청 URI
-            success: function (result) {
-                $("#optional_function").html(`사용 가능 쿠폰 \${result.length} 장`);
-                $("#coupons").html(toHtml(result));
-            },
-            error: function (result) {
-                alert("쿠폰 불러오기 실패");
-            } // 에러가 발생했을 때, 호출될 함수
-        })
+    let coupon_container = {};
+
+    let onOff = true;
+
+    $(".is_used_tabs").click((e) => {
+        let coupons = $("#coupons");
+
+        onOff = !onOff;
+
+        if(onOff){
+            $("#unused_coupons").css("background-color", "#dddddd");
+            $("#used_coupons").css("background-color","white")
+        } else {
+            $("#unused_coupons").css("background-color", "white");
+            $("#used_coupons").css("background-color","#dddddd")
+        }
+
+        if (coupon_container[e.currentTarget.id].length === 0) {
+            coupons.html("<div class='no_coupon_box'>쿠폰이 없습니다!</div>");
+            return;
+        } else if (e.currentTarget.innerText === "사용 가능 쿠폰") {
+            coupons.html(toCouponHtml(coupon_container.unused_coupons));
+            return;
+        }
+        coupons.html(toCouponHtml(coupon_container.used_coupons));
+    })
+
+    $(document).ready(() => {
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/mypage/coupon',  // 요청 URI
+                success: function (result) {
+                    if (!result.false) {
+                        coupon_container.unused_coupons = [];
+                        $("#coupons").html("<div class='no_coupon_box'>쿠폰이 없습니다!</div>");
+                    } else {
+                        coupon_container.unused_coupons = result.false;
+                        $("#optional_function").html(`사용 가능 쿠폰 \${result.false.length} 장`);
+                        $("#coupons").html(toCouponHtml(result.false));
+                    }
+
+                    if (!result.true) {
+                        coupon_container.used_coupons = [];
+                    } else {
+                        coupon_container.used_coupons = result.true;
+                    }
+                },
+                error: function () {
+                    alert("쿠폰 불러오기 실패");
+                } // 에러가 발생했을 때, 호출될 함수
+            });
+
+            $.ajax({
+                type: 'GET',       // 요청 메서드
+                url: '/product/categories',  // 요청 URI
+                success: function (res) {
+                    categories = res;
+                    $.each(res, (el) => {
+                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
+                    })
+                },
+                error: function (result) {
+                    alert("쿠폰 불러오기 실패");
+                }, // 에러가 발생했을 때, 호출될 함수
+                complete: function () {
+                    $(".main_cat").mouseenter((e) => {
+                        sub_cat_container.show();
+                        sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
+                    })
+                }
+            })
+        }
     )
 
     let addCoupon = function () {

@@ -131,17 +131,17 @@ public class MemberController {
     }
 
     private void cookieToLoginCart(Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
-        if (Optional.ofNullable(tempCart).isPresent()) {
-            tempCart.setPath("/");
-            tempCart.setMaxAge(0);
-            response.addCookie(tempCart);
-        }
-        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart, response));
+        List<Cart> carts = cartService.viewAllCart(cartService.getCookieId(tempCart));
         for (Cart cart : carts) {
             cart.setUser_id(getMemberResponse(session));
             cartSaveRequestDto.saveCart(cart.getUser_id(), cart.getPdt_id(), cart.getPdt_qty());
             cartService.addCart(cartSaveRequestDto);
-            cartService.removeCart(cartService.getCookieId(tempCart, response));
+            cartService.removeCart(cartService.getCookieId(tempCart));
+        }
+        if (Optional.ofNullable(tempCart).isPresent()) {
+            tempCart.setPath("/");
+            tempCart.setMaxAge(0);
+            response.addCookie(tempCart);
         }
     }
     public static Integer getMemberResponse(HttpSession session) {

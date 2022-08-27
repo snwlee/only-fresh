@@ -106,6 +106,7 @@ public class EventController {
     //    U
     @PatchMapping("/{event_id}")
     public ResponseEntity<String> modify(@RequestBody EventDto eventDto) {
+        System.out.println(eventDto);
         try {
             service.modify(eventDto);
             return new ResponseEntity<>("Modify Successful", HttpStatus.OK);

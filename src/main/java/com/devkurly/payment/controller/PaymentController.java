@@ -2,8 +2,12 @@ package com.devkurly.payment.controller;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.global.ErrorCode;
+import com.devkurly.member.domain.Member;
+import com.devkurly.member.service.MemberService;
 import com.devkurly.order.dto.OrderResponseDto;
+import com.devkurly.order.dto.OrderSaveRequestDto;
 import com.devkurly.order.service.OrderService;
 import com.devkurly.payment.dto.PaymentResponseDto;
 import com.devkurly.payment.dto.PaymentSaveRequestDto;
@@ -20,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
 
@@ -32,15 +35,34 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final OrderService orderService;
     private final CartService cartService;
+    private final MemberService memberService;
 
     @PostMapping("/{ord_id}")
-    public String requestPayment(@PathVariable Integer ord_id, PaymentSaveRequestDto requestDto, HttpSession session) {
+    public String requestPayment(@PathVariable Integer ord_id, OrderSaveRequestDto orderSaveRequestDto, PaymentSaveRequestDto paymentSaveRequestDto, HttpSession session) {
         Integer user_id = getMemberResponse(session);
-        requestDto.savePayment(ord_id, user_id);
-        if (!orderService.checkOrder(ord_id).getAll_amt().equals(requestDto.getAll_amt())) {
+        Integer used_acamt = orderSaveRequestDto.getUsed_acamt();
+        Member memberById = memberService.findMemberById(user_id);
+        Integer all_dc_amt;
+        if (orderSaveRequestDto.getCoupn_id() != 0) {
+            CouponDto couponByCouponId = memberService.findCouponByCouponId(orderSaveRequestDto.getCoupn_id());
+            all_dc_amt = used_acamt + couponByCouponId.getValue();
+        } else {
+            all_dc_amt = used_acamt;
+        }
+        if (paymentSaveRequestDto.getAll_amt() < 0) {
+            throw new PaymentException("결제 금액이 음수가 될 수 없습니다.", ErrorCode.PAYMENT_ERROR);
+        }
+        if (memberById.getPnt() < used_acamt) {
+            throw new PaymentException("보유한 포인트보다 많은 포인트를 사용할 수 없습니다.", ErrorCode.PAYMENT_ERROR);
+        }
+        if ((orderService.checkOrder(ord_id).getAll_amt() - all_dc_amt) != paymentSaveRequestDto.getAll_amt()) {
             throw new PaymentException("주문 가격과 결제 가격이 일치하지 않습니다.", ErrorCode.PAYMENT_ERROR);
         }
-        paymentService.addPayment(requestDto);
+        orderSaveRequestDto.saveOrder(ord_id, user_id);
+        paymentSaveRequestDto.savePayment(ord_id, user_id, all_dc_amt);
+        orderService.updateOrder(orderSaveRequestDto);
+        paymentService.addPayment(paymentSaveRequestDto);
+        memberService.updateMemberPnt(user_id, (memberById.getPnt() - used_acamt), orderSaveRequestDto.getCoupn_id());
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(ord_id);
         for (OrderResponseDto responseDto : orderResponseDto) {
             Cart cart = new Cart();

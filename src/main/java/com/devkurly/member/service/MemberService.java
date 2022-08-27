@@ -1,16 +1,21 @@
 package com.devkurly.member.service;
 
+import com.devkurly.address.domain.AddressDto;
+import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.MemberMapper;
 import com.devkurly.member.domain.Member;
 import com.devkurly.member.dto.*;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
+import com.devkurly.order.exception.AddressException;
+import com.devkurly.order.exception.OrderException;
 import com.devkurly.util.EncryptSha256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,20 +46,9 @@ public class MemberService {
         return new MemberUpdateResponseDto(member);
     }
 
-    private static void checkEncryptPassword(String pwd, Member member) {
-        String encryptPassword = EncryptSha256.encrypt(pwd);
-        if (!encryptPassword.equals(member.getPwd())) {
-            throw new SignInException("틀린 비밀번호 입니다.", ErrorCode.SIGN_IN_FAIL);
-        }
-    }
-
     public MemberUpdateResponseDto findUpdateMember(Integer user_id) {
-        Member member = getMember(user_id);
+        Member member = findMemberById(user_id);
         return new MemberUpdateResponseDto(member);
-    }
-
-    private Member getMember(Integer user_id) {
-        return Optional.ofNullable(memberMapper.findById(user_id)).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
     }
 
     public MemberUpdateResponseDto modifyMember(MemberUpdateRequestDto updateRequest) {
@@ -64,4 +58,34 @@ public class MemberService {
         return new MemberUpdateResponseDto(member);
     }
 
+    public Integer updateMemberPnt(Integer user_id, Integer pnt, Integer coupn_id) {
+        return memberMapper.updatePnt(user_id, pnt, coupn_id);
+    }
+
+    public List<CouponDto> findCoupon(Integer user_id) {
+        List<CouponDto> couponById = memberMapper.findCouponById(user_id);
+        if (couponById.isEmpty()) {
+            throw new OrderException("사용 가능한 쿠폰이 없습니다.", ErrorCode.ORDER_ERROR);
+        }
+        return couponById;
+    }
+
+    public CouponDto findCouponByCouponId(Integer coupn_id) {
+        return memberMapper.findCouponByCouponId(coupn_id);
+    }
+
+    public AddressDto findAddress(Integer user_id) {
+        return Optional.ofNullable(memberMapper.findAddressById(user_id)).orElseThrow(() -> new AddressException("배송지 등록이 필요 합니다.", ErrorCode.NO_ADDRESS_ERROR));
+    }
+
+    public Member findMemberById(Integer user_id) {
+        return Optional.ofNullable(memberMapper.findById(user_id)).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
+    }
+
+    private static void checkEncryptPassword(String pwd, Member member) {
+        String encryptPassword = EncryptSha256.encrypt(pwd);
+        if (!encryptPassword.equals(member.getPwd())) {
+            throw new SignInException("틀린 비밀번호 입니다.", ErrorCode.SIGN_IN_FAIL);
+        }
+    }
 }

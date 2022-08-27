@@ -1,5 +1,6 @@
 package com.devkurly.product.dao;
 
+import com.devkurly.product.domain.MainSubCatDto;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.domain.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
@@ -32,6 +33,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
+        return session.selectList(namespace + "ProductThriftyList", map);
+    }
+    @Override
     public List<ProductDto> ProductNewList(Map map) throws Exception {
         return session.selectList(namespace + "ProductNewList", map);
     }
@@ -42,16 +47,17 @@ public class ProductDaoImpl implements ProductDao {
     }
 
 
-    @Override
-    public List<ProductDto> ProductThriftyList(Map map) throws Exception {
-        return session.selectList(namespace + "ProductThriftyList", map);
-    }
+
 
     @Override
     public int count() throws Exception {
         return session.selectOne(namespace + "count");
     }
 
+    @Override
+    public List<MainSubCatDto> getCatList(){
+        return session.selectList(namespace+"selectCategories");
+    }
 
     // U
 
@@ -75,10 +81,14 @@ public class ProductDaoImpl implements ProductDao {
         return session.delete(namespace + "delete", map);
     }
 
-    public List<ProductDto> mainlist(String cd_type_id)throws Exception {
-        return session.selectList(namespace + "mainlist", cd_type_id);
+    public List<ProductDto> mainlist(String cd_type_name)throws Exception {
+        return session.selectList(namespace + "mainlist", cd_type_name);
     }
 
+    @Override
+    public int ThriftyCnt(Integer sel_price)throws Exception{
+        return session.selectOne(namespace+"ThriftyCnt",sel_price);
+    }
 
 
     @Override
@@ -122,13 +132,54 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductDto> main(Map map) throws Exception {
+    public List<ProductDto> main(Map map, SearchCondition sc) throws Exception {
         return session.selectList(namespace+"main",map);
     }
+
+    /*@Override
+    public List<ProductDto> main(Map map) throws Exception {
+        return session.selectList(namespace+"main",map);
+    }*/
 
     @Override
     public List<ProductDto> goodslist(String cd_name) throws Exception {
         return session.selectList(namespace+"goodslist",cd_name);
+    }
+
+
+
+
+    @Override
+    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        map.put("cd_name_num",cd_name_num);
+        return session.selectList(namespace+"CodeNameSelect",map);
+    }
+    @Override
+    public int codeNameSelectCnt(Integer cd_name_num)throws Exception {
+        return session.selectOne(namespace + "codeNameSelectCnt", cd_name_num);
+    }
+
+    @Override
+    public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset",sc.getOffset());
+        map.put("pageSize",sc.getPageSize());
+        map.put("cd_type_name",cd_type_name);
+        return session.selectList(namespace+"cate",map);
+    }
+
+    @Override
+    public int cateCnt(String cd_type_name) throws Exception {
+        return session.selectOne(namespace+"cateCnt",cd_type_name);
+    }
+
+
+    @Override
+    public String selectCate(Integer cd_name_num) throws Exception {
+        return session.selectOne(namespace+"selectCate",cd_name_num);
     }
 
 }
