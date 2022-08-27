@@ -74,9 +74,7 @@
             border-radius: 30px;
         }
 
-        .coupon_due fourth_col col {
-            color: ;
-        }
+        .
 
 
     </style>
