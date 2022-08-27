@@ -58,4 +58,9 @@
         delete
         from COUPON_TB;
     </delete>
+    <delete id="deleteUserCoupon" parameterType="map">
+        delete
+        from USER_COUPON_TB
+        where coupn_id = #{coupn_id} and user_id=#{user_id}
+    </delete>
 </mapper>

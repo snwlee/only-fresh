@@ -116,22 +116,34 @@
         where bbs_id = #{bbs_id}
     </update>
 
-    <update id="increaseLike" parameterType="int">
+    <update id="upDownLike" parameterType="map">
         update REVIEW_BOARD_TB
-        set revw_like = revw_like + 1
+        set revw_like = revw_like + #{likeUpDown}
         where bbs_id = #{bbs_id}
     </update>
 
-    <select id="selectUserLike" parameterType="map" resultType="int">
+    <select id="selectUserLike" parameterType="BoardDto" resultType="int">
+        select like_no
+        from USER_LIKE_NO
+        where user_id = #{user_id} and bbs_id = #{bbs_id}
+    </select>
+
+    <select id="checkLikeNoTB" parameterType="BoardDto" resultType="int">
         select count(*)
         from USER_LIKE_NO
         where user_id = #{user_id} and bbs_id = #{bbs_id}
     </select>
 
     <insert id="UserLikeNo" parameterType="BoardDto">
-        insert into USER_LIKE_NO (user_id, bbs_id, like_no, in_user, up_user)
-        values (#{user_id}, #{bbs_id}, #{like_no}, #{user_id}, #{user_id})
+        insert into USER_LIKE_NO (user_id, bbs_id, in_user, up_user)
+        values (#{user_id}, #{bbs_id}, #{user_id}, #{user_id})
     </insert>
+
+    <update id="updateUserLikeNo" parameterType="map">
+        update USER_LIKE_NO
+        set like_no = #{like_no}
+        where user_id = #{user_id} and bbs_id = #{bbs_id}
+    </update>
 
     <insert id="insertAnswer" parameterType="CommentDto">
         insert into ANSWER_TB (bbs_id, inq_ans, int_user, up_user)
