@@ -51,9 +51,9 @@ public interface ProductDao {
 
     List<ProductDto> selectProductId() throws Exception;
 
-    List<ProductDto> ProductListDESC(Map map); // 정렬
+    List<ProductDto> ProductListDESC(Map map)throws Exception; // 정렬
 
-
+    List<ProductDto> ProductListASC(Map map) throws Exception;
      List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception;
 
      int searchResultCnt(SearchCondition sc) throws Exception;
@@ -72,9 +72,9 @@ public interface ProductDao {
 
     List<ProductDto> goodslist(String cd_name) throws Exception;
 
-    List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception;
+    List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num, String order_sc, String asc) throws Exception;
 
-    List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
+    List<ProductDto> cate(String cd_type_name, SearchCondition sc, String order_sc, String asc) throws Exception;
 
     int cateCnt(String cd_type_name) throws Exception;
 

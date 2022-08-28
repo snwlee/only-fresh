@@ -134,7 +134,7 @@
         <div id="container">
             <div id="product_list">
                 <div class="select_or_delete">
-                    <span id="select_all" style="display: flex;">
+                    <span id="select_all" style="display: flex; cursor: pointer;">
                     <img id="select_all_checked"
                          class="select_all"
                          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3Ni4wMDAwMDAsIC0xMDkwLjAwMDAwMCkgdHJhbnNsYXRlKDEwMC4wMDAwMDAsIDkzNi4wMDAwMDApIHRyYW5zbGF0ZSg2MC4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzVGMDA4MCIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"
@@ -147,7 +147,10 @@
                         <input type="checkbox" id="allCheck" checked hidden>
                     </span>
                     <span class="select_contour"></span>
-                    <span>선택삭제</span>
+                    <form id="del-form" action="/carts/delete/checked" method="get">
+                        <input type="hidden" name="checked" id="checked-del" value=""/>
+                        <span id="delete-checked" style="cursor: pointer">선택삭제</span>
+                    </form>
                 </div>
                 <div class="products_container">
                     <h4 class="product_type">냉장 상품</h4>
@@ -165,7 +168,9 @@
                         <h4>배송지</h4>
                         <p id="is_star_deli">배송지를 등록하고</p>
                         <p>구매 가능한 상품을 확인하세요!</p>
-                        <a href="/address/list"><button>배송지 등록</button></a>
+                        <a href="/address/list">
+                            <button>배송지 등록</button>
+                        </a>
                     </div>
                     <div id="payment_box">
                         <div style="padding: 20px">
@@ -280,18 +285,26 @@
     });
 </script>
 <script>
-    let checkArr = [];
 
-    $("input[class='checked-cart']:checked").each(function () {
-        checkArr.push($(this).attr("data-pdt-id"));
+    $('#delete-checked').click(function () {
+
+        let checkArr = [];
+
+        $("input[class='checked-cart']:checked").each(function () {
+            checkArr.push($(this).attr("data-pdt-id"));
+        });
+
+        if (checkArr.length === 0) {
+            $(this).css('cursor', 'default');
+            return;
+        } else {
+            $(this).css('cursor', 'pointer');
+        }
+
+        $("#checked-del").val(checkArr);
+
+        $('#del-form').submit();
     });
-
-    if (checkArr.length === 0) {
-        $('#select_all_checked').css('display', 'none');
-        $('#select_all_unchecked').css('display', 'block');
-        $('#order_submit').attr('disabled', true).text('상품을 선택해주세요').css('background-color', '#DDDDDD').css('cursor', 'default');
-        $('#allCheck').prop('checked', false);
-    }
 
     $("#order_submit").click(function () {
 
@@ -302,6 +315,10 @@
         $("input[class='checked-cart']:checked").each(function () {
             checkArr.push($(this).attr("data-pdt-id"));
         });
+
+        if (checkArr.length === 0) {
+            return;
+        }
 
         $("#checked").val(checkArr);
 
@@ -456,6 +473,8 @@
                     $('#payment_price').html(total().toLocaleString('en-US') + '원');
                     $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
                     $('input:checkbox').prop('checked', true);
+                    $('#delete-checked').css('cursor', 'cursor');
+                    $('#select_all').css('cursor', 'cursor');
                     $('#select_all_checked').css('display', 'block');
                     $('#select_all_unchecked').css('display', 'none');
                     $('.cart-checked').css('display', 'block')
@@ -558,9 +577,9 @@
                         if ($('#cart-qty-' + index).text() <= 2) {
                             $('#minus-btn-' + index).attr('disabled', true);
                             $('#cart-qty-' + index).text(1);
-                            return;
+                        } else {
+                            $('#cart-qty-' + index).text($('#cart-qty-' + index).text() - 1);
                         }
-                        $('#cart-qty-' + index).text($('#cart-qty-' + index).text() - 1);
                         $('#plus-btn-' + index).attr('disabled', false);
                         let cart = {
                             user_id: ${id},
@@ -595,7 +614,12 @@
 
             },
             error: function () {
-                alert('error')
+                $('#select_all_checked').css('display', 'none');
+                $('#select_all_unchecked').css('display', 'block');
+                $('#delete-checked').css('cursor', 'default');
+                $('#select_all').css('cursor', 'default');
+                $('#order_submit').attr('disabled', true).text('상품을 선택해주세요').css('background-color', '#DDDDDD').css('cursor', 'default');
+                $('#allCheck').prop('checked', false);
             }
         });
     });

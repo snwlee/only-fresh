@@ -5,15 +5,15 @@
 <mapper namespace="com.devkurly.product.dao.ProductMapper">
 
 
-<!--    <select id="count" resultType="int">-->
-<!--        SELECT count(*) FROM PRODUCT_TB P-->
-<!--                 JOIN PRODUCT_TAG_TB T-->
-<!--        ON T.pdt_id = P.pdt_id-->
-<!--            JOIN TAG_TB TG-->
-<!--            ON TG.tag_id = T.tag_id-->
-<!--            JOIN CATEGORY_TB C-->
-<!--            ON C.pdt_id = P.pdt_id-->
-<!--    </select>-->
+    <!--    <select id="count" resultType="int">-->
+    <!--        SELECT count(*) FROM PRODUCT_TB P-->
+    <!--                 JOIN PRODUCT_TAG_TB T-->
+    <!--        ON T.pdt_id = P.pdt_id-->
+    <!--            JOIN TAG_TB TG-->
+    <!--            ON TG.tag_id = T.tag_id-->
+    <!--            JOIN CATEGORY_TB C-->
+    <!--            ON C.pdt_id = P.pdt_id-->
+    <!--    </select>-->
 
 
     <delete id="deleteAll">
@@ -27,30 +27,30 @@
 
     <insert id="create" parameterType="Product">
         INSERT INTO PRODUCT_TB
-        (pdt_id, title, ds_rate, sel_price, price, sub_title,company,de_type)
+            (pdt_id, title, ds_rate, sel_price, price, sub_title,company,de_type)
         VALUES
             (#{pdt_id},#{price},#{ds_rate},#{sel_price}, #{title}, #{sub_title},#{company},#{de_type})
     </insert>
 
     <select id="ProductNewList" parameterType="SearchCondition" resultType="Product">
-       SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
-        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
-        P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+                P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
 
         FROM PRODUCT_TB P
-        JOIN PRODUCT_TAG_TB T
-        ON T.pdt_id = P.pdt_id
-        JOIN TAG_TB TG
-        ON TG.tag_id = T.tag_id
-        JOIN CATEGORY_TB C
-        ON C.pdt_id = P.pdt_id
-        JOIN COMMON_CODE_TB CCT
-        ON CCT.cat_code = C.cat_code
-        JOIN COMMON_CODE_TYPE_TB CCTT
-        ON CCTT.cd_type_id = CCT.cd_type_id
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+                 JOIN COMMON_CODE_TB CCT
+                      ON CCT.cat_code = C.cat_code
+                 JOIN COMMON_CODE_TYPE_TB CCTT
+                      ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE TRUE
           AND title LIKE concat('%', #{keyword}, '%')
-        ORDER BY in_date DESC, ${AscBtn}Asc
+        ORDER BY in_date DESC
         limit #{offset}, #{pageSize}
     </select>
 
@@ -110,6 +110,25 @@
         limit #{offset}, #{pageSize}
     </select>
 
+    <select id="PriceAscList" parameterType="map" resultType="Product">
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+                P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+        FROM PRODUCT_TB P
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+                 JOIN COMMON_CODE_TB CCT
+                      ON CCT.cat_code = C.cat_code
+                 JOIN COMMON_CODE_TYPE_TB CCTT
+                      ON CCTT.cd_type_id = CCT.cd_type_id
+        ORDER BY P.sel_price ASC
+        limit #{offset}, #{pageSize}
+    </select>
+
     <select id="ProductList"  parameterType="SearchCondition" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
         P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
@@ -132,29 +151,29 @@
         limit #{offset}, #{pageSize}
     </select>
 
-    <select id="mainlist" resultType="Product" parameterType="SearchCondition">
+    <select id="mainlist" resultType="Product" parameterType="String">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
-        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
-        P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
+                P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+                P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
 
         FROM PRODUCT_TB P
-        JOIN PRODUCT_TAG_TB T
-        ON T.pdt_id = P.pdt_id
-        JOIN TAG_TB TG
-        ON TG.tag_id = T.tag_id
-        JOIN CATEGORY_TB C
-        ON C.pdt_id = P.pdt_id
-        JOIN COMMON_CODE_TB CCT
-        ON CCT.cat_code = C.cat_code
-        JOIN COMMON_CODE_TYPE_TB CCTT
-        ON CCTT.cd_type_id = CCT.cd_type_id
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
+                 JOIN COMMON_CODE_TB CCT
+                      ON CCT.cat_code = C.cat_code
+                 JOIN COMMON_CODE_TYPE_TB CCTT
+                      ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE CCTT.cd_type_name =#{cd_type_name}
         limit 0, 4
     </select>
 
 
     <select id="cate" parameterType="map" resultType="Product">
-        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,P.adt_sts,
                 P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
                 P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
         FROM PRODUCT_TB P
@@ -169,6 +188,7 @@
                  JOIN COMMON_CODE_TYPE_TB CCTT
                       ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE CCTT.cd_type_name =#{cd_type_name}
+        ORDER BY P.${order_sc} DESC, ${asc}
         limit #{offset}, #{pageSize}
     </select>
     <select id="cateCnt" parameterType="String" resultType="int">
@@ -190,7 +210,7 @@
 
 
     <select id="CodeNameSelect" parameterType="map" resultType="Product">
-        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
+        SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,P.adt_sts,
                 P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
                 P.de_type,P.company,C.cat_code,CCTT.cd_type_name,CCT.cd_name,CCT.cat_code
 
@@ -206,6 +226,7 @@
                  JOIN COMMON_CODE_TYPE_TB CCTT
                       ON CCTT.cd_type_id = CCT.cd_type_id
         WHERE CCT.cd_name_num =#{cd_name_num}
+        ORDER BY P.${order_sc} DESC, ${asc}
         limit #{offset}, #{pageSize}
     </select>
 
@@ -226,17 +247,15 @@
     </select>
     <select id="ProductListDESC" parameterType="map" resultType="Product">
         SELECT  P.pdt_id, TG.tag_name, P.title, P.sub_title,
-        P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
-        P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.in_date
+                P.ds_rate, P.price,P.image,P.sel_price,P.sales_rate,
+                P.de_type,P.company,P.stock,C.cat_code,C.cd_name,P.in_date
         FROM PRODUCT_TB P
-        JOIN PRODUCT_TAG_TB T
-        ON T.pdt_id = P.pdt_id
-        JOIN TAG_TB TG
-        ON TG.tag_id = T.tag_id
-        JOIN CATEGORY_TB C
-        ON C.pdt_id = P.pdt_id
-        WHERE TRUE
-        <include refid="searchCondition"/>
+                 JOIN PRODUCT_TAG_TB T
+                      ON T.pdt_id = P.pdt_id
+                 JOIN TAG_TB TG
+                      ON TG.tag_id = T.tag_id
+                 JOIN CATEGORY_TB C
+                      ON C.pdt_id = P.pdt_id
         ORDER BY ${order_sc} DESC
         limit #{offset}, #{pageSize}
     </select>
@@ -256,7 +275,7 @@
                in_user,
                up_date,
                up_user
-            FROM PRODUCT_TB
+        FROM PRODUCT_TB
     </sql>
 
 
@@ -269,8 +288,8 @@
                 AND company LIKE concat('%', #{keyword}, '%')
             </when>
             <otherwise>
-                AND (title   LIKE concat('%', #{keyword}, '%')
-                OR   company LIKE concat('%', #{keyword}, '%'))
+                AND  title   LIKE concat('%', #{keyword}, '%')
+                OR   company LIKE concat('%', #{keyword}, '%')
             </otherwise>
         </choose>
     </sql>

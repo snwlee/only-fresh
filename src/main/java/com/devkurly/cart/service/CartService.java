@@ -3,9 +3,7 @@ package com.devkurly.cart.service;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.dto.CartSaveRequestDto;
-import com.devkurly.cart.exception.DuplicateCartException;
-import com.devkurly.cart.exception.EmptyCartException;
-import com.devkurly.cart.exception.OutOfStockException;
+import com.devkurly.cart.exception.*;
 import com.devkurly.global.ErrorCode;
 import com.devkurly.mapper.CartMapper;
 import com.devkurly.product.domain.ProductDto;
@@ -33,9 +31,6 @@ public class CartService {
         return cartMapper.findByCart(cart);
     }
 
-    /**
-     * temp
-     */
     @Transactional(readOnly = true)
     public List<Cart> viewAllCart(Integer user_id) {
         return cartMapper.findAllByUserId(user_id);
@@ -57,7 +52,11 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public List<CartProductResponseDto> viewCartProduct(Integer user_id) {
-        return Optional.ofNullable(cartMapper.joinCartProductByUserId(user_id)).orElseThrow(() -> new EmptyCartException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT));
+        List<CartProductResponseDto> dtoList = cartMapper.joinCartProductByUserId(user_id);
+        if (dtoList.isEmpty()) {
+            throw new EmptyCartRestException("장바구니가 비어 있습니다.", ErrorCode.EMPTY_CART_PRODUCT);
+        }
+        return dtoList;
     }
 
     @Transactional(readOnly = true)
@@ -66,10 +65,22 @@ public class CartService {
         Integer stock = productDto.getStock();
         if (cart.getPdt_qty() > stock) {
             cart.setPdt_qty(stock);
+            throw new OutOfStockRestException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
+        }
+        return cart;
+    }
+
+    @Transactional(readOnly = true)
+    public Cart checkAddProductStock(Cart cart) {
+        Integer addQty = cart.getPdt_qty();
+        Integer cartQty = cartMapper.findByCart(cart).getPdt_qty();
+        Integer stock = cartMapper.findProductByPdtId(cart.getPdt_id()).getStock();
+        if ((cartQty + addQty) > stock) {
             throw new OutOfStockException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
         }
         return cart;
     }
+
 
     public Integer addCart(CartSaveRequestDto requestDto) {
         try {

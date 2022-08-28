@@ -546,7 +546,7 @@
                         </div>
                         <div class="payment_row">
                             <span>휴대폰</span>
-                            <span>` + result.telno + `</span>
+                            <span>` + result.telno.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`) + `</span>
                         </div>
                         <div class="payment_row">
                             <span>이메일</span>
@@ -577,7 +577,7 @@
                         </div>
                         <div class="payment_row">
                             <span>상세 정보</span>
-                            <span>` + result.addr_name + `, ` + result.addr_tel + `</span>
+                            <span>` + result.addr_name + `, ` + result.addr_tel.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`) + `</span>
                         </div>
                         <input type="text" name="addr_id" value="` + result.addr_id + `" hidden/>
                         `;

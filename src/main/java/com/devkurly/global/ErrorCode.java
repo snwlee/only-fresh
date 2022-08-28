@@ -2,6 +2,7 @@ package com.devkurly.global;
 
 import com.devkurly.cart.exception.DuplicateCartException;
 import com.devkurly.cart.exception.EmptyCartException;
+import com.devkurly.cart.exception.MaxCartException;
 import com.devkurly.cart.exception.OutOfStockException;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
@@ -22,7 +23,8 @@ public enum ErrorCode {
     OUT_OF_STOCK(200, "OOS1", "제품 재고가 부족합니다.", OutOfStockException.class),
     PAYMENT_ERROR(500, "PE1", "결제 중 오류가 발생 했습니다.", PaymentException.class),
     ORDER_ERROR(400, "OE1", "주문 중 오류가 발생 했습니다.", OrderException.class),
-    NO_ADDRESS_ERROR(400, "NAE1", "등록된 배송지가 없습니다.", AddressException.class);
+    NO_ADDRESS_ERROR(400, "NAE1", "등록된 배송지가 없습니다.", AddressException.class),
+    MAX_CART_ERROR(400, "MCE1", "장바구니 최대치를 초과 했습니다.", MaxCartException.class);
 
     private final int status;
     private final String code;

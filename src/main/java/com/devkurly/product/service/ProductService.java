@@ -45,8 +45,10 @@ public interface ProductService {
     List<ProductDto> EventList(Map map) throws Exception;
 
 
+    List<ProductDto> ProductNewList(Map map, SearchCondition sc) throws Exception;
 
-    List<ProductDto> ProductListDESC(Map map);
+    List<ProductDto> ProductListDESC(SearchCondition sc, String order_sc)throws Exception;
+    List<ProductDto> ProductListASC(SearchCondition sc)throws Exception;
 
     List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception;
 
@@ -55,8 +57,6 @@ public interface ProductService {
     List<ProductDto> CateList(Map map) throws Exception;
 
 
-    List<ProductDto> EcoVegetable(Map map) throws Exception;
-
     List<ProductDto> main(Map map, SearchCondition sc) throws Exception;
 
 
@@ -64,9 +64,9 @@ public interface ProductService {
 
     List<ProductDto> goodslist(String cd_name) throws  Exception;
 
-    List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws  Exception;
+    List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num, String order_sc, String asc) throws  Exception;
 
-    List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception;
+    List<ProductDto> cate(String cd_type_name, SearchCondition sc, String order_sc, String asc) throws Exception;
 
     int cateCnt(String cd_type_name) throws Exception;
 

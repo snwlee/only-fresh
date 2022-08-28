@@ -97,11 +97,11 @@ button {
     font-weight: 700;
     background: white;
 }
-
-#content p{
+.subtitle{
     font-size: 17px;
     font-weight: 700;
     color:gray;
+    margin-top: 20px;
 }
 
 /*a{*/
