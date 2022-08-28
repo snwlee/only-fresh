@@ -67,7 +67,6 @@ public class ProductController {
             Map map = new HashMap();
             if (order_sc == null || order_sc == "") {
                 list = productService.CateList(map);
-                System.out.println("list = " + list);
             } else {
                 map.put("order_sc", order_sc);
                 list = productService.ProductListDESC(map);
@@ -119,16 +118,16 @@ public class ProductController {
 
     @GetMapping("/call")
     @ResponseBody
-    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, String AscBtn, String DescBtn) {
+    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, String AscBtn, String DescBtn) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         List list = null;
+        int totalCnt = productService.getSearchResultCnt(sc);
         try {
             if(sort==null){
                 if(cd_type_name!=null){ // 대분류 카테고리 코드
                     list = productService.cate(cd_type_name,sc);
                     map.put("cd_type_name",cd_type_name);
-                    System.out.println("cd_type_name = " + cd_type_name);
-                    map.put("list",list);
+                        map.put("list",list);
                     map.put("AscBtn",AscBtn);
                     map.put("DescBtn",DescBtn);
                 }
@@ -158,11 +157,8 @@ public class ProductController {
                 list = productService.ProductThriftyList(sc);
                 map.put("list", list);
                 map.put("title","알뜰쇼핑");
-                map.put("AscBtn",AscBtn);
-                map.put("DescBtn",DescBtn);
             }
             else if(sort==0){ // 메인페이지
-
                 List list1 = productService.mainlist("채소");
                 List list2 = productService.mainlist("과일·견과·쌀");
                 List list3 = productService.mainlist("수산·해산·건어물");
@@ -205,12 +201,15 @@ public class ProductController {
             if (sort == 1) { // 신상품
                 m.addAttribute("totalCnt", totalCnt);
                 m.addAttribute("ph", ph);
+                m.addAttribute("sc", sc);
+                System.out.println("신상품 카운트 = " + totalCnt);
+                System.out.println("신상품 ph = " + ph);
+                System.out.println("신상품 sc = " + sc);
             } else if (sort == 2) { // 베스트
                 m.addAttribute("totalCnt", totalCnt);
                 m.addAttribute("ph", ph);
             } else if (sort == 3) { // 알뜰쇼핑
                 int total= productService.ThriftyCnt(sel_price);
-                System.out.println("total = " + total);
                 m.addAttribute("total",total);
                 m.addAttribute("ph", ph);
             }

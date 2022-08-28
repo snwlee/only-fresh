@@ -101,24 +101,24 @@
         <div id="min" style="display: flex; flex-direction: column; align-items: center;">
 
             <div class="main_title">
-                <span>건강을 위한 식료품 모음집</span>
-                <p>비건인들을 위한 오늘의 만찬</p>
+                <span class="title">건강을 위한 식료품 모음집</span>
+                <p class="subtitle">비건인들을 위한 오늘의 만찬</p>
             </div>
             <div id="product" style="display: flex;">
             </div>
 
 
             <div class="main_title">
-                <span>달콤한 하루를 위한 과일 모음집</span>
-                <p>과일을 사랑하는 사람들을 위한 사랑방</p>
+                <span class="title">달콤한 하루를 위한 과일 모음집</span>
+                <p class="subtitle">과일을 사랑하는 사람들을 위한 사랑방</p>
             </div>
             <div id="product2" style="display: flex;">
             </div>
 
 
             <div class="main_title">
-                <span>바다의 참맛을 누리기 위한 해산물 모음집</span>
-                <p>귀하디 귀한 바다의 보배를 누리세요</p>
+                <span class="title">바다의 참맛을 누리기 위한 해산물 모음집</span>
+                <p class="subtitle">귀하디 귀한 바다의 보배를 누리세요</p>
             </div>
             <div id="product3" style="display: flex;">
             </div>

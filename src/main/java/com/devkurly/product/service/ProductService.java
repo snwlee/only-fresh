@@ -45,6 +45,7 @@ public interface ProductService {
     List<ProductDto> EventList(Map map) throws Exception;
 
 
+    List<ProductDto> ProductNewList(Map map, SearchCondition sc) throws Exception;
 
     List<ProductDto> ProductListDESC(Map map);
 
@@ -54,8 +55,6 @@ public interface ProductService {
 
     List<ProductDto> CateList(Map map) throws Exception;
 
-
-    List<ProductDto> EcoVegetable(Map map) throws Exception;
 
     List<ProductDto> main(Map map, SearchCondition sc) throws Exception;
 

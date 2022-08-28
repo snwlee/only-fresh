@@ -20,7 +20,6 @@
 />
 <html>
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -143,7 +142,18 @@
             <span id="cd_type_name"></span>
             <span id="cd_name"></span>
 
-
+            <div class="search-container">
+                <form action="<c:url value="/product/newlist?sort=1&page=1&pageSize=12"/>"
+                      class="search-form" method="get">
+                    <select class="search-option" name="option">
+                        <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>검색</option>
+                        <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>상품명</option>
+                        <option value="C" ${ph.sc.option=='C' ? "selected" : ""}>제조사명</option>
+                    </select>
+                    <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                    <input type="submit" class="search-button" value="검색">
+                </form>
+            </div>
             <div id="product" style="display: flex;">
 
             </div>
@@ -199,16 +209,19 @@
     let sort = '<c:out value="${param.sort}"/>';
     let cd_name_num = '<c:out value="${param.cd_name_num}"/>';
     let cd_type_name = '<c:out value="${param.cd_type_name}"/>';
+    let option = '<c:out value="${param.option}"/>';
+    let keaword = '<c:out value="${param.keyword}"/>';
     let showList = function () {
         $.ajax({
             type: 'GET',
-            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize,
+            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize + '&option' + option + '&keyword' + keaword,
             // http://localhost/product/newlist?page=1&pageSize=12&cd_name_num=1&cd_type_name=%27%EC%B1%84%EC%86%8C%27&sort=0
             success: function (result) {
                 $("#product").html(toHtml(result.list)); // 상품 리스트를 가져온다.
                 $("#cd_type_name").text(result.cd_type_name);
                 $("#cd_name").text(result.cd_name); // 카테고리의 이름을 가져온다.
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
+
             },
             error: function () {
                 alert("error")
