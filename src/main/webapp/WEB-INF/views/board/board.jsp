@@ -219,13 +219,13 @@
                 <col style="width:40px;">
                 <col style="width:88px;">
                 <col style="width:85px;">
-                <col style="width:98px;">
+                <col style="width:90px;">
             </colgroup>
             <tbody>
             <tr>
                 <th class="no" scope="col">번호</th>
                 <th class="title" scope="col">제목</th>
-                <th class="grade" scope="col" style="display:block">등급</th>
+                <th class="grade" scope="col" style="display:block"></th>
                 <th class="writer" scope="col">작성자</th>
                 <th class="reg_date" scope="col">작성일</th>
                 <th class="like_cnt" scope="col">추천</th>
@@ -342,7 +342,7 @@
             tmp += '<td class="title">'
             tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
             tmp += '</td>'
-            tmp += '<td class="grade">VIP</td>'
+            tmp += '<td class="grade" ></td>'
             tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
             tmp += '<td class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</td>'
             tmp += '<td class="like_cnt">'+BoardDto.revw_like+'</td>'
@@ -455,7 +455,21 @@
         });
 
         $(".p_write_btn").click(function(){
-            $(".modal").css("display","flex");
+            $.ajax({
+                type:'GET',
+                url: '/chkOrder?user_id='+user_id,
+                success : function(result){
+                    for (let i = 0; i < result.length; i++) {
+                        console.log(result[i].pdt_id);
+                        if(pdt_id==result[i].pdt_id){
+                            $(".modal").css("display","flex");
+                            return;
+                        }
+                    }
+                    alert("구입한 상품만 후기를 작성할 수 있습니다.");
+                },
+                error   : function(){ alert("error") }
+            });
         })
 
         $("#myModal").on("click", ".btn-write", function(){

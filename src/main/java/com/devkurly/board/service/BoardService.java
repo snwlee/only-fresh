@@ -33,5 +33,6 @@ public interface BoardService {
     int modifyAnswer(CommentDto commentDto)throws Exception;
     int deleteAnswer(Integer bbs_id, int replyst) throws Exception;
     CommentDto readAnswer(Integer bbs_id)throws Exception;
+    List<BoardDto> checkReview(Integer user_id)throws Exception;
 
 }

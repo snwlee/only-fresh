@@ -221,9 +221,9 @@
             <colgroup>
                 <col style="width:70px;">
                 <col style="width:auto;">
-                <col style="width:120px;">
-                <col style="width:60px;">
-                <col style="width:90px;">
+                <col style="width:75px;">
+                <col style="width:100px;">
+                <col style="width:80px;">
             </colgroup>
             <tbody>
             <tr>
