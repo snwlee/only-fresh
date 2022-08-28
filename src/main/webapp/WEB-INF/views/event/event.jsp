@@ -54,8 +54,8 @@
                 <a>뷰티컬리</a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요" />
-                <img src="imgs/loupe.png" style="width: 20px; height: 20px" />
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="imgs/loupe.png" style="width: 20px; height: 20px" />
             </div>
             <div id="icon_container">
                 <img src="imgs/location.png" />
@@ -108,6 +108,16 @@
                 } // 에러가 발생했을 때, 호출될 함수
             })
         )
+
+        //검색
+        $("#search_btn").click(function(){
+            let keyword = $("#keyword").val();
+            window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+        });
+        $("input[id=keyword]").keydown(function (key){
+            if(key.keyCode==13)
+                $("#search_btn").trigger("click");
+        }); //검색 끝
     </script>
 </div>
 </body>
