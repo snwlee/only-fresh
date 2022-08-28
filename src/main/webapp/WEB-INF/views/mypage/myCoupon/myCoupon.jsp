@@ -60,8 +60,8 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/>
-                <a>마켓컬리</a>
+                <a href="/"> <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/></a>
+                <a href="/">마켓컬리</a>
                 <div></div>
                 <a>뷰티컬리</a>
             </div>

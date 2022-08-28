@@ -15,7 +15,7 @@ button {
 }
 
 #search_first a {
-    font-weight: 600;
+    font-weight: 400;
 }
 .main_title{
     display: flex;
@@ -100,16 +100,18 @@ button {
     font-weight: 700;
     background: white;
 }
-p{
+
+#content p{
     font-size: 17px;
     font-weight: 700;
     color:gray;
 }
-a{
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-}
+
+/*a{*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+/*}*/
 a:visited {
     text-decoration: none;
 }

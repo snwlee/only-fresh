@@ -1,5 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set
+        var="signInOut"
+        value="${sessionScope.memberResponse==null ? '로그인' : '로그아웃'}"
+/>
+<c:set
+        var="signInOutLink"
+        value="${sessionScope.memberResponse==null ? '/members' : '/members/signout'}"
+/>
+<c:set
+        var="name"
+        value="${sessionScope.memberResponse==null ? '회원가입' : sessionScope.memberResponse.user_nm}"
+/>
+<c:set
+        var="nameLink"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
+/>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -26,10 +42,6 @@
             align-items: center;
             padding: 30px 200px 160px 200px;
         }
-
-        /* input {
-            width: 80%;
-        } */
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -39,9 +51,9 @@
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
-                <a id="signup">회원가입</a>
+                <a id="signup" href="${nameLink}">${name}</a>
                 <div></div>
-                <a id="signin">로그인</a>
+                <a id="signin" href="${signInOutLink}">${signInOut}</a>
                 <div></div>
                 <a id="cust">고객센터</a>
             </div>
