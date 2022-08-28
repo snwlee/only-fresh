@@ -144,7 +144,7 @@
                                 style="font-size: 24px; color: #cacaca;">주문번호 ${paymentResponse.ord_id}</span></span>
                         <span></span>
                     </div>
-                    <div class="product"></div>
+                    <div id="product"></div>
                 </div>
                 <h4 class="product_type">배송 정보</h4>
                 <div class="products_container">
@@ -272,7 +272,7 @@
                     </div>
                     <div class="payment_row">
                         <span>연락처</span>
-                        <span>` + result.addr_tel + `</span>
+                        <span>` + result.addr_tel.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`) + `</span>
                     </div>
                     <div class="payment_row">
                         <span>받는 주소</span>
@@ -329,20 +329,23 @@
         url: '/payments/product',
         datatype: 'json',
         success: function (result) {
-            let address =
-                `<img src="https://img-cf.kurly.com/cdn-cgi/image/width=676,format=auto/shop/data/goods/1631585500477l0.jpg"
+            $.each(result, function (index, payProductDto) {
+                let product =
+                    `<div class="product">
+                    <img src="` + payProductDto.image + `"
                     alt="" class="product_img"/>
-                    <h4>[테스트] 테스트</h4>
+                    <h4>[` + payProductDto.company + `] ` + payProductDto.title + `</h4>
                     <div class="quantity_control_box">
-                    <div id="order-qty">1 개</div>
+                    <div id="order-qty">` + payProductDto.pdt_qty + ` 개</div>
                     </div>
                     <p id="order-sum" style="margin-bottom: 0px;padding-left: 100px;">
-                    <fmt:formatNumber value="${paymentResponse.all_amt}" pattern="###,###"/> 원</p>`;
-            $('#address').append(address);
+                    ` + (payProductDto.sel_price).toLocaleString() + ` 원</p>
+                    </div>`;
+                $('#product').append(product);
+            })
         },
         error: function () {
-            alert('배송지를 등록해 주세요');
-            location.href = '/address/list';
+            alert('error');
         }
     });
 </script>

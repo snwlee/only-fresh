@@ -84,9 +84,14 @@ public class ProductServiceImpl implements ProductService {
         return productDao.ProductBestList(map);
     }
 
+    @Override
+    public List<ProductDto> ProductNewList(Map map) throws Exception {
+        return null;
+    }
+
 
     @Override
-    public List<ProductDto> ProductNewList(Map map) throws Exception { // 신상품
+    public List<ProductDto> ProductNewList(Map map, SearchCondition sc) throws Exception { // 신상품
         return productDao.ProductNewList(map);
     }
 
@@ -126,11 +131,6 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getCatList();
     }
 
-    @Override
-    public List<ProductDto> EcoVegetable(Map map) throws Exception {
-        return productDao.EcoVegetable(map);
-
-    }
 
     @Override
     public List<ProductDto> main(Map map, SearchCondition sc) throws Exception {
