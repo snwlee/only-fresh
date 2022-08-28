@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <title>리뷰 게시판</title>
     <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-    <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <style>

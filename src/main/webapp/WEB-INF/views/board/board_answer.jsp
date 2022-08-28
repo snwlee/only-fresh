@@ -9,7 +9,7 @@
     <title>문의 게시판</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-    <link rel="stylesheet" type="text/css" href="/product_detail/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">
     <style>
         .title {

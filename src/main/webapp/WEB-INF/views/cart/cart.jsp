@@ -31,7 +31,7 @@
     <title>DevKurly :: 장바구니</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
-    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {
@@ -132,7 +132,7 @@
     <div id="content">
         <h2>장바구니</h2>
         <div id="container">
-            <div id="product_list">
+            <div id="product_list" style="margin-right: 20px;">
                 <div class="select_or_delete">
                     <span id="select_all" style="display: flex; cursor: pointer;">
                     <img id="select_all_checked"

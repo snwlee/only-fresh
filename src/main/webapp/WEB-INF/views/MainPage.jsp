@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css?ver=1">
-    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/main/main.css?ver=1">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>

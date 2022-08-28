@@ -30,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[${productDetailDto.company}] ${productDetailDto.title} :: DevKurly</title>
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-  <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
+  <link rel="stylesheet" type="text/css" href="/navigation.css">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
   <link rel="stylesheet" type="text/css" href="/footer.css">
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>

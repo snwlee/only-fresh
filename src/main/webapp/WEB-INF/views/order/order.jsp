@@ -32,7 +32,7 @@
     <title>DevKurly :: 주문서</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/order/order.css">
-    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {

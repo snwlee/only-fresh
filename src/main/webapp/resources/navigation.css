@@ -21,17 +21,28 @@
     width: 100%;
 }
 
-#signup_signin a, div {
+/*div {*/
+/*    font-size: 12px;*/
+/*    margin-right: 8px;*/
+/*}*/
+
+
+#signup, #signin {
+    color: #5f0080;
     font-size: 12px;
-    margin-right: 8px;
+    margin: auto 8px;
+    text-decoration: none;
 }
 
-#signup {
-    color: #5f0080
+#cust {
+    color: #333333;
+    font-size: 12px;
+    margin: auto 8px;
+    text-decoration: none;
 }
 
 #signup_signin div {
-    width: 0px;
+    /*width: 0px;*/
     border: 1px solid #d9d9d9;
 }
 
@@ -58,10 +69,12 @@
 #search_first a {
     font-size: 18px;
     color: #5f0080;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 #search_first div {
-    width: 0px;
+    width: 0;
     border: 1px solid #d9d9d9;
 }
 
@@ -104,7 +117,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 200 0 200;
+    padding: 0 200px 0 200px;
     margin-top: 28px;
     margin-bottom: 28px;
 }
@@ -120,13 +133,19 @@
 }
 
 
-
-
 #menus {
     display: flex;
     justify-content: space-between;
     width: 600px;
-    padding: 0 200 0 200;
+    padding: 0 200px 0 200px;
+}
+
+#menus a {
+    text-decoration: none;
+}
+
+#menus a:visited {
+    color: #333333;
 }
 
 #deli_info {
@@ -199,10 +218,10 @@
     margin: 0;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
+    z-index: 20;
 }
 
 #main_cat_container a, #sub_cat_container a {
-
     display: block;
     text-decoration: none;
     color: #333333;

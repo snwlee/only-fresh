@@ -31,7 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly :: 회원가입</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
-    <link rel="stylesheet" type="text/css" href="/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
     <link rel="stylesheet" type="text/css" href="/cart/temp.css">
     <style>
@@ -121,53 +121,32 @@
         </div>
     </div>
     <%--    header--%>
+    <%--@elvariable id="memberSaveRequestDto" type=""--%>
+    <form:form modelAttribute="memberSaveRequestDto" action="/members/signup" method="post">
     <form action="/members/signup" method="post" id="form" autocomplete="off">
         <div class="member-out-box">
             <div class="member-submit-box">
                 <div class="member-title">회원가입</div>
-                <span>이메일 *</span>
-                <input
-                        class="member-input-text"
-                        id="email"
-                        type="text"
-                        name="user_email"
-                        placeholder="이메일을 입력해주세요"
-                        autofocus
-                />
-                <span>비밀번호 *</span>
-                <input
-                        class="member-input-text"
-                        id="pwd"
-                        type="password"
-                        name="pwd"
-                        placeholder="비밀번호를 입력해주세요"
-                />
-                <span>비밀번호 확인 *</span>
-                <input
-                        class="member-input-text"
-                        id="cPassword"
-                        type="password"
-                        name="cPassword"
-                        placeholder="비밀번호를 한번 더 입력해주세요"
-                />
-                <span>이름 *</span>
-                <input
-                        class="member-input-text"
-                        id="name"
-                        type="text"
-                        name="user_nm"
-                        placeholder="이름을 입력해 주세요"
-                />
-                <span>휴대폰 *</span>
-                <input
-                        class="member-input-text"
-                        id="telno"
-                        type="text"
-                        name="telno"
-                        placeholder="휴대폰 번호를 입력해주세요."
-                />
+                <form:label path="user_email">이메일 <span style="color: orangered">*</span></form:label>
+                <form:input path="user_email"/>
+                <form:errors path="user_email"/>
+                <form:label path="pwd">비밀번호 <span style="color: orangered">*</span></form:label>
+                <form:input path="pwd"/>
+                <form:errors path="pwd"/>
+                <form:label path="cPassword">비밀번호 확인 <span style="color: orangered">*</span></form:label>
+                <form:input path="cPassword"/>
+                <form:errors path="cPassword"/>
+                <form:label path="name">이름 <span style="color: orangered">*</span></form:label>
+                <form:input path="name"/>
+                <form:errors path="name"/>
+                <form:label path="telno">휴대폰 <span style="color: orangered">*</span></form:label>
+                <form:input path="telno"/>
+                <form:errors path="telno"/>
                 <span>주소 *</span>
                 <button class="member-btn-b" type="button">주소 검색</button>
+                <form:label path="gender">성별</form:label>
+                <form:input path="gender"/>
+                <form:errors path="gender"/>
                 <span>성별</span>
                 <input type="text" name="gender" hidden/>
                 <div class="select-gender" role="radio-group">
@@ -190,31 +169,27 @@
                             onclick="document.querySelector('#name').value = 'non'"
                     /><label for="non">선택안함</label>
                 </div>
-                <span>생년월일</span>
-                <input
-                        class="member-input-text"
-                        type="date"
-                        name="bryr"
-                        placeholder="생일"
-                />
-                <span>추천인 이메일</span>
-                <input
-                        class="member-input-text"
-                        type="text"
-                        name="rcmdr_email"
-                        placeholder="추천인 이메일을 입력해주세요."
-                />
+                <form:label path="bryr">생년월일</form:label>
+                <form:input path="bryr"/>
+                <form:errors path="bryr"/>
+                <form:label path="rcmdr_email">추천인 이메일</form:label>
+                <form:input path="rcmdr_email"/>
+                <form:errors path="rcmdr_email"/>
+                <form:label path="required" value="">이용약관 동의 (필수) <span style="color: orangered">*</span></form:label>
+                <form:checkbox path="required"/>
+                <form:errors path="required"/>
+                <form:label path="age">본인은 만 14세 이상입니다. (필수) <span style="color: orangered">*</span></form:label>
+                <form:checkbox path="age"/>
+                <form:errors path="age"/>
+                <form:label path="prvc_arge">개인정보 수집 이용 동의 (선택)</form:label>
+                <form:checkbox path="prvc_arge"/>
+                <form:errors path="prvc_arge"/>
                 <span>이용약관동의 *</span>
-                <input type="checkbox" id="terms1" name="required" value="1">
-                <label for="terms1">이용약관 동의 (필수)</label><br>
-                <input type="checkbox" id="terms2" name="prvc_arge" value="1">
-                <label for="terms2">개인정보 수집 이용 동의 (선택)</label><br>
-                <input type="checkbox" id="terms3" name="age" value="1">
-                <label for="terms3">본인은 만 14세 이상입니다. (필수)</label><br>
                 <div class="member-btn-a" id="submit_btn" style="cursor: pointer">가입하기</div>
             </div>
         </div>
     </form>
+    </form:form>
     <script>
         $('#submit_btn').click(function () {
             if ($('#terms1').is(':checked') && $('#terms3').is(':checked')) {
@@ -223,7 +198,6 @@
                 alert('필수 약관에 동의해주세요.');
             }
         });
-        $()
     </script>
 </body>
 </html>

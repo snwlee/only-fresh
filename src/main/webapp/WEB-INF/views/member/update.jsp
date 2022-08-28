@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly :: 개인 정보 수정</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
-    <link rel="stylesheet" type="text/css" href="/cart/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
     <link rel="stylesheet" type="text/css" href="/cart/temp.css">
     <style>
