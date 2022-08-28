@@ -60,24 +60,24 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/CateList")
-    public String CateList(Model m, HttpServletRequest request, HttpSession session, String order_sc) {
-        try {
-            List<ProductDto> list = null;
-            Map map = new HashMap();
-            if (order_sc == null || order_sc == "") {
-                list = productService.CateList(map);
-                System.out.println("list = " + list);
-            } else {
-                map.put("order_sc", order_sc);
-                list = productService.ProductListDESC(map);
-            }
-            m.addAttribute("list", list);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "product/productCateList";
-    }
+//    @GetMapping("/CateList")
+//    public String CateList(Model m, HttpServletRequest request, HttpSession session, String order_sc) {
+//        try {
+//            List<ProductDto> list = null;
+//            Map map = new HashMap();
+//            if (order_sc == null || order_sc == "") {
+//                list = productService.CateList(map);
+//                System.out.println("list = " + list);
+//            } else {
+//                map.put("order_sc", order_sc);
+//                list = productService.ProductListDESC(map);
+//            }
+//            m.addAttribute("list", list);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "product/productCateList";
+//    }
 
 
 
@@ -98,70 +98,46 @@ public class ProductController {
 
 
 
-    @GetMapping("/EventList")
-    public String EventList( Model m, HttpServletRequest request, HttpSession session, String order_sc){
-        try {
-            List<ProductDto> list = null;
-            Map map = new HashMap();
-            if (order_sc == null || order_sc == "") {
-                list = productService.EventList(map);
-            } else {
-                map.put("order_sc", order_sc);
-                list = productService.ProductListDESC(map);
-            }
-            m.addAttribute("list", list);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "product/productEventList";
-    }
+//    @GetMapping("/EventList")
+//    public String EventList( Model m, HttpServletRequest request, HttpSession session, String order_sc){
+//        try {
+//            List<ProductDto> list = null;
+//            Map map = new HashMap();
+//            if (order_sc == null || order_sc == "") {
+//                list = productService.EventList(map);
+//            } else {
+//                map.put("order_sc", order_sc);
+//                list = productService.ProductListDESC(map);
+//            }
+//            m.addAttribute("list", list);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "product/productEventList";
+//    }
 
 
     @GetMapping("/call")
     @ResponseBody
-    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, String AscBtn, String DescBtn) {
+    public ResponseEntity<Map> main(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, String order_sc, String asc) {
         Map<String, Object> map = new HashMap<String, Object>();
         List list = null;
         try {
             if(sort==null){
                 if(cd_type_name!=null){ // 대분류 카테고리 코드
-                    list = productService.cate(cd_type_name,sc);
+                    list = productService.cate(cd_type_name,sc, order_sc, asc);
                     map.put("cd_type_name",cd_type_name);
-                    System.out.println("cd_type_name = " + cd_type_name);
                     map.put("list",list);
-                    map.put("AscBtn",AscBtn);
-                    map.put("DescBtn",DescBtn);
+
                 }
                 if(cd_name_num!=null){ // 소분류 카테고리 코드
-                    list = productService.CodeNameSelect(cd_name_num,sc);
+                    list = productService.CodeNameSelect(sc,cd_name_num, order_sc, asc);
                     map.put("list",list);
-                    map.put("AscBtn",AscBtn);
-                    map.put("DescBtn",DescBtn);
                     String cd_name=productService.selectCate(cd_name_num);
                     map.put("cd_name",cd_name);
                 }
                 return new ResponseEntity<Map>(map, HttpStatus.OK);
-            }
-            if (sort == 1) { // 신상품
-                list = productService.getSearchResultPage(sc);
-                map.put("list", list);
-                map.put("title","신상품");
-                map.put("AscBtn",AscBtn);
-                map.put("DescBtn",DescBtn);
-            }else if(sort==2) { // 베스트
-                list = productService.ProductBestList(sc);
-                map.put("list", list);
-                map.put("title","베스트");
-                map.put("AscBtn",AscBtn);
-                map.put("DescBtn",DescBtn);
-            }else if(sort==3) { // 알뜰쇼핑
-                list = productService.ProductThriftyList(sc);
-                map.put("list", list);
-                map.put("title","알뜰쇼핑");
-                map.put("AscBtn",AscBtn);
-                map.put("DescBtn",DescBtn);
-            }
-            else if(sort==0){ // 메인페이지
+            }else if(sort==0){ // 메인페이지
 
                 List list1 = productService.mainlist("채소");
                 List list2 = productService.mainlist("과일·견과·쌀");
@@ -174,6 +150,29 @@ public class ProductController {
                 map.put("list4", list4);
                 map.put("list5", list5);
             }
+            if (order_sc.equals("in_date")) { // 신상품
+                list = productService.getSearchResultPage(sc);
+                map.put("list", list);
+                map.put("title","신상품");
+            }else if(order_sc.equals("sales_rate")) { // 베스트
+                list = productService.ProductBestList(sc);
+                map.put("list", list);
+                map.put("title","베스트");
+
+            }else if(order_sc.equals("ds_rate")) { // 할인율 높은 순서
+                list = productService.ProductListDESC(sc,order_sc);
+                map.put("list", list);
+                map.put("title","혜택순");
+            }else if(order_sc.equals("adt_sts")) { // 낮은 가격순
+                list = productService.ProductListASC(sc);
+                map.put("list", list);
+                map.put("title","낮은 가격순");
+            } else if(sort==3) { // 알뜰쇼핑
+                list = productService.ProductThriftyList(sc);//1만원 이하 상품
+                map.put("list", list);
+                map.put("title","알뜰쇼핑");
+            }
+
             return new ResponseEntity<Map>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,7 +181,7 @@ public class ProductController {
     }
 
     @GetMapping("/newlist") // 신상품, 베스트, 알뜰쇼핑
-    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m, Integer sel_price, String DescBtn,String AscBtn) {
+    public String mainStart(Integer sort, SearchCondition sc, Integer cd_name_num, String cd_type_name, Model m, Integer sel_price) {
         Paging ph = null;
         try {
             if (sort == null) {
@@ -210,7 +209,6 @@ public class ProductController {
                 m.addAttribute("ph", ph);
             } else if (sort == 3) { // 알뜰쇼핑
                 int total= productService.ThriftyCnt(sel_price);
-                System.out.println("total = " + total);
                 m.addAttribute("total",total);
                 m.addAttribute("ph", ph);
             }

@@ -110,16 +110,16 @@
                 <a href="">
                     <li>선물 내역</li>
                 </a>
-                <a href="">
+                <a href="/mypage/mypick?page=1&pageSize=5">
                     <li>찜한 상품</li>
                 </a>
                 <a href="">
                     <li>배송지 관리</li>
                 </a>
-                <a href="/mypage/myReview?page=1&pageSize=10">
+                <a href="/mypage/myReview?page=1&pageSize=5">
                     <li>상품 후기</li>
                 </a>
-                <a href="/mypage/product_inquiry?page=1&pageSize=10">
+                <a href="/mypage/product_inquiry?page=1&pageSize=5">
                     <li>상품 문의</li>
                 </a>
                 <a href="">
