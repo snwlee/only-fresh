@@ -5,6 +5,7 @@ import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.coupon.domain.CouponDto;
 import com.devkurly.order.domain.Order;
+import com.devkurly.order.dto.OrderProductNameResponseDto;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.order.service.OrderService;
 import com.devkurly.payment.dto.PaymentResponseDto;
@@ -35,19 +36,20 @@ public class PaymentRestController {
         return paymentService.viewPayment(ord_id);
     }
 
-//    @GetMapping("/product")
-//    public List<OrderResponseDto> readProduct(HttpSession session) {
-//        Integer ord_Id = getOrdId(session);
-//        List<OrderResponseDto> orderResponseList = orderService.viewOrderProduct(ord_Id);
-//        List<CartProductResponseDto> CartProductList = new ArrayList<>();
-//        for (OrderResponseDto orderResponseDto : orderResponseList) {
-////            orderService.
-//        }
-//    }
+    @GetMapping("/product")
+    public List<OrderProductNameResponseDto> readProduct(HttpSession session) {
+        Integer ord_Id = getOrdId(session);
+        List<OrderProductNameResponseDto> orderProduct = orderService.checkOrderProduct(ord_Id);
+        for (OrderProductNameResponseDto orderProductNameResponseDto : orderProduct) {
+            System.out.println("orderProductNameResponseDto.getTitle() = " + orderProductNameResponseDto.getTitle());
+            System.out.println("orderProductNameResponseDto.getSel_price() = " + orderProductNameResponseDto.getSel_price());
+        }
+        return orderProduct;
+    }
+
 
     private Integer getOrdId(HttpSession session) {
         Integer user_id = getMemberResponse(session);
-        Integer ord_id = orderService.checkRecentOrderId(user_id);
-        return ord_id;
+        return orderService.checkRecentOrderId(user_id);
     }
 }

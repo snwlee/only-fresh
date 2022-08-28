@@ -2,6 +2,7 @@ package com.devkurly.order.service;
 
 import com.devkurly.order.domain.Order;
 import com.devkurly.order.domain.OrderProduct;
+import com.devkurly.order.dto.OrderProductNameResponseDto;
 import com.devkurly.order.dto.OrderResponseDto;
 import com.devkurly.mapper.OrderMapper;
 import com.devkurly.order.dto.OrderSaveRequestDto;
@@ -25,6 +26,10 @@ public class OrderService {
     }
     public ProductDto checkProduct(Integer pdt_id) {
         return orderMapper.findByPdtId(pdt_id);
+    }
+
+    public List<OrderProductNameResponseDto> checkOrderProduct(Integer ord_id) {
+        return orderMapper.joinOrderProductName(ord_id);
     }
     public Integer insertOrderProduct(OrderProduct orderProduct) {
         return orderMapper.insertOrderProduct(orderProduct);
