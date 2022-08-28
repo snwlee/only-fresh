@@ -32,7 +32,7 @@ public class BoardController {
         return value;
     }
     @GetMapping("/boardlist")
-    public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize,  String sortType, Model m) {
+    public String board(Integer pdt_id, String bbs_clsf_cd, Integer page, Integer pageSize, Model m) {
         try {
             int totalCnt = boardService.getCount(bbs_clsf_cd, pdt_id);
             PageHandler ph = new PageHandler(totalCnt, page, pageSize);
@@ -189,4 +189,14 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/chkOrder")
+    public ResponseEntity<List<BoardDto>> checkOrder(Integer user_id) {
+        try {
+            List list = boardService.checkReview(user_id);
+            return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<BoardDto>>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

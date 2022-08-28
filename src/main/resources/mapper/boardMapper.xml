@@ -188,6 +188,13 @@
         where bbs_id = #{bbs_id}
     </select>
 
+    <select id="checkReview" parameterType="int" resultType="BoardDto">
+        SELECT pdt_id
+        FROM PAYMENT_TB
+                 JOIN ORDER_PRODUCT_TB
+        WHERE PAYMENT_TB.ord_id=ORDER_PRODUCT_TB.ord_id and setl_stus_cd = 'M001' and user_id = #{user_id}
+    </select>
+
 
 
 </mapper>
