@@ -38,8 +38,8 @@ public class CartController {
             requestDto.setPdt_qty(1);
         }
         int id = getId(tempCart, response, session);
-        cartService.viewAllCart(id);
         requestDto.saveCart(id, pdt_id);
+//        cartService.checkAddProductStock(requestDto.toEntity());
         cartService.checkProductStock(requestDto.toEntity());
         cartService.addCart(requestDto);
         return "redirect:/carts";

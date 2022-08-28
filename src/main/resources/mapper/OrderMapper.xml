@@ -29,6 +29,13 @@
         from PRODUCT_TB
         where pdt_id = #{pdt_id};
     </select>
+    <select id="joinOrderProductName" parameterType="int" resultType="com.devkurly.order.dto.OrderProductNameResponseDto">
+        select OPT.ord_id, OPT.pdt_id, pdt_qty, price, image, sel_price, title, stock, company
+        from ORDER_PRODUCT_TB OPT
+        join PRODUCT_TB PT
+        on OPT.pdt_id = PT.pdt_id
+        where ord_id = #{ord_id};
+    </select>
     <select id="joinOrderProduct" parameterType="int" resultType="com.devkurly.order.dto.OrderResponseDto">
         select OT.ord_id,
                user_id,

@@ -65,10 +65,22 @@ public class CartService {
         Integer stock = productDto.getStock();
         if (cart.getPdt_qty() > stock) {
             cart.setPdt_qty(stock);
+            throw new OutOfStockRestException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
+        }
+        return cart;
+    }
+
+    @Transactional(readOnly = true)
+    public Cart checkAddProductStock(Cart cart) {
+        Integer addQty = cart.getPdt_qty();
+        Integer cartQty = cartMapper.findByCart(cart).getPdt_qty();
+        Integer stock = cartMapper.findProductByPdtId(cart.getPdt_id()).getStock();
+        if ((cartQty + addQty) > stock) {
             throw new OutOfStockException("제품 재고가 부족합니다.", ErrorCode.OUT_OF_STOCK);
         }
         return cart;
     }
+
 
     public Integer addCart(CartSaveRequestDto requestDto) {
         try {

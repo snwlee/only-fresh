@@ -1,9 +1,6 @@
 package com.devkurly.global;
 
-import com.devkurly.cart.exception.EmptyCartException;
-import com.devkurly.cart.exception.EmptyCartRestException;
-import com.devkurly.cart.exception.MaxCartException;
-import com.devkurly.cart.exception.OutOfStockException;
+import com.devkurly.cart.exception.*;
 import com.devkurly.member.exception.DuplicateMemberException;
 import com.devkurly.member.exception.SignInException;
 import com.devkurly.member.exception.SignUpException;
@@ -43,11 +40,19 @@ public class GlobalExceptionHandler {
         response.sendRedirect("/carts?error=4");
     }
 
-    @ExceptionHandler(OutOfStockException.class)
-    public ResponseEntity<String> productCatcher(Exception e) {
+    @ExceptionHandler(OutOfStockRestException.class)
+    public ResponseEntity<String> productRestCatcher(Exception e) {
         System.out.println("GlobalExceptionHandler: 제품 재고가 부족합니다.");
         return ResponseEntity.badRequest().body(ErrorCode.OUT_OF_STOCK.getMessage());
     }
+
+    @ExceptionHandler(OutOfStockException.class)
+    public void productCatcher(HttpServletResponse response) throws IOException {
+        System.out.println("GlobalExceptionHandler: 장바구니 최대치에 도달 했습니다. (redirect)");
+        // redirect 작동 안함
+        response.sendRedirect("/carts?error=5");
+    }
+
 
     @ExceptionHandler(SignInException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
