@@ -152,4 +152,8 @@ public class BoardServiceImpl implements BoardService {
     public CommentDto readAnswer(Integer bbs_id)throws Exception {
         return boardDao.selectAnswer(bbs_id);
     }
+    @Override
+    public List<BoardDto> checkReview(Integer user_id)throws Exception {
+        return boardDao.checkReview(user_id);
+    }
 }

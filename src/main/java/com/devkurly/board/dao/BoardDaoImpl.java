@@ -187,5 +187,11 @@ public class BoardDaoImpl implements BoardDao {
     public CommentDto selectAnswer(Integer bbs_id) throws Exception {
         return session.selectOne(namespace + "selectAnswer", bbs_id);
     }
+    @Override
+    public List<BoardDto> checkReview(Integer user_id)throws Exception {
+        return session.selectList(namespace + "checkReview", user_id);
+    }
+
+
 
 }

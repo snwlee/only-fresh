@@ -36,5 +36,6 @@ public interface BoardDao {
     int updateAnswer(CommentDto commentDto)throws Exception;
     int deleteAnswer(Integer bbs_id)throws Exception;
     CommentDto selectAnswer(Integer bbs_id) throws Exception;
+    List<BoardDto> checkReview(Integer user_id)throws Exception;
 
     }

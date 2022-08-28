@@ -28,8 +28,10 @@ BoardService boardService;
             boardService.write(boardDto);
         }
         assertTrue(boardService.getCount("1",1)==200);
-
-
+    }
+    @Test
+    public void test1() throws Exception {
+        System.out.println("boardService.checkReview(34) = " + boardService.checkReview(34));
 
     }
 }
