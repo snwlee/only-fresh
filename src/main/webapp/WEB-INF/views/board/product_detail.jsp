@@ -30,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[${productDetailDto.company}] ${productDetailDto.title} :: DevKurly</title>
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-  <link rel="stylesheet" type="text/css" href="/navigation_detail.css">
+  <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
   <link rel="stylesheet" type="text/css" href="/footer.css">
   <style>
@@ -126,9 +126,9 @@
         <p style="width: 80px;" id="show_category_button">카테고리</p>
       </div>
       <div id="menus">
-        <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
-        <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
-        <a href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
+        <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+        <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+        <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
         <a href="/event/main">특가/혜택</a>
       </div>
       <div id="deli_info">
@@ -162,6 +162,7 @@
           <span id="price"></span>
         </div>
         <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->
+        <button id="add_coupon">쿠폰 지급</button>
         <div class="detail_column">
           <div class="column_title">배송</div>
           <div>

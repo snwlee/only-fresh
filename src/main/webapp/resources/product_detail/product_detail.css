@@ -60,7 +60,7 @@
     font-size: 14px;
     color: #5f0080;
     padding-bottom: 20px;
-    border-bottom: 1px solid #F4F4F4;
+    /*border-bottom: 1px solid #F4F4F4;*/
     margin-top: 14px
 }
 
@@ -242,3 +242,12 @@ nav div {
     justify-content: space-between;
 }
 
+#add_coupon {
+    width:280px;
+    height: 44px;
+    color: #5F0080;
+    border: 1px solid #5F0080;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+}
