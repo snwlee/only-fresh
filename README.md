@@ -1,4 +1,4 @@
-# 🛍️ Dev Kurly
+# 🪴 ONLY FRESH
 
 - 쇼핑몰 프로젝트
 
@@ -9,7 +9,7 @@
 | [김형민](https://github.com/dr94406) | [이선우](https://github.com/PGRRR) | [박채훈](https://github.com/xpmxf4)                                  | [김경빈](https://github.com/didqksrla) | [김영준](https://github.com/narlae) | [정여경](https://github.com/Riiver-J) |
 ## 📋 개요
 
-> 프로젝트 명 : Dev Kurly
+> 프로젝트 명 : ONLY FRESH
 >
 
 ## 🏗️ 개발 인원 및 기간
