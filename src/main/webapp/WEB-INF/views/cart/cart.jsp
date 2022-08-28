@@ -94,8 +94,8 @@
                 <a href="/">뷰티컬리</a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요"/>
-                <img src="/cart/imgs/loupe.png" style="width: 20px; height: 20px"/>
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="/cart/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
                 <img src="/cart/imgs/location.png"/>
@@ -622,6 +622,15 @@
                 $('#allCheck').prop('checked', false);
             }
         });
+        //검색
+        $("#search_btn").click(function(){
+            let keyword = $("#keyword").val();
+            window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+        });
+        $("input[id=keyword]").keydown(function (key){
+            if(key.keyCode==13)
+                $("#search_btn").trigger("click");
+        }); //검색 끝
     });
 </script>
 </body>

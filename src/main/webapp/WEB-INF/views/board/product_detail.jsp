@@ -33,6 +33,8 @@
   <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
   <link rel="stylesheet" type="text/css" href="/footer.css">
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <style>
     #whole_container {
       width: 100%;
@@ -105,14 +107,14 @@
     </div>
     <div id="search">
       <div id="search_first">
-        <img style="width:82px; height: 42px" src="/product_detail/logo.png" alt="logo" />
-        <a href="/DevKurly">마켓컬리</a>
+        <img style="width:82px; height: 42px" src="/main/imgs/DevKurly.png" alt="logo" />
+        <a href="/DevKurly">데브컬리</a>
         <div></div>
         <a href="/DevKurly">뷰티컬리</a>
       </div>
       <div id="input_container">
-        <input placeholder="검색어를 입력해주세요" />
-        <img src="/product_detail/imgs/loupe.png" style="width: 20px; height: 20px" />
+        <input placeholder="검색어를 입력해주세요" id="keyword"/>
+        <img id="search_btn" src="/product_detail/imgs/loupe.png" style="width: 20px; height: 20px" />
       </div>
       <div id="icon_container">
         <img src="/product_detail/imgs/location.png" />
@@ -297,6 +299,9 @@
 </div>
 <script>
   let pdt_id = ${param.pdt_id};
+  let title = '${productDetailDto.title}';
+  let image = '${productDetailDto.image}';
+  let company = '[${productDetailDto.company}]';
   //가격단위 콤마 추가
   let sel_price = ${productDetailDto.sel_price};
   let price = ${productDetailDto.price};
@@ -380,7 +385,24 @@
         type:'POST',
         url: '/carts/'+pdt_id+'?pdt_qty='+pdt_qty,
         success : function(result){
-          window.location.href = '/carts';
+
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'center-center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: '<img src="'+image+'" style="width: 50px; float: left; margin-right: 20px;" /><div style="width: 300px; text-align: left; margin-top: 12px; margin-bottom: 10px;      ">'+company + title +'<br>'+"장바구니에 상품이 추가되었습니다."+'</div>'
+          })
+
         },
       });
     });
@@ -405,6 +427,17 @@
         })
       }
     })
+
+    //검색
+    $("#search_btn").click(function(){
+      let keyword = $("#keyword").val();
+      window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+    });
+    $("input[id=keyword]").keydown(function (key){
+      if(key.keyCode==13)
+        $("#search_btn").trigger("click");
+    }); //검색 끝
+
   });
 </script>
 
