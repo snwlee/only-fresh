@@ -126,9 +126,9 @@
         <p style="width: 80px;" id="show_category_button">카테고리</p>
       </div>
       <div id="menus">
-        <a href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
-        <a href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
-        <a href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
+        <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+        <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+        <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
         <a href="/event/main">특가/혜택</a>
       </div>
       <div id="deli_info">

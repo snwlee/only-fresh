@@ -109,8 +109,8 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a>
-                <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
                 <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
                 <a href="/event/main">특가/혜택</a>
             </div>
@@ -253,7 +253,7 @@
         let tmp = '';
 
         res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12"<li class="cat main_cat">' + el.cd_name + '</li></a>'
+            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el.cd_name + '</li></a>'
         })
 
         return tmp;
@@ -269,7 +269,7 @@
                 categories = res;
 
                 $.each(res, (el) => {
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
+                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
                 })
             },
             error: function (result) {

@@ -81,10 +81,10 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span><a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a></span>
-                <span><a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a></span>
-                <span><a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a></span>
-                <span><a href="/event/main">특가/혜택</a></span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>
@@ -145,7 +145,7 @@
 
             res.forEach(el => {
 
-                tmp += "<a style='margin-bottom: 29px' href='" + "/product/newlist?cd_name_num=" + el.cat_cd + "&page=1&pageSize=12'><img style='width: 100%; height: 200px;' src='" + el.photo + "'/></a>";
+                tmp += "<a style='margin-bottom: 29px' href='" + "/product/newlist?cd_name_num=" + el.cat_cd + "&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC'><img style='width: 100%; height: 200px;' src='" + el.photo + "'/></a>";
                 // tmp += "<img width='200' height='100' src='" + el.photo + "'/>"
             })
 
@@ -170,7 +170,7 @@
                     success: function (res) {
                         categories = res;
                         $.each(res, (el) => {
-                            $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
+                            $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
                         })
                     },
                     error: function (result) {

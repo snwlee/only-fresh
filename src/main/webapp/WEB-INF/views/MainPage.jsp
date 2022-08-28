@@ -188,7 +188,7 @@
         res.forEach(el => {
             tmp += '<a href="/product/newlist?cd_name_num='
             tmp += el.cd_name_num
-            tmp += '&page=1&pageSize=12"<li class="cat main_cat">'
+            tmp += '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'
             tmp += el.cd_name
             tmp += '</li></a>'
         })
