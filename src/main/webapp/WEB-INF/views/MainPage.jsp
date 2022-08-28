@@ -225,30 +225,8 @@
         })
         return tmp;
     }
-    /* 카테고리 */
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-    let catToLi = function(res) {
-        let tmp = '';
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el.cd_name+'</li></a>'
-        })
-        return tmp;
-    }
-    let categories = null;
+
+
 
     $(document).ready(function () {
         showList();

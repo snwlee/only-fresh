@@ -249,4 +249,5 @@ nav div {
     border: 1px solid #5F0080;
     border-radius: 4px;
     background-color: transparent;
+    cursor: pointer;
 }

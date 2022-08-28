@@ -70,9 +70,9 @@
                 <img src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <img src="/mypage/myCoupon/imgs/location.png"/>
-                <img src="/mypage/myCoupon/imgs/heart.png"/>
-                <img src="/mypage/myCoupon/imgs/shopping-cart.png"/>
+                <a href="#" class="location"><img src="/main/imgs/location.png"/></a>
+                <img src="/main/imgs/heart.png"/>
+                <a href="/carts/"><img src="/main/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
