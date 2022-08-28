@@ -92,8 +92,12 @@ public class ProductDaoImpl implements ProductDao {
 
 
     @Override
-    public List<ProductDto> ProductListDESC(Map map) {
+    public List<ProductDto> ProductListDESC(Map map) throws Exception{ //사용
         return session.selectList(namespace + "ProductListDESC", map);
+    }
+    @Override
+    public List<ProductDto> ProductListASC(Map map) throws Exception{ //사용
+        return session.selectList(namespace + "PriceAscList", map);
     }
 
     @Override
@@ -150,11 +154,13 @@ public class ProductDaoImpl implements ProductDao {
 
 
     @Override
-    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num) throws Exception {
+    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num, String order_sc, String asc) throws Exception {
         Map map = new HashMap<>();
         map.put("offset",sc.getOffset());
         map.put("pageSize",sc.getPageSize());
         map.put("cd_name_num",cd_name_num);
+        map.put("order_sc", order_sc);
+        map.put("asc", asc);
         return session.selectList(namespace+"CodeNameSelect",map);
     }
     @Override
@@ -163,11 +169,13 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
+    public List<ProductDto> cate(String cd_type_name, SearchCondition sc, String order_sc, String asc) throws Exception {
         Map map = new HashMap<>();
         map.put("offset",sc.getOffset());
         map.put("pageSize",sc.getPageSize());
         map.put("cd_type_name",cd_type_name);
+        map.put("order_sc", order_sc);
+        map.put("asc", asc);
         return session.selectList(namespace+"cate",map);
     }
 

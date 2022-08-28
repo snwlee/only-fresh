@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 문의</title>
+    <title>마이 쿠폰 페이지</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
@@ -41,22 +41,6 @@
         #content {
             display: flex;
             padding: 30px 200px 160px 200px;
-        }
-        #review_view {
-            display: none;
-            padding: 10px 10px 11px;
-            border-top: 1px solid #e3e3e3;
-        }
-        #review_view .review_content {
-            width: 100%;
-            word-break: break-word;
-            padding: 20px 9px 30px;
-            line-height: 25px
-        }
-        #review_view .Inq_answer{
-            width: 120%;
-            padding: 20px 9px 9px;
-            line-height: 25px
         }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -150,34 +134,11 @@
             </ul>
         </div>
         <div id="mypage_content">
-            <h3>상품 문의</h3>
-            <div id="add_coupon_box">
-                ㄴㅁㅇㄹㅇㄴㅁㄹㄴㅇㄹ
-            </div>
-            <div id="optional_function">
+            <h3>찜한 상품</h3>
 
-            </div>
             <div id="mypage_content_body">
-                <div class="cols">
-                    <div class="first_col col">제목</div>
-                    <div class="second_col col">작성일</div>
-                    <div class="third_col col">답변상태</div>
-                </div>
-                <div id="list_container">
 
-                </div>
             </div>
-        </div>
-    </div>
-    <div id="review_view">
-        <div>
-            <div class="back_q_mark"><img src="/product_detail/imgs/question.svg"></div>
-            <div class="review_content"></div>
-        </div>
-        <div>
-            <img id="answer_mark" src="/product_detail/imgs/answer.svg">
-            <div class="Inq_answer"></div>
-            <textarea id="rep_textarea" rows="10" cols="100" style="display:none" placeholder="답변을 입력해주세요."></textarea>
         </div>
     </div>
     <footer>
@@ -210,60 +171,6 @@
     let main_cat_container = $("#main_cat_container");
     let sub_cat_container = $("#sub_cat_container");
     let sub_cat = $(".sub_cat");
-    let page = ${param.page};
-    let pageSize = ${param.pageSize};
-    let bbs_clsf_cd = '2';
-    let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
-
-    let showList = function(){
-        $.ajax({
-            type:'GET',
-            url: '/getMyList?bbs_clsf_cd='+bbs_clsf_cd+'&page='+page+'&pageSize='+pageSize+'&user_id='+user_id,
-            success : function(result){
-                $("#list_container").html(toHtml(result));
-            },
-            error   : function(){ alert("error") }
-        });
-    }
-
-
-    let toHtml =function(lists){
-        let tmp = "";
-        lists.forEach(function(BoardDto){
-            if(BoardDto.is_replied==true){
-                BoardDto.is_replied = "답변완료";
-            } else if(BoardDto.is_replied==false){
-                BoardDto.is_replied = "답변대기";
-            }
-            if(BoardDto.is_secret)
-                BoardDto.bbs_title =('<p style="color:#b5b5b5">비밀글입니다.</p>');
-            tmp += '<div class="cols">'+BoardDto.pdt_id+''
-            tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-secret ='+BoardDto.is_secret+' data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
-            tmp += '<div class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</div>'
-            tmp += '<div class="reply_status" style="text-align: center">'+BoardDto.is_replied+'</div></div>'
-
-        })
-        return tmp;
-    }
-
-    let addZero = function(value=1){
-        return value > 9 ? value : "0"+value;
-    }
-
-    let dateToString = function(ms=0) {
-        let date = new Date(ms);
-
-        let yyyy = date.getFullYear();
-        let mm = addZero(date.getMonth() + 1);
-        let dd = addZero(date.getDate());
-
-        let HH = addZero(date.getHours());
-        let MM = addZero(date.getMinutes());
-        let ss = addZero(date.getSeconds());
-
-        return yyyy+"."+mm+"."+dd;
-    }
-
 
     show_category_button.hover(() => {
         main_cat_container.show();
@@ -277,6 +184,8 @@
     sub_cat_container.mouseleave(() => {
         sub_cat_container.hide();
     })
+
+    let categories = null;
 
     let catToLi = function (res) {
         let tmp = '';
@@ -292,61 +201,30 @@
         return tmp;
     }
 
-    let relocateCn = function(){
-        $("#review_view").css("display", "none");
-        $(".review_content").text('');
-        $("#review_view").appendTo(".p_write_btn");
-    };
-
-    let locateCn = function(bbs_id){
-        $("#review_view").appendTo($("div[data-bbs_id=" + bbs_id + "]"));
-        $("#review_view").css("display", "block");
+    let toHtml =function(lists){
+        let tmp = "";
+        lists.forEach(function(BoardDto){
+            tmp += '<div class="productRow"><div class="productThumbnail"></div>'
+            tmp += '<div class="productInfo">'
+            tmp += '<div class="productName">'+'</div>'
+            tmp += '<div class="priceArea">'+'</div></div>'
+            tmp += '<div class="buttonArea"><button>삭제</button><button>담기</button></div></div>'
+        })
+        return tmp;
     }
 
-    let categories = null;
 
-    $(document).ready(function(){
-        showList();
-        let readStatus = false;
 
-        $("#list_container").on("click", ".title_cn", function() {
-            if (!readStatus) {
-                let bbs_id = $(this).attr("data-bbs_id");
-                readStatus = true;
-                $.ajax({
-                    type: 'GET',
-                    url: '/board/'+bbs_id+'?bbs_clsf_cd='+bbs_clsf_cd,
-                    headers: {"content-type": "application/json"},
-                    success: function (result) {
-                        $(".review_content").text(result.boardDto.bbs_cn);
 
-                        if(result.commentDto!=null){
-                            $(".Inq_answer").text(result.commentDto.inq_ans);
-                            $("#answer_mark").attr("style", "display:block");
-                        }else{
-                            $(".Inq_answer").text("");
-                            $("#answer_mark").attr("style", "display:none");
-                        }
-                    },
-                    error: function () {
-                        alert("error")
-                    }
-                });
-                locateCn(bbs_id);
-            } else {
-                $("#rep_textarea").val("");
-                $("#rep_textarea").attr("style", "display:none");
-                relocateCn();
-                readStatus = false;
-            }
-        });
+
+
+    $(document).ready(() => {
 
         $.ajax({
             type: 'GET',       // 요청 메서드
             url: '/product/categories',  // 요청 URI
             success: function (res) {
                 categories = res;
-
                 $.each(res, (el) => {
                     $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
                 })
@@ -361,7 +239,9 @@
                 })
             }
         })
-    });
+    })
+
+
 </script>
 </body>
 </html>

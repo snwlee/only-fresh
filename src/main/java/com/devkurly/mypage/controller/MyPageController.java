@@ -32,6 +32,8 @@ public class MyPageController {
     public String showMyInquiry(){ return "mypage/myBoard/inquiry";}
     @GetMapping("/myReview")
     public String showMyReview(){ return "mypage/myBoard/review";}
+    @GetMapping("/mypick")
+    public String showMypick(){ return "mypage/myBoard/pick";}
 
     @PostMapping("/coupon")
     public ResponseEntity<String> addCouponToUser(HttpServletRequest req , String nm) {

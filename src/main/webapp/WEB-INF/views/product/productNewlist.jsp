@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css">
-    <link rel="stylesheet" type="text/css" href="/main/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/navigation_detail.css">
     <link rel="stylesheet" type="text/css" href="/product/productlist.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
@@ -97,8 +97,8 @@
                 <a href="/">뷰티컬리</a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요"/>
-                <img src="/main/imgs/loupe.png" style="width: 20px; height: 20px"/>
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="/main/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
                 <a href="#" class="location"><img src="/main/imgs/location.png"/></a>
@@ -113,8 +113,8 @@
             </div>
             <div id="menus">
 
-                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a></span>
-                <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a></span>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
                 <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
                 <a href="/event/main">특가/혜택</a>
             </div>
@@ -136,10 +136,10 @@
         <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
 
             <h3 id="page_title"></h3>
-            <ul id="sortList"><a href=# id="NewAscBtn">신상품순</a>
-                <a href=# id="SelAscBtn">판매량순</a>
-                <a href=# id="DcAscBtn">혜택순</a>
-                <a href=# id="DescBtn">낮은가격순</a></ul>
+            <ul id="sortList"><a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC" id="NewAscBtn">신상품순</a>
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=sales_rate&asc=sel_price%20ASC" id="SelAscBtn">판매량순</a>
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=ds_rate&asc=sel_price%20ASC" id="DcAscBtn">혜택순</a>
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=adt_sts&asc=sel_price%20ASC" id="DescBtn">낮은가격순</a></ul>
             <span id="cd_type_name"></span>
             <span id="cd_name"></span>
 
@@ -153,15 +153,15 @@
                     <c:if test="${totalCnt!=null && totalCnt!=0}">
                         <c:if test="${ph.showPrev}">
                             <a class="page"
-                               href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.beginPage-1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">&lt;</a>
+                               href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.beginPage-1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&order_sc=${param.order_sc}&asc=${param.asc}"/>">&lt;</a>
                         </c:if>
                         <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
                             <a class="page ${i==ph.sc.page? "paging-active" : ""}"
-                               href="<c:url value="/product/newlist${ph.sc.getQueryString(i)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">${i}</a>
+                               href="<c:url value="/product/newlist${ph.sc.getQueryString(i)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&order_sc=${param.order_sc}&asc=${param.asc}"/>">${i}</a>
                         </c:forEach>
                         <c:if test="${ph.showNext}">
                             <a class="page"
-                               href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.endPage+1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}"/>">&gt;</a>
+                               href="<c:url value="/product/newlist${ph.sc.getQueryString(ph.endPage+1)}&sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&order_sc=${param.order_sc}&asc=${param.asc}"/>">&gt;</a>
                         </c:if>
                     </c:if>
                 </div>
@@ -199,10 +199,14 @@
     let sort = '<c:out value="${param.sort}"/>';
     let cd_name_num = '<c:out value="${param.cd_name_num}"/>';
     let cd_type_name = '<c:out value="${param.cd_type_name}"/>';
+    let order_sc = '${param.order_sc}';
+    let asc = '${param.asc}';
+    let keyword = '<c:out value="${ph.sc.keyword}"/>';
+
     let showList = function () {
         $.ajax({
             type: 'GET',
-            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize,
+            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize +'&order_sc='+order_sc+'&asc='+asc+'&keyword='+keyword,
             // http://localhost/product/newlist?page=1&pageSize=12&cd_name_num=1&cd_type_name=%27%EC%B1%84%EC%86%8C%27&sort=0
             success: function (result) {
                 $("#product").html(toHtml(result.list)); // 상품 리스트를 가져온다.
@@ -211,7 +215,7 @@
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
             },
             error: function () {
-                alert("error")
+                // alert("error")
             }
         });
     }
@@ -229,8 +233,65 @@
         })
         return tmp;
     }
+
+    /* 카테고리 */
+    let wrapper = $("#cat_wrapper");
+    let show_category_button = $("#show_category_button");
+    let main_cat_container = $("#main_cat_container");
+    let sub_cat_container = $("#sub_cat_container");
+    let sub_cat = $(".sub_cat");
+    show_category_button.hover(() => {
+        main_cat_container.show();
+    })
+    wrapper.mouseleave(() => {
+        main_cat_container.hide();
+        sub_cat_container.hide();
+    })
+    sub_cat_container.mouseleave(() => {
+        sub_cat_container.hide();
+    })
+    let catToLi = function(res) {
+        let tmp = '';
+        res.forEach(el => {
+            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el.cd_name+'</li></a>'
+        })
+        return tmp;
+    }
+    let categories = null;
+
     $(document).ready(function () {
         showList();
+
+        $.ajax({
+            type: 'GET',       // 요청 메서드
+            url: '/product/categories',  // 요청 URI
+            success: function (res) {
+                categories = res;
+
+                $.each(res, (el)=>{
+                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el+'</li></a>');
+                })
+            },
+            error: function (result) {
+                alert("쿠폰 불러오기 실패");
+            }, // 에러가 발생했을 때, 호출될 함수
+            complete: function(){
+                $(".main_cat").mouseenter((e) => {
+                    sub_cat_container.show();
+                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
+                })
+            }
+        })
+
+        //검색
+        $("#search_btn").click(function(){
+            let keyword = $("#keyword").val();
+            window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+        });
+        $("input[id=keyword]").keydown(function (key){
+            if(key.keyCode==13)
+                $("#search_btn").trigger("click");
+        }); //검색 끝
     })
 </script>
 </body>
