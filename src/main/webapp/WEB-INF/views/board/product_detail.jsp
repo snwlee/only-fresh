@@ -30,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[${productDetailDto.company}] ${productDetailDto.title} :: DevKurly</title>
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-  <link rel="stylesheet" type="text/css" href="/navigation_detail.css">
+  <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
   <link rel="stylesheet" type="text/css" href="/footer.css">
   <style>
@@ -162,6 +162,7 @@
           <span id="price"></span>
         </div>
         <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->
+        <button id="add_coupon">쿠폰 지급</button>
         <div class="detail_column">
           <div class="column_title">배송</div>
           <div>

@@ -70,10 +70,11 @@
     font-size: 18px;
     color: #5f0080;
     text-decoration: none;
+    font-weight: 600;
 }
 
 #search_first div {
-    width: 0px;
+    width: 0;
     border: 1px solid #d9d9d9;
 }
 
@@ -217,6 +218,7 @@
     margin: 0;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
+    z-index: 20;
 }
 
 #main_cat_container a, #sub_cat_container a {

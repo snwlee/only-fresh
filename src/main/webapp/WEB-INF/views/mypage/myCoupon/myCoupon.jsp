@@ -81,9 +81,9 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span><a href="">신상품</a></span>
-                <span><a href="">베스트</a></span>
-                <span><a href="">알뜰쇼핑</a></span>
+                <span><a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a></span>
+                <span><a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a></span>
+                <span><a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a></span>
                 <span><a href="/event/main">특가/혜택</a></span>
             </div>
             <div id="deli_info">
@@ -194,6 +194,7 @@
     </footer>
 </div>
 <script>
+<%--카테고리 --%>
     let wrapper = $("#cat_wrapper");
     let show_category_button = $("#show_category_button");
     let main_cat_container = $("#main_cat_container");
@@ -228,6 +229,7 @@
 
         return tmp;
     }
+    // 여기까지 카테고리
 
     let dateParse = function (str) {
         let y = str.substring(0, 4),

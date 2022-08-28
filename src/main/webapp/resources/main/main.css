@@ -14,9 +14,6 @@ button {
     height: 100px;
 }
 
-#search_first a {
-    font-weight: 400;
-}
 .main_title{
     display: flex;
     /* padding: 50px 0px 50px 0px; */
@@ -31,7 +28,7 @@ button {
 }
 
 #min{
-    height:3500px;
+    /*height:3500px;*/
     /* position:relative; */
     /* overflow: hidden; */
 

@@ -31,7 +31,7 @@
     <title>DevKurly :: 장바구니</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
-    <link rel="stylesheet" type="text/css" href="/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {
@@ -109,10 +109,10 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span>신상품</span>
-                <span>베스트</span>
-                <span>알뜰쇼핑</span>
-                <span>특가/혜택</span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>
