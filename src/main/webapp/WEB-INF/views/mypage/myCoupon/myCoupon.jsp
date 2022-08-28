@@ -60,8 +60,8 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/>
-                <a>마켓컬리</a>
+                <a href="/"> <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/></a>
+                <a href="/">마켓컬리</a>
                 <div></div>
                 <a>뷰티컬리</a>
             </div>
@@ -70,9 +70,9 @@
                 <img id="search_btn" src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <img src="/mypage/myCoupon/imgs/location.png"/>
-                <img src="/mypage/myCoupon/imgs/heart.png"/>
-                <img src="/mypage/myCoupon/imgs/shopping-cart.png"/>
+                <a href="#" class="location"><img src="/main/imgs/location.png"/></a>
+                <img src="/main/imgs/heart.png"/>
+                <a href="/carts/"><img src="/main/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
@@ -81,10 +81,10 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span><a href="">신상품</a></span>
-                <span><a href="">베스트</a></span>
-                <span><a href="">알뜰쇼핑</a></span>
-                <span><a href="/event/main">특가/혜택</a></span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>
@@ -194,6 +194,7 @@
     </footer>
 </div>
 <script>
+<%--카테고리 --%>
     let wrapper = $("#cat_wrapper");
     let show_category_button = $("#show_category_button");
     let main_cat_container = $("#main_cat_container");
@@ -221,13 +222,14 @@
         res.forEach(el => {
             tmp += '<a href="/product/newlist?cd_name_num='
             tmp += el.cd_name_num
-            tmp += '&page=1&pageSize=12"<li class="cat main_cat">'
+            tmp += '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'
             tmp += el.cd_name
             tmp += '</li></a>'
         })
 
         return tmp;
     }
+    // 여기까지 카테고리
 
     let dateParse = function (str) {
         let y = str.substring(0, 4),
@@ -326,7 +328,7 @@
                 success: function (res) {
                     categories = res;
                     $.each(res, (el) => {
-                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
+                        $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
                     })
                 },
                 error: function (result) {
