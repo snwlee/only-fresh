@@ -14,9 +14,6 @@ button {
     height: 100px;
 }
 
-#search_first a {
-    font-weight: 600;
-}
 .main_title{
     display: flex;
     /* padding: 50px 0px 50px 0px; */
@@ -31,7 +28,7 @@ button {
 }
 
 #min{
-    height:3500px;
+    /*height:3500px;*/
     /* position:relative; */
     /* overflow: hidden; */
 
@@ -100,16 +97,18 @@ button {
     font-weight: 700;
     background: white;
 }
-p{
+.subtitle{
     font-size: 17px;
     font-weight: 700;
     color:gray;
+    margin-top: 20px;
 }
-a{
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-}
+
+/*a{*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+/*}*/
 a:visited {
     text-decoration: none;
 }

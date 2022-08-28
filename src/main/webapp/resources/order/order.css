@@ -175,7 +175,7 @@ h2 {
     padding: 10px;
 }
 
-#shipping h4, p {
+#shipping h4, #shipping p {
     display: flex;
     width: 250px;
     flex-wrap: wrap;

@@ -2,12 +2,12 @@
     display: flex;
     /* flex-direction: column; */
     justify-content: center;
-    padding: 0px 200px 160px 200px;
+    padding: 0 0 160px 0;
 }
 
 .main_title{
     display: block;
-    padding: 50px 0px 50px 0px;
+    padding: 50px 0 50px 0;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
@@ -17,12 +17,10 @@
 
 #min{
     display: flex;
-    width:2000px;
     position: relative;
     overflow: hidden;
     flex-direction: column;
     flex-wrap: wrap;
-    align-content: center;
     align-content: center;
     margin-top: 100px;
 }
@@ -98,7 +96,7 @@
     font-weight: 700;
     background: white;
 }
-p{
+#content p{
     font-size: 10px;
     font-weight: 700;
     margin-top: 15px;

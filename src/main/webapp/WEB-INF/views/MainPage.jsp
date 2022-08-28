@@ -16,7 +16,7 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
@@ -26,8 +26,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevKurly</title>
     <link rel="stylesheet" type="text/css" href="/main/reset.css?ver=1">
-    <link rel="stylesheet" type="text/css" href="/main/navigation.css?after">
+    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
     <link rel="stylesheet" type="text/css" href="/main/main.css?ver=1">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
@@ -75,7 +76,7 @@
         <div id="menubar">
             <div id="category_container">
                 <img src="" />
-                <p style="font-size: 16px;width: 80px;" id="show_category_button">카테고리</p>
+                <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
                 <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
@@ -101,24 +102,24 @@
         <div id="min" style="display: flex; flex-direction: column; align-items: center;">
 
             <div class="main_title">
-                <span>건강을 위한 식료품 모음집</span>
-                <p>비건인들을 위한 오늘의 만찬</p>
+                <span class="title">건강을 위한 식료품 모음집</span>
+                <p class="subtitle">비건인들을 위한 오늘의 만찬</p>
             </div>
             <div id="product" style="display: flex;">
             </div>
 
 
             <div class="main_title">
-                <span>달콤한 하루를 위한 과일 모음집</span>
-                <p>과일을 사랑하는 사람들을 위한 사랑방</p>
+                <span class="title">달콤한 하루를 위한 과일 모음집</span>
+                <p class="subtitle">과일을 사랑하는 사람들을 위한 사랑방</p>
             </div>
             <div id="product2" style="display: flex;">
             </div>
 
 
             <div class="main_title">
-                <span>바다의 참맛을 누리기 위한 해산물 모음집</span>
-                <p>귀하디 귀한 바다의 보배를 누리세요</p>
+                <span class="title">바다의 참맛을 누리기 위한 해산물 모음집</span>
+                <p class="subtitle">귀하디 귀한 바다의 보배를 누리세요</p>
             </div>
             <div id="product3" style="display: flex;">
             </div>
@@ -134,11 +135,67 @@
             <%--            </div>--%>
         </div>
     </div>
+    <footer>
+        <img src="/logo.svg" alt="logo">
+        <div id="member_container">
+            <a href="https://github.com/dr94406">
+                <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+            </a>
+            <a href="https://github.com/PGRRR">
+                <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+            </a>
+            <a href="https://github.com/Riiver-J">
+                <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+            </a>
+            <a href="https://github.com/narlae">
+                <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+            </a>
+            <a href="https://github.com/xpmxf4">
+                <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+            </a>
+            <a href="https://github.com/didqksrla">
+                <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+            </a>
+        </div>
+    </footer>
 </div>
-
-</div>
-
 <script>
+    <%--카테고리 --%>
+    let wrapper = $("#cat_wrapper");
+    let show_category_button = $("#show_category_button");
+    let main_cat_container = $("#main_cat_container");
+    let sub_cat_container = $("#sub_cat_container");
+    let sub_cat = $(".sub_cat");
+
+    show_category_button.hover(() => {
+        main_cat_container.show();
+    })
+
+    wrapper.mouseleave(() => {
+        main_cat_container.hide();
+        sub_cat_container.hide();
+    })
+
+    sub_cat_container.mouseleave(() => {
+        sub_cat_container.hide();
+    })
+
+    let categories = null;
+
+    let catToLi = function (res) {
+        let tmp = '';
+
+        res.forEach(el => {
+            tmp += '<a href="/product/newlist?cd_name_num='
+            tmp += el.cd_name_num
+            tmp += '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'
+            tmp += el.cd_name
+            tmp += '</li></a>'
+        })
+
+        return tmp;
+    }
+    // 여기까지 카테고리
 
     let showList = function(){
         let sort = 0
@@ -168,40 +225,16 @@
         })
         return tmp;
     }
-    /* 카테고리 */
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-    let catToLi = function(res) {
-        let tmp = '';
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='+el.cd_name_num+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el.cd_name+'</li></a>'
-        })
-        return tmp;
-    }
-    let categories = null;
+
+
 
     $(document).ready(function () {
         showList();
-
         $.ajax({
             type: 'GET',       // 요청 메서드
             url: '/product/categories',  // 요청 URI
             success: function (res) {
                 categories = res;
-
                 $.each(res, (el)=>{
                     $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el+'</li></a>');
                 })
@@ -216,7 +249,6 @@
                 })
             }
         })
-
         //검색
         $("#search_btn").click(function(){
             let keyword = $("#keyword").val();
@@ -226,31 +258,8 @@
             if(key.keyCode==13)
                 $("#search_btn").trigger("click");
         }); //검색 끝
-
     })
 </script>
 </body>
-<%--<footer>--%>
-<%--    <img src="/logo.svg" alt="logo">--%>
-<%--    <div id="member_container">--%>
-<%--        <a href="https://github.com/dr94406">--%>
-<%--            <p class="mem_row"><img src="/githubLogo.png">김형민</p>--%>
-<%--        </a>--%>
-<%--        <a href="https://github.com/PGRRR">--%>
-<%--            <p class="mem_row"><img src="/githubLogo.png">이선우</p>--%>
-<%--        </a>--%>
-<%--        <a href="https://github.com/Riiver-J">--%>
-<%--            <p class="mem_row"><img src="/githubLogo.png">정여경</p>--%>
-<%--        </a>--%>
-<%--        <a href="https://github.com/narlae">--%>
-<%--            <p class="mem_row"><img src="/githubLogo.png">김영준</p>--%>
-<%--        </a>--%>
-<%--        <a href="https://github.com/xpmxf4">--%>
-<%--            <p class="mem_row"><img src="/githubLogo.png">박채훈</p>--%>
-<%--        </a>--%>
-<%--        <a href="https://github.com/didqksrla">--%>
-<%--            <p class="mem_row"><img src="/githubLogo.png">김경빈</p>--%>
-<%--        </a>--%>
-<%--    </div>--%>
-<%--</footer>--%>
+
 </html>
