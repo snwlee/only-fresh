@@ -3,6 +3,8 @@ package com.devkurly.address.controller;
 import com.devkurly.address.domain.AddressDto;
 import com.devkurly.address.service.AddressService;
 import com.devkurly.member.dto.MemberMainResponseDto;
+import org.apache.ibatis.javassist.runtime.Desc;
+import org.junit.experimental.theories.DataPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,7 @@ public class AddressController {
 
             List<AddressDto> list = addressService.getListSelect(user_id);
             m.addAttribute("list", list);
+            m.addAttribute("addressDto", addressDto);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,20 +49,39 @@ public class AddressController {
         return "/address/mypageAddrList";
     }
 
+    @PostMapping("/default")
+    public String modifyDefault(AddressDto addressDto, Model m, HttpSession session) throws Exception {
+        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
+        Integer user_id = responseDto.getUser_id();
+
+//        addressDto.setBa_addr(addressDto.getBa_addr() != null);
+
+        if(addressDto.getBa_addr()==null)
+            addressDto.setBa_addr(false);
+        
+        addressService.modifybaaadr(addressDto);
+
+        m.addAttribute("addressDto", addressDto);
+
+        return "redirect:/address/list";
+    }
+
     @GetMapping("/read")
-    public String addrModify(Integer addr_id, HttpSession session, Model m) throws Exception { //user_id, addressDto 하드코딩
+    public String addrModify(Integer addr_id, HttpSession session, Model m, AddressDto addressDto) throws Exception { //user_id, addressDto 하드코딩
         MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
         Integer user_id = responseDto.getUser_id(); // user_id
 
+        addressDto.setUser_id(user_id);
+        addressDto.setAddr_id(addr_id);
+
         try {
-            AddressDto addressDto = addressService.read(addr_id);
-            addressDto.setAddr_id(addr_id);
-            m.addAttribute(addressDto); // model에 담아서 view로 전달
+            addressDto = addressService.read(addr_id);
+            m.addAttribute("addressDto", addressDto); // model에 담아서 view로 전달
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/address/modifyAddressForm";
+        return "/address/mypageAddrModify";
     }
 
     @PostMapping("/remove")
@@ -68,6 +90,7 @@ public class AddressController {
         Integer user_id = responseDto.getUser_id(); // user_id 세션 받기
 
         addressDto.setUser_id(user_id); // 세션으로 받아온 user_id를 Dto에 넣어준다.
+        addressDto.setAddr_id(addr_id);
 
         try {
             int rowCnt = addressService.remove(addressDto);
@@ -82,49 +105,51 @@ public class AddressController {
             rattr.addFlashAttribute("msg", "DEL_ERR"); // 삭제 실패
         }
 
-        return "redirect:/address/list"; // user_id 임시 하드코딩
+        return "redirect:/address/list";
     }
 
     @PostMapping("/modify")
-    public String modify( Integer addr_id,  AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
-        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = responseDto.getUser_id();
-        addressDto.setUser_id(user_id);
+        public String modify(Integer addr_id, AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
+            MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
+            Integer user_id = responseDto.getUser_id();
+
+            addressDto.setAddr_id(addr_id);
+            addressDto.setUser_id(user_id);
 
         if(addressDto.getChk_addr()==null)
             addressDto.setChk_addr(false);
 
         try {
             int rowCnt = addressService.modify(addressDto);
-            m.addAttribute(addressDto);
-
+            m.addAttribute("addressDto", addressDto);
             if (rowCnt != 1) {
                 throw new Exception("Modify failed");
             }
             rattr.addFlashAttribute("msg", "MOD_OK");
-            return "redirect:/address/list";
 
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute(addressDto);
-            m.addAttribute("msg", "MOD_ERR");
-            return "/address/modifyAddressForm";
+            m.addAttribute("addressDto", addressDto);
+//            m.addAttribute("msg", "MOD_ERR");
+            return "/address/mypageAddrModify";
         }
+        return "redirect:/address/list";
     }
 
     @GetMapping("/insert")
     public String insert(Model m, AddressDto addressDto, HttpSession session) {
 //        m.addAttribute("mode", "deli");
         m.addAttribute(addressDto);
-        return "/address/newAddress2Form";  // 샛별배송 표기에 사용
+        return "/address/mypageAddrAdd";  // 샛별배송 표기에 사용
     }
 
     @PostMapping("/create")
     public String create(AddressDto addressDto, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
         Integer user_id = getMemberResponse(session);
         addressDto.setUser_id(user_id);
-        System.out.println("addressDto.getMain_addr() = " + addressDto.getMain_addr());
-        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기")) {
+
+        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기") ||
+            addressDto.getMain_addr().contains("인천") ){
             addressDto.setDeli_type(true);
         } else {
             addressDto.setDeli_type(false);
@@ -132,7 +157,7 @@ public class AddressController {
         if (addressDto.getChk_addr() == null) {
             addressDto.setChk_addr(true);
         }
-        System.out.println("addressDto = " + addressDto);
+
         try {
             int rowCnt = addressService.addrInsert(addressDto);
 
@@ -146,7 +171,7 @@ public class AddressController {
             e.printStackTrace();
             rattr.addFlashAttribute(addressDto);
             m.addAttribute("msg", "INS_ERR");
-            return "/address/newAddress2Form";
+            return "/address/mypageAddrAdd";
         }
 
     }
@@ -155,5 +180,18 @@ public class AddressController {
         String regEx = "(\\d{2,3})(\\d{3,4})(\\d{4})";
         return addr_tel.replaceAll(regEx, "$1-$2-$3");
     }
+
+        public static String phone(String src) {
+            if(src == null) {
+                return"";
+            } if(src.length()==8) {
+                return src.replaceFirst("^([0-9]{4})([0-9]{4})$","$1-$2");
+            }else if(src.length()==12) {
+                return src.replaceFirst("(^[0-9]{4})([0-9]{4})([0-9]{4})$","$1-$2-$3");
+            }
+            return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$","$1-$2-$3");
+        }
+
+
 
 }

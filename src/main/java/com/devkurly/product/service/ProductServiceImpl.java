@@ -96,10 +96,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> ProductListDESC(Map map) {
+    public List<ProductDto> ProductListDESC(SearchCondition sc, String order_sc)throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset", sc.getOffset());
+        map.put("pageSize", sc.getPageSize());
+        map.put("order_sc", order_sc);
         return productDao.ProductListDESC(map);
     }
 
+    @Override
+    public List<ProductDto> ProductListASC(SearchCondition sc)throws Exception {
+        Map map = new HashMap<>();
+        map.put("offset", sc.getOffset());
+        map.put("pageSize", sc.getPageSize());
+        return productDao.ProductListASC(map);
+    }
     @Override
     public List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception {
         return productDao.searchSelectPage(sc);
@@ -143,8 +154,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> CodeNameSelect(Integer cd_name_num, SearchCondition sc) throws Exception {
-        return productDao.CodeNameSelect(sc, cd_name_num);
+    public List<ProductDto> CodeNameSelect(SearchCondition sc, Integer cd_name_num, String order_sc, String asc) throws Exception {
+        return productDao.CodeNameSelect(sc, cd_name_num, order_sc, asc);
     }
 
     @Override
@@ -158,8 +169,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> cate(String cd_type_name, SearchCondition sc) throws Exception {
-        return productDao.cate(cd_type_name, sc);
+    public List<ProductDto> cate(String cd_type_name, SearchCondition sc, String order_sc, String asc) throws Exception {
+        return productDao.cate(cd_type_name, sc, order_sc, asc);
     }
 
     @Override

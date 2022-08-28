@@ -25,20 +25,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public int addrInsert(AddressDto addressDto) throws Exception {
         if (addressDto.getChk_addr() == true) {
+
             addressDao.chkUpdateF(addressDto.getUser_id());
             addressDao.chkUpdateT(addressDto);
         }
-
-
-
-
         return addressDao.insert(addressDto);
     }
 
     @Override
     public List<AddressDto> getListSelect(Integer user_id) throws Exception {
-
-
         return addressDao.listSelect(user_id);
     }
 
@@ -54,6 +49,26 @@ public class AddressServiceImpl implements AddressService {
             addressDao.chkUpdateT(addressDto);
         }
             return addressDao.update(addressDto);
+    }
+
+    @Override
+    public int modifybaaadr(AddressDto addressDto) throws Exception {
+        if (addressDto.getBa_addr() == true) {
+            addressDao.updateDefaultFalse(addressDto.getUser_id());
+            addressDao.updateDefaultTrue(addressDto);
+        }
+
+        return addressDao.updateDef(addressDto);
+    }
+
+    @Override
+    public int modifyDefaultFalse(Integer user_id) throws Exception {
+        return addressDao.updateDefaultFalse(user_id);
+    }
+
+    @Override
+    public int modifyDefaultTrue(AddressDto addressDto) throws Exception {
+        return addressDao.updateDefaultTrue(addressDto);
     }
 
     @Override
