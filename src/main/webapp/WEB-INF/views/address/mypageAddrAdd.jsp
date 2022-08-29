@@ -32,42 +32,202 @@
             height: 100vh;
         }
 
-        button {
-            width: 200px;
-            height: 100px;
-        }
-
         #content {
             display: flex;
             padding: 30px 200px 160px 200px;
         }
 
+        /* */
 
-        #mypage_content {
-            width: 50%;
-            height: auto;
+        #addAddress_content { /* 전체 영역 */
+            /*height: 100%;*/
+            /*width: 100%;*/
+            width: 740px;
         }
 
-        #mypage_content_body {
-
+        #addr_title { /* 배송지 수정 */
+            /*-webkit-tap-highlight-color: transparent;*/
+            /*-webkit-box-sizing: border-box;*/
+            /*-moz-box-sizing: border-box;*/
+            /*box-sizing: border-box;*/
+            margin: 0;
         }
 
-/*        #main_addr {  // 다음주소 API를 통해서 자동으로 입력되게 해야함 하지만 일단은 하드코딩으로 작섣하는 방식으로 선택
-            border: none;
-            width: 80%;
+        .head {
+            padding: 32px 0 0 30px;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            letter-spacing: -.5px;
+        }
+
+        /* 헤더 */
+
+        .tit_result { /* 샛별배송 안내문구 */
+            display: block;
+            padding: 55px 0 13px;
+            font-weight: 600;
+            font-size: 22px;
+            color: #333;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .deli_type { /* 샛별배송 */
+            color: #5f0080;
+        }
+
+        .desc { /* 안내문구 */
             margin-top: 10px;
-            margin-bottom: 10px;
+            font-size: 16px;
+            display: block;
+            font-weight: 400;
+            color: #999;
         }
 
-        #sub_addr {
-            width: 80%;
-            padd
+        /* 재검색 */
+        .rebtn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 120px;
+            padding-right: 7px;
+            border: 1px solid #5f0080;
+            background-color: #fff;
+            font-weight: 700;
+            color: #5f0080;
+            height: 44px;
+            border-radius: 3px;
+            font-size: 14px;
+            line-height: 42px;
         }
 
 
+        #address_add { /* 전체 내용 */
+            overflow: hidden;
+            overflow-y: auto;
+            height: 100%;
+            padding-bottom: 0;
+        }
+
+        #address_add_body { /* input창 */
+            /*-webkit-tap-highlight-color: transparent;*/
+            /*-webkit-box-sizing: border-box;*/
+            /*-moz-box-sizing: border-box;*/
+            /*box-sizing: border-box;*/
+            margin: 0;
+        }
+
+        .field {
+            padding-top: 22px;
+        }
+
+        #main_addr { /* 메인 배송지 */
+            padding-bottom: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: -.3px;
+        }
+
+        .addrMain { /* 메인 배송지 */
+            padding-bottom: 13px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .addrMain {
+            width: 500px;
+        }
+
+        input[type=text] {
+            /*width: 100%;*/
+            width: 720px;
+            height: 48px;
+            padding: 0 11px 1px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: 0;
+        }
+
+        #sub_addr { /* 서브 */
+            height: 44px;
+            padding: 1px 11px 0 15px;
+            border-radius: 3px;
+            font-family: Noto Sans;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: -.5px;
+        }
+
+        .label_block { /* 받는사람 */
+            padding-bottom: 7px;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -.3px;
+        }
+
+        .label_default { /* 기본 배송지 체크*/
+            padding: 20px 0 19px;
+            font-size: 14px;
+        }
+
+        /* 체크박스 */
+
+        input[type=checkbox] + .ico { /* 체크표시 */
+            display: inline-block;
+            position: relative;
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            border: 0;
+            background-image: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg);
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: 50% 50%;
+            vertical-align: -7px;
+        }
+
+        .div_default + btn.active {
+            margin-top: 0;
+        }
+
+        /* 버튼 */
+
+        .btn {
+            width: 720px;
+            height: 45px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .btn.active {
+            border: 1px solid #5f0081;
+            background-color: #5f0080;
+            color: #fff;
+        }
+
+        .btn.list {
+            border: 1px solid #ddd;
+            background-color: #F0F0F0;
+            color: #333;
+        }
 
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <%-- 주소 API --%>
 </head>
 
 <body>
@@ -149,47 +309,65 @@
                 </a>
             </ul>
         </div>
-        <div id="mypage_content">
-            <h3>배송지 등록</h3>
-            <form id="mypage_content_body">
-                <div id="coupons">
-                    <div>
-                        <span>주소</span><br>
-                        <input type="text" id="main_addr" name="main_addr" value="${addressDto.main_addr}"/>
+        <%-- JSP --%>
+        <div id="addAddress_content">
+            <div id="addr_title">
+                <h3 class="head">배송지 등록</h3>
+            </div>
+            <div id="address_add">
+                <form id="address_add_body">
+                    <div class="insert_addr">
+<%--                        <p class="tit_result">--%>
+<%--                            <span class="deli_type">샛별배송</span>지역입니다.--%>
+<%--                            <span class="desc">매일 아침, 문앞까지 신선함을 전해드려요</span>--%>
+<%--                        </p>--%>
+                        <div class="field">
+                            <div class="address_search">
+                                <%-- <input id="main_addr" class="address" readonly value=""> --%>
+                                <input type="text" id="main_addr" class="addrMain" name="main_addr" placeholder="주소"
+                                       value="${addressDto.main_addr}"/>
+<%--                                <button type="text" class="rebtn">--%>
+<%--                                    <span class="ico"></span>--%>
+<%--                                    재검색 --%>
+<%--                                </button>--%>
+                            </div>
+                            <input type="text" id="sub_addr" name="sub_addr" data-max-length="50"
+                                   placeholder="나머지 주소를 입력해주세요"
+                                   data-format="text" value="${addressDto.sub_addr}"/>
+                        </div>
+                        <div class="field">
+                            <label class="label_block" for="addr_name">받으실 분</label><br>
+                            <input type="text" id="addr_name" name="addr_name" data-max-length="20"
+                                   placeholder="이름을 입력해주세요"
+                                   value="${addressDto.addr_name}"/>
+                        </div>
+
+                        <div class="field">
+                            <label class="label_block" for="addr_tel">휴대폰</label><br>
+                            <input type="text" id="addr_tel" name="addr_tel" data-max-length="11"
+                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                   placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}"/>
+                        </div>
+                        <div class="label_default">
+                            <input type="checkbox" id="chk_addr" name="chk_addr" value="true" onclick="checkAlert()">
+                            <span class="ico"></span>
+                            기본 배송지로 저장
+                        </div>
+                        <div>
+                            <button type="button" id="insertBtn" class="btn active">
+                                배송지 등록
+                            </button>
+                        </div>
+                        <div>
+                            <a href="/address/list">
+                                <button type="button" id="listBtn" class="btn list">
+                                    목록으로 돌아가기
+                                </button>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <span>상세주소</span><br>
-                        <input type="text" id="sub_addr" name="sub_addr" value="${addressDto.sub_addr}"/>
-                    </div>
-                    <div>
-                        <span>받으실 분</span><br>
-                        <input type="text" name="addr_name" placeholder="이름을 입력해주세요" value="${addressDto.addr_name}"/>
-                    </div>
-                    <div>
-                        <span>연락처</span><br>
-                        <input type="text" name="addr_tel" placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}"
-                               maxlength="11"
-                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
-                    </div>
-                </div>
-                <div>
-                    <input type="checkbox" name="chk_addr" value="true" onclick="checkAlert()">기본배송지로 저장
-                </div>
-                <div>
-                    <a href="/address/create">
-                        <button id="insertBtn">
-                            배송지 등록
-                        </button>
-                    </a>
-                </div>
-                <div>
-                    <a href="/address/list">
-                        <button id="listBtn">
-                            목록으로 돌아가기
-                        </button>
-                    </a>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -197,13 +375,10 @@
 </div>
 </div>
 <script>
-    $(document).ready(function() {  // main()와 같다. jquery
-        $('#listBtn').on("click", function (){
-            location.href="<c:url value='/address/list'/>";
-        });
+    $(document).ready(function () {  // main()와 같다. jquery
 
-        $('#insertBtn').on("click", function (){
-            let form = $('#mypage_content_body');
+        $('#insertBtn').on("click", function () {
+            let form = $('#address_add_body');
             form.attr("action", "<c:url value='/address/create'/>");
             form.attr("method", "post");
             form.submit();

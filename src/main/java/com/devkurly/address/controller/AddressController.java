@@ -33,9 +33,9 @@ public class AddressController {
     }
 
     @GetMapping("/list")
-    public String list(HttpServletRequest request, Integer addr_id, HttpSession session, Model m, AddressDto addressDto) throws Exception {
-        MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
-        Integer user_id = responseDto.getUser_id();
+    public String list(HttpSession session, Model m, AddressDto addressDto) throws Exception {
+        Integer user_id = getMemberResponse(session);
+        addressDto.setUser_id(user_id);
 
         try {
 
@@ -53,8 +53,6 @@ public class AddressController {
     public String modifyDefault(AddressDto addressDto, Model m, HttpSession session) throws Exception {
         MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
         Integer user_id = responseDto.getUser_id();
-
-//        addressDto.setBa_addr(addressDto.getBa_addr() != null);
 
         if(addressDto.getBa_addr()==null)
             addressDto.setBa_addr(false);
@@ -138,9 +136,11 @@ public class AddressController {
 
     @GetMapping("/insert")
     public String insert(Model m, AddressDto addressDto, HttpSession session) {
-//        m.addAttribute("mode", "deli");
-        m.addAttribute(addressDto);
-        return "/address/mypageAddrAdd";  // 샛별배송 표기에 사용
+        Integer user_id = getMemberResponse(session);
+        addressDto.setUser_id(user_id);
+
+        m.addAttribute("addressDto", addressDto);
+        return "/address/mypageAddrAdd";
     }
 
     @PostMapping("/create")
@@ -154,8 +154,9 @@ public class AddressController {
         } else {
             addressDto.setDeli_type(false);
         }
+
         if (addressDto.getChk_addr() == null) {
-            addressDto.setChk_addr(true);
+            addressDto.setChk_addr(false);
         }
 
         try {
