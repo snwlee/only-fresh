@@ -30,7 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[${productDetailDto.company}] ${productDetailDto.title} :: DevKurly</title>
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
-  <link rel="stylesheet" type="text/css" href="/navigation.css">
+  <link rel="stylesheet" type="text/css" href="/navigation.css?after">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
   <link rel="stylesheet" type="text/css" href="/footer.css">
   <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -84,6 +84,10 @@
     }
     a{
       text-decoration:none;
+    }
+    #down_icon{
+      position: absolute;
+      transform: translate(-550%, 70%);
     }
 
     /* input {
@@ -164,7 +168,9 @@
           <span id="price"></span>
         </div>
         <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->
-        <button id="add_coupon">쿠폰 지급</button>
+        <div><button id="add_coupon">쿠폰 지급</button>
+          <img id="down_icon" src="/product_detail/imgs/download_icon.svg"/>
+        </div>
         <div class="detail_column">
           <div class="column_title">배송</div>
           <div>
@@ -357,6 +363,10 @@
       $('html,body').animate({scrollTop:$(x).offset().top}, 500);
 
     });
+
+    $("#add_coupon").click(function(){
+      window.location.href ='/mypage?coupn_nm=나라사랑카드 쿠폰';
+    })
 
     $("#down_qty").click(function(){
       if(parseInt($("#pdt_qty").text())>1)
