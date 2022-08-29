@@ -7,42 +7,42 @@ $('#member-submit').click(function () {
     }
 });
 $('#email').change(function () {
-    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/).test($(this).val())) {
+    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}(\S)/).test($(this).val())) {
         $('#email-error').prop('hidden', true);
     } else {
         $('#email-error').prop('hidden', false);
     }
 });
 $('#pwd').change(function () {
-    if ((/^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/).test($(this).val())) {
+    if ((/^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}(\S)$/).test($(this).val())) {
         $('#pwd-error').prop('hidden', true);
     } else {
         $('#pwd-error').prop('hidden', false);
     }
 });
 $('#cpwd').change(function () {
-    if ($(this).val() !== $('#pwd').val()) {
+    if ($(this).val() === $('#pwd').val()) {
         $('#cpwd-error').prop('hidden', true);
     } else {
         $('#cpwd-error').prop('hidden', false);
     }
 });
 $('#name').change(function () {
-    if ((/[가-힣]{2,5}/).test($(this).val())) {
+    if ((/[가-힣]{2,5}(\S)/).test($(this).val())) {
         $('#name-error').prop('hidden', true);
     } else {
         $('#name-error').prop('hidden', false);
     }
 });
 $('#telno').change(function () {
-    if ((/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/).test($(this).val())) {
+    if ((/^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}(\S)$/).test($(this).val())) {
         $('#phone-error').prop('hidden', true);
     } else {
         $('#phone-error').prop('hidden', false);
     }
 });
 $('#rcmdr_email').change(function () {
-    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/).test($(this).val())) {
+    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}(\S)/).test($(this).val())) {
         $('#rcmdr-email-error').prop('hidden', true);
     } else {
         $('#rcmdr-email-error').prop('hidden', false);
