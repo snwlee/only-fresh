@@ -31,9 +31,10 @@
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="/main/Main.js"></script>
+    <script src="/category/js/category.js"></script>
 </head>
 <body>
-<div id="whole_container">
+<div id="whole_container">r
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
