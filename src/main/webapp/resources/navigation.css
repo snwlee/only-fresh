@@ -28,7 +28,7 @@
 
 
 #signup, #signin {
-    color: #5f0080;
+    color: #4E7A51;
     font-size: 12px;
     margin: auto 8px;
     text-decoration: none;
@@ -68,7 +68,7 @@
 
 #search_first a {
     font-size: 18px;
-    color: #5f0080;
+    color: #4E7A51;
     text-decoration: none;
     font-weight: 600;
 }
@@ -163,7 +163,7 @@
 }
 
 #purple_deli_info {
-    color: #5f0080;
+    color: #4E7A51;
     margin-right: 4px;
     font-weight: 600;
 }
@@ -205,7 +205,7 @@
 }
 
 .cat:hover {
-    color: #5f0080;
+    color: #4E7A51;
     background-color: #f7f7f7;
     cursor: pointer;
 }
@@ -228,5 +228,5 @@
 }
 
 #main_cat_container a:hover, #sub_cat_container a:hover {
-    color: #5F0080;
+    color: #4E7A51;
 }

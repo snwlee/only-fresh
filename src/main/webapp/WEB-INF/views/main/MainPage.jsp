@@ -34,7 +34,7 @@
     <script src="/category/js/category.js"></script>
 </head>
 <body>
-<div id="whole_container">r
+<div id="whole_container">
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
