@@ -367,7 +367,7 @@
                             </a>
                         </div>
                     </div>
-                    <script src="/resources/address/js/address.js"></script>
+<%--                    <script src="/resources/address/js/address.js"></script>--%>
                 </form>
             </div>
         </div>
@@ -377,25 +377,25 @@
 </div>
 </div>
 <script>
-    <%--$(document).ready(function () {  // main()와 같다. jquery--%>
+    $(document).ready(function () {  // main()와 같다. jquery
 
-    <%--    $('#insertBtn').on("click", function () {--%>
-    <%--        let form = $('#address_add_body');--%>
-    <%--        form.attr("action", "<c:url value='/address/create'/>");--%>
-    <%--        form.attr("method", "post");--%>
-    <%--        form.submit();--%>
-    <%--    });--%>
+        $('#insertBtn').on("click", function () {
+            let form = $('#address_add_body');
+            form.attr("action", "<c:url value='/address/create'/>");
+            form.attr("method", "post");
+            form.submit();
+        });
 
-    <%--    function telValidator(args) {--%>
-    <%--        var msg = '전화번호를 제대로 입력해주세요.';--%>
+        function telValidator(args) {
+            var msg = '전화번호를 제대로 입력해주세요.';
 
-    <%--        if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(args)) {--%>
-    <%--            return true;--%>
-    <%--        }--%>
-    <%--        alert(msg);--%>
-    <%--        return false;--%>
-    <%--    }--%>
-    <%--});--%>
+            if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(args)) {
+                return true;
+            }
+            alert(msg);
+            return false;
+        }
+    });
 </script>
 </body>
 </html>
