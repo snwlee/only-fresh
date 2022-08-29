@@ -6,24 +6,47 @@ $('#member-submit').click(function () {
         alert('필수 약관에 동의해주세요.');
     }
 });
-
 $('#email').change(function () {
-    $('#email-error').prop('hidden', false);
+    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/).test($(this).val())) {
+        $('#email-error').prop('hidden', true);
+    } else {
+        $('#email-error').prop('hidden', false);
+    }
 });
 $('#pwd').change(function () {
-    $('#pwd-error').prop('hidden', false);
+    if ((/^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/).test($(this).val())) {
+        $('#pwd-error').prop('hidden', true);
+    } else {
+        $('#pwd-error').prop('hidden', false);
+    }
 });
 $('#cpwd').change(function () {
-    $('#cpwd-error').prop('hidden', false);
+    if ($(this).val() !== $('#pwd').val()) {
+        $('#cpwd-error').prop('hidden', true);
+    } else {
+        $('#cpwd-error').prop('hidden', false);
+    }
 });
 $('#name').change(function () {
-    $('#name-error').prop('hidden', false);
+    if ((/[가-힣]{2,5}/).test($(this).val())) {
+        $('#name-error').prop('hidden', true);
+    } else {
+        $('#name-error').prop('hidden', false);
+    }
 });
 $('#telno').change(function () {
-    $('#phone-error').prop('hidden', false);
+    if ((/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/).test($(this).val())) {
+        $('#phone-error').prop('hidden', true);
+    } else {
+        $('#phone-error').prop('hidden', false);
+    }
 });
 $('#rcmdr_email').change(function () {
-    $('#rcmdr-email-error').prop('hidden', false);
+    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/).test($(this).val())) {
+        $('#rcmdr-email-error').prop('hidden', true);
+    } else {
+        $('#rcmdr-email-error').prop('hidden', false);
+    }
 });
 
 $('#all-checked').click(function () {
@@ -47,8 +70,10 @@ $('#required-unchecked').click(function () {
 $('#selected-checked').click(function () {
     $(this).prop('hidden', true);
     $('#selected-unchecked').prop('hidden', false);
+    $('#terms').prop('checked', false);
 });
 $('#selected-unchecked').click(function () {
     $(this).prop('hidden', true);
     $('#selected-checked').prop('hidden', false);
+    $('#terms').prop('checked', true);
 });

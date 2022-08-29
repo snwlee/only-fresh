@@ -96,7 +96,7 @@
             margin-top: 20px;
             border: none;
             border-radius: 2px;
-            background-color: #5F0080;
+            background-color: #4E7A51;
             color: white;
         }
 
@@ -104,9 +104,9 @@
             width: 100%;
             height: 50px;
             margin-top: 20px;
-            border: solid 1px #5F0080;
+            border: solid 1px #4E7A51;
             border-radius: 2px;
-            color: #5F0080;
+            color: #4E7A51;
         }
     </style>
 </head>
