@@ -218,7 +218,7 @@
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
             },
             error: function () {
-                // alert("error")
+                 alert("error")
             }
         });
     }
