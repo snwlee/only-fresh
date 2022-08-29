@@ -49,7 +49,7 @@ public class MemberController {
     public String viewSignIn(HttpSession session) {
         Object sessionAttribute = session.getAttribute("memberResponse");
         if (sessionAttribute == null) {
-            return "/member/signIn2";
+            return "/member/signIn";
         }
         return "redirect:/";
     }
@@ -88,7 +88,7 @@ public class MemberController {
 //                    result.rejectValue("cPassword", "Equal.pass", Objects.requireNonNull(ge.getDefaultMessage()));
 //                }
 //            }
-            return "redirect:/members/signup";
+            return "redirect:/members/signup?error=3";
         }
         memberService.join(requestDto);
         return "redirect:/members";
