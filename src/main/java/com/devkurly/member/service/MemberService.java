@@ -11,10 +11,17 @@ import com.devkurly.member.exception.SignInException;
 import com.devkurly.order.exception.AddressException;
 import com.devkurly.order.exception.OrderException;
 import com.devkurly.util.EncryptSha256;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +44,11 @@ public class MemberService {
     public MemberMainResponseDto signIn(MemberSignInRequestDto requestDto) {
         Member member = Optional.ofNullable(memberMapper.findByEmail(requestDto.getUser_email())).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
         checkEncryptPassword(requestDto.getPwd(), member);
+        return new MemberMainResponseDto(member);
+    }
+
+    public MemberMainResponseDto kakaoSignIn(String user_email) {
+        Member member = Optional.ofNullable(memberMapper.findByEmail(user_email)).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
         return new MemberMainResponseDto(member);
     }
 
@@ -80,6 +92,99 @@ public class MemberService {
 
     public Member findMemberById(Integer user_id) {
         return Optional.ofNullable(memberMapper.findById(user_id)).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
+    }
+
+    public String getAccessToken(String authorize_code) {
+        String access_token = "";
+        String refresh_token = "";
+        String reqURL = "https://kauth.kakao.com/oauth/token";
+
+        try {
+            URL url = new URL(reqURL);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=7ab07adcdacec7c4752add19a162ee1b");
+            sb.append("&redirect_uri=http://localhost:8080/members/kakao");
+            sb.append("&code=" + authorize_code);
+            bw.write(sb.toString());
+            bw.flush();
+
+            int responseCode = conn.getResponseCode();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+
+            access_token = element.getAsJsonObject().get("access_token").getAsString();
+            refresh_token = element.getAsJsonObject().get("refresh_token").getAsString();
+
+
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return access_token;
+    }
+
+    public HashMap<String, Object> getUserInfo(String access_Token) {
+
+        HashMap<String, Object> userInfo = new HashMap<String, Object>();
+        String reqURL = "https://kapi.kakao.com/v2/user/me";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String line = "";
+            String result = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+
+            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+            JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+
+            long id = element.getAsJsonObject().get("id").getAsLong();
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+            String email = kakao_account.getAsJsonObject().get("email").getAsString();
+//            String age = kakao_account.getAsJsonObject().get("age_range").getAsString();
+            String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+
+            userInfo.put("nickname", nickname);
+            userInfo.put("email", email);
+//            userInfo.put("age", age);
+            userInfo.put("id", id);
+            userInfo.put("gender", gender);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userInfo;
     }
 
     private static void checkEncryptPassword(String pwd, Member member) {

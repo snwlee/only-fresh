@@ -56,6 +56,8 @@
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator-annotation-processor:6.2.4.Final" />
           <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.4.0-b180830.0359" />
           <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.9.0" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
