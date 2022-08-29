@@ -60,14 +60,18 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <a href="/"><img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/></a>
+                <a href="/">
+                    <svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <image href="/logo.svg" height="60" width="60"/>
+                    </svg>
+                </a>
                 <a href="/">마켓컬리</a>
                 <div></div>
                 <a>뷰티컬리</a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요" id="keyword"/>
-                <img id="search_btn" src="imgs/loupe.png" style="width: 20px; height: 20px" />
+                <img id="search_btn" src="imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
                 <img src="imgs/location.png"/>
@@ -105,6 +109,6 @@
              src="https://product-image.kurly.com/cdn-cgi/image/width=1050,format=auto/banner/event/27a372e4-b59a-4ced-91b9-62df044ef1da.jpg">
     </div>
 </div>
-<script src="/event/js/event.js" ></script>
+<script src="/event/js/event.js"></script>
 </body>
 </html>
