@@ -49,7 +49,7 @@ public class MemberFormValidator implements ConstraintValidator<ValidMemberForm,
             addConstraintViolation(context, "번호에 빈칸은 허용되지 않습니다.");
             valid++;
         }
-        if (!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", requestDto.getTelno())) {
+        if (!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", requestDto.getTelno())) {
             System.out.println("번호 형식에 맞지 않습니다.");
             addConstraintViolation(context, "번호 형식에 맞지 않습니다.");
             valid++;

@@ -60,10 +60,14 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/>
-                <a>마켓컬리</a>
+                <a href="/">
+                    <svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <image href="/logo.svg" height="60" width="60"/>
+                    </svg>
+                </a>
+                <a href="/">마켓컬리</a>
                 <div></div>
-                <a>뷰티컬리</a>
+                <a href="/">뷰티컬리</a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요"/>

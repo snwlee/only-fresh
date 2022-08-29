@@ -62,7 +62,7 @@ let toCouponHtml = function (res) {
         tmp += (el.lmtt_cnd == null ? "" : el.lmtt_cnd)
         tmp += '</p> </div><div class="coupon_func second_col col">'
         tmp += el.func + '</div><div class="coupon_rate third_col col">'
-        tmp += el.value + `\${el.unit_type ? "%" : " 원"}`
+        tmp += el.value + `${el.unit_type ? "%" : " 원"}`
         tmp += '</div><div class="coupon_due fourth_col col">'
         tmp += dateParse(el.expi_dd)
         tmp += '까지</div><div class="coupon_used fifth_col col">'
@@ -110,7 +110,7 @@ $(document).ready(() => {
                     $("#coupons").html("<div class='no_coupon_box'>쿠폰이 없습니다!</div>");
                 } else {
                     coupon_container.unused_coupons = result.false;
-                    $("#optional_function").html(`사용 가능 쿠폰 \${result.false.length} 장`);
+                    $("#optional_function").html(`사용 가능 쿠폰 ${result.false.length} 장`);
                     $("#coupons").html(toCouponHtml(result.false));
                 }
 

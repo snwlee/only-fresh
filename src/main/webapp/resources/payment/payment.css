@@ -40,7 +40,7 @@
 }
 
 .select-payment input[type="radio"]:checked + label {
-    background-color: #5F0080;
+    background-color: #4E7A51;
     color: #fff;
 }
 
@@ -226,7 +226,7 @@ h2 {
     margin-top: 20px;
     border: none;
     border-radius: 2px;
-    background-color: #5F0080;
+    background-color: #4E7A51;
     color: white;
 }
 
@@ -319,7 +319,7 @@ h2 {
 
 /* When the radio button is checked, add background */
 .container input:checked ~ .checkmark {
-    background-color: #5F0080;
+    background-color: #4E7A51;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
