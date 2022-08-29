@@ -196,7 +196,7 @@
     </footer>
 </div>
 
-<!--<script>
+<script>
     let page = '<c:out value="${param.page}"/>';
     let pageSize = '<c:out value="${param.pageSize}"/>';
     let sort = '<c:out value="${param.sort}"/>';
@@ -241,6 +241,6 @@
     $(document).ready(function () {
         showList();
     })
-</script>-->
+</script>
 </body>
 </html>
