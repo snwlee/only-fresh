@@ -32,7 +32,7 @@
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
-<div id="whole_container">r
+<div id="whole_container">
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
@@ -56,26 +56,28 @@
         <%--        </div>--%>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px"
-                     src="/main/imgs/DevKurly.png"
-                     alt="logo" />
+                <a href="/">
+                    <svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <image href="/logo.svg" height="60" width="60"/>
+                    </svg>
+                </a>
                 <a href="/">데브컬리</a>
                 <div></div>
                 <a href="/">뷰티컬리</a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요" id="keyword"/>
-                <img id="search_btn" src="/main/imgs/loupe.png" style="width: 20px; height: 20px" /><%--검색--%>
+                <img id="search_btn" src="/main/imgs/loupe.png" style="width: 20px; height: 20px"/><%--검색--%>
             </div>
             <div id="icon_container">
-                <img src="/main/imgs/location.png" />
-                <img src="/main/imgs/heart.png" />
-                <a href="carts/"><img src="/main/imgs/shopping-cart.png" /></a>
+                <img src="/main/imgs/location.png"/>
+                <img src="/main/imgs/heart.png"/>
+                <a href="carts/"><img src="/main/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
             <div id="category_container">
-                <img src="" />
+                <img src=""/>
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
@@ -123,8 +125,6 @@
             </div>
             <div id="product3" style="display: flex;">
             </div>
-
-
 
 
             <%--            <div id="product3" style="display: flex;">--%>
@@ -197,35 +197,36 @@
     }
     // 여기까지 카테고리
 
-    let showList = function(){
+    let showList = function () {
         let sort = 0
         $.ajax({
             type: 'GET',
-            url: '/product/call?sort='+sort+'&order_sc=""',
-            success : function(result){
+            url: '/product/call?sort=' + sort + '&order_sc=""',
+            success: function (result) {
                 $("#product").html(toHtml(result.list1));
                 $("#product2").html(toHtml(result.list2));
                 $("#product3").html(toHtml(result.list3));
                 $("#product4").html(toHtml(result.list4));
                 $("#product5").html(toHtml(result.list5));
             },
-            error : function(){alert("error")}
+            error: function () {
+                alert("error")
+            }
         });
     }
 
-    let toHtml = function(lists){
+    let toHtml = function (lists) {
         let tmp = "";
-        lists.forEach(function(ProductDto){
+        lists.forEach(function (ProductDto) {
             tmp += '<div class="products">'
-            tmp += '<a href="/detail?pdt_id='+ProductDto.pdt_id+'"><img id="img" src="'+ProductDto.image+'"/></a>'
-            tmp += '<h3 class="product_title">['+ProductDto.company +'] '+ProductDto.title+'<h3/>'
-            tmp += '<div class="product"><span class="product_ds_rate">'+ProductDto.ds_rate+'%</span>'
-            tmp += '<span class="product_sel_price">'+ProductDto.sel_price.toLocaleString()+'원</span></div>'
-            tmp += '<span class="product_price">'+ProductDto.price.toLocaleString()+'원</span></div>'
+            tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
+            tmp += '<h3 class="product_title">[' + ProductDto.company + '] ' + ProductDto.title + '<h3/>'
+            tmp += '<div class="product"><span class="product_ds_rate">' + ProductDto.ds_rate + '%</span>'
+            tmp += '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></div>'
+            tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span></div>'
         })
         return tmp;
     }
-
 
 
     $(document).ready(function () {
@@ -235,14 +236,14 @@
             url: '/product/categories',  // 요청 URI
             success: function (res) {
                 categories = res;
-                $.each(res, (el)=>{
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el+'</li></a>');
+                $.each(res, (el) => {
+                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
                 })
             },
             error: function (result) {
                 alert("쿠폰 불러오기 실패");
             }, // 에러가 발생했을 때, 호출될 함수
-            complete: function(){
+            complete: function () {
                 $(".main_cat").mouseenter((e) => {
                     sub_cat_container.show();
                     sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
@@ -250,12 +251,12 @@
             }
         })
         //검색
-        $("#search_btn").click(function(){
+        $("#search_btn").click(function () {
             let keyword = $("#keyword").val();
-            window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+            window.location.href = '/product/newlist?sort=1&keyword=' + keyword + '&page=1&pageSize=12&order_sc=in_date';
         });
-        $("input[id=keyword]").keydown(function (key){
-            if(key.keyCode==13)
+        $("input[id=keyword]").keydown(function (key) {
+            if (key.keyCode == 13)
                 $("#search_btn").trigger("click");
         }); //검색 끝
     })

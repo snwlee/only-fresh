@@ -111,7 +111,11 @@
     </div>
     <div id="search">
       <div id="search_first">
-        <img style="width:82px; height: 42px" src="/main/imgs/DevKurly.png" alt="logo" />
+        <a href="/">
+          <svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+            <image href="/logo.svg" height="60" width="60"/>
+          </svg>
+        </a>
         <a href="/DevKurly">데브컬리</a>
         <div></div>
         <a href="/DevKurly">뷰티컬리</a>
