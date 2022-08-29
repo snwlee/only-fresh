@@ -34,6 +34,7 @@
 
         #content {
             display: flex;
+            justify-content: center;
             padding: 30px 200px 160px 200px;
         }
 
@@ -174,15 +175,15 @@
             font-size: small;
         }
 
-        #deli_true {    /* 샛별배송 컬러 */
+        #deli_true { /* 샛별배송 컬러 */
             color: #5F0080;
         }
 
-        #deli_false {   /* 낮배송 컬러 */
+        #deli_false { /* 낮배송 컬러 */
             color: #777777;
         }
 
-        .chk_addr_tag_true {    /* 기본 배송지 표시 */
+        .chk_addr_tag_true { /* 기본 배송지 표시 */
             display: block;
             width: 74px;
             height: 22px;
@@ -349,31 +350,26 @@
                                     </a>
                                 </div>
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    let phone = '${addressDto.addr_tel}';
-                                    $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
-                                });
-                                $('#checkbox-${addressDto.addr_id}').click(function () {
-                                    alert("배송지 선택이 완료되었습니다.");
-                                    $('#form').submit();
-                                });
-                            </script>
                         </c:forEach>
+<%--                        <script src="/resources/address/js/address.js"></script>--%>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            let phone = '${addressDto.addr_tel}';
+            $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
+        });
+
+
+        $('#checkbox-${addressDto.addr_id}').click(function () {
+            alert("배송지 선택이 완료되었습니다.");
+            $('#form').submit();
+        });
+    </script>
 </div>
 </div>
-<script>
-    let msg = "${param.msg}"
-    if (msg == "WRT_OK") alert("성공적으로 등록되었습니다.");
-    if (msg == "DEL_OK") alert("성공적으로 삭제되었습니다.");
-    if (msg == "DEL_ERR") alert("삭제에 실패했습니다.");
-    if (msg == "INS_OK") alert("성공적으로 등록되었습니다.");
-    if (msg == "INS_ERR") alert("등록에 실패했습니다.");
-</script>
 </body>
 </html>

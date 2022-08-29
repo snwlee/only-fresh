@@ -29,7 +29,9 @@ public class CartRestController {
     }
 
     @PostMapping("/qty")
-    public CartProductResponseDto modifyCartQty(@RequestBody CartProductResponseDto responseDto) {
+    public CartProductResponseDto modifyCartQty(@RequestBody CartProductResponseDto responseDto, @CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        responseDto.setUser_id(id);
         Cart cart = cartService.checkProductStock(responseDto.toEntity());
         responseDto.setPdt_qty(cart.getPdt_qty());
         if (responseDto.getPdt_qty() < 1) {

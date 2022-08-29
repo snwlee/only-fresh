@@ -34,6 +34,7 @@
 
         #content {
             display: flex;
+            justify-content: center;
             padding: 30px 200px 160px 200px;
         }
 
@@ -317,34 +318,34 @@
             <div id="address_add">
                 <form id="address_add_body">
                     <div class="insert_addr">
-<%--                        <p class="tit_result">--%>
-<%--                            <span class="deli_type">샛별배송</span>지역입니다.--%>
-<%--                            <span class="desc">매일 아침, 문앞까지 신선함을 전해드려요</span>--%>
-<%--                        </p>--%>
+                        <%--                        <p class="tit_result">--%>
+                        <%--                            <span class="deli_type">샛별배송</span>지역입니다.--%>
+                        <%--                            <span class="desc">매일 아침, 문앞까지 신선함을 전해드려요</span>--%>
+                        <%--                        </p>--%>
                         <div class="field">
                             <div class="address_search">
                                 <%-- <input id="main_addr" class="address" readonly value=""> --%>
                                 <input type="text" id="main_addr" class="addrMain" name="main_addr" placeholder="주소"
                                        value="${addressDto.main_addr}"/>
-<%--                                <button type="text" class="rebtn">--%>
-<%--                                    <span class="ico"></span>--%>
-<%--                                    재검색 --%>
-<%--                                </button>--%>
+                                <%--                                <button type="text" class="rebtn">--%>
+                                <%--                                    <span class="ico"></span>--%>
+                                <%--                                    재검색 --%>
+                                <%--                                </button>--%>
                             </div>
-                            <input type="text" id="sub_addr" name="sub_addr" data-max-length="50"
+                            <input type="text" id="sub_addr" name="sub_addr" maxlength="50"
                                    placeholder="나머지 주소를 입력해주세요"
                                    data-format="text" value="${addressDto.sub_addr}"/>
                         </div>
                         <div class="field">
                             <label class="label_block" for="addr_name">받으실 분</label><br>
-                            <input type="text" id="addr_name" name="addr_name" data-max-length="20"
+                            <input type="text" id="addr_name" name="addr_name" maxlength="20"
                                    placeholder="이름을 입력해주세요"
                                    value="${addressDto.addr_name}"/>
                         </div>
 
                         <div class="field">
                             <label class="label_block" for="addr_tel">휴대폰</label><br>
-                            <input type="text" id="addr_tel" name="addr_tel" data-max-length="11"
+                            <input type="text" id="addr_tel" name="addr_tel" minlength="9" maxlength="11"
                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                    placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}"/>
                         </div>
@@ -366,6 +367,7 @@
                             </a>
                         </div>
                     </div>
+<%--                    <script src="/resources/address/js/address.js"></script>--%>
                 </form>
             </div>
         </div>
@@ -383,6 +385,16 @@
             form.attr("method", "post");
             form.submit();
         });
+
+        function telValidator(args) {
+            var msg = '전화번호를 제대로 입력해주세요.';
+
+            if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(args)) {
+                return true;
+            }
+            alert(msg);
+            return false;
+        }
     });
 </script>
 </body>

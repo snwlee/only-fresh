@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateMemberException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> duplicateCatcher(HttpServletResponse response, Exception e) throws IOException {
-        System.out.println("GlobalExceptionHandler: 회원가입에 실패했습니다.");
+        System.out.println("GlobalExceptionHandler: 이미 등록된 이메일입니다.");
         response.sendRedirect("/members/signup?error=1");
         return ResponseEntity.badRequest().body(ErrorCode.SIGN_UP_FAIL.getMessage());
     }

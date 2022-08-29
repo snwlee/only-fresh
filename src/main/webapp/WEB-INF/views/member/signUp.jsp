@@ -79,7 +79,14 @@
             width: 450px;
             height: 45px;
             color: #808080;
+            font-size: 16px;
             background-color: #FAFAFA;
+            border: 1px solid rgb(221, 221, 221);
+        }
+
+        .member-input:focus {
+            font-size: 16px;
+            width: 450px;
             border: 1px solid rgb(221, 221, 221);
         }
 
@@ -93,7 +100,6 @@
              color: white;
          }
     </style>
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 
 <body>
@@ -158,6 +164,16 @@
     <div id="content">
         <h2>회원가입</h2>
         <form id="form" action="/members/signup" method="post" autocomplete="off">
+            <div class="form-error" id="signup-error-1" ${param.error==1 ? '' : 'hidden'}>
+                <img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0NCMTQwMCIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNNiAwYzEuNjAzIDAgMy4xMS42MjQgNC4yNDMgMS43NTdDMTEuMzc2IDIuODkxIDEyIDQuMzk3IDEyIDZjMCAxLjYwMy0uNjI0IDMuMTEtMS43NTcgNC4yNDNDOS4xMDkgMTEuMzc2IDcuNjAzIDEyIDYgMTJjLTEuNjAzIDAtMy4xMS0uNjI0LTQuMjQzLTEuNzU3Qy42MjQgOS4xMDkgMCA3LjYwMyAwIDZjMC0xLjYwMy42MjQtMy4xMSAxLjc1Ny00LjI0M0MyLjg5MS42MjQgNC4zOTcgMCA2IDB6bTAgOC4yNWMtLjM0NSAwLS42MjUuMjgtLjYyNS42MjVzLjI4LjYyNS42MjUuNjI1LjYyNS0uMjguNjI1LS42MjVTNi4zNDUgOC4yNSA2IDguMjV6bS4wMTItNS43NWMtLjI3NiAwLS41LjIyNC0uNS41djRsLjAwNC4wNThjLjAyOS4yNDkuMjQuNDQyLjQ5Ni40NDIuMjc3IDAgLjUtLjIyNC41LS41VjNsLS4wMDMtLjA1OGMtLjAyOS0uMjQ5LS4yNC0uNDQyLS40OTctLjQ0MnoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03MzczIC0yMjQ0KSB0cmFuc2xhdGUoNzM3MyAyMjQ0KSIvPgogICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0ZGRiIgZmlsbC1vcGFjaXR5PSIwIiBkPSJNMCAxMkwxMiAxMiAxMiAwIDAgMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03MzczIC0yMjQ0KSB0cmFuc2xhdGUoNzM3MyAyMjQ0KSIvPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"/>
+                이미 존재하는 회원입니다.
+            </div>
+            <div class="form-error" id="signup-error-3" ${param.error==3 ? '' : 'hidden'}>
+                <img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDEyIDEyIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0NCMTQwMCIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNNiAwYzEuNjAzIDAgMy4xMS42MjQgNC4yNDMgMS43NTdDMTEuMzc2IDIuODkxIDEyIDQuMzk3IDEyIDZjMCAxLjYwMy0uNjI0IDMuMTEtMS43NTcgNC4yNDNDOS4xMDkgMTEuMzc2IDcuNjAzIDEyIDYgMTJjLTEuNjAzIDAtMy4xMS0uNjI0LTQuMjQzLTEuNzU3Qy42MjQgOS4xMDkgMCA3LjYwMyAwIDZjMC0xLjYwMy42MjQtMy4xMSAxLjc1Ny00LjI0M0MyLjg5MS42MjQgNC4zOTcgMCA2IDB6bTAgOC4yNWMtLjM0NSAwLS42MjUuMjgtLjYyNS42MjVzLjI4LjYyNS42MjUuNjI1LjYyNS0uMjguNjI1LS42MjVTNi4zNDUgOC4yNSA2IDguMjV6bS4wMTItNS43NWMtLjI3NiAwLS41LjIyNC0uNS41djRsLjAwNC4wNThjLjAyOS4yNDkuMjQuNDQyLjQ5Ni40NDIuMjc3IDAgLjUtLjIyNC41LS41VjNsLS4wMDMtLjA1OGMtLjAyOS0uMjQ5LS4yNC0uNDQyLS40OTctLjQ0MnoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03MzczIC0yMjQ0KSB0cmFuc2xhdGUoNzM3MyAyMjQ0KSIvPgogICAgICAgICAgICAgICAgPHBhdGggZmlsbD0iI0ZGRiIgZmlsbC1vcGFjaXR5PSIwIiBkPSJNMCAxMkwxMiAxMiAxMiAwIDAgMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03MzczIC0yMjQ0KSB0cmFuc2xhdGUoNzM3MyAyMjQ0KSIvPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"/>
+                잘못된 값이 입력 됬습니다.
+            </div>
         <div id="container">
             <div id="product_list">
                 <h4 class="product_type" style="padding-top: 0px;"></h4>
@@ -293,121 +309,8 @@
         </div>
     </footer>
 </div>
-<script>
-    /**
-     * 카테고리
-     */
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-
-    let catToLi = function (res) {
-        let tmp = '';
-
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el.cd_name + '</li></a>'
-        })
-
-        return tmp;
-    }
-
-    let categories = null;
-
-    $(document).ready(function () {
-
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/product/categories',  // 요청 URI
-            success: function (res) {
-                categories = res;
-
-                $.each(res, (el) => {
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
-                })
-            },
-            error: function (result) {
-                alert("쿠폰 불러오기 실패");
-            }, // 에러가 발생했을 때, 호출될 함수
-            complete: function () {
-                $(".main_cat").mouseenter((e) => {
-                    sub_cat_container.show();
-                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
-                })
-            }
-        })
-    });
-</script>
-<script>
-    $('#member-submit').click(function () {
-        if ($('#required-checked').prop('hidden') === false) {
-            $('#form').submit();
-        } else {
-            $('#required-error').prop('hidden', false);
-            alert('필수 약관에 동의해주세요.');
-        }
-    });
-
-    $('#email').change(function () {
-        $('#email-error').prop('hidden', false);
-    });
-    $('#pwd').change(function () {
-        $('#pwd-error').prop('hidden', false);
-    });
-    $('#cpwd').change(function () {
-        $('#cpwd-error').prop('hidden', false);
-    });
-    $('#name').change(function () {
-        $('#name-error').prop('hidden', false);
-    });
-    $('#telno').change(function () {
-        $('#phone-error').prop('hidden', false);
-    });
-    $('#rcmdr_email').change(function () {
-        $('#rcmdr-email-error').prop('hidden', false);
-    });
-
-    $('#all-checked').click(function () {
-        $('.checked').prop('hidden', true);
-        $('.unchecked').prop('hidden', false);
-        $('#terms').prop('checked', false);
-    });
-    $('#all-unchecked').click(function () {
-        $('.checked').prop('hidden', false);
-        $('.unchecked').prop('hidden', true);
-        $('#terms').prop('checked', true);
-    });
-    $('#required-checked').click(function () {
-        $(this).prop('hidden', true);
-        $('#required-unchecked').prop('hidden', false);
-    });
-    $('#required-unchecked').click(function () {
-        $(this).prop('hidden', true);
-        $('#required-checked').prop('hidden', false);
-    });
-    $('#selected-checked').click(function () {
-        $(this).prop('hidden', true);
-        $('#selected-unchecked').prop('hidden', false);
-    });
-    $('#selected-unchecked').click(function () {
-        $(this).prop('hidden', true);
-        $('#selected-checked').prop('hidden', false);
-    });
-
-</script>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="/member/js/signup.js"></script>
+<script type="text/javascript" src="/category/js/category.js"></script>
 </body>
 </html>

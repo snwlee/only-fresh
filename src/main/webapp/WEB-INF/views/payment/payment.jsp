@@ -68,7 +68,6 @@
             font-weight: 600;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 
 <body>
@@ -193,65 +192,9 @@
         </div>
     </footer>
 </div>
-<script>
-    /**
-     * 카테고리
-     */
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-
-    let catToLi = function (res) {
-        let tmp = '';
-
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num=' + el.cd_name_num + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el.cd_name + '</li></a>'
-        })
-
-        return tmp;
-    }
-
-    let categories = null;
-
-    $(document).ready(function () {
-
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/product/categories',  // 요청 URI
-            success: function (res) {
-                categories = res;
-
-                $.each(res, (el) => {
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
-                })
-            },
-            error: function (result) {
-                alert("쿠폰 불러오기 실패");
-            }, // 에러가 발생했을 때, 호출될 함수
-            complete: function () {
-                $(".main_cat").mouseenter((e) => {
-                    sub_cat_container.show();
-                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
-                })
-            }
-        })
-    });
-</script>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="/payment/js/payment.js"></script>
+<script type="text/javascript" src="/category/js/category.js"></script>
 <script>
     /**
      * 배송지 정보 요청
@@ -283,69 +226,6 @@
         error: function () {
             alert('배송지를 등록해 주세요');
             location.href = '/address/list';
-        }
-    });
-
-    /**
-     * 결제 정보 요청
-     */
-    $.ajax({
-        type: 'GET',
-        url: '/payments/method',
-        success: function (result) {
-            let paymentMethod;
-            switch (result.setl_cd) {
-                case 'credit':
-                    paymentMethod = '신용카드';
-                    break;
-                case 'pay':
-                    paymentMethod = '간편결제';
-                    break;
-                case 'phone':
-                    paymentMethod = '휴대폰결제';
-                    break;
-                default:
-                    paymentMethod = '무통장입금';
-            }
-            let payment = `
-                        <div class="payment_row">
-                            <span>결제 수단</span>
-                            <span>` + paymentMethod + ` / 일시불</span>
-                        </div>
-                          `;
-            $('#payment').append(payment);
-        },
-        error: function () {
-            alert('결제 중 오류가 발생 했습니다. 장바구니로 돌아갑니다.');
-            location.href = '/carts';
-        }
-    });
-
-    /**
-     * 상품 정보 요청
-     */
-    $.ajax({
-        type: 'GET',
-        url: '/payments/product',
-        datatype: 'json',
-        success: function (result) {
-            $.each(result, function (index, payProductDto) {
-                let product =
-                    `<div class="product">
-                    <img src="` + payProductDto.image + `"
-                    alt="" class="product_img"/>
-                    <h4>[` + payProductDto.company + `] ` + payProductDto.title + `</h4>
-                    <div class="quantity_control_box">
-                    <div id="order-qty">` + payProductDto.pdt_qty + ` 개</div>
-                    </div>
-                    <p id="order-sum" style="margin-bottom: 0px;padding-left: 100px;">
-                    ` + (payProductDto.sel_price).toLocaleString() + ` 원</p>
-                    </div>`;
-                $('#product').append(product);
-            })
-        },
-        error: function () {
-            alert('error');
         }
     });
 </script>

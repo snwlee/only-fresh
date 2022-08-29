@@ -34,6 +34,7 @@
 
         #content {
             display: flex;
+            justify-content: center;
             padding: 30px 200px 160px 200px;
         }
 
@@ -347,6 +348,7 @@
                             </button>
                         </a>
                     </div>
+<%--                    <script src="/resources/address/js/address.js"></script>--%>
             </form>
             </div>
         </div>
@@ -357,7 +359,7 @@
 </div>
 </div>
 <script>
-    $(document).ready(function () {  // main()와 같다. jquery
+    $(document).ready(function () {
 
         $('#removeBtn').on("click", function () {
             // if(!confirm("정말로 삭제하시겠습니까?")) return;
@@ -373,7 +375,6 @@
             form.attr("method", "post");
             form.submit();
         });
-
     });
 </script>
 </body>
