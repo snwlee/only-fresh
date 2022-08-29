@@ -49,7 +49,7 @@ public class MemberController {
     public String viewSignIn(HttpSession session) {
         Object sessionAttribute = session.getAttribute("memberResponse");
         if (sessionAttribute == null) {
-            return "/member/signIn";
+            return "/member/signIn2";
         }
         return "redirect:/";
     }
