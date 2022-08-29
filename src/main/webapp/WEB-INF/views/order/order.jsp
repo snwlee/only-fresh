@@ -29,7 +29,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevKurly :: 주문서</title>
+    <title>OnlyFresh :: 주문서</title>
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/order/order.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
@@ -89,9 +89,9 @@
                         <image href="/logo.svg" height="60" width="60"/>
                     </svg>
                 </a>
-                <a href="/">마켓컬리</a>
+                <a href="/">Only 프레쉬</a>
                 <div></div>
-                <a href="/">뷰티컬리</a>
+                <a href="/"></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요"/>
