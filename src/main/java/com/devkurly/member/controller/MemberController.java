@@ -88,7 +88,7 @@ public class MemberController {
 //                    result.rejectValue("cPassword", "Equal.pass", Objects.requireNonNull(ge.getDefaultMessage()));
 //                }
 //            }
-            return "redirect:/members/signup";
+            return "redirect:/members/signup?error=3";
         }
         memberService.join(requestDto);
         return "redirect:/members";

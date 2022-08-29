@@ -32,50 +32,181 @@
             height: 100vh;
         }
 
-        button {
-            width: 200px;
-            height: 100px;
-        }
-
         #content {
             display: flex;
+            justify-content: center;
             padding: 30px 200px 160px 200px;
         }
 
-        .coupon cols {
+        /*    */
+
+        #add_coupon_box {
+            width: auto;
+            border: 0 none;
+        }
+
+        #add_coupon_box_tits {
+            /*background-color: #795b8f;*/
+            height: 36px;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            color: #333;
+            letter-spacing: -.5px;
+        }
+
+        #add_coupon_box_cmt {
+            padding-left: 15px;
+            font-size: 14px;
+            color: #999;
+            line-height: 20px;
+            letter-spacing: -.3px;
+            vertical-align: 3px;
+        }
+
+        #add_box_newAddress {
+            padding-left: 45px;
+        }
+
+        #newAddrressAdd {
+            border: 0 none;
+            background-color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            color: #333;
+            line-height: 24px;
+            letter-spacing: -0.5px;
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+        /* */
+        #mypage_content_body {
             width: 732px;
         }
 
-        .coupon_func second_col col {
-            margin-top: 20px;
-            padding-top: 20px;
+        .address_cols {
+            /*background-color: #b5b5b5;*/
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            /* border: 1px solid salmon; */
+            border-bottom: 1px solid #333;
         }
 
-
-        .coupon_name firse_co1 {
-            width: 273px;
+        .tit_colx {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .second_col {
+        .colx {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        #form {
+            height: auto;
+        }
+
+        .coupon_name first_col {
+            /*padding: 20px 10px 20px 20px;*/
+            /*text-align: left;*/
+            padding: 0;
+            font-size: 16px;
+            color: #333;
+            line-height: 24px;
+            letter-spacing: -0.3px;
+            text-align: left;
+            word-break: break-all;
+        }
+
+        .first_col_addr { /* 주소 사이즈 */
+            width: 352px;
+        }
+
+        .second_col_addr { /* 받으실분 사이즈 */
             width: 120px;
         }
 
-        .third_col {
-            width: 150px;
+        .third_col_addr { /* 연락처 사이즈 */
+            width: 100px;
         }
 
-        .coupon_name first_co1 {
+        .fourth_col_addr { /* 배송유형 사이즈 */
+            width: 100px;
+        }
+
+        .fifth_col_addr { /* 수정 사이즈 */
+            width: 60px;
+        }
+
+        /*  */
+        #readBtn { /* 수정 버튼 */
+            width: 24px;
+            height: 24px;
+            border: 0 none;
+            background: url(https://res.kurly.com/mobile/ico/2006/ico_modify.png) no-repeat 50% 50%;
+            font-size: 0px;
+            line-height: 0;
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+        .address { /* 배송지 목록 타이틀  */
+            border-bottom: 1px solid #F4F4F4;
+            width: 732px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        #addressList { /* 배송지 목록 */
+            width: 732px;
+        }
+
+        .address_tel { /* 연락처 사이즈 */
+            font-size: small;
+        }
+
+        #deli_true { /* 샛별배송 컬러 */
+            color: #5F0080;
+        }
+
+        #deli_false { /* 낮배송 컬러 */
+            color: #777777;
+        }
+
+        .chk_addr_tag_true { /* 기본 배송지 표시 */
+            display: block;
+            width: 74px;
+            height: 22px;
+            margin-bottom: 7px;
+            border-radius: 11px;
+            background-color: #f5f4f4;
+            font-weight: 700;
+            font-size: 12px;
+            color: #666;
+            line-height: 22px;
+            letter-spacing: 0;
             text-align: center;
         }
 
-        .chk_addr_tag {
-            width: 65px;
-            color: #5F0080;
-            border-radius: 30px;
+        .addr { /* 주소 */
+            padding: 0;
+            font-size: 16px;
+            color: #333;
+            line-height: 24px;
+            letter-spacing: -0.3px;
+            text-align: left;
+            word-break: break-all;
         }
-
-        .
-
 
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -160,126 +291,85 @@
                 </a>
             </ul>
         </div>
+        <%-- JSP --%>
         <div id="mypage_content">
             <div id="add_coupon_box">
-                <h3>배송지 관리</h3>
-                <p>배송지에 따라 상품정보 및 배송유형이 달라질 수 있습니다.</p>
-                <a href="/address/insert">
-                    <button id="add_coupon_button">
-                        배송지 등록
-                    </button>
-                </a>
+                <h2 id="add_coupon_box_tits">배송지 관리
+                    <span id="add_coupon_box_cmt" class="">배송지에 따라 상품정보 및 배송유형이 달라질 수 있습니다.</span>
+                </h2>
+                <div id="add_box_newAddress">
+                    <a href="/address/insert">
+                        <button id="newAddrressAdd">
+                            <img src="https://res.kurly.com/pc/ico/2006/ico_add_16x16.svg" alt class="ico">
+                            새 배송지 추가
+                        </button>
+                    </a>
+                </div>
             </div>
 
             <div id="optional_function">
 
             </div>
             <div id="mypage_content_body">
-                <div class="cols">
-<%--                    <div class="fifth_col col">선택</div>--%>
-                    <div class="first_col col">주소</div>
-                    <div class="second_col col">받으실 분</div>
-                    <div class="third_col col">연락처</div>
-                    <div class="fourth_col col">배송유형</div>
-                    <div class="fifth_col col">수정</div>
+                <div class="address_cols">
+                    <div class="first_col_addr tit_colx">주소</div>
+                    <div class="second_col_addr tit_colx">받으실 분</div>
+                    <div class="third_col_addr tit_colx">연락처</div>
+                    <div class="fourth_col_addr tit_colx">배송유형</div>
+                    <div class="fifth_col_addr tit_colx">수정</div>
                 </div>
-                <div id="coupons">
+                <div id="addressList">
                     <form action="/address/default" id="form" method="post">
                         <c:forEach var="addressDto" items="${list}">
-                            <div class="coupon cols">
-<%--                                <div class="coupon_name fifth_col">--%>
-<%--                                    <span id="select-${addressDto.addr_id}" style="display: flex;">--%>
-<%--                                        <img id="select-checked-${addressDto.addr_id}"--%>
-<%--                                             src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3Ni4wMDAwMDAsIC0xMDkwLjAwMDAwMCkgdHJhbnNsYXRlKDEwMC4wMDAwMDAsIDkzNi4wMDAwMDApIHRyYW5zbGF0ZSg2MC4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzVGMDA4MCIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"--%>
-<%--                                             alt=""/>--%>
-<%--                                        <img id="select-unchecked-${addressDto.addr_id}"--%>
-<%--                                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgc3Ryb2tlPSIjREREIj4KICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICA8Zz4KICAgICAgICAgICAgICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjY5LjAwMDAwMCwgLTEwOTAuMDAwMDAwKSB0cmFuc2xhdGUoMTAwLjAwMDAwMCwgOTM2LjAwMDAwMCkgdHJhbnNsYXRlKDU1My4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMS41Ii8+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4K"--%>
-<%--                                            alt="" style="display: none"/>--%>
-<%--                                                <input ${pub ?'checked':' '} type="checkbox" name="ba_addr">--%>
-<%--                                        <input type="checkbox" id="checkbox-${addressDto.addr_id}" name="ba_addr"--%>
-<%--                                            ${addressDto.ba_addr==true ? 'checked' : " "} hidden >--%>
-<%--                                        <input type="text" name="addr_id" value="${addressDto.addr_id}" hidden>--%>
-<%--                                    </span>--%>
-<%--                                </div>  --%>
-                                <div class="coupon_name first_col">
-                                    <div class="chk_addr_tag">${addressDto.chk_addr==true ? '기본배송지' : " "}</div>
-                                    <p aria-readonly="true">${addressDto.main_addr}</p>
-                                    <div>
+                            <div class="address colx">
+                                <div class="address_main first_col_addr">
+                                    <span class="chk_addr_tag_${addressDto.chk_addr}">
+                                            ${addressDto.chk_addr==true ? '기본 배송지' : " "}
+                                    </span>
+                                    <p class="addr" aria-readonly="true">
+                                            ${addressDto.main_addr}<br>
                                             ${addressDto.sub_addr}
-                                    </div>
+                                    </p>
                                 </div>
-                                <div class="coupon_func second_col col">
+                                <div class="address_name second_col_addr colx">
                                         ${addressDto.addr_name}
                                 </div>
-                                <div class="coupon_rate third_col col" id="phone-${addressDto.addr_id}">
+                                <div class="address_tel third_col_addr colx" id="phone-${addressDto.addr_id}">
                                         ${addressDto.addr_tel}
                                 </div>
-                                <div class="coupon_due fourth_col col">
-                                        ${addressDto.deli_type==true ? '샛별배송':'낮배송'}
+                                <div class="address_deli fourth_col_addr colx">
+                                    <span id="deli_${addressDto.deli_type}">
+                                            ${addressDto.deli_type==true ? '샛별배송':'낮배송'}
+                                    </span>
                                 </div>
-                                <div class="coupon_used fifth_col col">
-                                    <a href="<c:url value='/address/read?addr_id=${addressDto.addr_id}'/>">수정</a>
+                                <div class="address_modify fifth_col_addr colx">
+                                    <a href="/address/read?addr_id=${addressDto.addr_id}">
+                                        <button type="button" id="readBtn">
+                                            수정
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
-                            <script>
-                                // .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-                                // oninput="this.value = this.value
-                                <%--$('#phone').text(${addressDto.addr_tel});--%>
-                                $(document).ready(function () {
-                                    let phone = '${addressDto.addr_tel}';
-                                    $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
-                                });
-                                $('#checkbox-${addressDto.addr_id}').click(function () {
-                                    alert("배송지 선택이 완료되었습니다.");
-                                    $('#form').submit();
-                                });
-                                <%--$(document).ready(function () {--%>
-                                <%--    $('#form').click(function () {--%>
-                                <%--        if ($('#checkbox-${addressDto.addr_id}').is(":checked")) {--%>
-                                <%--            alert($('#checkbox-${addressDto.addr_id}').val());--%>
-
-                                <%--        }--%>
-                                <%--    })--%>
-                                <%--});--%>
-
-                                <%--$('input:checkbox[id="#checkbox-${addressDto.addr_id}"]').val(); // 체크박스 값 가져오기--%>
-                                // $('.ba_addr == 1').attr('checked', true);
-                                <%--$('input:checkbox[id="checkbox-${addressDto.addr_id}"]' === 1).attr("checked", true);--%>
-
-
-                                <%--$('#checkbox-${addressDto.addr_id}' === true).on(function () {--%>
-                                <%--    $('#checkbox-${addressDto.addr_id}').prop('checked', true);--%>
-                                <%--});--%>
-
-                                // $('input[ba_addr=ba_addr]' === true).prop("checked", true);
-
-                                <%--$('#select-${addressDto.addr_id}').click(function () {--%>
-                                <%--    if ($('#checkbox-${addressDto.addr_id}').is(':checked')) {--%>
-                                <%--        $('#select-checked-${addressDto.addr_id}').css('display', 'none');--%>
-                                <%--        $('#select-unchecked-${addressDto.addr_id}').css('display', '');--%>
-                                <%--        $('#checkbox-${addressDto.addr_id}').prop('checked', false);--%>
-                                <%--    } else {--%>
-                                <%--        $('#select-checked-${addressDto.addr_id}').css('display', '');--%>
-                                <%--        $('#select-unchecked-${addressDto.addr_id}').css('display', 'none');--%>
-                                <%--        $('#checkbox-${addressDto.addr_id}').prop('checked', true);--%>
-                                <%--    }--%>
-                                <%--});--%>
-                            </script>
                         </c:forEach>
+                        <script src="/resources/address/js/address.js"></script>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        <%--$(document).ready(function () {--%>
+        <%--    let phone = '${addressDto.addr_tel}';--%>
+        <%--    $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));--%>
+        <%--});--%>
+
+
+        <%--$('#checkbox-${addressDto.addr_id}').click(function () {--%>
+        <%--    alert("배송지 선택이 완료되었습니다.");--%>
+        <%--    $('#form').submit();--%>
+        <%--});--%>
+    </script>
 </div>
 </div>
-<script>
-    let msg = "${param.msg}"
-    if (msg == "WRT_OK") alert("성공적으로 등록되었습니다.");
-    if (msg == "DEL_OK") alert("성공적으로 삭제되었습니다.");
-    if (msg == "DEL_ERR") alert("삭제에 실패했습니다.");
-    if (msg == "INS_OK") alert("성공적으로 등록되었습니다.");
-    if (msg == "INS_ERR") alert("등록에 실패했습니다.");
-</script>
 </body>
 </html>

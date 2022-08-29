@@ -30,9 +30,11 @@
     <link rel="stylesheet" type="text/css" href="/main/main.css?ver=1">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="/main/Main.js"></script>
+    <script src="/category/js/category.js"></script>
 </head>
 <body>
-<div id="whole_container">
+<div id="whole_container">r
     <div id="navigation">
         <div id="signup_signin_container">
             <div id="signup_signin">
@@ -159,7 +161,7 @@
         </div>
     </footer>
 </div>
-<script>
+<!--<script>
     <%--카테고리 --%>
     let wrapper = $("#cat_wrapper");
     let show_category_button = $("#show_category_button");
@@ -259,7 +261,7 @@
                 $("#search_btn").trigger("click");
         }); //검색 끝
     })
-</script>
+</script>-->
 </body>
 
 </html>
