@@ -32,13 +32,12 @@
     <style>
         #content a {
             text-decoration: none;
-            font-size: 18px;
+            /*font-size: 18px;*/
             font-weight: bold;
         }
 
         .paging {
             display: flex;
-            color: black;
             align-items: center;
         }
 
@@ -62,7 +61,6 @@
         .paging-active {
             background-color: rgb(216, 216, 216);
             border-radius: 5px;
-            color: rgb(24, 24, 24);
         }
 
         .paging-container {
@@ -74,6 +72,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="/product/product.js"></script>
 </head>
 <body>
 <div id="whole_container">
@@ -136,18 +135,21 @@
         <div id="min" style="display: flex; flex-direction: column; align-items: center; ">
 
             <h3 id="page_title"></h3>
-            <ul id="sortList"><a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC" id="NewAscBtn">신상품순</a>
-                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=sales_rate&asc=sel_price%20ASC" id="SelAscBtn">판매량순</a>
-                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=ds_rate&asc=sel_price%20ASC" id="DcAscBtn">혜택순</a>
-                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=adt_sts&asc=sel_price%20ASC" id="DescBtn">낮은가격순</a></ul>
-            <span id="cd_type_name"></span>
-            <span id="cd_name"></span>
-
-
+            <span id="cd_type_name" class="name"></span>
+            <span id="cd_name" class="name"></span>
+            <div id="sortList">
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"
+                   id="NewAscBtn" class="SortBtn">신상품순</a>
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=sales_rate&asc=sel_price%20ASC"
+                   id="SelAscBtn" class="SortBtn">판매량순</a>
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=ds_rate&asc=sel_price%20ASC"
+                   id="DcAscBtn" class="SortBtn">혜택순</a>
+                <a href="/product/newlist?sort=${param.sort}&cd_name_num=${param.cd_name_num}&cd_type_name=${param.cd_type_name}&page=1&pageSize=12&order_sc=adt_sts&asc=sel_price%20ASC"
+                   id="DescBtn" class="SortBtn">낮은가격순</a></div>
             <div id="product" style="display: flex;">
 
-            </div>
 
+            </div>
             <div class="paging-container">
                 <div class="paging">
                     <c:if test="${totalCnt!=null && totalCnt!=0}">
@@ -193,7 +195,7 @@
     </footer>
 </div>
 
-<script>
+<!--<script>
     <%--카테고리 --%>
     let wrapper = $("#cat_wrapper");
     let show_category_button = $("#show_category_button");
@@ -242,7 +244,7 @@
     let showList = function () {
         $.ajax({
             type: 'GET',
-            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize +'&order_sc='+order_sc+'&asc='+asc+'&keyword='+keyword,
+            url: '/product/call?sort=' + sort + '&cd_name_num=' + cd_name_num + '&cd_type_name=' + cd_type_name + '&page=' + page + '&pageSize=' + pageSize + '&order_sc=' + order_sc + '&asc=' + asc + '&keyword=' + keyword,
             // http://localhost/product/newlist?page=1&pageSize=12&cd_name_num=1&cd_type_name=%27%EC%B1%84%EC%86%8C%27&sort=0
             success: function (result) {
                 $("#product").html(toHtml(result.list)); // 상품 리스트를 가져온다.
@@ -259,7 +261,7 @@
     let toHtml = function (lists) {
         let tmp = "";
         lists.forEach(function (ProductDto) {
-            tmp += '<div class="products" style="margin-top:50px">'
+            tmp += '<div class="products">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
             tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "샛별배송" : "낮배송") + '</span>'
             tmp += '<div class="product_title">' + ProductDto.title + '</div>'
@@ -278,14 +280,14 @@
             url: '/product/categories',  // 요청 URI
             success: function (res) {
                 categories = res;
-                $.each(res, (el)=>{
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name='+el+'&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">'+el+'</li></a>');
+                $.each(res, (el) => {
+                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12&order_sc=in_date&asc=sel_price%20ASC"<li class="cat main_cat">' + el + '</li></a>');
                 })
             },
             error: function (result) {
                 alert("쿠폰 불러오기 실패");
             }, // 에러가 발생했을 때, 호출될 함수
-            complete: function(){
+            complete: function () {
                 $(".main_cat").mouseenter((e) => {
                     sub_cat_container.show();
                     sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
@@ -293,15 +295,15 @@
             }
         })
         //검색
-        $("#search_btn").click(function(){
+        $("#search_btn").click(function () {
             let keyword = $("#keyword").val();
-            window.location.href = '/product/newlist?sort=1&keyword='+keyword+'&page=1&pageSize=12&order_sc=in_date';
+            window.location.href = '/product/newlist?sort=1&keyword=' + keyword + '&page=1&pageSize=12&order_sc=in_date';
         });
-        $("input[id=keyword]").keydown(function (key){
-            if(key.keyCode==13)
+        $("input[id=keyword]").keydown(function (key) {
+            if (key.keyCode == 13)
                 $("#search_btn").trigger("click");
         }); //검색 끝
     })
-</script>
+</script>-->
 </body>
 </html>
