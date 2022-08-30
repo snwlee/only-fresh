@@ -14,7 +14,7 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
@@ -23,9 +23,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnlyFresh :: 배송지 목록</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
-    <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
+    <link rel="stylesheet" type="text/css" href="/address/addrList.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {
             width: 100%;
@@ -39,181 +41,9 @@
         }
 
         /*    */
-
-        #add_coupon_box {
-            width: auto;
-            border: 0 none;
-        }
-
-        #add_coupon_box_tits {
-            /*background-color: #795b8f;*/
-            height: 36px;
-            font-weight: 700;
-            font-size: 24px;
-            line-height: 36px;
-            color: #333;
-            letter-spacing: -.5px;
-        }
-
-        #add_coupon_box_cmt {
-            padding-left: 15px;
-            font-size: 14px;
-            color: #999;
-            line-height: 20px;
-            letter-spacing: -.3px;
-            vertical-align: 3px;
-        }
-
-        #add_box_newAddress {
-            padding-left: 45px;
-        }
-
-        #newAddrressAdd {
-            border: 0 none;
-            background-color: #fff;
-            font-weight: 700;
-            font-size: 14px;
-            color: #333;
-            line-height: 24px;
-            letter-spacing: -0.5px;
-            -webkit-appearance: button;
-            cursor: pointer;
-        }
-
-        /* */
-        #mypage_content_body {
-            width: 732px;
-        }
-
-        .address_cols {
-            /*background-color: #b5b5b5;*/
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            /* border: 1px solid salmon; */
-            border-bottom: 1px solid #333;
-        }
-
-        .tit_colx {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 50px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .colx {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: auto;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        #form {
-            height: auto;
-        }
-
-        .coupon_name first_col {
-            /*padding: 20px 10px 20px 20px;*/
-            /*text-align: left;*/
-            padding: 0;
-            font-size: 16px;
-            color: #333;
-            line-height: 24px;
-            letter-spacing: -0.3px;
-            text-align: left;
-            word-break: break-all;
-        }
-
-        .first_col_addr { /* 주소 사이즈 */
-            width: 352px;
-        }
-
-        .second_col_addr { /* 받으실분 사이즈 */
-            width: 120px;
-        }
-
-        .third_col_addr { /* 연락처 사이즈 */
-            width: 100px;
-        }
-
-        .fourth_col_addr { /* 배송유형 사이즈 */
-            width: 100px;
-        }
-
-        .fifth_col_addr { /* 수정 사이즈 */
-            width: 60px;
-        }
-
-        /*  */
-        #readBtn { /* 수정 버튼 */
-            width: 24px;
-            height: 24px;
-            border: 0 none;
-            background: url(https://res.kurly.com/mobile/ico/2006/ico_modify.png) no-repeat 50% 50%;
-            font-size: 0px;
-            line-height: 0;
-            -webkit-appearance: button;
-            cursor: pointer;
-        }
-
-        .address { /* 배송지 목록 타이틀  */
-            border-bottom: 1px solid #F4F4F4;
-            width: 732px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-
-        #addressList { /* 배송지 목록 */
-            width: 732px;
-        }
-
-        .address_tel { /* 연락처 사이즈 */
-            font-size: small;
-        }
-
-        #deli_true { /* 샛별배송 컬러 */
-            font-size: 15px;
-            font-weight: 700;
-            color: #4E7A51;
-        }
-
-        #deli_false { /* 낮배송 컬러 */
-            color: #777777;
-        }
-
-        .chk_addr_tag_true { /* 기본 배송지 표시 */
-            display: block;
-            width: 74px;
-            height: 22px;
-            margin-bottom: 7px;
-            border-radius: 11px;
-            background-color: #f5f4f4;
-            font-weight: 700;
-            font-size: 12px;
-            color: #666;
-            line-height: 22px;
-            letter-spacing: 0;
-            text-align: center;
-        }
-
-        .addr { /* 주소 */
-            padding: 0;
-            font-size: 16px;
-            color: #333;
-            line-height: 24px;
-            letter-spacing: -0.3px;
-            text-align: left;
-            word-break: break-all;
-        }
-
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
-
 <body>
 <div id="whole_container">
     <div id="navigation">
@@ -228,31 +58,35 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/>
-                <a>Only 프레쉬</a>
+                <a href="/">
+                    <svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <image href="/logo.svg" height="60" width="60"/>
+                    </svg>
+                </a>
+                <a href="/">Only 프레쉬</a>
                 <div></div>
-                <a></a>
+                <a href="/"></a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요"/>
-                <img src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="/cart/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <a href="/address/list"><img src="/cart/imgs/location.png"/></a>
-                <a href="/mypage"><img src="/cart/imgs/heart.png"/></a>
-                <a href="/carts"><img src="/cart/imgs/shopping-cart.png"/></a>
+                <a href="/address/list/"><img src="/cart/imgs/location.png"/></a>
+                <img src="/cart/imgs/heart.png"/>
+                <a href="/carts/"><img src="/cart/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
             <div id="category_container">
                 <img src=""/>
-                <span>카테고리</span>
+                <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span><a href="">신상품</a></span>
-                <span><a href="">베스트</a></span>
-                <span><a href="">알뜰쇼핑</a></span>
-                <span><a href="/event/main">특가/혜택</a></span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>
@@ -260,9 +94,18 @@
             </div>
         </div>
     </div>
+    <div id="cat_wrapper">
+        <div id="main_cat_container">
+            <%--            <li class="cat main_cat">채소</li>--%>
+        </div>
+        <div id="sub_cat_container">
+            <%--            <li class="cat sub_cat">채소</li>--%>
+        </div>
+    </div>
+    <%-- 사이드 바 --%>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이페이지</h2>
+            <h2>마이컬리</h2>
             <ul>
                 <a href="">
                     <li>주문 내역</li>
@@ -273,7 +116,7 @@
                 <a href="">
                     <li>찜한 상품</li>
                 </a>
-                <a href="">
+                <a href="/address/list/">
                     <li>배송지 관리</li>
                 </a>
                 <a href="">
@@ -308,9 +151,7 @@
                     </a>
                 </div>
             </div>
-
             <div id="optional_function">
-
             </div>
             <div id="mypage_content_body">
                 <div class="address_cols">
@@ -371,7 +212,39 @@
             </div>
         </div>
     </div>
+    <footer>
+        <img src="/logo.svg" alt="logo">
+        <div id="member_container">
+            <a href="https://github.com/dr94406">
+                <p class="mem_row"><img src="/githubLogo.png">김형민</p>
+            </a>
+            <a href="https://github.com/PGRRR">
+                <p class="mem_row"><img src="/githubLogo.png">이선우</p>
+            </a>
+            <a href="https://github.com/Riiver-J">
+                <p class="mem_row"><img src="/githubLogo.png">정여경</p>
+            </a>
+            <a href="https://github.com/narlae">
+                <p class="mem_row"><img src="/githubLogo.png">김영준</p>
+            </a>
+            <a href="https://github.com/xpmxf4">
+                <p class="mem_row"><img src="/githubLogo.png">박채훈</p>
+            </a>
+            <a href="https://github.com/didqksrla">
+                <p class="mem_row"><img src="/githubLogo.png">김경빈</p>
+            </a>
+        </div>
+    </footer>
 </div>
-</div>
+<script type="text/javascript" src="/category/js/category.js"></script>
+<script>
+    let msg = "${msg}"
+    if(msg=="WRT_OK") alert("배송지가 등록되었습니다.");
+    if(msg=="DEL_OK") alert("성공적으로 삭제되었습니다.");
+    if(msg=="DEL_ERR") alert("삭제에 실패했습니다.");
+    if(msg=="INS_OK") alert("배송지 등록에 성공했습니다.");
+    if(msg=="INS_ERR") alert("배송지 등록에 실패했습니다.");
+    if(msg=="MOD_OK") alert("배송지를 수정했습니다.");
+</script>
 </body>
 </html>
