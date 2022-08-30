@@ -171,7 +171,7 @@
         <div>
           <span id="price"></span>
         </div>
-        <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->
+<%--        <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->--%>
         <div class ="coupon_btn"><button id="add_coupon">쿠폰 지급</button>
           <img id="down_icon" src="/product_detail/imgs/download_icon.svg"/>
         </div>
@@ -243,7 +243,7 @@
             <span id="unit">원</span>
           </div>
           <div id="mileage">
-            구매 시 0원 적립
+<%--            구매 시 0원 적립--%>
           </div>
         </div>
         <div id="button_container">
