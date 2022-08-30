@@ -126,6 +126,7 @@
             -moz-appearance: none;
             appearance: none;
             outline: 0;
+            margin: 0 auto;
         }
 
         #sub_addr { /* 서브 */
@@ -154,9 +155,9 @@
         /* 체크박스 */
 
         input[type=checkbox] {
-            /*position: absolute;*/
+            position: absolute;
             z-index: -1;
-            /*opacity: 0;*/
+            opacity: 0;
         }
 
         input[type=checkbox] {
@@ -166,28 +167,39 @@
             border-radius: 2px;
             background: 0 0;
             vertical-align: -2px;
-            /*-webkit-appearance: none;*/
+            -webkit-appearance: none;
             -moz-appearance: none;
-            /*appearance: none;*/
+            appearance: none;
         }
 
-        input[type=checkbox]+.ico {  /* 체크표시 */
+        input[type=checkbox]+.ico {
             display: inline-block;
             position: relative;
             width: 24px;
             height: 24px;
             margin-right: 12px;
             border: 0;
-            background-image: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg);
-            background-color: transparent;
-            background-repeat: no-repeat;
+            background: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg) no-repeat 0 0px / contain;
+            /*background-color: transparent;*/
+            /*background-repeat: no-repeat;*/
             background-size: 24px 24px;
             background-position: 50% 50%;
             vertical-align: -7px;
         }
 
-        .div_default+btn.active {
-            margin-top: 0;
+        input[type=checkbox]:checked + .ico {  /* 체크표시 */
+            display: inline-block;
+            position: relative;
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            border: 0;
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3Ni4wMDAwMDAsIC0xMDkwLjAwMDAwMCkgdHJhbnNsYXRlKDEwMC4wMDAwMDAsIDkzNi4wMDAwMDApIHRyYW5zbGF0ZSg2MC4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzRFN0E1MSIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4) no-repeat 0 1px / contain;
+            /*background-color: transparent;*/
+            /*background-repeat: no-repeat;*/
+            background-size: 24px 24px;
+            background-position: 50% 50%;
+            vertical-align: -7px;
         }
 
         /* 버튼 */
@@ -201,8 +213,8 @@
         }
 
         .btn.active {
-            border: 1px solid #5f0081;
-            background-color: #5f0080;
+            border: 1px solid #4E7A51;
+            background-color: #4E7A51;
             color: #fff;
         }
 
@@ -218,6 +230,9 @@
             color: #333;
         }
 
+        .div_default+btn.active {
+            margin-top: 0;
+        }
 
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
@@ -271,7 +286,7 @@
     </div>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이컬리</h2>
+            <h2>마이페이지</h2>
             <ul>
                 <a href="">
                     <li>주문 내역</li>
@@ -312,23 +327,23 @@
                     <div class="modify">
                         <div class="field">
                             <div id="main_addr" class="addrMain">${addressDto.main_addr}</div>
-                                <input type="text" id="sub_addr" name="sub_addr" value="${addressDto.sub_addr}"/>
+                                <input type="text" id="sub_addr" name="sub_addr" maxlength="50" value="${addressDto.sub_addr}"/>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label_block" for="addr_name">받으실 분</label><br>
-                        <input type="text" id="addr_name" name="addr_name" data-max-length="20" placeholder="이름을 입력해주세요"
+                        <input type="text" id="addr_name" name="addr_name" maxlength="20" placeholder="이름을 입력해주세요"
                                value="${addressDto.addr_name}"/>
                     </div>
                     <div class="field">
                         <label class="label_block" for="addr_tel">휴대폰</label><br>
-                        <input type="text" id="addr_tel" name="addr_tel" data-max-length="11"
+                        <input type="text" id="addr_tel" name="addr_tel" minlength="9" maxlength="11"
                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}" />
                     </div>
                     <div class="label_default">
                         <input type="checkbox" id="chk_addr" name="chk_addr" value="true" onclick="checkAlert()">
-                        <span class="ico"></span>
+                        <label for="chk_addr" class="ico"></label>
                         기본 배송지로 저장
                     </div>
                     <div>
@@ -362,7 +377,7 @@
     $(document).ready(function () {
 
         $('#removeBtn').on("click", function () {
-            // if(!confirm("정말로 삭제하시겠습니까?")) return;
+            if(!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $('#address_modify_body');
             form.attr("action", "<c:url value='/address/remove'/>?addr_id=${param.addr_id}");
             form.attr("method", "post");
