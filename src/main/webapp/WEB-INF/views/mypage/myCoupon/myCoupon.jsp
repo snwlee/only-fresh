@@ -65,9 +65,9 @@
                         <image href="/logo.svg" height="60" width="60"/>
                     </svg>
                 </a>
-                <a href="/">마켓컬리</a>
+                <a href="/">Only 프레쉬</a>
                 <div></div>
-                <a>뷰티컬리</a>
+                <a></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요" id="keyword"/>
