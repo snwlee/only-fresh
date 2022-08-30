@@ -83,8 +83,6 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto,AddressDto addressDto, BindingResult result) {
-        System.out.println("addressDto.getMain_addr() = " + addressDto.getMain_addr());
-        System.out.println("addressDto.getSub_addr() = " + addressDto.getSub_addr());
         if (result.hasErrors()) {
 //            List<ObjectError> globalErrors = result.getGlobalErrors();
 //            for (ObjectError ge : globalErrors) {

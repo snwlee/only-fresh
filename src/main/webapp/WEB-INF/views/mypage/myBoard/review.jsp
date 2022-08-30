@@ -76,18 +76,18 @@
                         <image href="/logo.svg" height="60" width="60"/>
                     </svg>
                 </a>
-                <a href="/">마켓컬리</a>
+                <a href="/">Only 프레쉬</a>
                 <div></div>
-                <a href="/">뷰티컬리</a>
+                <a href="/"></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요"/>
                 <img src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <img src="/mypage/myCoupon/imgs/location.png"/>
-                <img src="/mypage/myCoupon/imgs/heart.png"/>
-                <img src="/mypage/myCoupon/imgs/shopping-cart.png"/>
+                <a href="/address/list"><img src="/cart/imgs/location.png"/></a>
+                <a href="/mypage"><img src="/cart/imgs/heart.png"/></a>
+                <a href="/carts"><img src="/cart/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">

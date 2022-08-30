@@ -41,7 +41,9 @@ public class PaymentController {
     public String requestPayment(@PathVariable Integer ord_id, OrderSaveRequestDto orderSaveRequestDto, PaymentSaveRequestDto paymentSaveRequestDto, HttpSession session) {
         Integer user_id = getMemberResponse(session);
         Integer used_acamt = orderSaveRequestDto.getUsed_acamt();
+        System.out.println("used_acamt = " + used_acamt);
         Member memberById = memberService.findMemberById(user_id);
+        System.out.println("memberById = " + memberById);
         Integer all_dc_amt;
         if (orderSaveRequestDto.getCoupn_id() != 0) {
             CouponDto couponByCouponId = memberService.findCouponByCouponId(orderSaveRequestDto.getCoupn_id());

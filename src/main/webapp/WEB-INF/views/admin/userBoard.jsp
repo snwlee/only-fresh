@@ -74,8 +74,8 @@
 <body>
 <div id="menu">
   <ul>
-    <li id="logo">Devkurly</li>
-    <li><a href="<c:url value='/'/>">Home</a></li>
+    <li id="logo">Only 프레쉬</li>
+    <li><a href="<c:url value='/'/>">Only 프레쉬</a></li>
     <li><a href="<c:url value='/admin/list'/>">Board</a></li>
     <li><a href=""><i class="fa fa-search"></i></a></li>
   </ul>
