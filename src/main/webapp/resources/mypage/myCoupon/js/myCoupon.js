@@ -3,6 +3,7 @@ let show_category_button = $("#show_category_button");
 let main_cat_container = $("#main_cat_container");
 let sub_cat_container = $("#sub_cat_container");
 let sub_cat = $(".sub_cat");
+let add_coupon_input = $("#coupn_to_add");
 
 show_category_button.hover(() => {
     main_cat_container.show();
@@ -156,7 +157,7 @@ $(document).ready(() => {
         }); //검색 끝
 
         let url = window.location.href;
-        $("#coupn_to_add").val(url.split("?")[url.length]);
+        $("#coupn_to_add").val(url.split("coupn_nm=")[1]);
     }
 )
 

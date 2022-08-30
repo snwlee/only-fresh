@@ -10,18 +10,25 @@
 
 #add_input_wrapper {
     width: 200px;
-    padding: 10px;
+    padding: 0;
     border: 1px solid #333;
 }
 
 #add_input_wrapper input {
     width: 100%;
-    padding: 0px;
+    height: 100%;
+    margin: 0;
+    padding-left: 10px;
     border: none;
     outline: none;
+    font-size: 11px;
 }
 
 #add_input_wrapper input::placeholder {
+    font-size: 11px;
+}
+
+#add_input_wrapper input:focus {
     font-size: 11px;
 }
 
