@@ -76,8 +76,12 @@ public class MemberService {
         return new MemberUpdateResponseDto(member);
     }
 
-    public Integer updateMemberPnt(Integer user_id, Integer pnt, Integer coupn_id) {
-        return memberMapper.updatePnt(user_id, pnt, coupn_id);
+    public Integer updateMemberPnt(Integer user_id, Integer pnt) {
+        return memberMapper.updatePnt(user_id, pnt);
+    }
+
+    public Integer updateMemberCpn(Integer user_id, Integer coupn_id) {
+        return memberMapper.updateCoupon(user_id, coupn_id);
     }
 
     public List<CouponDto> findCoupon(Integer user_id) {

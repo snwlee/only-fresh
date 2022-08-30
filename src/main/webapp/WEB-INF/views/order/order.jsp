@@ -145,7 +145,7 @@
                                      alt="" class="product_img"/>
                                 <h4>[${cart.company}] ${cart.title}</h4>
                                 <div class="quantity_control_box">
-                                    <div id="order-qty">${cart.pdt_qty} 개</div>
+                                    <div id="order-qty" style="width: 50px;">${cart.pdt_qty} 개</div>
                                 </div>
                                 <p id="order-sum" style="margin-bottom: 0px;padding-left: 60px;">
                                     <fmt:formatNumber value="${cart.sel_price * cart.pdt_qty}" pattern="###,###"/>원</p>
