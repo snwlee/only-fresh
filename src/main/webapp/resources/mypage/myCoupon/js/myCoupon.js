@@ -158,8 +158,9 @@ $(document).ready(() => {
                 $("#search_btn").trigger("click");
         }); //검색 끝
 
-        let url = window.location.href;
+        let url = decodeURI(window.location.href);
         $("#coupn_to_add").val(url.split("coupn_nm=")[1]);
+
     }
 )
 
