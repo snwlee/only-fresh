@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>My First Web Page</title>
+    <title>OnlyFresh :: 관리자</title>
 <%--    <link rel="stylesheet" href="/dev_kurly/reset.css" type="text/css">--%>
     <style>
         #whole_container {

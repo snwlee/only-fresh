@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Devkurly</title>
+    <title>OnlyFresh :: </title>
     <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
 </head>
 <body>

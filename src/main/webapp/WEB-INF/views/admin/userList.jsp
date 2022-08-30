@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Devkurly</title>
+    <title>OnlyFresh :: </title>
     <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
