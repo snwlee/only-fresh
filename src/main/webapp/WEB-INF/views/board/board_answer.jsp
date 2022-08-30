@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>문의 게시판</title>
+    <title>OnlyFresh :: 문의 게시판</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
@@ -101,7 +101,7 @@
             color: black;
             padding: 6px;
             margin-right: 10px;
-            text-decoration-line: none;
+            text-decoration: none;
         }
         /*modal css start*/
         .modal {

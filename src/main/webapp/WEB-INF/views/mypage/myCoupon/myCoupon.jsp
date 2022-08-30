@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이 쿠폰 페이지</title>
+    <title>OnlyFresh :: 마이 쿠폰 페이지</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
@@ -106,7 +106,7 @@
     </div>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이컬리</h2>
+            <h2>마이페이지</h2>
             <ul>
                 <a href="">
                     <li>주문 내역</li>
@@ -142,7 +142,7 @@
             <div id="add_coupon_box">
                 <form id="coupon_form" onsubmit="return false;">
                     <div id="add_input_wrapper">
-                        <input id="coupn_to_add" type="text" placeholder="발급된 쿠폰번호를 입력해 주세요">
+                        <input id="coupn_to_add"  type="text" placeholder="발급된 쿠폰번호를 입력해 주세요" value="afdlkajsdlkfjalfksdj">
                     </div>
                     <button id="add_coupon_button" onclick="addCoupon()">
                         쿠폰 등록

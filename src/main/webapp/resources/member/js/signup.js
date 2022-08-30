@@ -1,10 +1,18 @@
 $('#member-submit').click(function () {
+    if ($("input:radio[class=checkmark]").is(':checked')) {
+        $('#gender-error').prop('hidden', true);
+    } else {
+        $('#gender-error').prop('hidden', false);
+        alert('성별을 선택해주세요.');
+        return;
+    }
     if ($('#required-checked').prop('hidden') === false) {
         $('#form').submit();
     } else {
         $('#required-error').prop('hidden', false);
         alert('필수 약관에 동의해주세요.');
     }
+
 });
 $('#email').change(function () {
     if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}(\S)/).test($(this).val())) {
@@ -48,6 +56,14 @@ $('#rcmdr_email').change(function () {
         $('#rcmdr-email-error').prop('hidden', false);
     }
 });
+
+if ($('#gender').val() === 'male') {
+    $('#male').prop('checked', true);
+} else if ($('#gender').val() === 'female') {
+    $('#female').prop('checked', true);
+} else {
+    $('#none').prop('checked', true);
+}
 
 $('#all-checked').click(function () {
     $('.checked').prop('hidden', true);

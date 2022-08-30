@@ -12,6 +12,7 @@ import java.util.List;
 public interface MemberMapper {
 
     Integer save(Member member);
+    Integer saveAddress(AddressDto addressDto);
     Member findByEmail(String user_email);
     Member findById(Integer user_id);
     List<CouponDto> findCouponById(Integer user_id);

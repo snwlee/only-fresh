@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>여기에 상품 제목 들어가유 c 태그로 잘 넣어주세용</title>
+    <title>OnlyFresh :: 배송지 목록</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
@@ -176,7 +176,9 @@
         }
 
         #deli_true { /* 샛별배송 컬러 */
-            color: #5F0080;
+            font-size: 15px;
+            font-weight: 700;
+            color: #4E7A51;
         }
 
         #deli_false { /* 낮배송 컬러 */
@@ -260,7 +262,7 @@
     </div>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이컬리</h2>
+            <h2>마이페이지</h2>
             <ul>
                 <a href="">
                     <li>주문 내역</li>
@@ -350,6 +352,18 @@
                                     </a>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    let phone = '${addressDto.addr_tel}';
+                                    $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
+                                });
+
+
+                                $('#checkbox-${addressDto.addr_id}').click(function () {
+                                    alert("배송지 선택이 완료되었습니다.");
+                                    $('#form').submit();
+                                });
+                            </script>
                         </c:forEach>
 <%--                        <script src="/resources/address/js/address.js"></script>--%>
                     </form>
@@ -357,18 +371,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            let phone = '${addressDto.addr_tel}';
-            $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
-        });
-
-
-        $('#checkbox-${addressDto.addr_id}').click(function () {
-            alert("배송지 선택이 완료되었습니다.");
-            $('#form').submit();
-        });
-    </script>
 </div>
 </div>
 </body>

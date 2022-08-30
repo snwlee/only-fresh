@@ -137,16 +137,16 @@ h2 {
 }
 
 #is_star_deli {
-    color: purple;
+    color: #4E7A51;
 }
 
 #shipping button {
     width: 250px;
     height: 36px;
     background-color: transparent;
-    border: 1px solid purple;
+    border: 1px solid #4E7A51;
     border-radius: 5px;
-    color: purple;
+    color: #4E7A51;
     font-weight: 500;
     cursor: pointer;
 }

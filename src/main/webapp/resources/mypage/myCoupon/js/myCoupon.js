@@ -3,6 +3,7 @@ let show_category_button = $("#show_category_button");
 let main_cat_container = $("#main_cat_container");
 let sub_cat_container = $("#sub_cat_container");
 let sub_cat = $(".sub_cat");
+let add_coupon_input = $("#coupn_to_add");
 
 show_category_button.hover(() => {
     main_cat_container.show();
@@ -80,6 +81,8 @@ let onOff = true;
 $(".is_used_tabs").click((e) => {
     let coupons = $("#coupons");
 
+    if((e.currentTarget.innerText === "사용 가능 쿠폰" && onOff) || (e.currentTarget.innerText === "쿠폰 사용 내역" && !onOff) ) return;
+
     onOff = !onOff;
 
     if (onOff) {
@@ -155,8 +158,9 @@ $(document).ready(() => {
                 $("#search_btn").trigger("click");
         }); //검색 끝
 
-        let url = window.location.href;
-        $("#coupn_to_add").val(url.split("?")[url.length]);
+        let url = decodeURI(window.location.href);
+        $("#coupn_to_add").val(url.split("coupn_nm=")[1]);
+
     }
 )
 

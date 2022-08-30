@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>리뷰 게시판</title>
+    <title>OnlyFresh :: 리뷰 게시판</title>
     <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">
@@ -91,7 +91,7 @@
             color: black;
             padding: 6px;
             margin-right: 10px;
-            text-decoration-line: none;
+            text-decoration: none;
         }
         /*modal css start*/
         .modal {
