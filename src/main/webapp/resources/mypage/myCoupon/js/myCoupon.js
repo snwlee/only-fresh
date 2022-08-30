@@ -81,6 +81,8 @@ let onOff = true;
 $(".is_used_tabs").click((e) => {
     let coupons = $("#coupons");
 
+    if((e.currentTarget.innerText === "사용 가능 쿠폰" && onOff) || (e.currentTarget.innerText === "쿠폰 사용 내역" && !onOff) ) return;
+
     onOff = !onOff;
 
     if (onOff) {
