@@ -92,7 +92,7 @@
         </div>
     </div>
 </div>
-<script src="/product_detail/js/product_detail.js"></script>
+<script src="/product_detail/js/admin_productdetail.js"></script>
 </script>
 </body>
 </html>

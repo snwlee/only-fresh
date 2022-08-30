@@ -50,7 +50,7 @@
 
     .content {
       width: 400px;
-      border: 1px solid #8b00ff;
+      border: 1px solid #4E7A51;
     }
 
     button {
@@ -247,8 +247,8 @@
           </div>
         </div>
         <div id="button_container">
-          <button><img src="/product_detail/imgs/purpleheart.svg"/></button>
-          <button><img src="/product_detail/imgs/bell.svg"/></button>
+<%--          <button><img src="/product_detail/imgs/purpleheart.svg"/></button>--%>
+<%--          <button><img src="/product_detail/imgs/bell.svg"/></button>--%>
           <button id="addCart">장바구니 담기</button>
         </div>
       </div>
