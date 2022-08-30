@@ -176,7 +176,9 @@
         }
 
         #deli_true { /* 샛별배송 컬러 */
-            color: #5F0080;
+            font-size: 15px;
+            font-weight: 700;
+            color: #4E7A51;
         }
 
         #deli_false { /* 낮배송 컬러 */
@@ -350,6 +352,18 @@
                                     </a>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    let phone = '${addressDto.addr_tel}';
+                                    $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
+                                });
+
+
+                                $('#checkbox-${addressDto.addr_id}').click(function () {
+                                    alert("배송지 선택이 완료되었습니다.");
+                                    $('#form').submit();
+                                });
+                            </script>
                         </c:forEach>
 <%--                        <script src="/resources/address/js/address.js"></script>--%>
                     </form>
@@ -357,18 +371,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            let phone = '${addressDto.addr_tel}';
-            $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
-        });
-
-
-        $('#checkbox-${addressDto.addr_id}').click(function () {
-            alert("배송지 선택이 완료되었습니다.");
-            $('#form').submit();
-        });
-    </script>
 </div>
 </div>
 </body>

@@ -75,7 +75,7 @@
         }
 
         .deli_type { /* 샛별배송 */
-            color: #5f0080;
+            color: #4E7A51;
         }
 
         .desc { /* 안내문구 */
@@ -93,10 +93,10 @@
             top: 0;
             width: 120px;
             padding-right: 7px;
-            border: 1px solid #5f0080;
+            border: 1px solid #4E7A51;
             background-color: #fff;
             font-weight: 700;
-            color: #5f0080;
+            color: #4E7A51;
             height: 44px;
             border-radius: 3px;
             font-size: 14px;
@@ -125,7 +125,7 @@
 
         #main_addr { /* 메인 배송지 */
             padding-bottom: 12px;
-            font-weight: 700;
+            font-weight: 720;
             font-size: 16px;
             line-height: 24px;
             letter-spacing: -.3px;
@@ -143,8 +143,8 @@
         }
 
         input[type=text] {
-            /*width: 100%;*/
-            width: 720px;
+            width: 100%;
+            /*width: 740px;*/
             height: 48px;
             padding: 0 11px 1px 15px;
             border: 1px solid #ddd;
@@ -157,6 +157,7 @@
             -moz-appearance: none;
             appearance: none;
             outline: 0;
+            margin: 0 auto;
         }
 
         #sub_addr { /* 서브 */
@@ -184,29 +185,58 @@
 
         /* 체크박스 */
 
-        input[type=checkbox] + .ico { /* 체크표시 */
+        input[type=checkbox] {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        input[type=checkbox] {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #999;
+            border-radius: 2px;
+            background: 0 0;
+            vertical-align: -2px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input[type=checkbox]+.ico {
             display: inline-block;
             position: relative;
             width: 24px;
             height: 24px;
             margin-right: 12px;
             border: 0;
-            background-image: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg);
-            background-color: transparent;
-            background-repeat: no-repeat;
+            background: url(https://res.kurly.com/mobile/service/common/2006/ico_checkbox.svg) no-repeat 0 0px / contain;
+            /*background-color: transparent;*/
+            /*background-repeat: no-repeat;*/
             background-size: 24px 24px;
             background-position: 50% 50%;
             vertical-align: -7px;
         }
 
-        .div_default + btn.active {
-            margin-top: 0;
+        input[type=checkbox]:checked + .ico {  /* 체크표시 */
+            display: inline-block;
+            position: relative;
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            border: 0;
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE3Ni4wMDAwMDAsIC0xMDkwLjAwMDAwMCkgdHJhbnNsYXRlKDEwMC4wMDAwMDAsIDkzNi4wMDAwMDApIHRyYW5zbGF0ZSg2MC4wMDAwMDAsIDE0Mi4wMDAwMDApIHRyYW5zbGF0ZSgxNi4wMDAwMDAsIDEyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzRFN0E1MSIvPgogICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBzdHJva2U9IiNGRkYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGQ9Ik03IDEyLjY2N0wxMC4zODUgMTYgMTggOC41Ii8+CiAgICAgICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICAgICAgPC9nPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4) no-repeat 0 1px / contain;
+            /*background-color: transparent;*/
+            /*background-repeat: no-repeat;*/
+            background-size: 24px 24px;
+            background-position: 50% 50%;
+            vertical-align: -7px;
         }
 
         /* 버튼 */
 
         .btn {
-            width: 720px;
+            width: 100%;
             height: 45px;
             text-align: center;
             outline: none;
@@ -214,15 +244,20 @@
         }
 
         .btn.active {
-            border: 1px solid #5f0081;
-            background-color: #5f0080;
+            border: 1px solid #4E7A51;
+            background-color: #4E7A51;
             color: #fff;
         }
+
 
         .btn.list {
             border: 1px solid #ddd;
             background-color: #F0F0F0;
             color: #333;
+        }
+
+        .div_default + btn.active {
+            margin-top: 0;
         }
 
     </style>
@@ -351,7 +386,7 @@
                         </div>
                         <div class="label_default">
                             <input type="checkbox" id="chk_addr" name="chk_addr" value="true" onclick="checkAlert()">
-                            <span class="ico"></span>
+                            <label for="chk_addr" class="ico"></label>
                             기본 배송지로 저장
                         </div>
                         <div>
