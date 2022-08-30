@@ -1,9 +1,12 @@
 package com.devkurly.member.controller;
 
+import com.devkurly.address.domain.AddressDto;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
+import com.devkurly.member.domain.Member;
 import com.devkurly.member.dto.*;
+import com.devkurly.member.exception.SignInException;
 import com.devkurly.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +82,9 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto, BindingResult result) {
+    public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto,AddressDto addressDto, BindingResult result) {
+        System.out.println("addressDto.getMain_addr() = " + addressDto.getMain_addr());
+        System.out.println("addressDto.getSub_addr() = " + addressDto.getSub_addr());
         if (result.hasErrors()) {
 //            List<ObjectError> globalErrors = result.getGlobalErrors();
 //            for (ObjectError ge : globalErrors) {
@@ -91,6 +97,11 @@ public class MemberController {
             return "redirect:/members/signup?error=3";
         }
         memberService.join(requestDto);
+        MemberMainResponseDto memberResponse = memberService.findUserId(new MemberSignInRequestDto(requestDto.getUser_email(), requestDto.getPwd()));
+        addressDto.setUser_id(memberResponse.getUser_id());
+        addressDto.setAddr_name(requestDto.getUser_nm());
+        addressDto.setAddr_tel(requestDto.getTelno());
+        memberService.saveDefaultAddress(addressDto);
         return "redirect:/members";
     }
 
@@ -144,6 +155,27 @@ public class MemberController {
             response.addCookie(tempCart);
         }
     }
+
+    @GetMapping("/kakao")
+    public String sns(@RequestParam(value = "code", required = false) String code, MemberKakaoResponseDto responseDto, HttpSession session, Model model) {
+        String access_Token = memberService.getAccessToken(code);
+        HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
+        String email = (String) userInfo.get("email");
+        try {
+            MemberMainResponseDto memberResponse = memberService.kakaoSignIn(email);
+            session.setAttribute("memberResponse", memberResponse);
+            return "redirect:/";
+        } catch (SignInException e) {
+            String name = (String) userInfo.get("nickname");
+            String gender = (String) userInfo.get("gender");
+            responseDto.setUser_email(email);
+            responseDto.setUser_nm(name);
+            responseDto.setGender(gender);
+            model.addAttribute("kakao", responseDto);
+            return "/member/signUp";
+        }
+    }
+
     public static Integer getMemberResponse(HttpSession session) {
         return ((MemberMainResponseDto) session.getAttribute("memberResponse")).getUser_id();
     }

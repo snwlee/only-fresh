@@ -58,7 +58,7 @@
 
 #mileage_except {
     font-size: 14px;
-    color: #5f0080;
+    color: #4E7A51;
     padding-bottom: 20px;
     /*border-bottom: 1px solid #F4F4F4;*/
     margin-top: 14px
@@ -162,7 +162,7 @@
     height: 56px;
     width: 100%;
     border-radius: 4px;
-    background-color: #5F0080;
+    background-color: #4E7A51;
     color: white;
     border: none;
 }
@@ -193,7 +193,7 @@ nav div {
 .navs{
     font-size: 16px;
     font-weight: 500;
-    color: rgb(95, 0, 128);
+    color: #4E7A51;
 }
 .menu_nav{
     z-index: 1000;
@@ -202,7 +202,7 @@ nav div {
 .navi{
     background-color: rgb(255, 255, 255);
     text-decoration: none;
-    border: 1px solid #5F0080;
+    border: 1px solid #4E7A51;
     color: inherit;
     z-index: 10000;
 }
@@ -222,7 +222,7 @@ nav div {
 
 #title_desc_filter_container {
     padding-bottom: 16px;
-    border-bottom: 2px solid #522772;
+    border-bottom: 2px solid #4E7A51;
 }
 
 #title_desc_filter_container h2{
@@ -245,8 +245,8 @@ nav div {
 #add_coupon {
     width:280px;
     height: 44px;
-    color: #5F0080;
-    border: 1px solid #5F0080;
+    color: #4E7A51;
+    border: 1px solid #4E7A51;
     border-radius: 4px;
     background-color: transparent;
     cursor: pointer;
