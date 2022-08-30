@@ -99,6 +99,15 @@
             background-color: #4E7A51;
             color: white;
         }
+
+        #member-signup {
+            width: 100%;
+            height: 50px;
+            margin-top: 20px;
+            border: solid 1px #4E7A51;
+            border-radius: 2px;
+            color: #4E7A51;
+        }
     </style>
 </head>
 
@@ -251,6 +260,19 @@
                         </span>
                         </div>
                         <div class="payment_row">
+                            <span style="padding-top: 15px;">주소<span style="color: orangered">*</span></span>
+                            <span><div id="member-signup" onclick="execPostCode();" style="cursor: pointer;font-weight: 500;font-size: 16px;text-align: center;line-height: 50px;margin-top: 0px;width: 450px;"><i class="fa fa-search"></i><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIxIDIwIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZGRiIgZmlsbC1vcGFjaXR5PSIwIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0wIDBIMjBWMjBIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC40KSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM0RTdBNTEiIGQ9Ik05LjMzMyA0LjY2N0MxMS45MTEgNC42NjcgMTQgNi43NTYgMTQgOS4zMzNjMCAxLjA1MS0uMzQ3IDIuMDItLjkzMyAyLjguMDI0LjAxOC4wNDguMDQuMDcxLjA2MmwyIDJjLjI2LjI2LjI2LjY4MyAwIC45NDMtLjI2LjI2LS42ODIuMjYtLjk0MyAwbC0yLTItLjA2MS0uMDcxYy0uNzguNTg2LTEuNzUuOTMzLTIuOC45MzMtMi41NzggMC00LjY2Ny0yLjA5LTQuNjY3LTQuNjY3czIuMDg5LTQuNjY2IDQuNjY2LTQuNjY2em0wIDEuMzMzQzcuNDkzIDYgNiA3LjQ5MiA2IDkuMzMzYzAgMS44NDEgMS40OTIgMy4zMzQgMy4zMzMgMy4zMzQgMS44NDEgMCAzLjMzNC0xLjQ5MyAzLjMzNC0zLjMzNEMxMi42NjcgNy40OTMgMTEuMTc0IDYgOS4zMzMgNnoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC40KSIvPgogICAgPC9nPgo8L3N2Zz4K"/> 주소 검색</div></span>
+                        </div>
+                            <input class="member-input" placeholder="우편번호" name="city_code" id="addr1" type="text" readonly="readonly" hidden>
+                        <div class="payment_row">
+                            <span></span>
+                            <span><input class="member-input" placeholder="주소를 검색해 주세요" name="main_addr" id="addr2" type="text" readonly="readonly" style="background-color: #dedede;"/></span>
+                        </div>
+                        <div class="payment_row">
+                            <span></span>
+                            <span><input class="member-input" placeholder="나머지 주소를 입력해주세요" name="sub_addr" id="addr3" type="text"  /></span>
+                        </div>
+                        <div class="payment_row">
                             <span style="padding-top: 15px;">추천인 이메일</span>
                             <span>
                             <input
@@ -354,5 +376,7 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="/member/js/signup.js"></script>
 <script type="text/javascript" src="/category/js/category.js"></script>
+<script type="text/javascript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="/member/js/address.js"></script>
 </body>
 </html>

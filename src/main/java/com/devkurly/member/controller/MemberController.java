@@ -1,5 +1,6 @@
 package com.devkurly.member.controller;
 
+import com.devkurly.address.domain.AddressDto;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
@@ -81,7 +82,9 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto, BindingResult result) {
+    public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto,AddressDto addressDto, BindingResult result) {
+        System.out.println("addressDto.getMain_addr() = " + addressDto.getMain_addr());
+        System.out.println("addressDto.getSub_addr() = " + addressDto.getSub_addr());
         if (result.hasErrors()) {
 //            List<ObjectError> globalErrors = result.getGlobalErrors();
 //            for (ObjectError ge : globalErrors) {
@@ -94,6 +97,11 @@ public class MemberController {
             return "redirect:/members/signup?error=3";
         }
         memberService.join(requestDto);
+        MemberMainResponseDto memberResponse = memberService.findUserId(new MemberSignInRequestDto(requestDto.getUser_email(), requestDto.getPwd()));
+        addressDto.setUser_id(memberResponse.getUser_id());
+        addressDto.setAddr_name(requestDto.getUser_nm());
+        addressDto.setAddr_tel(requestDto.getTelno());
+        memberService.saveDefaultAddress(addressDto);
         return "redirect:/members";
     }
 

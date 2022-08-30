@@ -8,6 +8,10 @@
         insert into USER_TB(user_nm, user_email, pwd, telno, subs_dt, gender, prvc_arge, rcmdr_email)
         values (#{user_nm}, #{user_email}, #{pwd}, #{telno}, now(), #{gender}, #{prvc_arge}, #{rcmdr_email});
     </insert>
+    <insert id="saveAddress" parameterType="AddressDto">
+        insert into ADDRESS_TB(user_id, chk_addr, deli_type, city_code, main_addr, sub_addr, addr_name, addr_tel)
+        values (#{user_id}, 1, 1, #{city_code}, #{main_addr}, #{sub_addr}, #{addr_name}, #{addr_tel});
+    </insert>
     <select id="findByEmail" parameterType="String" resultType="Member">
         select *
         from USER_TB

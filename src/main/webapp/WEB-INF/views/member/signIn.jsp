@@ -290,6 +290,7 @@
         </div>
     </footer>
 </div>
+
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="/member/js/signin.js"></script>
 <script type="text/javascript" src="/category/js/category.js"></script>

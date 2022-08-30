@@ -15,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,11 @@ public class MemberService {
     public MemberMainResponseDto signIn(MemberSignInRequestDto requestDto) {
         Member member = Optional.ofNullable(memberMapper.findByEmail(requestDto.getUser_email())).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
         checkEncryptPassword(requestDto.getPwd(), member);
+        return new MemberMainResponseDto(member);
+    }
+
+    public MemberMainResponseDto findUserId(MemberSignInRequestDto requestDto) {
+        Member member = Optional.ofNullable(memberMapper.findByEmail(requestDto.getUser_email())).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
         return new MemberMainResponseDto(member);
     }
 
@@ -185,6 +191,10 @@ public class MemberService {
             e.printStackTrace();
         }
         return userInfo;
+    }
+
+    public Integer saveDefaultAddress(AddressDto addressDto) {
+        return memberMapper.saveAddress(addressDto);
     }
 
     private static void checkEncryptPassword(String pwd, Member member) {
