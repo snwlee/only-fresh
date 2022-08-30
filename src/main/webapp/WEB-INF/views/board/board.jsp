@@ -91,6 +91,7 @@
             color: black;
             padding: 6px;
             margin-right: 10px;
+            text-decoration-line: none;
         }
         /*modal css start*/
         .modal {

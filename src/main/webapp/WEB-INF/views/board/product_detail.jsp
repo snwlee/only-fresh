@@ -172,7 +172,7 @@
           <span id="price"></span>
         </div>
         <p id="mileage_except">적립 제외 상품입니다.</p> <!-- 여기에 border-bottom 넣기 -->
-        <div><button id="add_coupon">쿠폰 지급</button>
+        <div class ="coupon_btn"><button id="add_coupon">쿠폰 지급</button>
           <img id="down_icon" src="/product_detail/imgs/download_icon.svg"/>
         </div>
         <div class="detail_column">
@@ -368,7 +368,7 @@
 
     });
 
-    $("#add_coupon").click(function(){
+    $(".coupon_btn").click(function(){
       window.location.href ='/mypage?coupn_nm=나라사랑카드 쿠폰';
     })
 
