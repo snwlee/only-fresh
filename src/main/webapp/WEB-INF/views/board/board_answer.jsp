@@ -22,6 +22,9 @@
         .no, .writer, .reg_date, .is_replied{
             text-align: center;
         }
+        #answer_mark{
+            width: 25px;
+        }
 
         #review_view {
             display: none;
@@ -44,8 +47,8 @@
             padding-top: 18px;
         }
         .p_write_btn{
-            background-color: #795b8f;
-            border: 1px solid #5f0080;
+            background-color: #4E7A51;
+            border: 1px solid #4E7A51;
             float:right;
             display: inline-block;
             color: #fff;
@@ -66,10 +69,10 @@
             height:34px;
             padding: 0 13px 0 12px;
             font-size: 12px;
-            color: #5f0080;
+            color: #4E7A51;
             line-height: 32px;
             text-align: center;
-            border: 1px solid #5f0080;
+            border: 1px solid #4E7A51;
             margin-left: 28px;
             cursor:pointer;
         }
@@ -135,8 +138,8 @@
             cursor: pointer;
         }
         .modal-content {
-            border-top: 1px solid #522772;
-            border-bottom: 1px solid #522772;
+            border-top: 1px solid #4E7A51;
+            border-bottom: 1px solid #4E7A51;
 
         }
         #modal-title {
@@ -184,10 +187,10 @@
             float: right;
             padding: 0 13px 0 13px;
             font-size: 12px;
-            color: #5f0080;
+            color: #4E7A51;
             line-height: 32px;
             text-align: center;
-            border: 1px solid #5f0080;
+            border: 1px solid #4E7A51;
             margin-top: 10px;
             margin-left: 28px;
         }
@@ -244,7 +247,7 @@
     </div>
     <div id="review_view">
         <div>
-            <div class="back_q_mark"><img src="/product_detail/imgs/question.svg"></div>
+<%--            <div class="back_q_mark"><img style="width: 25px" src="/product_detail/imgs/question.png"></div>--%>
             <div class="review_content"></div>
         </div>
         <br>
@@ -254,7 +257,7 @@
             <p class="del_btn">삭제</p>
         </div>
         <div>
-            <img id="answer_mark" src="/product_detail/imgs/answer.svg">
+            <img id="answer_mark" src="/product_detail/imgs/answer.png">
             <div class="Inq_answer"></div>
             <textarea id="rep_textarea" rows="10" cols="100" style="display:none" placeholder="답변을 입력해주세요."></textarea>
             <div class="buttons">
