@@ -29,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnlyFresh :: 장바구니</title>
-    <link rel="icon" href="/only-fresh-favi.png" />
+    <link rel="icon" href="/only-fresh-favicon.svg" />
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/cart/cart.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
