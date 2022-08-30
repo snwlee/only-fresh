@@ -230,3 +230,11 @@
 #main_cat_container a:hover, #sub_cat_container a:hover {
     color: #4E7A51;
 }
+
+#cat_wrapper{
+    z-index: 100;
+}
+
+#menubar {
+    height: 26px;
+}
