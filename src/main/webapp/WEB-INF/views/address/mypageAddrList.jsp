@@ -176,6 +176,8 @@
         }
 
         #deli_true { /* 샛별배송 컬러 */
+            font-size: 15px;
+            font-weight: 700;
             color: #4E7A51;
         }
 
