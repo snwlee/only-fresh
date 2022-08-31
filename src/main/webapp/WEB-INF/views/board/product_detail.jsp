@@ -116,9 +116,9 @@
             <image href="/logo.svg" height="60" width="60"/>
           </svg>
         </a>
-        <a href="/DevKurly">데브컬리</a>
+        <a href="/DevKurly">Only 프레쉬</a>
         <div></div>
-        <a href="/DevKurly">뷰티컬리</a>
+        <a href="/DevKurly"></a>
       </div>
       <div id="input_container">
         <input placeholder="검색어를 입력해주세요" id="keyword"/>
