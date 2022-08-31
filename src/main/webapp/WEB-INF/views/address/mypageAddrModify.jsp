@@ -401,7 +401,10 @@
         let name = document.getElementById("addr_name");
         let tel = document.getElementById("addr_tel");
 
-        if (subAddr.value == "") {
+        // 서브 주소 정규식
+        let subAddrChk = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*\s|*\-]+$/; // 한글, 영문자, 숫자, 하이픈, 공백 포함
+
+        if (!subAddrChk.test(subAddr.value)) {
             alert(" 상세 주소를 다시 입력해주세요.");
             subAddr.focus();
             return false;
