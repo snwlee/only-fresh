@@ -72,7 +72,7 @@ public class MemberController {
         requestSession.setAttribute("memberResponse", memberResponse);
 
         cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        toURL = toURL == null || toURL.equals("") ? "/" : toURL;
+        toURL = (toURL == null || toURL.equals("")) ? "/" : toURL;
         return "redirect:" + toURL;
     }
 

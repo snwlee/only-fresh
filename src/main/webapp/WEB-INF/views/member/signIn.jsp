@@ -183,7 +183,7 @@
     <%--    header--%>
     <div id="content">
         <h2>로그인</h2>
-        <form id="form" action="/members" method="post" autocomplete="off">
+        <form id="form" action="/members?toURL=${param.toURL}" method="post" autocomplete="off">
 
             <div class="form-error" id="login-error" ${empty param.error ? 'hidden' : ''}>
                 <img
