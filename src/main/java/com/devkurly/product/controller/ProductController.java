@@ -154,7 +154,8 @@ public class ProductController {
                 list = productService.getSearchResultPage(sc);
                 map.put("list", list);
                 map.put("title","신상품");
-                map.put("keyword", sc.getKeyword());
+                if(!sc.getKeyword().equals(""))
+                    map.put("keyword", sc.getKeyword());
             }else if(order_sc.equals("sales_rate")) { // 베스트
                 list = productService.ProductBestList(sc);
                 map.put("list", list);

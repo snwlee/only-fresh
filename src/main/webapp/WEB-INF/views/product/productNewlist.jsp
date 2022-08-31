@@ -250,7 +250,8 @@
                 $("#cd_type_name").text(result.cd_type_name);
                 $("#cd_name").text(result.cd_name); // 카테고리의 이름을 가져온다.
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
-                $("#page_title").text(result.keyword); // 상품의 제목을 가져온다.
+                if(!result.keyword=="")
+                    $("#page_title").text("'"+result.keyword+"'에 대한 검색결과"); // 상품의 제목을 가져온다.
             },
             error: function () {
                 alert("error")
