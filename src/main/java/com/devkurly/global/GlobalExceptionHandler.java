@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -58,7 +61,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> signInCatcher(HttpServletResponse response, HttpServletRequest request, Exception e) throws IOException {
         System.out.println("GlobalExceptionHandler: 로그인에 실패했습니다.");
-        response.sendRedirect("/members?error=1&toURL=" + request.getRequestURL());
+        String parameter = request.getParameter("coupn_nm");
+        if (Optional.ofNullable(parameter).isPresent()) {
+            String coupn_nm = URLEncoder.encode(parameter, StandardCharsets.UTF_8);
+            response.sendRedirect("/members?error=1&toURL=" + request.getRequestURL() + "?coupn_nm=" + coupn_nm);
+        } else {
+            response.sendRedirect("/members?error=1&toURL=" + request.getRequestURL());
+        }
         return ResponseEntity.badRequest().body(ErrorCode.SIGN_IN_FAIL.getMessage());
     }
 
