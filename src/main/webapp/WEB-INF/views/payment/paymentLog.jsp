@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set
         var="signInOut"
         value="${sessionScope.memberResponse==null ? '로그인' : '로그아웃'}"
@@ -21,13 +22,124 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlyFresh :: 마이 쿠폰 페이지</title>
+    <title>OnlyFresh :: 주문내역</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
+
+        #pdt-title:hover{
+            text-decoration: underline;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            /* border: 1px solid black; */
+        }
+
+        #product_list {
+            width: 650px;
+            /* border: 1px solid red; */
+        }
+
+
+        .select_or_delete {
+            /* border: 1px solid #129090; */
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .select_or_delete span {
+            font-size: 14px;
+        }
+
+        .select_or_delete img {
+            margin: 0px 10px 0px 0px;
+        }
+
+        .select_contour {
+            width: 1px;
+            height: 14px;
+            background-color: #ddd;
+            margin: 0px 21px 0px 22px;
+            vertical-align: top;
+        }
+
+        .product_type {
+            margin-bottom: 20px;
+            padding: 14px 0px 14px 0px;
+            color: #333333;
+            font-size: 20px;
+            font-weight: 500;
+            border-bottom: 1px solid rgb(51, 51, 51)
+            /* border:1px solid black; */
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            margin: 4px 0px 14px 0px;
+            padding: 0px 0px 10px 0px;
+            border-bottom: 1px solid #F4F4F4;
+        }
+
+        .product:last-child {
+            border-bottom: none;
+        }
+
+        .product h4 {
+            width: 345px;
+            font-weight: 500;
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .product img {
+            margin: 0px 10px 0px 0px;
+        }
+
+        .product_img {
+            width: 60px;
+            height: 78px;
+        }
+
+        .quantity_control_box {
+            display: flex;
+            /*border: 1px solid rgb(221, 223, 225);*/
+            /* margin-right: 50px; */
+        }
+
+        .quantity_control_box div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            margin: 0;
+            /* border: 1px solid salmon; */
+        }
+
+        .product button {
+            width: 27px;
+            height: 28px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product p {
+            display: flex;
+            justify-content: flex-end;
+            width: 90px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /*---*/
+
         #whole_container {
             width: 100%;
             height: 100vh;
@@ -40,12 +152,12 @@
 
         #content {
             display: flex;
+            justify-content: center;
             padding: 30px 200px 160px 200px;
         }
     </style>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
-
 <body>
 <div id="whole_container">
     <div id="navigation">
@@ -67,11 +179,11 @@
                 </a>
                 <a href="/">Only 프레쉬</a>
                 <div></div>
-                <a href="/"></a>
+                <a></a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요"/>
-                <img src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
                 <a href="/address/list"><img src="/cart/imgs/location.png"/></a>
@@ -85,10 +197,10 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span><a href="">신상품</a></span>
-                <span><a href="">베스트</a></span>
-                <span><a href="">알뜰쇼핑</a></span>
-                <span><a href="/event/main">특가/혜택</a></span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">새벽·낮</span>
@@ -106,7 +218,7 @@
     </div>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이컬리</h2>
+            <h2>마이페이지</h2>
             <ul>
                 <a href="">
                     <li>주문 내역</li>
@@ -138,10 +250,17 @@
             </ul>
         </div>
         <div id="mypage_content">
-            <h3>찜한 상품</h3>
-
+            <h3>주문내역</h3>
             <div id="mypage_content_body">
-
+                <div class="cols">
+                    <div class="first_col col">상품 정보</div>
+                    <div class="second_col col">주문 일자</div>
+                    <div class="third_col col">상품 수량</div>
+                    <div class="fourth_col col">주문 금액</div>
+                    <div class="fifth_col col">주문 상태</div>
+                </div>
+                <div id="product-log">
+                </div>
             </div>
         </div>
     </div>
@@ -170,82 +289,46 @@
     </footer>
 </div>
 <script>
-    let wrapper = $("#cat_wrapper");
-    let show_category_button = $("#show_category_button");
-    let main_cat_container = $("#main_cat_container");
-    let sub_cat_container = $("#sub_cat_container");
-    let sub_cat = $(".sub_cat");
-
-    show_category_button.hover(() => {
-        main_cat_container.show();
-    })
-
-    wrapper.mouseleave(() => {
-        main_cat_container.hide();
-        sub_cat_container.hide();
-    })
-
-    sub_cat_container.mouseleave(() => {
-        sub_cat_container.hide();
-    })
-
-    let categories = null;
-
-    let catToLi = function (res) {
-        let tmp = '';
-
-        res.forEach(el => {
-            tmp += '<a href="/product/newlist?cd_name_num='
-            tmp += el.cd_name_num
-            tmp += '&page=1&pageSize=12"<li class="cat main_cat">'
-            tmp += el.cd_name
-            tmp += '</li></a>'
-        })
-
-        return tmp;
-    }
-
-    let toHtml =function(lists){
-        let tmp = "";
-        lists.forEach(function(BoardDto){
-            tmp += '<div class="productRow"><div class="productThumbnail"></div>'
-            tmp += '<div class="productInfo">'
-            tmp += '<div class="productName">'+'</div>'
-            tmp += '<div class="priceArea">'+'</div></div>'
-            tmp += '<div class="buttonArea"><button>삭제</button><button>담기</button></div></div>'
-        })
-        return tmp;
-    }
-
-
-
-
-
-
-    $(document).ready(() => {
-
-        $.ajax({
-            type: 'GET',       // 요청 메서드
-            url: '/product/categories',  // 요청 URI
-            success: function (res) {
-                categories = res;
-                $.each(res, (el) => {
-                    $("#main_cat_container").append('<a href="/product/newlist?cd_type_name=' + el + '&page=1&pageSize=12"<li class="cat main_cat">' + el + '</li></a>');
-                })
-            },
-            error: function (result) {
-                alert("쿠폰 불러오기 실패");
-            }, // 에러가 발생했을 때, 호출될 함수
-            complete: function () {
-                $(".main_cat").mouseenter((e) => {
-                    sub_cat_container.show();
-                    sub_cat_container.html(catToLi(categories[e.currentTarget.innerText]));
-                })
-            }
-        })
-    })
-
-
+    /**
+     * 상품 정보 요청
+     */
+    $.ajax({
+        type: 'GET',
+        url: '/payments/product',
+        datatype: 'json',
+        success: function (result) {
+            $.each(result, function (index, payProductDto) {
+                let product =
+                    `<div class="coupon cols">
+                    <div class="coupon_name first_col" style="display: flex; align-items: center;">
+                        <span>
+                        <img src="` + payProductDto.image + `"
+                         alt="" class="product_img"/>
+                         </span>
+                         <a href="/detail?pdt_id=` + payProductDto.pdt_id + `" style="text-decoration: none; color: black;">
+                        <span id="pdt-title" style="padding-left: 10px;"> [` + payProductDto.company + `] ` + payProductDto.title + `</span>
+                        </a>
+                    </div>
+                    <div class="coupon_func second_col col" style="padding-top: 30px;">
+                        <fmt:formatDate value="${date}" type="date" pattern="MM/dd(E)"/>
+                    </div>
+                    <div class="coupon_rate third_col col" style="padding-top: 30px;">
+                        ` + payProductDto.pdt_qty + ` 개
+                    </div>
+                    <div class="coupon_due fourth_col col" style="padding-top: 30px;">
+                        ` + (payProductDto.sel_price * payProductDto.pdt_qty).toLocaleString() + ` 원
+                    </div>
+                    <div class="coupon_used fifth_col col" style="padding-top: 30px;">
+                         배송 준비
+                    </div>
+                </div>`;
+                $('#product-log').append(product);
+            })
+        },
+        error: function () {
+            alert('error');
+        }
+    });
 </script>
 </body>
 </html>

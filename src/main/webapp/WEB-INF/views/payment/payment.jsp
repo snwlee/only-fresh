@@ -116,7 +116,7 @@
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">샛별·낮</span>
+                <span id="purple_deli_info">새벽·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>
@@ -207,7 +207,7 @@
         success: function (result) {
             let address =
                 `<div class="payment_row">
-                        <span style="font-size: 24px;">배송 중 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
+                        <span style="font-size: 24px;">배송 준비 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
                         <span></span>
                     </div>
                     <div class="payment_row">

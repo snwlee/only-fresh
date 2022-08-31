@@ -94,6 +94,6 @@ public class OrderController {
         model.addAttribute("order_id", order_id);
         model.addAttribute("cart", checkedCartProduct);
         model.addAttribute("order", orderResponseDto);
-        return "/order/order";
+        return "/order/kakaoPay";
     }
 }

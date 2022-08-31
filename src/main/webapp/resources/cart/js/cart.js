@@ -74,7 +74,7 @@ if (getCookie('tempCart') === null) {
                 `
                     <h4>배송지</h4>
                     <p>` + result.main_addr + ` ` + result.sub_addr + `</p>
-                    <p id="is_star_deli">샛별배송</p>
+                    <p id="is_star_deli">새벽배송</p>
                     <a href="/address/list"><button>배송지 변경</button></a>
                     `;
             $('#shipping').html(user);

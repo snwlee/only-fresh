@@ -21,7 +21,6 @@
                 <typeAlias alias="AddressDto" type="com.devkurly.address.domain.AddressDto" />
                 <typeAlias alias="UserCouponDto" type="com.devkurly.coupon.domain.UserCouponDto" />
                 <typeAlias alias="SearchCondition" type="com.devkurly.product.domain.SearchCondition"/>
-<!--                <typeAlias alias="cd_type_name" type="com.devkurly.product.dao.ProductDao"/>-->
 
 <!--                <typeAlias alias="SearchCondition" type="com.devkurly.admin.domain.SearchCondition"/>-->
                 <!--                <typeAlias alias="Address" type="com.devkurly.address.domain.AddressDto" />-->

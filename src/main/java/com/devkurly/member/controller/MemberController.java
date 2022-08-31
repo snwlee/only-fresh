@@ -31,24 +31,6 @@ public class MemberController {
     private final MemberService memberService;
     private final CartService cartService;
 
-    @GetMapping("/test")
-    public String test(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
-        MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("1234", "1234");
-        MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
-        session.setAttribute("memberResponse", memberResponse);
-        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        return "redirect:/";
-    }
-
-    @GetMapping("/test2")
-    public String test2(@CookieValue(value = "tempCart", required = false) Cookie tempCart, CartSaveRequestDto cartSaveRequestDto, HttpServletResponse response, HttpSession session) {
-        MemberSignInRequestDto signInRequestDto = new MemberSignInRequestDto("pgrrr119@gmail.com", "1q2w3e4r%");
-        MemberMainResponseDto memberResponse = memberService.signIn(signInRequestDto);
-        session.setAttribute("memberResponse", memberResponse);
-        cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        return "redirect:/";
-    }
-
     @GetMapping("")
     public String viewSignIn(HttpSession session) {
         Object sessionAttribute = session.getAttribute("memberResponse");
@@ -72,7 +54,7 @@ public class MemberController {
         requestSession.setAttribute("memberResponse", memberResponse);
 
         cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        toURL = toURL == null || toURL.equals("") ? "/" : toURL;
+        toURL = (toURL == null || toURL.equals("")) ? "/" : toURL;
         return "redirect:" + toURL;
     }
 
@@ -84,14 +66,6 @@ public class MemberController {
     @PostMapping("/signup")
     public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto,AddressDto addressDto, BindingResult result) {
         if (result.hasErrors()) {
-//            List<ObjectError> globalErrors = result.getGlobalErrors();
-//            for (ObjectError ge : globalErrors) {
-//                String simpleName = ValidMemberForm.class.getSimpleName();
-//                System.out.println("simpleName = " + simpleName);
-//                if (Objects.requireNonNull(ge.getCode()).equals(simpleName)) {
-//                    result.rejectValue("cPassword", "Equal.pass", Objects.requireNonNull(ge.getDefaultMessage()));
-//                }
-//            }
             return "redirect:/members/signup?error=3";
         }
         memberService.join(requestDto);

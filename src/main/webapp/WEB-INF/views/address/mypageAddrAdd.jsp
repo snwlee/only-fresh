@@ -66,7 +66,7 @@
 
         /* 헤더 */
 
-        .tit_result { /* 샛별배송 안내문구 */
+        .tit_result { /* 새벽배송 안내문구 */
             display: block;
             padding: 55px 0 13px;
             font-weight: 600;
@@ -76,7 +76,7 @@
             text-align: center;
         }
 
-        .deli_type { /* 샛별배송 */
+        .deli_type { /* 새벽배송 */
             color: #4E7A51;
         }
 
@@ -312,7 +312,7 @@
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">샛별·낮</span>
+                <span id="purple_deli_info">새벽·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>
@@ -368,7 +368,7 @@
                 <form id="address_add_body" name="addrInsert" action="/address/create" method="post">
                     <div class="insert_addr">
                         <%--                        <p class="tit_result">--%>
-                        <%--                            <span class="deli_type">샛별배송</span>지역입니다.--%>
+                        <%--                            <span class="deli_type">새벽배송</span>지역입니다.--%>
                         <%--                            <span class="desc">매일 아침, 문앞까지 신선함을 전해드려요</span>--%>
                         <%--                        </p>--%>
                         <div class="field">
