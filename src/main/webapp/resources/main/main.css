@@ -55,19 +55,17 @@ button {
     display:inline-block;
     width: 253px;
     height: 381px;
-    pading: 0px 5px;
+    margin-left: 10px;
 }
-.product_title{
+.product_title {
     width: 100%;
-    overflow: hidden;
-    /* text-overflow: ellipsis;
-    white-space: nowrap; */
-    height: 38px;
+    /* overflow: hidden; */
+    /* height: 25px; */
     font-size: 16px;
     font-weight: 500;
-    margin-top: 20px;
-    color:#333;
-
+    margin-top: 10px;
+    /* margin-bottom: 10; */
+    color: #333;
 }
 .product_sel_price{
     font-size: 16px;
