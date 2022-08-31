@@ -15,6 +15,7 @@
         .title {
             padding-left: 50px;
             text-align: left;
+            border: 1px solid #f4f4f4;
         }
         .title_cn{
             cursor:pointer;
@@ -569,8 +570,8 @@
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn, is_secret:is_secret}),
                 error   : function(){ alert("error") }
             });
-            $(location).prop("href", location.href);
             alert("글이 작성되었습니다.");
+            window.location.href = "/boardlist?pdt_id="+pdt_id+"&bbs_clsf_cd="+bbs_clsf_cd+"&page=1&pageSize=10";
         });
 
         $(".close").click(function(){
@@ -591,8 +592,8 @@
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 error   : function(){ alert("error") }
             });
-            $(location).prop("href", location.href);
             alert("글이 삭제되었습니다.");
+            window.location.href = "/boardlist?pdt_id="+pdt_id+"&bbs_clsf_cd="+bbs_clsf_cd+"&page=1&pageSize=10";
         });
 
         $("#board").on("click", ".mod_btn", function(e){
