@@ -29,7 +29,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlyFresh :: 결제 정보</title>
+    <title>OnlyFresh :: 주문 내역</title>
     <link rel="icon" href="/only-fresh-favicon.svg" />
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
@@ -131,7 +131,7 @@
     </div>
     <%--    header--%>
     <div id="content">
-        <h2>결제 정보</h2>
+        <h2>주문 내역</h2>
         <div id="container">
             <div id="product_list">
                 <h4 class="product_type">주문자 상세</h4>
@@ -207,7 +207,7 @@
         success: function (result) {
             let address =
                 `<div class="payment_row">
-                        <span style="font-size: 24px;">배송 준비 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
+                        <span style="font-size: 24px;">배송 중 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
                         <span></span>
                     </div>
                     <div class="payment_row">

@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
@@ -82,9 +85,16 @@ public class PaymentController {
         return "/payment/payment";
     }
 
-    @GetMapping("/2")
-    public String deletePayment(Integer ord_id, HttpSession session) {
-        paymentService.removePayment(getMemberResponse(session), ord_id);
-        return "redirect:/payments";
+    @GetMapping("/logs")
+    public String viewPaymentLogList(Model model) {
+        Calendar calendar = Calendar.getInstance();
+        Date date = new Date(calendar.getTimeInMillis());
+        model.addAttribute("date", date);
+        return "/payment/paymentLog2";
     }
+
+//    @GetMapping("/logs/{ord_id}")
+//    public String viewPaymentLog(@PathVariable Integer ord_id) {
+//
+//    }
 }

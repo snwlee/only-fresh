@@ -105,9 +105,9 @@
     <%-- 사이드 바 --%>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이컬리</h2>
+            <h2>마이페이지</h2>
             <ul>
-                <a href="">
+                <a href="/payments/logs">
                     <li>주문 내역</li>
                 </a>
                 <a href="">
