@@ -91,7 +91,7 @@ VALUES  (#{addr_id}, #{user_id}, #{chk_addr},
         ) AS A;
                     </sql>
 
-                    <sql id="addrCityType"> -- 도시 정보, 샛별배송 지원여부, 샛별배송 보여주기
+                    <sql id="addrCityType"> -- 도시 정보, 새벽배송 지원여부, 새벽배송 보여주기
             SELECT
             ADDRESS_TB.city_code, ADDRESS_TB.deli_type,
             CITY_CODE_TB.cd_name, CITY_CODE_TB.cd_type_name

@@ -120,7 +120,7 @@
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">샛별·낮</span>
+                <span id="purple_deli_info">새벽·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>
@@ -263,7 +263,7 @@
         lists.forEach(function (ProductDto) {
             tmp += '<div class="products">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
-            tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "샛별배송" : "낮배송") + '</span>'
+            tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "새벽배송" : "낮배송") + '</span>'
             tmp += '<div class="product_title">' + ProductDto.title + '</div>'
             tmp += '<span class="product_ds_rate">' + ProductDto.ds_rate + '%' + '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
             tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span>'

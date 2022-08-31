@@ -13,7 +13,7 @@ public class AddressDto {
     private Boolean ba_addr;    // 선택 배송지 체크여부, 배송지 목록 창에서만 선택여부
     private String main_addr;   // 메인주소
     private String sub_addr;    // 서브 상세 주소
-    private Boolean deli_type;  // 배송유형 t:샛별, f:낮배송
+    private Boolean deli_type;  // 배송유형 t:새벽, f:낮배송
     private String city_code;   // 도시코드
     private String addr_name;   // 수신자 이름
     private String addr_tel;   // 수신자 휴대폰

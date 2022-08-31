@@ -25,7 +25,6 @@ import javax.servlet.http.HttpSession;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.devkurly.member.controller.MemberController.getMemberResponse;
@@ -90,7 +89,7 @@ public class PaymentController {
         Calendar calendar = Calendar.getInstance();
         Date date = new Date(calendar.getTimeInMillis());
         model.addAttribute("date", date);
-        return "/payment/paymentLog2";
+        return "/payment/paymentLog";
     }
 
 //    @GetMapping("/logs/{ord_id}")
