@@ -54,11 +54,16 @@
 <!--        where user_id = #{user_id};-->
 <!--    </update>-->
     <update id="updatePnt" parameterType="int">
+        update USER_TB
+        set pnt = #{pnt}
+        where user_id = #{user_id};
+    </update>
+
+    <update id="updateCoupon" parameterType="int">
         update USER_TB UT
-        inner join USER_COUPON_TB UCT
-        on UT.user_id = UCT.user_id
-        set used = 1,
-            pnt = #{pnt}
+            inner join USER_COUPON_TB UCT
+            on UT.user_id = UCT.user_id
+        set used = 1
         where coupn_id = #{coupn_id}
         and UCT.user_id = #{user_id};
     </update>

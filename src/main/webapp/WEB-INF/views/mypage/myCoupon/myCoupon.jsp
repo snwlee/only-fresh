@@ -74,9 +74,9 @@
                 <img id="search_btn" src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <a href="#" class="location"><img src="/main/imgs/location.png"/></a>
-                <img src="/main/imgs/heart.png"/>
-                <a href="/carts/"><img src="/main/imgs/shopping-cart.png"/></a>
+                <a href="/address/list"><img src="/cart/imgs/location.png"/></a>
+                <a href="/mypage"><img src="/cart/imgs/heart.png"/></a>
+                <a href="/carts"><img src="/cart/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">

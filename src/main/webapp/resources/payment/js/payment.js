@@ -49,10 +49,10 @@ $.ajax({
                     alt="" class="product_img"/>
                     <h4>[` + payProductDto.company + `] ` + payProductDto.title + `</h4>
                     <div class="quantity_control_box">
-                    <div id="order-qty">` + payProductDto.pdt_qty + ` 개</div>
+                    <div id="order-qty" style="width: 50px;">` + payProductDto.pdt_qty + ` 개</div>
                     </div>
                     <p id="order-sum" style="margin-bottom: 0px;padding-left: 100px;">
-                    ` + (payProductDto.sel_price).toLocaleString() + ` 원</p>
+                    ` + (payProductDto.sel_price * payProductDto.pdt_qty).toLocaleString() + ` 원</p>
                     </div>`;
             $('#product').append(product);
         })

@@ -41,8 +41,6 @@ public class PaymentRestController {
         Integer ord_Id = getOrdId(session);
         List<OrderProductNameResponseDto> orderProduct = orderService.checkOrderProduct(ord_Id);
         for (OrderProductNameResponseDto orderProductNameResponseDto : orderProduct) {
-            System.out.println("orderProductNameResponseDto.getTitle() = " + orderProductNameResponseDto.getTitle());
-            System.out.println("orderProductNameResponseDto.getSel_price() = " + orderProductNameResponseDto.getSel_price());
         }
         return orderProduct;
     }

@@ -30,6 +30,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnlyFresh :: 주문서</title>
+    <link rel="icon" href="/only-fresh-favicon.svg" />
     <link rel="stylesheet" type="text/css" href="/cart/reset.css">
     <link rel="stylesheet" type="text/css" href="/order/order.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
@@ -98,9 +99,9 @@
                 <img src="/cart/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <img src="/cart/imgs/location.png"/>
-                <img src="/cart/imgs/heart.png"/>
-                <a href="/carts/"><img src="/cart/imgs/shopping-cart.png"/></a>
+                <a href="/address/list"><img src="/cart/imgs/location.png"/></a>
+                <a href="/mypage"><img src="/cart/imgs/heart.png"/></a>
+                <a href="/carts"><img src="/cart/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
@@ -145,7 +146,7 @@
                                      alt="" class="product_img"/>
                                 <h4>[${cart.company}] ${cart.title}</h4>
                                 <div class="quantity_control_box">
-                                    <div id="order-qty">${cart.pdt_qty} 개</div>
+                                    <div id="order-qty" style="width: 50px;">${cart.pdt_qty} 개</div>
                                 </div>
                                 <p id="order-sum" style="margin-bottom: 0px;padding-left: 60px;">
                                     <fmt:formatNumber value="${cart.sel_price * cart.pdt_qty}" pattern="###,###"/>원</p>

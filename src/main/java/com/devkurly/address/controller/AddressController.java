@@ -111,8 +111,7 @@ public class AddressController {
             MemberMainResponseDto responseDto = (MemberMainResponseDto) session.getAttribute("memberResponse");
             Integer user_id = responseDto.getUser_id();
 
-            addressDto.setAddr_id(addr_id);
-            addressDto.setUser_id(user_id);
+            addressDto.setUser_id(user_id); // 세션으로 받아온 user_id를 Dto에 넣어준다.
 
         if(addressDto.getChk_addr()==null)
             addressDto.setChk_addr(false);
@@ -120,17 +119,20 @@ public class AddressController {
         try {
             int rowCnt = addressService.modify(addressDto);
             m.addAttribute("addressDto", addressDto);
-            if (rowCnt != 1) {
-                throw new Exception("Modify failed");
-            }
-            rattr.addFlashAttribute("msg", "MOD_OK");
+            
+            if (rowCnt != 1)
+                throw new Exception("Modify failed");   // 아니면 예외
+
+                rattr.addFlashAttribute("msg", "MOD_OK");
 
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("addressDto", addressDto);
-//            m.addAttribute("msg", "MOD_ERR");
+            rattr.addFlashAttribute("msg", "MOD_ERR");
+
             return "/address/mypageAddrModify";
         }
+
         return "redirect:/address/list";
     }
 
@@ -192,7 +194,5 @@ public class AddressController {
             }
             return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$","$1-$2-$3");
         }
-
-
 
 }

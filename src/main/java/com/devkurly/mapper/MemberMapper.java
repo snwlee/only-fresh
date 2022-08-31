@@ -19,7 +19,8 @@ public interface MemberMapper {
     CouponDto findCouponByCouponId(Integer coupn_id);
     AddressDto findAddressById(Integer user_id);
     Integer update(Member member);
-    Integer updatePnt(@Param("user_id") Integer user_id, @Param("pnt") Integer pnt, @Param("coupn_id") Integer coupn_id);
+    Integer updatePnt(@Param("user_id") Integer user_id, @Param("pnt") Integer pnt);
+    Integer updateCoupon(@Param("user_id") Integer user_id, @Param("coupn_id") Integer coupn_id);
     Integer delete(Integer user_id);
 
 }

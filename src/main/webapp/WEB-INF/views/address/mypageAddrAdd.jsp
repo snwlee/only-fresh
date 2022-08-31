@@ -14,18 +14,20 @@
 />
 <c:set
         var="nameLink"
-        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage/coupon'}"
+        value="${sessionScope.memberResponse==null ? '/members/signup' : '/mypage'}"
 />
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlyFresh :: 배송지 추정</title>
+    <title>OnlyFresh :: 배송지 추가</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/navigation.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
+    <link rel="stylesheet" type="text/css" href="/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
         #whole_container {
             width: 100%;
@@ -203,7 +205,7 @@
             appearance: none;
         }
 
-        input[type=checkbox]+.ico {
+        input[type=checkbox] + .ico {
             display: inline-block;
             position: relative;
             width: 24px;
@@ -218,7 +220,7 @@
             vertical-align: -7px;
         }
 
-        input[type=checkbox]:checked + .ico {  /* 체크표시 */
+        input[type=checkbox]:checked + .ico { /* 체크표시 */
             display: inline-block;
             position: relative;
             width: 24px;
@@ -265,7 +267,6 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <%-- 주소 API --%>
 </head>
-
 <body>
 <div id="whole_container">
     <div id="navigation">
@@ -280,31 +281,35 @@
         </div>
         <div id="search">
             <div id="search_first">
-                <img style="width:82px; height: 42px" src="/mypage/myCoupon/imgs/logo.png" alt="logo"/>
-                <a>마켓컬리</a>
+                <a href="/">
+                    <svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+                        <image href="/logo.svg" height="60" width="60"/>
+                    </svg>
+                </a>
+                <a href="/">Only 프레쉬</a>
                 <div></div>
-                <a>뷰티컬리</a>
+                <a href="/"></a>
             </div>
             <div id="input_container">
-                <input placeholder="검색어를 입력해주세요"/>
-                <img src="/mypage/myCoupon/imgs/loupe.png" style="width: 20px; height: 20px"/>
+                <input placeholder="검색어를 입력해주세요" id="keyword"/>
+                <img id="search_btn" src="/cart/imgs/loupe.png" style="width: 20px; height: 20px"/>
             </div>
             <div id="icon_container">
-                <img src="/mypage/myCoupon/imgs/location.png"/>
-                <img src="/mypage/myCoupon/imgs/heart.png"/>
-                <img src="/mypage/myCoupon/imgs/shopping-cart.png"/>
+                <a href="/address/list/"><img src="/cart/imgs/location.png"/></a>
+                <img src="/cart/imgs/heart.png"/>
+                <a href="/carts/"><img src="/cart/imgs/shopping-cart.png"/></a>
             </div>
         </div>
         <div id="menubar">
             <div id="category_container">
                 <img src=""/>
-                <span>카테고리</span>
+                <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-                <span><a href="">신상품</a></span>
-                <span><a href="">베스트</a></span>
-                <span><a href="">알뜰쇼핑</a></span>
-                <span><a href="/event/main">특가/혜택</a></span>
+                <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a>
+                <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
+                <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
+                <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
                 <span id="purple_deli_info">샛별·낮</span>
@@ -312,9 +317,18 @@
             </div>
         </div>
     </div>
+    <div id="cat_wrapper">
+        <div id="main_cat_container">
+            <%--            <li class="cat main_cat">채소</li>--%>
+        </div>
+        <div id="sub_cat_container">
+            <%--            <li class="cat sub_cat">채소</li>--%>
+        </div>
+    </div>
+    <%-- 사이드 바 --%>
     <div id="content">
         <div id="my_kurly">
-            <h2>마이페이지</h2>
+            <h2>마이컬리</h2>
             <ul>
                 <a href="">
                     <li>주문 내역</li>
@@ -325,7 +339,7 @@
                 <a href="">
                     <li>찜한 상품</li>
                 </a>
-                <a href="">
+                <a href="/address/list/">
                     <li>배송지 관리</li>
                 </a>
                 <a href="">
@@ -351,7 +365,7 @@
                 <h3 class="head">배송지 등록</h3>
             </div>
             <div id="address_add">
-                <form id="address_add_body">
+                <form id="address_add_body" name="addrInsert" action="/address/create" method="post">
                     <div class="insert_addr">
                         <%--                        <p class="tit_result">--%>
                         <%--                            <span class="deli_type">샛별배송</span>지역입니다.--%>
@@ -377,7 +391,6 @@
                                    placeholder="이름을 입력해주세요"
                                    value="${addressDto.addr_name}"/>
                         </div>
-
                         <div class="field">
                             <label class="label_block" for="addr_tel">휴대폰</label><br>
                             <input type="text" id="addr_tel" name="addr_tel" minlength="9" maxlength="11"
@@ -385,12 +398,12 @@
                                    placeholder="번호를 입력해주세요" value="${addressDto.addr_tel}"/>
                         </div>
                         <div class="label_default">
-                            <input type="checkbox" id="chk_addr" name="chk_addr" value="true" onclick="checkAlert()">
+                            <input type="checkbox" id="chk_addr" name="chk_addr" value="true">
                             <label for="chk_addr" class="ico"></label>
                             기본 배송지로 저장
                         </div>
                         <div>
-                            <button type="button" id="insertBtn" class="btn active">
+                            <button type="button" id="insertBtn" class="btn active" onclick="addrInsertChk() ">
                                 배송지 등록
                             </button>
                         </div>
@@ -402,35 +415,58 @@
                             </a>
                         </div>
                     </div>
-<%--                    <script src="/resources/address/js/address.js"></script>--%>
+                    <%--                    <script src="/resources/address/js/address.js"></script>--%>
                 </form>
             </div>
         </div>
     </div>
 </div>
-</div>
-</div>
-</div>
 <script>
-    $(document).ready(function () {  // main()와 같다. jquery
+    // 배송지 등록 유효성 검사
+    function addrInsertChk() {
+        let addr = document.getElementById("main_addr");
+        let subAddr = document.getElementById("sub_addr");
+        let name = document.getElementById("addr_name");
+        let tel = document.getElementById("addr_tel");
 
-        $('#insertBtn').on("click", function () {
-            let form = $('#address_add_body');
-            form.attr("action", "<c:url value='/address/create'/>");
-            form.attr("method", "post");
-            form.submit();
-        });
+        // 주소 정규식, API 구현 -> 지울예정
+        let addrCheck = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*\s|*\-]+$/; // 한글, 영문자, 숫자, 하이픈, 공백 포함
 
-        function telValidator(args) {
-            var msg = '전화번호를 제대로 입력해주세요.';
-
-            if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(args)) {
-                return true;
-            }
-            alert(msg);
+        if (!addrCheck.test(addr.value)) { // 메인 주소가 없는경우
+            alert(" 주소를 입력해주세요.");
+            addr.focus();
             return false;
         }
-    });
+
+        // 서브 주소 정규식
+        let subAddrChk = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*\s|*\-]+$/; // 한글, 영문자, 숫자, 하이픈, 공백 포함
+
+        if (!subAddrChk.test(subAddr.value)) {
+            alert(" 상세 주소를 입력해주세요.");
+            subAddr.focus();
+            return false;
+        }
+
+        // 이름 정규식 영어,한글만 가능
+        var nameCheck = /^[a-z|A-Z|ㄱ-ㅎ|가-힣]+$/;
+
+        if (!nameCheck.test(name.value)) {
+            alert(" 받으시는 분의 성함을 작성해주세요.");
+            name.focus();
+            return false;
+        }
+
+        // 지역번호 + 휴대폰 번호 유효성 검사
+        var telCheck = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+
+        if (!telCheck.test(tel.value)) {
+            alert(" 번호를 다시 입력해주세요.")
+            tel.focus();
+            return false
+        }
+        // 입력 값 전송
+        document.addrInsert.submit();
+    }
 </script>
 </body>
 </html>
