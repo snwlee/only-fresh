@@ -1,0 +1,170 @@
+/* */
+#add_coupon_box {
+    width: auto;
+    border: 0 none;
+}
+
+#add_coupon_box_tits {
+    /*background-color: #795b8f;*/
+    height: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+    letter-spacing: -.5px;
+}
+
+#add_coupon_box_cmt {
+    padding-left: 15px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    letter-spacing: -.3px;
+    vertical-align: 3px;
+}
+
+#add_box_newAddress {
+    padding-left: 45px;
+}
+
+#newAddrressAdd {
+    border: 0 none;
+    background-color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+/* */
+#mypage_content_body {
+    width: 732px;
+}
+
+.address_cols {
+    /*background-color: #b5b5b5;*/
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid salmon; */
+    border-bottom: 1px solid #333;
+}
+
+.tit_colx {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.colx {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#form {
+    height: auto;
+}
+
+.coupon_name first_col {
+    /*padding: 20px 10px 20px 20px;*/
+    /*text-align: left;*/
+    padding: 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+    text-align: left;
+    word-break: break-all;
+}
+
+.first_col_addr { /* 주소 사이즈 */
+    width: 352px;
+}
+
+.second_col_addr { /* 받으실분 사이즈 */
+    width: 120px;
+}
+
+.third_col_addr { /* 연락처 사이즈 */
+    width: 100px;
+}
+
+.fourth_col_addr { /* 배송유형 사이즈 */
+    width: 100px;
+}
+
+.fifth_col_addr { /* 수정 사이즈 */
+    width: 60px;
+}
+
+/*  */
+#readBtn { /* 수정 버튼 */
+    width: 24px;
+    height: 24px;
+    border: 0 none;
+    background: url(https://res.kurly.com/mobile/ico/2006/ico_modify.png) no-repeat 50% 50%;
+    font-size: 0px;
+    line-height: 0;
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+.address { /* 배송지 목록 타이틀  */
+    border-bottom: 1px solid #F4F4F4;
+    width: 732px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#addressList { /* 배송지 목록 */
+    width: 732px;
+}
+
+.address_tel { /* 연락처 사이즈 */
+    font-size: small;
+}
+
+#deli_true { /* 샛별배송 컬러 */
+    font-size: 15px;
+    font-weight: 700;
+    color: #4E7A51;
+}
+
+#deli_false { /* 낮배송 컬러 */
+    color: #777777;
+}
+
+.chk_addr_tag_true { /* 기본 배송지 표시 */
+    display: block;
+    width: 74px;
+    height: 22px;
+    margin-bottom: 7px;
+    border-radius: 11px;
+    background-color: #f5f4f4;
+    font-weight: 700;
+    font-size: 12px;
+    color: #666;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.addr { /* 주소 */
+    padding: 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 24px;
+    letter-spacing: -0.3px;
+    text-align: left;
+    word-break: break-all;
+}
