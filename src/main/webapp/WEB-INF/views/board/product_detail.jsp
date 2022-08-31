@@ -116,18 +116,18 @@
             <image href="/logo.svg" height="60" width="60"/>
           </svg>
         </a>
-        <a href="/DevKurly">Only 프레쉬</a>
+        <a href="/">Only 프레쉬</a>
         <div></div>
-        <a href="/DevKurly"></a>
+        <a href="/"></a>
       </div>
       <div id="input_container">
         <input placeholder="검색어를 입력해주세요" id="keyword"/>
         <img id="search_btn" src="/product_detail/imgs/loupe.png" style="width: 20px; height: 20px" />
       </div>
       <div id="icon_container">
-        <img src="/product_detail/imgs/location.png" />
-        <img src="/product_detail/imgs/heart.png" />
-        <a href="carts/"><img src="/main/imgs/shopping-cart.png" /></a>
+        <a href="/address/list"><img src="/cart/imgs/location.png"/></a>
+        <a href="/mypage"><img src="/cart/imgs/heart.png"/></a>
+        <a href="/carts"><img src="/cart/imgs/shopping-cart.png"/></a>
       </div>
     </div>
     <div id="menubar">
