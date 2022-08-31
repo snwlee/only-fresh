@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set
         var="signInOut"
         value="${sessionScope.memberResponse==null ? '로그인' : '로그아웃'}"
@@ -21,13 +22,124 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OnlyFresh :: 마이 쿠폰 페이지</title>
+    <title>OnlyFresh :: 주문내역</title>
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/mypage.css">
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/myCoupon.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
     <style>
+
+        #pdt-title:hover{
+            text-decoration: underline;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            /* border: 1px solid black; */
+        }
+
+        #product_list {
+            width: 650px;
+            /* border: 1px solid red; */
+        }
+
+
+        .select_or_delete {
+            /* border: 1px solid #129090; */
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .select_or_delete span {
+            font-size: 14px;
+        }
+
+        .select_or_delete img {
+            margin: 0px 10px 0px 0px;
+        }
+
+        .select_contour {
+            width: 1px;
+            height: 14px;
+            background-color: #ddd;
+            margin: 0px 21px 0px 22px;
+            vertical-align: top;
+        }
+
+        .product_type {
+            margin-bottom: 20px;
+            padding: 14px 0px 14px 0px;
+            color: #333333;
+            font-size: 20px;
+            font-weight: 500;
+            border-bottom: 1px solid rgb(51, 51, 51)
+            /* border:1px solid black; */
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            margin: 4px 0px 14px 0px;
+            padding: 0px 0px 10px 0px;
+            border-bottom: 1px solid #F4F4F4;
+        }
+
+        .product:last-child {
+            border-bottom: none;
+        }
+
+        .product h4 {
+            width: 345px;
+            font-weight: 500;
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .product img {
+            margin: 0px 10px 0px 0px;
+        }
+
+        .product_img {
+            width: 60px;
+            height: 78px;
+        }
+
+        .quantity_control_box {
+            display: flex;
+            /*border: 1px solid rgb(221, 223, 225);*/
+            /* margin-right: 50px; */
+        }
+
+        .quantity_control_box div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            margin: 0;
+            /* border: 1px solid salmon; */
+        }
+
+        .product button {
+            width: 27px;
+            height: 28px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product p {
+            display: flex;
+            justify-content: flex-end;
+            width: 90px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /*---*/
+
         #whole_container {
             width: 100%;
             height: 100vh;
@@ -108,7 +220,7 @@
         <div id="my_kurly">
             <h2>마이페이지</h2>
             <ul>
-                <a href="/payments/logs">
+                <a href="">
                     <li>주문 내역</li>
                 </a>
                 <a href="">
@@ -138,37 +250,16 @@
             </ul>
         </div>
         <div id="mypage_content">
-            <h3>쿠폰</h3>
-            <div id="add_coupon_box">
-                <form id="coupon_form" onsubmit="return false;">
-                    <div id="add_input_wrapper">
-                        <input id="coupn_to_add"  type="text" placeholder="발급된 쿠폰번호를 입력해 주세요" value="afdlkajsdlkfjalfksdj">
-                    </div>
-                    <button id="add_coupon_button" onclick="addCoupon()">
-                        쿠폰 등록
-                    </button>
-                </form>
-            </div>
-            <div id="is_used_tab_container">
-                <div id="unused_coupons" class="is_used_tabs">
-                    사용 가능 쿠폰
-                </div>
-                <div id="used_coupons" class="is_used_tabs">
-                    쿠폰 사용 내역
-                </div>
-            </div>
-            <div id="optional_function">
-                사용 가능 쿠폰 0 장
-            </div>
+            <h3>주문내역</h3>
             <div id="mypage_content_body">
                 <div class="cols">
-                    <div class="first_col col">쿠폰명</div>
-                    <div class="second_col col">기능</div>
-                    <div class="third_col col">할인/적립</div>
-                    <div class="fourth_col col">사용가능기간</div>
-                    <div class="fifth_col col">사용여부</div>
+                    <div class="first_col col">상품 정보</div>
+                    <div class="second_col col">주문 일자</div>
+                    <div class="third_col col">상품 수량</div>
+                    <div class="fourth_col col">주문 금액</div>
+                    <div class="fifth_col col">주문 상태</div>
                 </div>
-                <div id="coupons">
+                <div id="product-log">
                 </div>
             </div>
         </div>
@@ -197,6 +288,47 @@
         </div>
     </footer>
 </div>
-<script src="/mypage/myCoupon/js/myCoupon.js"></script>
+<script>
+    /**
+     * 상품 정보 요청
+     */
+    $.ajax({
+        type: 'GET',
+        url: '/payments/product',
+        datatype: 'json',
+        success: function (result) {
+            $.each(result, function (index, payProductDto) {
+                let product =
+                    `<div class="coupon cols">
+                    <div class="coupon_name first_col" style="display: flex; align-items: center;">
+                        <span>
+                        <img src="` + payProductDto.image + `"
+                         alt="" class="product_img"/>
+                         </span>
+                         <a href="/detail?pdt_id=` + payProductDto.pdt_id + `" style="text-decoration: none; color: black;">
+                        <span id="pdt-title" style="padding-left: 10px;"> [` + payProductDto.company + `] ` + payProductDto.title + `</span>
+                        </a>
+                    </div>
+                    <div class="coupon_func second_col col" style="padding-top: 30px;">
+                        <fmt:formatDate value="${date}" type="date" pattern="MM/dd(E)"/>
+                    </div>
+                    <div class="coupon_rate third_col col" style="padding-top: 30px;">
+                        ` + payProductDto.pdt_qty + ` 개
+                    </div>
+                    <div class="coupon_due fourth_col col" style="padding-top: 30px;">
+                        ` + (payProductDto.sel_price * payProductDto.pdt_qty).toLocaleString() + ` 원
+                    </div>
+                    <div class="coupon_used fifth_col col" style="padding-top: 30px;">
+                         배송 준비
+                    </div>
+                </div>`;
+                $('#product-log').append(product);
+            })
+        },
+        error: function () {
+            alert('error');
+        }
+    });
+</script>
 </body>
 </html>
