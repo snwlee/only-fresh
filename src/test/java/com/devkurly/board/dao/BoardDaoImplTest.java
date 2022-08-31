@@ -70,7 +70,7 @@ public class BoardDaoImplTest {
         Integer user_id = 1;
 
         for (int i = 0; i < insertBoardCnt; i++) {
-            BoardDto boardDto = new BoardDto(pdt_id, user_id, "title"+i, "bbs_cn"+i, 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1", '0');
+            BoardDto boardDto = new BoardDto(pdt_id, user_id, i+"번째 리뷰글입니다.", i+"번째 리뷰글의 내용입니다.", 0, 0, "image",false, false, "youngjun", bbs_clsf_cd, "1", "1", '0');
             boardDao.insert(boardDto); //BOARD_TB 생성
             Integer bbs_id = boardDao.selectAll().get(0).getBbs_id();
             boardDto.setBbs_id(bbs_id);

@@ -22,6 +22,7 @@
         .title {
             padding-left: 50px;
             text-align: left;
+            border: 1px solid #f4f4f4;
         }
         .title_cn{
             cursor:pointer;
@@ -38,13 +39,13 @@
         th{
             padding-top: 18px;
             padding-bottom: 18px;
-            border-bottom: 1px solid #f4f4f4;
+            border-bottom: 1px solid rgba(244, 244, 244, 0.18);
         }
 
         td{
             padding-top: 18px;
             padding-bottom: 18px;
-            border-bottom: 1px solid #f4f4f4;
+            border-bottom: 1px solid rgba(244, 244, 244, 0.18);
         }
 
         .border_write_btn{
@@ -217,8 +218,8 @@
             <colgroup>
                 <col style="width:70px;">
                 <col style="width:auto;">
-                <col style="width:40px;">
-                <col style="width:88px;">
+<%--                <col style="width:40px;">--%>
+                <col style="width:93px;">
                 <col style="width:85px;">
                 <col style="width:90px;">
             </colgroup>
@@ -226,7 +227,7 @@
             <tr>
                 <th class="no" scope="col">번호</th>
                 <th class="title" scope="col">제목</th>
-                <th class="grade" scope="col" style="display:block"></th>
+<%--                <th class="grade" scope="col" style="display:block"></th>--%>
                 <th class="writer" scope="col">작성자</th>
                 <th class="reg_date" scope="col">작성일</th>
                 <th class="like_cnt" scope="col">추천</th>
@@ -332,10 +333,10 @@
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
             tmp += '<col style="width:auto;">'
-            tmp += '<col style="width:51px;">'
-            tmp += '<col style="width:77px;">'
-            tmp += '<col style="width:100px;">'
-            tmp += '<col style="width:80px;">'
+            // tmp += '<col style="width:51px;">'
+            tmp += '<col style="width:93px;">'
+            tmp += '<col style="width:85px;">'
+            tmp += '<col style="width:90px;">'
             tmp += '</colgroup>'
             tmp += '<tbody>'
             tmp += '<tr class="tr1">'
@@ -343,7 +344,7 @@
             tmp += '<td class="title">'
             tmp += '<div class="title_btn" data-bbs_id ='+BoardDto.bbs_id+ '><dt class="title_cn" data-id ='+BoardDto.user_id+' data-bbs_id ='+BoardDto.bbs_id+'>'+BoardDto.bbs_title+'</dt></div>'
             tmp += '</td>'
-            tmp += '<td class="grade" ></td>'
+            // tmp += '<td class="grade" ></td>'
             tmp += '<td class="writer">'+BoardDto.user_nm+'</td>'
             tmp += '<td class="reg_date">'+dateToString(BoardDto.wrt_dt)+'</td>'
             tmp += '<td class="like_cnt">'+BoardDto.revw_like+'</td>'
@@ -493,8 +494,9 @@
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn}),
                 error   : function(){ alert("error") }
             });
-            $(location).prop("href", location.href);
             alert("글이 작성되었습니다.");
+            window.location.href = "/boardlist?pdt_id="+pdt_id+"&bbs_clsf_cd="+bbs_clsf_cd+"&page=1&pageSize=10";
+
         });
 
         $(".close").click(function(){
@@ -517,6 +519,7 @@
             });
             $(location).prop("href", location.href);
             alert("글이 삭제되었습니다.");
+            window.location.href = "/boardlist?pdt_id="+pdt_id+"&bbs_clsf_cd="+bbs_clsf_cd+"&page=1&pageSize=10";
         });
 
         $("#board").on("click", ".mod_btn", function(e){
