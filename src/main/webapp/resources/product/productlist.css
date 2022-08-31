@@ -53,7 +53,7 @@
     width: 350px;
     /* height: 600px; */
     /* margin-top: 50px; */
-    margin-left: 20px;
+    margin-left: 10px;
 }
 .product_title{
     overflow: hidden;
@@ -107,7 +107,7 @@
     margin-top: 10px;
 }
 .de_type{
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(153, 153, 153);
     line-height: 19px;
     letter-spacing: -0.5px;
@@ -242,7 +242,7 @@ table {
 #sortList{
     display: flex;
     width: 1080px;
-    margin-right: 130px;
+    margin-right: 160px;
     align-content: space-around;
     justify-content: flex-end;
     margin-bottom: 10px;
