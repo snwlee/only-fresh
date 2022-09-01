@@ -107,7 +107,7 @@
         <div id="my_kurly">
             <h2>마이컬리</h2>
             <ul>
-                <a href="">
+                <a href="/orders/address">
                     <li>주문 내역</li>
                 </a>
                 <a href="">
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="address_deli fourth_col_addr colx">
                                     <span id="deli_${addressDto.deli_type}">
-                                            ${addressDto.deli_type==true ? '샛별배송':'낮배송'}
+                                            ${addressDto.deli_type==true ? '새벽배송':'낮배송'}
                                     </span>
                                 </div>
                                 <div class="address_modify fifth_col_addr colx">
@@ -198,8 +198,6 @@
                                     let phone = '${addressDto.addr_tel}';
                                     $('#phone-${addressDto.addr_id}').text(phone.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`));
                                 });
-
-
                                 $('#checkbox-${addressDto.addr_id}').click(function () {
                                     alert("배송지 선택이 완료되었습니다.");
                                     $('#form').submit();

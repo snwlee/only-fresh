@@ -131,7 +131,7 @@
 }
 
 .address_tel { /* 연락처 사이즈 */
-    font-size: small;
+    /*font-size: medium;*/
 }
 
 #deli_true { /* 샛별배송 컬러 */
