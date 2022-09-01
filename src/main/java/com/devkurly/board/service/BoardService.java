@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BoardService {
-    String isValidPdt(Integer value)throws Exception;
+    boolean isValidPdt(Integer value)throws Exception;
     List<BoardDto> selectReviewPage(Map map) throws Exception;
     List<BoardDto> selectReviewPageLike(Map map) throws Exception;
     List<BoardDto> selectInqPage(Map map) throws Exception;

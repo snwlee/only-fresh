@@ -64,8 +64,8 @@ public class BoardDaoImplTest {
     @Test
     public void TestBoardInsert() throws Exception {
         boardService.deleteAll();
-        int insertBoardCnt = 200;
-        Integer pdt_id = 27;
+        int insertBoardCnt = 100;
+        Integer pdt_id = 120;
         String bbs_clsf_cd = "1";
         Integer user_id = 1;
 
