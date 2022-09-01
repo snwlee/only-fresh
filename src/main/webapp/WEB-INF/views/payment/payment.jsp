@@ -207,7 +207,7 @@
         success: function (result) {
             let address =
                 `<div class="payment_row">
-                        <span style="font-size: 24px;">배송 준비 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.in_date}" type="date" pattern="MM/dd(E)"/> 도착 예정</span></span>
+                        <span style="font-size: 24px;">배송 준비 • <span style="font-size: 24px; color: green;"><fmt:formatDate value="${paymentResponse.up_date}" type="date" pattern="MM/dd(E)"/> 새벽 도착 예정</span></span>
                         <span></span>
                     </div>
                     <div class="payment_row">

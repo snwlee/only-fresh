@@ -80,6 +80,12 @@ public class PaymentController {
     @GetMapping("/{ord_id}")
     public String viewPayment(@PathVariable Integer ord_id, Model model) {
         PaymentResponseDto paymentResponse = paymentService.viewPayment(ord_id);
+        Date in_date = paymentResponse.getIn_date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(in_date);
+        calendar.add(Calendar.DATE, 1);
+        in_date = new Date(calendar.getTimeInMillis());
+        paymentResponse.setUp_date(in_date);
         model.addAttribute("paymentResponse", paymentResponse);
         return "/payment/payment";
     }
