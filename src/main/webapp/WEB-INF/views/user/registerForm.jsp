@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
   <title>OnlyFresh :: 회원가입</title>
+  <link rel="icon" href="/only-fresh-favicon.svg" />
 </head>
 <body>
 <form action="<c:url value="/register/add"/>" method="POST" onsubmit="return formCheck(this)">

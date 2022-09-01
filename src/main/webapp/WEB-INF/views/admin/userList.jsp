@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>OnlyFresh :: </title>
+    <link rel="icon" href="/only-fresh-favicon.svg" />
     <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>OnlyFresh :: 관리자</title>
+    <link rel="icon" href="/only-fresh-favicon.svg" />
 <%--    <link rel="stylesheet" href="/dev_kurly/reset.css" type="text/css">--%>
     <style>
         #whole_container {

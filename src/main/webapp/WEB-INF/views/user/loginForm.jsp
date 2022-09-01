@@ -9,6 +9,7 @@
 <head>
   <meta charset="UTF-8">
   <title>OnlyFresh :: 로그인</title>
+  <link rel="icon" href="/only-fresh-favicon.svg" />
   <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
   <style>

@@ -14,6 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <title>OnlyFresh :: 리뷰 게시판</title>
+    <link rel="icon" href="/only-fresh-favicon.svg" />
     <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css">

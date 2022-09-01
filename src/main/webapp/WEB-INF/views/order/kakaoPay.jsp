@@ -91,8 +91,6 @@
                     </svg>
                 </a>
                 <a href="/">Only 프레쉬</a>
-                <div></div>
-                <a href="/"></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요"/>

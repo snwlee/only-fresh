@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>OnlyFresh :: 제품 관리자 페이지</title>
-    <%--    <link rel="stylesheet" href="/dev_kurly/reset.css" type="text/css">--%>
+    <link rel="icon" href="/only-fresh-favicon.svg" />
+<%--    <link rel="stylesheet" href="/dev_kurly/reset.css" type="text/css">--%>
     <style>
         #whole_container {
             width: 100%;
