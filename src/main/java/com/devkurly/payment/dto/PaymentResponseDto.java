@@ -3,10 +3,12 @@ package com.devkurly.payment.dto;
 import com.devkurly.payment.domain.Payment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class PaymentResponseDto {
     private Integer ord_id;
@@ -17,6 +19,7 @@ public class PaymentResponseDto {
     private Integer all_dc_amt;
     private Integer dlvr_amt;
     private Date in_date;
+    private Date up_date;
 
     public PaymentResponseDto(Payment payment) {
         this.ord_id = payment.getOrd_id();

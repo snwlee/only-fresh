@@ -379,7 +379,6 @@
                             </button>
                         </a>
                     </div>
-                    <%--                    <script src="/resources/address/js/address.js"></script>--%>
                 </form>
             </div>
         </div>
@@ -430,9 +429,6 @@
         // 입력 값 전송
         document.addrModify.submit();
     }
-
-    let msg = "${msg}"
-    if(msg=="MOD_ERR") alert("수정에 실패했습니다.");
 </script>
 </body>
 </html>
