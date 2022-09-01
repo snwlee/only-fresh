@@ -29,7 +29,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OnlyFresh :: [${productDetailDto.company}] ${productDetailDto.title}</title>
-정  <link rel="icon" href="/only-fresh-favicon.svg" />
+  <link rel="icon" href="/only-fresh-favicon.svg" />
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
   <link rel="stylesheet" type="text/css" href="/navigation.css?after">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
