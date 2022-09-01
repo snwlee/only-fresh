@@ -298,6 +298,15 @@
             if (key.keyCode == 13)
                 $("#search_btn").trigger("click");
         }); //검색 끝
+
+        if(order_sc=='in_date')
+            $("#NewAscBtn").attr("style", "color:black");
+        if(order_sc=='sales_rate')
+            $("#SelAscBtn").attr("style", "color:black");
+        if(order_sc=='ds_rate')
+            $("#DcAscBtn").attr("style", "color:black");
+        if(order_sc=='adt_sts')
+            $("#DescBtn").attr("style", "color:black");
     })
 </script>
 </body>
