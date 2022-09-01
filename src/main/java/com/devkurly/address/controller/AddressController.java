@@ -150,7 +150,7 @@ public class AddressController {
         Integer user_id = getMemberResponse(session);
         addressDto.setUser_id(user_id);
 
-        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기") ||
+        if (addressDto.getMain_addr().contains("서울") || addressDto.getMain_addr().contains("경기") || addressDto.getMain_addr().contains("대구") ||
             addressDto.getMain_addr().contains("인천") ){
             addressDto.setDeli_type(true);
         } else {

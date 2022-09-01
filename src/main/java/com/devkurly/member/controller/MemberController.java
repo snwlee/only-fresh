@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +56,14 @@ public class MemberController {
         requestSession.setAttribute("memberResponse", memberResponse);
 
         cookieToLoginCart(tempCart, cartSaveRequestDto, response, session);
-        toURL = (toURL == null || toURL.equals("")) ? "/" : toURL;
+        if ((toURL == null || toURL.equals(""))) {
+            toURL = "/";
+        } else if (toURL.contains("coupn_nm")) {
+            String[] split = toURL.split("=");
+            String s = split[1];
+            String encode = URLEncoder.encode(s, StandardCharsets.UTF_8);
+            return "redirect:" + split[0] + "=" + encode;
+        }
         return "redirect:" + toURL;
     }
 
@@ -64,7 +73,7 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto,AddressDto addressDto, BindingResult result) {
+    public String postSignUp(@ModelAttribute @Valid MemberSaveRequestDto requestDto, AddressDto addressDto, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/members/signup?error=3";
         }

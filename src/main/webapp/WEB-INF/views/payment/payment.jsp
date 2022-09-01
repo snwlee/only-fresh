@@ -141,7 +141,7 @@
                     <div class="payment_row">
                         <span style="font-size: 24px;"><fmt:formatDate value="${paymentResponse.in_date}" type="date"
                                                                        dateStyle="full"/>  주문 • <span
-                                style="font-size: 24px; color: #cacaca;">주문번호 ${paymentResponse.ord_id}</span></span>
+                                style="font-size: 24px; color: #797979;">주문번호 ${paymentResponse.ord_id}</span></span>
                         <span></span>
                     </div>
                     <div id="product"></div>
