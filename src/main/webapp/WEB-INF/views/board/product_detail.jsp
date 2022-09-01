@@ -369,7 +369,7 @@
     });
 
     $(".coupon_btn").click(function(){
-      window.location.href ='/mypage?coupn_nm=나라사랑카드 쿠폰';
+      window.location.href ='/mypage?coupn_nm=콜라 쿠폰';
     })
 
     $("#down_qty").click(function(){
