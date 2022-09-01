@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -22,14 +23,14 @@ public class BoardServiceImpl implements BoardService {
         this.productDao = productDao;
     }
     @Override
-    public String isValidPdt(Integer value)throws Exception{
+    public boolean isValidPdt(Integer value)throws Exception{
         List<ProductDto> list = productDao.selectProductId();
         for (int i = 0; i < list.size(); i++) {
             Integer Pdt_id = list.get(i).getPdt_id();
-            if(value==Pdt_id)
-                return "PDT_OK";
+            if(Objects.equals(value, Pdt_id))
+                return true;
         }
-        return "PDT_ERR";
+        return false;
     }
 
     @Override
@@ -73,11 +74,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(BoardDto boardDto) throws Exception {
+        Integer pdt_id = boardDto.getPdt_id();
+        boolean checkUser = isValidPdt(pdt_id);
         if(!boardDto.getBbs_clsf_cd().equals("1")&!boardDto.getBbs_clsf_cd().equals("2"))
             throw new Exception("잘못된 게시판 접근입니다.");
-
-        if(isValidPdt(boardDto.getPdt_id()).equals("PDT_ERR"))
-            throw new Exception("없는 상품 ID입니다.");
+        if(!checkUser){
+            throw new Exception("없는 상품 ID입니다.");}
         boardDao.insert(boardDto);
         List<BoardDto> list = boardDao.selectAll();
         Integer bbs_id = list.get(0).getBbs_id();
