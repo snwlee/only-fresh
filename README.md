@@ -1,6 +1,9 @@
-# 🛍️ Dev Kurly
+# 🥬 Only Fresh
 
-- 쇼핑몰 프로젝트
+- 다함께 주제 선정에 관한 논의가 이뤄지던 중에
+이번 팀 프로젝트의 학습과 관련도가 높고
+웹페이지 사용자로서 가장 친숙한 형태라고 볼 수 있는 이커머스가
+모두의 공통적인 관심사로 선정되어 주제로 정하게 되었습니다.
 
 ## 구성원 👨‍👩‍👧‍👧
 | Backend | Backend | Backend                                                           | Backend | Backend | Backend |
@@ -9,12 +12,12 @@
 | [김형민](https://github.com/dr94406) | [이선우](https://github.com/PGRRR) | [박채훈](https://github.com/xpmxf4)                                  | [김경빈](https://github.com/didqksrla) | [김영준](https://github.com/narlae) | [정여경](https://github.com/Riiver-J) |
 ## 📋 개요
 
-> 프로젝트 명 : Dev Kurly
+> 프로젝트 명 : Only Fresh
 >
 
 ## 🏗️ 개발 인원 및 기간
 
-- 개발 기간 : 2022/08/01 ~ 2022/09/02 (5주간)
+- 개발 기간 : 2022/08/01 ~ 2022/09/01 (5주간)
 - 개발 인원 : Back-end 6명 (Front-end 1명 포함)
 
 ## 🛠️ 기술 스택
@@ -25,13 +28,18 @@
 ![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
 ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF.svg?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
+![Amazon EC2](https://img.shields.io/badge/amazon%20ec2-orange.svg?style=for-the-badge&logo=amazon%20ec2&logoColor=white)
+![Hibernate](https://img.shields.io/badge/hibernate-beige.svg?style=for-the-badge&logo=hibernate&logoColor=59666C)
 - Language : Java 11
 
 
-- Framework : Spring
+- Framework : Spring 5
 
 
-- Database : MySQL, Amazon RDS
+- Database : MySQL 8, Amazon RDS
+
+
+- Infra : Amazon EC2
 
 > Front-end
 >
@@ -40,7 +48,6 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black)](https://www.javascript.com/)
 
 - Language : HTML5, CSS3, JavaScript
-
 
 # 💡ERD
 ![devkurly-erd-2](https://user-images.githubusercontent.com/82517133/184456688-2ce2251d-81e6-4659-8f5c-b8aeeedf0c4d.png)
