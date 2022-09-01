@@ -516,7 +516,7 @@
                             <span id="order-addr">` + result.main_addr + ` ` + result.sub_addr + `</span>
                         </div>
                         <div class="payment_row">
-                            <span>상세 정보</span>
+                            <span>받으시는 분</span>
                             <span>` + result.addr_name + `, ` + result.addr_tel.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`) + `</span>
                         </div>
                         <input type="text" name="addr_id" value="` + result.addr_id + `" hidden/>
