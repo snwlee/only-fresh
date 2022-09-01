@@ -94,8 +94,6 @@
                     </svg>
                 </a>
                 <a href="/">Only 프레쉬</a>
-                <div></div>
-                <a href="/"></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요" id="keyword"/>
@@ -113,7 +111,6 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-
                 <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a></span>
                 <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
                 <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
@@ -301,6 +298,15 @@
             if (key.keyCode == 13)
                 $("#search_btn").trigger("click");
         }); //검색 끝
+
+        if(order_sc=='in_date')
+            $("#NewAscBtn").attr("style", "color:black");
+        if(order_sc=='sales_rate')
+            $("#SelAscBtn").attr("style", "color:black");
+        if(order_sc=='ds_rate')
+            $("#DcAscBtn").attr("style", "color:black");
+        if(order_sc=='adt_sts')
+            $("#DescBtn").attr("style", "color:black");
     })
 </script>
 </body>

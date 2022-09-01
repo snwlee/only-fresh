@@ -66,7 +66,7 @@
 
         /* 헤더 */
 
-        .tit_result { /* 새벽배송 안내문구 */
+        .tit_result { /* 샛별배송 안내문구 */
             display: block;
             padding: 55px 0 13px;
             font-weight: 600;
@@ -76,7 +76,7 @@
             text-align: center;
         }
 
-        .deli_type { /* 새벽배송 */
+        .deli_type { /* 샛별배송 */
             color: #4E7A51;
         }
 
@@ -90,19 +90,20 @@
 
         /* 재검색 */
         .rebtn {
-            position: absolute;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 0px;
             right: 0;
             top: 0;
-            width: 120px;
+            width: 29%;
             padding-right: 7px;
             border: 1px solid #4E7A51;
-            background-color: #fff;
-            font-weight: 700;
+            background-color: #f8f8f8;
+            font-weight: 500;
             color: #4E7A51;
-            height: 44px;
             border-radius: 3px;
-            font-size: 14px;
-            line-height: 42px;
+            line-height: 44px;
         }
 
 
@@ -126,11 +127,13 @@
         }
 
         #main_addr { /* 메인 배송지 */
-            padding-bottom: 12px;
+            width: 70%;
+            margin-bottom: 5px;
             font-weight: 720;
             font-size: 16px;
             line-height: 24px;
             letter-spacing: -.3px;
+            background-color: #f8f8f8;
         }
 
         .addrMain { /* 메인 배송지 */
@@ -146,7 +149,6 @@
 
         input[type=text] {
             width: 100%;
-            /*width: 740px;*/
             height: 48px;
             padding: 0 11px 1px 15px;
             border: 1px solid #ddd;
@@ -312,7 +314,7 @@
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">새벽·낮</span>
+                <span id="purple_deli_info">샛별·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>
@@ -367,20 +369,35 @@
             <div id="address_add">
                 <form id="address_add_body" name="addrInsert" action="/address/create" method="post">
                     <div class="insert_addr">
-                        <%--                        <p class="tit_result">--%>
-                        <%--                            <span class="deli_type">새벽배송</span>지역입니다.--%>
-                        <%--                            <span class="desc">매일 아침, 문앞까지 신선함을 전해드려요</span>--%>
-                        <%--                        </p>--%>
+                        <div id="tit_deli" name="tit2" ${addressDto.main_addr == null ? 'hidden': ''} >
+                        <p class="tit_result">
+                            <span class="deli_type" id="deli_${addressDto.deli_type}"
+                                  name="deli-${addressDto.deli_type}">
+                                ${addressDto.deli_type==true ? '새벽배송':'낮배송'}</span>지역입니다.
+                            <span class="desc" id="deli_${addressDto.deli_type}">
+                                ${addressDto.deli_type==true ? '매일 아침, 문앞까지 신선함을 전해드려요'
+                                        : '오늘 주문하면 다음 날 바로 도착해요.(일요일 휴무)'}</span>
+                        </p>
+                        </div>
                         <div class="field">
                             <div class="address_search">
-                                <%-- <input id="main_addr" class="address" readonly value=""> --%>
-                                <input type="text" id="main_addr" class="addrMain" name="main_addr" placeholder="주소"
-                                       value="${addressDto.main_addr}"/>
-                                <%--                                <button type="text" class="rebtn">--%>
-                                <%--                                    <span class="ico"></span>--%>
-                                <%--                                    재검색 --%>
-                                <%--                                </button>--%>
+                                <div>
+                                    <input type="text"
+                                           id="main_addr"
+                                           class="addrMain"
+                                           name="main_addr"
+                                           placeholder="주소를 검색해 주세요"
+                                           readonly="readonly"
+                                    />
+                                    <button type="button" class="rebtn" value="우편번호 찾기" onclick="execPostcode()">
+                                        <span class="ico"></span>
+                                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMSIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIxIDIwIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZGRiIgZmlsbC1vcGFjaXR5PSIwIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0wIDBIMjBWMjBIMHoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC40KSIvPgogICAgICAgIDxwYXRoIGZpbGw9IiM0RTdBNTEiIGQ9Ik05LjMzMyA0LjY2N0MxMS45MTEgNC42NjcgMTQgNi43NTYgMTQgOS4zMzNjMCAxLjA1MS0uMzQ3IDIuMDItLjkzMyAyLjguMDI0LjAxOC4wNDguMDQuMDcxLjA2MmwyIDJjLjI2LjI2LjI2LjY4MyAwIC45NDMtLjI2LjI2LS42ODIuMjYtLjk0MyAwbC0yLTItLjA2MS0uMDcxYy0uNzguNTg2LTEuNzUuOTMzLTIuOC45MzMtMi41NzggMC00LjY2Ny0yLjA5LTQuNjY3LTQuNjY3czIuMDg5LTQuNjY2IDQuNjY2LTQuNjY2em0wIDEuMzMzQzcuNDkzIDYgNiA3LjQ5MiA2IDkuMzMzYzAgMS44NDEgMS40OTIgMy4zMzQgMy4zMzMgMy4zMzQgMS44NDEgMCAzLjMzNC0xLjQ5MyAzLjMzNC0zLjMzNEMxMi42NjcgNy40OTMgMTEuMTc0IDYgOS4zMzMgNnoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC40KSIvPgogICAgPC9nPgo8L3N2Zz4K">
+                                        우편번호 찾기
+                                    </button>
+                                </div>
                             </div>
+                            <input class="member-input" placeholder="우편번호" name="city_code" id="addr1" type="text"
+                                   readonly="readonly" hidden>
                             <input type="text" id="sub_addr" name="sub_addr" maxlength="50"
                                    placeholder="나머지 주소를 입력해주세요"
                                    data-format="text" value="${addressDto.sub_addr}"/>
@@ -403,7 +420,7 @@
                             기본 배송지로 저장
                         </div>
                         <div>
-                            <button type="button" id="insertBtn" class="btn active" onclick="addrInsertChk() ">
+                            <button type="button" id="insertBtn" class="btn active" onclick="addrInsertChk()">
                                 배송지 등록
                             </button>
                         </div>
@@ -415,13 +432,53 @@
                             </a>
                         </div>
                     </div>
-                    <%--                    <script src="/resources/address/js/address.js"></script>--%>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
+    // 다음 주소 API
+    function execPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if (extraRoadAddr !== '') {
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if (fullRoadAddr !== '') {
+                    fullRoadAddr += extraRoadAddr;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                console.log(data.zonecode);
+                console.log(fullRoadAddr);
+
+
+                $("[name=city_code]").val(data.zonecode);
+                $("[name=main_addr]").val(fullRoadAddr);
+
+            }
+        }).open();
+    }
+
     // 배송지 등록 유효성 검사
     function addrInsertChk() {
         let addr = document.getElementById("main_addr");
@@ -429,20 +486,11 @@
         let name = document.getElementById("addr_name");
         let tel = document.getElementById("addr_tel");
 
-        // 주소 정규식, API 구현 -> 지울예정
-        let addrCheck = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*\s|*\-]+$/; // 한글, 영문자, 숫자, 하이픈, 공백 포함
-
-        if (!addrCheck.test(addr.value)) { // 메인 주소가 없는경우
-            alert(" 주소를 입력해주세요.");
-            addr.focus();
-            return false;
-        }
-
         // 서브 주소 정규식
         let subAddrChk = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*\s|*\-]+$/; // 한글, 영문자, 숫자, 하이픈, 공백 포함
 
         if (!subAddrChk.test(subAddr.value)) {
-            alert(" 상세 주소를 입력해주세요.");
+            alert(" 주소를 다시 입력해주세요.");
             subAddr.focus();
             return false;
         }
