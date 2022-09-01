@@ -29,6 +29,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OnlyFresh :: [${productDetailDto.company}] ${productDetailDto.title}</title>
+정  <link rel="icon" href="/only-fresh-favicon.svg" />
   <link rel="stylesheet" type="text/css" href="/product_detail/reset.css">
   <link rel="stylesheet" type="text/css" href="/navigation.css?after">
   <link rel="stylesheet" type="text/css" href="/product_detail/product_detail.css?after">
@@ -117,8 +118,6 @@
           </svg>
         </a>
         <a href="/">Only 프레쉬</a>
-        <div></div>
-        <a href="/"></a>
       </div>
       <div id="input_container">
         <input placeholder="검색어를 입력해주세요" id="keyword"/>
@@ -369,7 +368,7 @@
     });
 
     $(".coupon_btn").click(function(){
-      window.location.href ='/mypage?coupn_nm=웰컴쿠폰';
+      window.location.href ='/mypage?coupn_nm=나라사랑카드 쿠폰';
     })
 
     $("#down_qty").click(function(){
