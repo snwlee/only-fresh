@@ -23,6 +23,10 @@ public class PaymentService {
         return new PaymentResponseDto(payment);
     }
 
+//    public PaymentResponseDto viewAllPayment(Integer ord_id) {
+//
+//    }
+
     public void addPayment(PaymentSaveRequestDto requestDto) {
         Optional.ofNullable(paymentMapper.findById(requestDto.getOrd_id()))
                 .ifPresent(num -> {

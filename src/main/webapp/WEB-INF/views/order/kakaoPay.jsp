@@ -147,6 +147,8 @@
                                 <h4>[${cart.company}] ${cart.title}</h4>
                                 <div class="quantity_control_box">
                                     <div id="order-qty" style="width: 50px;">${cart.pdt_qty} 개</div>
+                                    <input id="order-${status.index}" type="hidden" value="${status.end}">
+                                    <input id="order-title-${status.index}" type="hidden" value="[${cart.company}] ${cart.title}">
                                 </div>
                                 <p id="order-sum" style="margin-bottom: 0px;padding-left: 60px;">
                                     <fmt:formatNumber value="${cart.sel_price * cart.pdt_qty}" pattern="###,###"/>원</p>
@@ -172,7 +174,7 @@
                             <span>
                             <label>
                                 <select class="coupon-select" id="coupon-select" name='coupn_id'>
-                                    <option data-coupon="0" value='0'>사용가능 쿠폰 0 장 / 전체 0 장</option>
+                                    <option data-coupon="0" value='0'>사용가능 쿠폰 확인</option>
                                 </select>
                             </label>
                         </span>
@@ -281,9 +283,9 @@
                     </div>
                     <input type="hidden" name="checked" id="checked" value=""/>
                     <input type="number" name="all_amt" id="all_amt" min="0" value="${sum}" hidden>
-                    <button id="order_submit" type="submit" style="cursor: pointer; font-weight: 500; font-size: 16px;">
+                    <div id="order_submit" style="cursor: pointer; font-weight: 500; font-size: 16px; text-align: center; line-height: 50px;">
                         0 원 결제하기
-                    </button>
+                    </div>
                 </div>
             </div>
         </form>
@@ -315,11 +317,6 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="/category/js/category.js"></script>
 <script>
-    $('#order_submit').click(function () {
-        $(this).prop('disabled', true).css('cursor', 'wait').css('background-color', '#DDDDDD').text('결제 대기중 입니다');
-        $('#form').submit();
-    });
-
     $('#order_submit').html((${sum}).toLocaleString('en-US') + ' 원 결제하기');
     $('#product_price').html((${pdtSum}).toLocaleString('en-US') + ' 원');
     $('#discount_price').html((${sum - pdtSum}).toLocaleString('en-US') + ' 원');
@@ -361,12 +358,12 @@
         let pay =
             `
                 <div style="display: flex; justify-content: center">
-                    <label class="container" for="kurly-pay">컬리페이
+                    <label class="container" for="kurly-pay">프레쉬페이
                         <input type="radio" id="kurly-pay" name="payment-pay" checked="checked">
                         <span class="checkmark"></span>
                     </label>
-                    <label class="container" for="naver-pay">네이버페이
-                        <input type="radio" id="naver-pay" name="payment-pay">
+                    <label class="container" for="kakao-pay">카카오페이
+                        <input type="radio" id="kakao-pay" name="payment-pay">
                         <span class="checkmark"></span>
                     </label>
                 </div>`;
@@ -485,11 +482,11 @@
                     `
                         <div class="payment_row">
                             <span>보내시는 분</span>
-                            <span>` + result.user_nm + `</span>
+                            <span id="order-id">` + result.user_nm + `</span>
                         </div>
                         <div class="payment_row">
                             <span>휴대폰</span>
-                            <span>` + result.telno.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`) + `</span>
+                            <span id="order-tel">` + result.telno.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`) + `</span>
                         </div>
                         <div class="payment_row">
                             <span>이메일</span>
@@ -516,7 +513,7 @@
                     `
                         <div class="payment_row">
                             <span>배송지</span>
-                            <span>` + result.main_addr + ` ` + result.sub_addr + `</span>
+                            <span id="order-addr">` + result.main_addr + ` ` + result.sub_addr + `</span>
                         </div>
                         <div class="payment_row">
                             <span>상세 정보</span>
@@ -531,6 +528,65 @@
                 location.href = '/address/list';
             }
         });
+    });
+</script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
+    $('#order_submit').click(function () {
+        if ($('#kakao-pay').is(':checked')) {
+            var IMP = window.IMP; // 생략가능
+            IMP.init('imp51403637');
+            // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+            IMP.request_pay({
+                pg: 'kakaopay',
+                pay_method: 'card',
+                merchant_uid: '${order_id}',
+                /*
+                 *  merchant_uid에 경우
+                 *  https://docs.iamport.kr/implementation/payment
+                 *  위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+                 */
+                name: $('#order-title-0').val() + ' 외 ' + $('#order-0').val() + '개',
+                amount: $('#all_amt').val(),
+                buyer_name: $('#order-id').text(),
+                buyer_tel: $('#order-tel').text(),
+                buyer_addr: $('#order-addr').text(),
+                buyer_postcode: '123-456',
+            }, function (rsp) {
+                console.log(rsp);
+                if (rsp.success) {
+                    var msg = '결제가 완료되었습니다.';
+                    msg += '결제 금액 : ' + rsp.paid_amount;
+                    // success.submit();
+                    // 결제 성공 시 정보를 넘겨줘야한다면 body에 form을 만든 뒤 위의 코드를 사용하는 방법이 있습니다.
+                    // 자세한 설명은 구글링으로 보시는게 좋습니다.
+                    <%--$.ajax({--%>
+                    <%--    url: "/payments/${order_id}", // 예: https://www.myservice.com/payments/complete--%>
+                    <%--    method: "POST",--%>
+                    <%--    headers: {"Content-Type": "application/json"},--%>
+                    <%--    data: {--%>
+                    <%--        imp_uid: rsp.imp_uid,--%>
+                    <%--        merchant_uid: rsp.merchant_uid,--%>
+                    <%--        paid_amount: rsp.paid_amount,--%>
+                    <%--    }--%>
+                    <%--}).done(function (data) {--%>
+                    <%--    // 가맹점 서버 결제 API 성공시 로직--%>
+                    <%--})--%>
+                } else {
+                    var msg = '결제에 실패하였습니다.';
+                    msg += '에러내용 : ' + rsp.error_msg;
+                    alert(msg);
+                    location.href = '/carts';
+                    return;
+                }
+                $('#order_submit').prop('disabled', true).css('cursor', 'wait').css('background-color', '#DDDDDD').text('결제 대기중 입니다');
+                $('#form').submit();
+                alert(msg);
+            });
+        } else {
+            $('#order_submit').prop('disabled', true).css('cursor', 'wait').css('background-color', '#DDDDDD').text('결제 대기중 입니다');
+            $('#form').submit();
+        }
     });
 </script>
 </body>

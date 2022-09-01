@@ -62,8 +62,6 @@
                     </svg>
                 </a>
                 <a href="/">Only 프레쉬</a>
-                <div></div>
-                <a href="/"></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요" id="keyword"/>
@@ -87,7 +85,7 @@
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">샛별·낮</span>
+                <span id="purple_deli_info">새벽·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>

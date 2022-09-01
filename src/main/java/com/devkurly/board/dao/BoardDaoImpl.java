@@ -167,7 +167,6 @@ public class BoardDaoImpl implements BoardDao {
         map.put("user_id", boardDto.getUser_id());
         map.put("bbs_id", boardDto.getBbs_id());
         map.put("like_no", like_no);
-        System.out.println("map = " + map);
         return session.update(namespace + "updateUserLikeNo", map);
     }
     @Override

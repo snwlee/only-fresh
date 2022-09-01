@@ -39,10 +39,7 @@ public class PaymentRestController {
     @GetMapping("/product")
     public List<OrderProductNameResponseDto> readProduct(HttpSession session) {
         Integer ord_Id = getOrdId(session);
-        List<OrderProductNameResponseDto> orderProduct = orderService.checkOrderProduct(ord_Id);
-        for (OrderProductNameResponseDto orderProductNameResponseDto : orderProduct) {
-        }
-        return orderProduct;
+        return orderService.checkOrderProduct(ord_Id);
     }
 
 

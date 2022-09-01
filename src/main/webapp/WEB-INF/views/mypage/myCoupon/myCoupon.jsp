@@ -91,7 +91,7 @@
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">샛별·낮</span>
+                <span id="purple_deli_info">새벽·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div id="my_kurly">
             <h2>마이페이지</h2>
             <ul>
-                <a href="">
+                <a href="/payments/logs">
                     <li>주문 내역</li>
                 </a>
                 <a href="">

@@ -94,8 +94,6 @@
                     </svg>
                 </a>
                 <a href="/">Only 프레쉬</a>
-                <div></div>
-                <a href="/"></a>
             </div>
             <div id="input_container">
                 <input placeholder="검색어를 입력해주세요" id="keyword"/>
@@ -113,14 +111,13 @@
                 <p style="width: 80px;" id="show_category_button">카테고리</p>
             </div>
             <div id="menus">
-
                 <a href="/product/newlist?sort=1&page=1&pageSize=12&order_sc=in_date">신상품</a></span>
                 <a href="/product/newlist?sort=2&page=1&pageSize=12&order_sc=sales_rate">베스트</a>
                 <a href="/product/newlist?sort=3&page=1&pageSize=12">알뜰쇼핑</a>
                 <a href="/event/main">특가/혜택</a>
             </div>
             <div id="deli_info">
-                <span id="purple_deli_info">샛별·낮</span>
+                <span id="purple_deli_info">새벽·낮</span>
                 <span id="gray_deli_info">배송안내</span>
             </div>
         </div>
@@ -250,6 +247,8 @@
                 $("#cd_type_name").text(result.cd_type_name);
                 $("#cd_name").text(result.cd_name); // 카테고리의 이름을 가져온다.
                 $("#page_title").text(result.title); // 상품의 제목을 가져온다.
+                if(!result.keyword=="")
+                    $("#page_title").text("'"+result.keyword+"'에 대한 검색결과"); // 상품의 제목을 가져온다.
             },
             error: function () {
                 alert("error")
@@ -261,7 +260,7 @@
         lists.forEach(function (ProductDto) {
             tmp += '<div class="products">'
             tmp += '<a href="/detail?pdt_id=' + ProductDto.pdt_id + '"><img id="img" src="' + ProductDto.image + '"/></a>'
-            tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "샛별배송" : "낮배송") + '</span>'
+            tmp += '<span class="de_type">' + (ProductDto.de_type == true ? "새벽배송" : "낮배송") + '</span>'
             tmp += '<div class="product_title">' + ProductDto.title + '</div>'
             tmp += '<span class="product_ds_rate">' + ProductDto.ds_rate + '%' + '<span class="product_sel_price">' + ProductDto.sel_price.toLocaleString() + '원</span></span>'
             tmp += '<span class="product_price">' + ProductDto.price.toLocaleString() + '원</span>'
@@ -299,6 +298,15 @@
             if (key.keyCode == 13)
                 $("#search_btn").trigger("click");
         }); //검색 끝
+
+        if(order_sc=='in_date')
+            $("#NewAscBtn").attr("style", "color:black");
+        if(order_sc=='sales_rate')
+            $("#SelAscBtn").attr("style", "color:black");
+        if(order_sc=='ds_rate')
+            $("#DcAscBtn").attr("style", "color:black");
+        if(order_sc=='adt_sts')
+            $("#DescBtn").attr("style", "color:black");
     })
 </script>
 </body>

@@ -15,6 +15,7 @@
         .title {
             padding-left: 50px;
             text-align: left;
+            border: 1px solid #f4f4f4;
         }
         .title_cn{
             cursor:pointer;
@@ -90,6 +91,7 @@
         .ph{text-align: center;}
         #rep_textarea{
             resize: none;
+            margin-bottom: 10px;
         }
 
         .paging-active {
@@ -214,10 +216,8 @@
             <h2>PRODUCT INQUIRY</h2>
             <div id="desc_filter">
                 <div id="title_desc">
-                    <p class="review_desc">- 상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수
-                        있습니다.
+                    <p class="review_desc">- 상품에 대한 문의를 남기는 공간입니다.
                     </p>
-                    <p class="review_desc">- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리내 1:1 문의에 남겨주세요.</p>
                 </div>
             </div>
         </div>
@@ -225,7 +225,7 @@
             <colgroup>
                 <col style="width:70px;">
                 <col style="width:auto;">
-                <col style="width:75px;">
+                <col style="width:77px;">
                 <col style="width:100px;">
                 <col style="width:80px;">
             </colgroup>
@@ -260,7 +260,7 @@
         <div>
             <img id="answer_mark" src="/product_detail/imgs/answer.png">
             <div class="Inq_answer"></div>
-            <textarea id="rep_textarea" rows="10" cols="100" style="display:none" placeholder="답변을 입력해주세요."></textarea>
+            <textarea id="rep_textarea" rows="10" cols="80" style="display:none" placeholder="답변을 입력해주세요."></textarea>
             <div class="buttons">
                 <p class="aw_wrt_btn">등록</p>
                 <p class="aw_mod_btn">수정</p>
@@ -362,7 +362,7 @@
                 BoardDto.is_replied = "-";
             }
             if(BoardDto.is_secret)
-                BoardDto.bbs_title =('<p style="color:#b5b5b5">비밀글입니다.</p>');
+                BoardDto.bbs_title =(BoardDto.bbs_title+' <img style="width: 15px" src="/product_detail/imgs/lock-icon.png"/>');
             tmp += '<table class="tb1" width="100%" cellpadding="0" cellspacing="0">'
             tmp += '<colgroup>'
             tmp += '<col style="width:70px;">'
@@ -569,8 +569,8 @@
                 data : JSON.stringify({bbs_title:bbs_title, bbs_cn:bbs_cn, is_secret:is_secret}),
                 error   : function(){ alert("error") }
             });
-            $(location).prop("href", location.href);
             alert("글이 작성되었습니다.");
+            window.location.href = "/boardlist?pdt_id="+pdt_id+"&bbs_clsf_cd="+bbs_clsf_cd+"&page=1&pageSize=10";
         });
 
         $(".close").click(function(){
@@ -591,8 +591,8 @@
                 url: '/board/'+bbs_id+'?pdt_id='+pdt_id,
                 error   : function(){ alert("error") }
             });
-            $(location).prop("href", location.href);
             alert("글이 삭제되었습니다.");
+            window.location.href = "/boardlist?pdt_id="+pdt_id+"&bbs_clsf_cd="+bbs_clsf_cd+"&page=1&pageSize=10";
         });
 
         $("#board").on("click", ".mod_btn", function(e){

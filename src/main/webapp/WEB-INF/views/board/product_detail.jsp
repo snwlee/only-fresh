@@ -142,7 +142,7 @@
         <a href="/event/main">특가/혜택</a>
       </div>
       <div id="deli_info">
-        <span id="purple_deli_info">샛별·낮</span>
+        <span id="purple_deli_info">새벽·낮</span>
         <span id="gray_deli_info">배송안내</span>
       </div>
     </div>
@@ -160,7 +160,7 @@
       <img id="pdt_img"
            src="${productDetailDto.image}" />
       <div id="detail_price_button_container">
-        <p id="is_early_deli">${productDetailDto.de_type==true ? '샛별배송':'낮배송'}</p>
+        <p id="is_early_deli">${productDetailDto.de_type==true ? '새벽배송':'낮배송'}</p>
         <h2>[${productDetailDto.company}] ${productDetailDto.title}</h2>
         <p id="sub_title">${productDetailDto.sub_title}</p>
         <div style="margin-bottom: 10px;">
@@ -178,14 +178,14 @@
         <div class="detail_column">
           <div class="column_title">배송</div>
           <div>
-            <p class="main_desc">${productDetailDto.de_type==true ? '샛별배송':'낮배송'}</p>
-            <p class="sub_desc">23시 전 주문 씨 내일 아침 7시 전 도착</p>
+            <p class="main_desc">${productDetailDto.de_type==true ? '새벽배송':'낮배송'}</p>
+            <p class="sub_desc">23시 전 주문 시 내일 아침 7시 전 도착</p>
           </div>
         </div>
         <div class="detail_column">
           <div class="column_title">판매자</div>
           <div>
-            <p class="main_desc">컬리</p>
+            <p class="main_desc">Only 프레쉬</p>
           </div>
         </div>
         <div class="detail_column">

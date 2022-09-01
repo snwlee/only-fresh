@@ -48,7 +48,7 @@
         <div class="content">
             <div id="detail_explain">
                 <h1>디테일 예시</h1>
-                de_type : f:낮배송, t: 샛별배송<br>
+                de_type : f:낮배송, t: 새벽배송<br>
                 company : 미니올리바<br>
                 pack_cd : 상온(종이포장), 냉장(종이포장)<br>
                 sell_cd : 1팩(12개입), 1팩<br>
