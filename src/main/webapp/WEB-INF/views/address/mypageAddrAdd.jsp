@@ -373,7 +373,7 @@
                         <p class="tit_result">
                             <span class="deli_type" id="deli_${addressDto.deli_type}"
                                   name="deli-${addressDto.deli_type}">
-                                ${addressDto.deli_type==true ? '새벽배송' : '낮배송'}</span>지역입니다.
+                                ${addressDto.deli_type==true ? '새벽배송':'낮배송'}</span>지역입니다.
                             <span class="desc" id="deli_${addressDto.deli_type}">
                                 ${addressDto.deli_type==true ? '매일 아침, 문앞까지 신선함을 전해드려요'
                                         : '오늘 주문하면 다음 날 바로 도착해요.(일요일 휴무)'}</span>
@@ -490,7 +490,7 @@
         let subAddrChk = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*\s|*\-]+$/; // 한글, 영문자, 숫자, 하이픈, 공백 포함
 
         if (!subAddrChk.test(subAddr.value)) {
-            alert(" 상세 주소를 입력해주세요.");
+            alert(" 주소를 다시 입력해주세요.");
             subAddr.focus();
             return false;
         }

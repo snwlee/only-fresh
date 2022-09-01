@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="address_deli fourth_col_addr colx">
                                     <span id="deli_${addressDto.deli_type}">
-                                            ${addressDto.deli_type==true ? '새벽배송':'낮배송'}
+                                            ${addressDto.deli_type==true ? '새벽배송' : '낮배송'}
                                     </span>
                                 </div>
                                 <div class="address_modify fifth_col_addr colx">
