@@ -1,14 +1,26 @@
 # 🥬 Only Fresh
 [![Java11](https://img.shields.io/badge/Java11-007396.svg?&style=for-the-badge&logo=java&logoColor=white)](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_(%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D_%EC%96%B8%EC%96%B4))
 ![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
+![Apache Maven](https://img.shields.io/badge/apache%20maven-beige.svg?style=for-the-badge&logo=apache%20maven&logoColor=C71A36)
+![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-333.svg?style=for-the-badge&logo=apache%20tomcat&logoColor=F8DC75)
+![Hibernate](https://img.shields.io/badge/hibernate-beige.svg?style=for-the-badge&logo=hibernate&logoColor=59666C)
+
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
 ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF.svg?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
 ![Amazon EC2](https://img.shields.io/badge/amazon%20ec2-orange.svg?style=for-the-badge&logo=amazon%20ec2&logoColor=white)
-![Hibernate](https://img.shields.io/badge/hibernate-beige.svg?style=for-the-badge&logo=hibernate&logoColor=59666C)
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white)](https://developer.mozilla.org/ko/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)](https://developer.mozilla.org/ko/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black)](https://www.javascript.com/)
+[![jQuery](https://img.shields.io/badge/jquery-beige.svg?style=for-the-badge&logo=jquery&logoColor=0769AD)](https://jquery.com/)
+[![JSON](https://img.shields.io/badge/json-beige.svg?style=for-the-badge&logo=json&logoColor=black)](https://www.json.org/json-en.html)
+
+[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-7E75D3.svg?style=for-the-badge&logo=IntelliJ%20IDEA&logoColor=black)](https://www.jetbrains.com/ko-kr/)
+[![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-black.svg?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=007ACC)](https://code.visualstudio.com/)
+[![Git](https://img.shields.io/badge/git-beige.svg?style=for-the-badge&logo=git&logoColor=FF6C37)](https://git-scm.com/)
+[![Github](https://img.shields.io/badge/github-black.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
+[![Slack](https://img.shields.io/badge/slack-4A154B.svg?style=for-the-badge&logo=slack&logoColor=white)](https://slack.com/intl/ko-kr/)
+[![Postman](https://img.shields.io/badge/postman-beige.svg?style=for-the-badge&logo=postman&logoColor=FF6C37)](https://www.postman.com/)
 
 
 - 다함께 주제 선정에 관한 논의가 이뤄지던 중에
@@ -52,52 +64,44 @@
 ### 김형민
 
 > Mission 1 | 상품 목록
->
 
 > Mission 2 |
->
 
 ### 이선우
 
-> Mission 1 | 장바구니 & 주문 & 결제
->
+> Mission 1 | 장바구니
 
-> Mission 2 | 
->
+> Mission 2 | 주문
+ 
+> Mission 3 | 결제
+ 
+> Mission 4 | 로그인
+
+> Mission 4 | 회원가입
+
 
 ### 박채훈
 
-> Mission 1 | 이벤트 & 쿠폰
->
+> Mission 1 | 쿠폰
 
-> Mission 2 |
->
+> Mission 2 | 이벤트
 
 ### 김경빈
 
-> Mission 1 | 상세 페이지
->
-
-> Mission 2 |
->
+> Mission 1 | 배송지
 
 ### 김영준
 
 > Mission 1 | 게시판
->
+
+> Mission 2 | 제품 상세 페이지
+
+### 정여경
+
+> Mission 1 |
 
 > Mission 2 |
->
-
-### 정여경(자린이)
-
-> Mission 1 | 로그인 & 회원가입
->
-
-> Mission 2 |
->
 
 ## Version
 
 > 0.1.0
->
