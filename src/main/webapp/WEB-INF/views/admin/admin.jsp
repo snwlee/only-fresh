@@ -160,19 +160,12 @@
         <h2>관리자</h2>
         <div id="container">
             <div style="margin-left: 15px;">
-                <a class="btn" href="/members/test">[임시] 34번 관리자 유저로 로그인</a>
-                <a class="btn" href="/members/test2">[임시] 64번 일반 유저로 로그인</a>
                 <a class="btn" href="/DevKurly">메인페이지 이동</a>
                 <a class="btn" href="/admin/list">회원관리</a>
-                <%--쿠폰--%>
-                <div class="content_box">
-                    <a class="btn" href="/mypage">마이페이지</a>
-                </div>
             </div>
             <div id="contents_container">
                 <%--이벤트--%>
                 <div class="content_box">
-                    <a class="btn" href="/event/main">실제 이벤트 페이지</a>
                     <a class="btn" href="/event/admin">이벤트 CRUD 페이지</a>
                 </div>
                 <%--상품상세--%>
@@ -181,14 +174,6 @@
                 </div>
                 <%--배송지--%>
                 <div class="content_box">
-                </div>
-            </div>
-            <div>
-                <%--상품 보기--%>
-                <div class="content_box">
-                    <a class="btn" href="/product/newlist?sort=1&page=1&pageSize=12&option=&keyword=">신상품</a>
-                    <a class="btn" href="/product/newlist?sort=2&page=1&pageSize=12&option=&keyword=">베스트</a>
-                    <a class="btn" href="/product/newlist?sort=3&page=1&pageSize=12&option=&keyword=">알뜰쇼핑</a>
                 </div>
             </div>
         </div>
