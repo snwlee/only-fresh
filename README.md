@@ -63,9 +63,12 @@
 
 ### 김형민
 
-> Mission 1 | 상품 목록
+> Mission 1 | 상품
 
-> Mission 2 |
+> Mission 2 | 메인페이지
+
+> Mission 3 | 계층형 카테고리
+
 
 ### 이선우
 
