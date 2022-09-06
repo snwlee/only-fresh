@@ -171,6 +171,7 @@
                 <%--상품상세--%>
                 <div class="content_box">
                     <a class="btn" href="/detail/admin">상품상세 관리자 페이지</a>
+                    <a class="btn" href="/detail/admin_board?page=1&pageSize=10">미답변모음 관리자 페이지</a>
                 </div>
                 <%--배송지--%>
                 <div class="content_box">
