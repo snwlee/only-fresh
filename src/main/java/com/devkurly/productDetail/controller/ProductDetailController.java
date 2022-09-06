@@ -46,6 +46,12 @@ public class ProductDetailController {
         return "board/admin_productdetail";
     }
 
+    @RequestMapping("/admin_board")
+    public String adminBoard(Model m) {
+        m.addAttribute("hello", "hello2");
+        return "board/admin_board_answer";
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<ProductDto>> getPdtid(Integer pdt_id, ProductDto productdto) {
         List<ProductDto> list = null;
