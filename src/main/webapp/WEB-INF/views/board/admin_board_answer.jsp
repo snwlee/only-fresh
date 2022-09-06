@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="/mypage/myCoupon/reset.css">
     <link rel="stylesheet" type="text/css" href="/navigation.css">
     <link rel="stylesheet" type="text/css" href="/footer.css">
+    <link rel="stylesheet" type="text/css" href="/product_detail/board_answer.css">
     <style>
         #whole_container {
             width: 100%;
