@@ -108,7 +108,11 @@
     </div>
 </div>
 <script>
-    let hi = '${hello}';
+    let page = ${param.page};
+    let pageSize = ${param.pageSize};
+    let user_id = '<c:out value="${sessionScope.memberResponse.user_id}"/>';
+    let user_cls_cd = '<c:out value="${sessionScope.memberResponse.user_cls_cd}"/>';
+    let memberResponse = '<c:out value="${sessionScope.memberResponse}"/>';
 </script>
 <script src="/product_detail/js/admin_board_answer.js"></script>
 </body>

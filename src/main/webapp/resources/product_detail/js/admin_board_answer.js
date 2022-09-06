@@ -1,4 +1,4 @@
-console.log(hi);
+
 let wrapper = $("#cat_wrapper");
 let show_category_button = $("#show_category_button");
 let main_cat_container = $("#main_cat_container");
