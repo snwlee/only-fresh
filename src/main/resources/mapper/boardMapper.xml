@@ -22,6 +22,11 @@
         where bbs_clsf_cd = #{bbs_clsf_cd} and pdt_id = #{pdt_id}
     </select>
 
+    <select id="ansReadyCount" resultType="int">
+        select count(*) from INQ_BOARD_TB
+        where is_replied = false
+    </select>
+
     <select id="select" parameterType="int">
         select bbs_id,
                bbs_title,
@@ -79,6 +84,16 @@
                             on INQ_BOARD_TB.bbs_id = BOARD_TB.bbs_id
         where pdt_id = #{pdt_id} and bbs_clsf_cd = #{bbs_clsf_cd}
         order by notice desc, bbs_id desc, wrt_dt desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectNoReplyPage" parameterType="map" resultType="BoardDto">
+        select INQ_BOARD_TB.bbs_id, bbs_title, user_nm, wrt_dt, is_secret, is_replied, pdt_id, user_id, bbs_clsf_cd, notice
+        from INQ_BOARD_TB
+                 right join BOARD_TB
+                            on INQ_BOARD_TB.bbs_id = BOARD_TB.bbs_id
+        where INQ_BOARD_TB.is_replied = false and notice = '0'
+        order by bbs_id desc, wrt_dt desc
         limit #{offset}, #{pageSize}
     </select>
 

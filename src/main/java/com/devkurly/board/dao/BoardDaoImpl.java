@@ -43,6 +43,10 @@ public class BoardDaoImpl implements BoardDao {
     public int boardAllCnt() throws Exception {
         return session.selectOne(namespace + "boardAllCnt");
     }
+    @Override
+    public int ansReadyCount() throws Exception {
+        return session.selectOne(namespace + "ansReadyCount");
+    }
 
     @Override
     public BoardDto select(int bbs_id) throws Exception {
@@ -66,6 +70,10 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public List<BoardDto> selectInqPage(Map map) throws Exception {
         return session.selectList(namespace + "selectInqPage", map);
+    }
+    @Override
+    public List<BoardDto> selectNoReplyPage(Map map)throws Exception {
+        return session.selectList(namespace + "selectNoReplyPage", map);
     }
     @Override
     public List<BoardDto> selectMyInq(Map map) throws Exception {
