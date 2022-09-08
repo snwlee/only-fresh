@@ -2,8 +2,8 @@
 [![Java11](https://img.shields.io/badge/Java11-007396.svg?&style=for-the-badge&logo=java&logoColor=white)](https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_(%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D_%EC%96%B8%EC%96%B4))
 ![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=Spring&logoColor=white)
 ![Apache Maven](https://img.shields.io/badge/apache%20maven-beige.svg?style=for-the-badge&logo=apache%20maven&logoColor=C71A36)
-![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-333.svg?style=for-the-badge&logo=apache%20tomcat&logoColor=F8DC75)
 ![Hibernate](https://img.shields.io/badge/hibernate-beige.svg?style=for-the-badge&logo=hibernate&logoColor=59666C)
+![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-333.svg?style=for-the-badge&logo=apache%20tomcat&logoColor=F8DC75)
 
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
 ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF.svg?style=for-the-badge&logo=Amazon%20RDS&logoColor=white)
@@ -17,16 +17,12 @@
 
 [![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-7E75D3.svg?style=for-the-badge&logo=IntelliJ%20IDEA&logoColor=black)](https://www.jetbrains.com/ko-kr/)
 [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-black.svg?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=007ACC)](https://code.visualstudio.com/)
+[![Postman](https://img.shields.io/badge/postman-beige.svg?style=for-the-badge&logo=postman&logoColor=FF6C37)](https://www.postman.com/)
 [![Git](https://img.shields.io/badge/git-beige.svg?style=for-the-badge&logo=git&logoColor=FF6C37)](https://git-scm.com/)
 [![Github](https://img.shields.io/badge/github-black.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
 [![Slack](https://img.shields.io/badge/slack-4A154B.svg?style=for-the-badge&logo=slack&logoColor=white)](https://slack.com/intl/ko-kr/)
-[![Postman](https://img.shields.io/badge/postman-beige.svg?style=for-the-badge&logo=postman&logoColor=FF6C37)](https://www.postman.com/)
 
-
-- 다함께 주제 선정에 관한 논의가 이뤄지던 중에
-이번 팀 프로젝트의 학습과 관련도가 높고
-웹페이지 사용자로서 가장 친숙한 형태라고 볼 수 있는 이커머스가
-모두의 공통적인 관심사로 선정되어 주제로 정하게 되었습니다.
+- 마켓컬리와 오아시스를 접목한 이커머스 사이트
 
 ## 구성원 👨‍👩‍👧‍👧
 | Backend | Backend | Backend                                                           | Backend | Backend | Backend |
@@ -37,6 +33,10 @@
 
 > 프로젝트 명 : Only Fresh
 >
+- 다함께 주제 선정에 관한 논의가 이뤄지던 중에
+이번 팀 프로젝트의 학습과 관련도가 높고
+웹페이지 사용자로서 가장 친숙한 형태라고 볼 수 있는 이커머스가
+모두의 공통적인 관심사로 선정되어 주제로 정하게 되었습니다.
 
 ## 🏗️ 개발 인원 및 기간
 
@@ -57,8 +57,8 @@
 >
 ![stacks-tool](https://user-images.githubusercontent.com/82517133/188274521-d54864b6-21cf-4efa-b64a-9e9a264ca86b.png)
 # 💡ERD
-![devkurly-erd-2](https://user-images.githubusercontent.com/82517133/184456688-2ce2251d-81e6-4659-8f5c-b8aeeedf0c4d.png)
-<img width="1084" alt="image" src="https://user-images.githubusercontent.com/82517133/184456575-c5a8e341-5b0d-4e5d-b9b6-722ae01bfb10.png">
+![only-fresh-erd](https://user-images.githubusercontent.com/82517133/189133326-1393cd2e-e3ac-4af2-8c6d-0995ff88e791.png)
+![only-fresh-erd-title](https://user-images.githubusercontent.com/82517133/189133359-09bd1a65-b201-41a5-883c-d3e2f85e508b.png)
 ## 📝 구현 기능 명세
 
 ### 김형민
@@ -73,15 +73,19 @@
 ### 이선우
 
 > Mission 1 | 장바구니
+- 쿠키 장바구니 구현
 
 > Mission 2 | 주문
  
 > Mission 3 | 결제
+- Kakao Pay API
  
 > Mission 4 | 로그인
+- Interceptor 로그인 여부 체크
 
 > Mission 4 | 회원가입
-
+- Hibernate 유효성 검사
+- Kakao Login API
 
 ### 박채훈
 
