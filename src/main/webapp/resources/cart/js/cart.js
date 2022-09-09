@@ -1,3 +1,23 @@
+//
+// $('#delete-checked').click(function () {
+//
+//     let checkArr = [];
+//
+//     $("input[class='checked-cart']:checked").each(function () {
+//         checkArr.push($(this).attr("data-pdt-id"));
+//     });
+//
+//     if (checkArr.length === 0) {
+//         $(this).css('cursor', 'default');
+//         return;
+//     } else {
+//         $(this).css('cursor', 'pointer');
+//     }
+//
+//     $("#checked-del").val(checkArr);
+//
+//     $('#del-form').submit();
+// });
 
 $('#delete-checked').click(function () {
 
@@ -13,10 +33,18 @@ $('#delete-checked').click(function () {
     } else {
         $(this).css('cursor', 'pointer');
     }
+    $.ajax({
+        type: 'POST',
+        url: '/carts/checked',
+        data: {checked: checkArr},
+        success: function () {
+            alert('선택한 상품을 삭제했습니다.');
+        },
+        error: function () {
+            alert('삭제에 실패했습니다.');
+        }
+    });
 
-    $("#checked-del").val(checkArr);
-
-    $('#del-form').submit();
 });
 
 $("#order_submit").click(function () {

@@ -1,6 +1,7 @@
 package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
+import com.devkurly.cart.dto.CartCheckedVO;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.MemberMainResponseDto;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -39,6 +42,19 @@ public class CartRestController {
         }
         cartService.modifyCart(responseDto.toEntity());
         return responseDto;
+    }
+
+    @PostMapping("/checked")
+    public void removeCheckedCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, @RequestParam(value="checked[]" , required = false) List<String> chArr, HttpServletResponse response, HttpSession session) {
+        int id = getId(tempCart, response, session);
+        List<Cart> cartList = new ArrayList<>();
+        for (String s : chArr) {
+            int pdt_id = Integer.parseInt(s);
+            Cart cart = new Cart();
+            cart.updateCart(id, pdt_id);
+            cartList.add(cart);
+        }
+        cartService.removeCheckedCart(cartList);
     }
 
     private int getId(Cookie tempCart, HttpServletResponse response, HttpSession session) {

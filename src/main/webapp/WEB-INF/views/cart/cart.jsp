@@ -144,10 +144,7 @@
                         <input type="checkbox" id="allCheck" checked hidden>
                     </span>
                     <span class="select_contour"></span>
-                    <form id="del-form" action="/carts/delete/checked" method="get">
-                        <input type="hidden" name="checked" id="checked-del" value=""/>
                         <span id="delete-checked" style="cursor: pointer">선택삭제</span>
-                    </form>
                 </div>
                 <div class="products_container">
                     <h4 class="product_type">냉장 상품</h4>

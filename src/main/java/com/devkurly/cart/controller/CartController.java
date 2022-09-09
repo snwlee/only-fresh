@@ -43,32 +43,18 @@ public class CartController {
         return "redirect:/carts";
     }
 
-    @GetMapping("/delete")
-    public String removeAllCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
-        int id = getId(tempCart, response, session);
-        cartService.removeCart(id);
-        return "redirect:/carts";
-    }
+//    @GetMapping("/delete")
+//    public String removeAllCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
+//        int id = getId(tempCart, response, session);
+//        cartService.removeCart(id);
+//        return "redirect:/carts";
+//    }
 
     @GetMapping("/delete/{ptd_id}")
     public String removeOneCart(@PathVariable Integer ptd_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, Cart cart, HttpServletResponse response, HttpSession session) {
         int id = getId(tempCart, response, session);
         cart.updateCart(id, ptd_id);
         cartService.removeOneCart(cart);
-        return "redirect:/carts";
-    }
-
-    @GetMapping("/delete/checked")
-    public String removeCheckedCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, @RequestParam(value = "checked", required = false) List<String> chArr, HttpServletResponse response, HttpSession session) {
-        int id = getId(tempCart, response, session);
-        List<Cart> cartList = new ArrayList<>();
-        for (String s : chArr) {
-            int pdt_id = Integer.parseInt(s);
-            Cart cart = new Cart();
-            cart.updateCart(id, pdt_id);
-            cartList.add(cart);
-        }
-        cartService.removeCheckedCart(cartList);
         return "redirect:/carts";
     }
 
