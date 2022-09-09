@@ -1,24 +1,3 @@
-//
-// $('#delete-checked').click(function () {
-//
-//     let checkArr = [];
-//
-//     $("input[class='checked-cart']:checked").each(function () {
-//         checkArr.push($(this).attr("data-pdt-id"));
-//     });
-//
-//     if (checkArr.length === 0) {
-//         $(this).css('cursor', 'default');
-//         return;
-//     } else {
-//         $(this).css('cursor', 'pointer');
-//     }
-//
-//     $("#checked-del").val(checkArr);
-//
-//     $('#del-form').submit();
-// });
-
 $('#delete-checked').click(function () {
 
     let checkArr = [];
@@ -29,6 +8,7 @@ $('#delete-checked').click(function () {
 
     if (checkArr.length === 0) {
         $(this).css('cursor', 'default');
+        console.log('test');
         return;
     } else {
         $(this).css('cursor', 'pointer');
@@ -39,6 +19,8 @@ $('#delete-checked').click(function () {
         data: {checked: checkArr},
         success: function () {
             alert('선택한 상품을 삭제했습니다.');
+            $('#cart').html('');
+            viewCart();
         },
         error: function () {
             alert('삭제에 실패했습니다.');
@@ -114,8 +96,7 @@ if (getCookie('tempCart') === null) {
     });
 }
 
-$(document).ready(function () {
-
+function viewCart() {
     $.ajax({
         type: 'GET',
         url: '/carts/view',
@@ -355,6 +336,7 @@ $(document).ready(function () {
 
         },
         error: function () {
+            $('#cart-empty').html('장바구니에 담긴 상품이 없습니다');
             $('#select_all_checked').css('display', 'none');
             $('#select_all_unchecked').css('display', 'block');
             $('#delete-checked').css('cursor', 'default');
@@ -363,4 +345,9 @@ $(document).ready(function () {
             $('#allCheck').prop('checked', false);
         }
     });
+}
+
+$(document).ready(function () {
+
+    viewCart();
 });
