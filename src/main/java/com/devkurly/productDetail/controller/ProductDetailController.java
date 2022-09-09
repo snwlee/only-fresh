@@ -1,5 +1,6 @@
 package com.devkurly.productDetail.controller;
 
+import com.devkurly.board.domain.PageHandler;
 import com.devkurly.board.service.BoardService;
 import com.devkurly.product.domain.ProductDto;
 import com.devkurly.product.service.ProductService;
@@ -44,6 +45,19 @@ public class ProductDetailController {
     @RequestMapping("/admin")
     public String admin() {
         return "board/admin_productdetail";
+    }
+
+    @RequestMapping("/admin_board")
+    public String adminBoard(Integer page, Integer pageSize, Model m) {
+        try {
+            int totalCnt = boardService.getNotRepliedCnt();
+            PageHandler ph = new PageHandler(totalCnt, page, pageSize);
+            m.addAttribute("totalCnt", totalCnt);
+            m.addAttribute("ph", ph);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "board/admin_board_answer";
     }
 
     @GetMapping("/list")

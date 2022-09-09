@@ -46,6 +46,10 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.selectInqPage(map);
     }
     @Override
+    public List<BoardDto> getNoReplyPage(Map map)throws Exception {
+        return boardDao.selectNoReplyPage(map);
+    }
+    @Override
     public List<BoardDto> selectMyInq(Map map) throws Exception {
         return boardDao.selectMyInq(map);
     }
@@ -108,6 +112,11 @@ public class BoardServiceImpl implements BoardService {
         map.put("pdt_id", pdt_id);
         return boardDao.count(map);
     }
+    @Override
+    public int getNotRepliedCnt() throws Exception {
+        return boardDao.ansReadyCount();
+    }
+
     @Override
     public int upDownLike(Integer bbs_id, Integer likeUpDown) throws Exception {
         return boardDao.upDownLike(bbs_id, likeUpDown);

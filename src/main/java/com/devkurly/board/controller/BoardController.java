@@ -72,6 +72,23 @@ public class BoardController {
             return new ResponseEntity<List<BoardDto>>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/board_admin")
+    @ResponseBody
+    public ResponseEntity<List<BoardDto>> adminlist(Integer page, Integer pageSize) {
+        Map map = new HashMap();
+        map.put("offset", (page - 1) * pageSize);
+        map.put("pageSize", pageSize);
+        List<BoardDto> list = null;
+        try {
+            list = boardService.getNoReplyPage(map);
+            return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<BoardDto>>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping("/board")
     @ResponseBody
     public ResponseEntity<String> write(Integer pdt_id, String bbs_clsf_cd, @RequestBody BoardDto boardDto, HttpSession session) {
