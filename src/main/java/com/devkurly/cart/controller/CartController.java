@@ -26,9 +26,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String viewCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session, Model model) {
-        int id = getId(tempCart, response, session);
-        model.addAttribute("id", id);
+    public String viewCart() {
         return "/cart/cart";
     }
 

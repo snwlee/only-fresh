@@ -169,7 +169,7 @@ $(document).ready(function () {
                         $('.cart-unchecked').css('display', 'none')
                         $('.cart-sum').attr('data-status', '1');
                         $('.cart-sum-pdt').attr('data-status', '1');
-                        $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#5F0080').css('cursor', 'pointer');
+                        $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#4E7A51').css('cursor', 'pointer');
                         $('#product_price').html(totalPdt().toLocaleString('en-US') + '원');
                         $('#payment_price').html(total().toLocaleString('en-US') + '원');
                         $('#discount_price').html((total() - totalPdt()).toLocaleString('en-US') + '원');
@@ -210,12 +210,12 @@ $(document).ready(function () {
                             if ($(this).attr('data-status') === '0') {
                                 $('#order_submit').text('상품을 선택해주세요').attr('disabled', true).css('background-color', '#DDDDDD').css('cursor', 'default');
                             } else {
-                                $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#5F0080').css('cursor', 'pointer');
+                                $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#4E7A51').css('cursor', 'pointer');
                                 return false;
                             }
                         });
                     } else {
-                        $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#5F0080').css('cursor', 'pointer');
+                        $('#order_submit').text('주문하기').attr('disabled', false).css('background-color', '#4E7A51').css('cursor', 'pointer');
                         $('#checked-cart-' + CartResponseDto.pdt_id).prop('checked', true);
                         $('#cart-checked-' + CartResponseDto.pdt_id).css('display', 'block');
                         $('#cart-unchecked-' + CartResponseDto.pdt_id).css('display', 'none');
