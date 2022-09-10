@@ -118,7 +118,7 @@
         <div id="my_kurly">
             <h2>마이 페이지</h2>
             <ul>
-                <a href="">
+                <a href="/payments/logs">
                     <li>주문 내역</li>
                 </a>
                 <a href="">
@@ -127,7 +127,7 @@
                 <a href="/mypage/mypick?page=1&pageSize=5">
                     <li>찜한 상품</li>
                 </a>
-                <a href="">
+                <a href="/address/list/">
                     <li>배송지 관리</li>
                 </a>
                 <a href="/mypage/myReview?page=1&pageSize=5">
@@ -142,7 +142,7 @@
                 <a href="/mypage">
                     <li>쿠폰</li>
                 </a>
-                <a href="">
+                <a href="/members/info">
                     <li>개인 정보 수정</li>
                 </a>
             </ul>

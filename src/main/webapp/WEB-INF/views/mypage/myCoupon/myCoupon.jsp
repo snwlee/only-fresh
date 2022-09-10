@@ -116,7 +116,7 @@
                 <a href="/mypage/mypick?page=1&pageSize=5">
                     <li>찜한 상품</li>
                 </a>
-                <a href="">
+                <a href="/address/list/">
                     <li>배송지 관리</li>
                 </a>
                 <a href="/mypage/myReview?page=1&pageSize=5">
@@ -131,7 +131,7 @@
                 <a href="/mypage">
                     <li>쿠폰</li>
                 </a>
-                <a href="">
+                <a href="/members/info">
                     <li>개인 정보 수정</li>
                 </a>
             </ul>
