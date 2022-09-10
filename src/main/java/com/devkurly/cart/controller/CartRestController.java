@@ -1,7 +1,6 @@
 package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
-import com.devkurly.cart.dto.CartCheckedVO;
 import com.devkurly.cart.dto.CartProductResponseDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.MemberMainResponseDto;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController

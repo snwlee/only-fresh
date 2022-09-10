@@ -71,6 +71,7 @@ public class MemberService {
 
     public MemberUpdateResponseDto modifyMember(MemberUpdateRequestDto updateRequest) {
         Member member = Optional.ofNullable(memberMapper.findByEmail(updateRequest.getUser_email())).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
+        updateRequest.setUser_id(member.getUser_id());
         updateRequest.setPwd(EncryptSha256.encrypt(updateRequest.getPwd()));
         memberMapper.update(updateRequest.toEntity());
         return new MemberUpdateResponseDto(member);

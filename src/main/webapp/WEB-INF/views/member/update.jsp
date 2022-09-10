@@ -433,44 +433,64 @@
         </div>
     </footer>
 </div>
-<script type="text/javascript" src="/member/js/signup.js"></script>
 <script type="text/javascript" src="/category/js/category.js"></script>
 <script>
-    /**
-     * 상품 정보 요청
-     */
+    $('#member-submit').click(function () {
+            $('#form').submit();
+    });
+    $('#email').change(function () {
+        if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}(\S)/).test($(this).val())) {
+            $('#email-error').prop('hidden', true);
+        } else {
+            $('#email-error').prop('hidden', false);
+        }
+    });
+    $('#pwd').change(function () {
+        if ((/^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}(\S)$/).test($(this).val())) {
+            $('#pwd-error').prop('hidden', true);
+        } else {
+            $('#pwd-error').prop('hidden', false);
+        }
+    });
+    $('#cpwd').change(function () {
+        if ($(this).val() === $('#pwd').val()) {
+            $('#cpwd-error').prop('hidden', true);
+        } else {
+            $('#cpwd-error').prop('hidden', false);
+        }
+    });
+    $('#name').change(function () {
+        if ((/[가-힣]{2,5}(\S)/).test($(this).val())) {
+            $('#name-error').prop('hidden', true);
+        } else {
+            $('#name-error').prop('hidden', false);
+        }
+    });
+    $('#telno').change(function () {
+        if ((/^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}(\S)$/).test($(this).val())) {
+            $('#phone-error').prop('hidden', true);
+        } else {
+            $('#phone-error').prop('hidden', false);
+        }
+    });
+    $('#selected-checked').click(function () {
+        $(this).prop('hidden', true);
+        $('#selected-unchecked').prop('hidden', false);
+        $('#terms').prop('checked', false);
+    });
+    $('#selected-unchecked').click(function () {
+        $(this).prop('hidden', true);
+        $('#selected-checked').prop('hidden', false);
+        $('#terms').prop('checked', true);
+    });
     $.ajax({
         type: 'GET',
-        url: '/payments/product',
+        url: '/members/value',
         datatype: 'json',
         success: function (result) {
-            $.each(result, function (index, payProductDto) {
-                let product =
-                    `<div class="coupon cols">
-                    <div class="coupon_name first_col" style="display: flex; align-items: center;">
-                        <span>
-                        <img src="` + payProductDto.image + `"
-                         alt="" class="product_img"/>
-                         </span>
-                         <a href="/detail?pdt_id=` + payProductDto.pdt_id + `" style="text-decoration: none; color: black;">
-                        <span id="pdt-title" style="padding-left: 10px;"> [` + payProductDto.company + `] ` + payProductDto.title + `</span>
-                        </a>
-                    </div>
-                    <div class="coupon_func second_col col" style="padding-top: 30px;">
-                        <fmt:formatDate value="${date}" type="date" pattern="MM/dd(E)"/>
-                    </div>
-                    <div class="coupon_rate third_col col" style="padding-top: 30px;">
-                        ` + payProductDto.pdt_qty + ` 개
-                    </div>
-                    <div class="coupon_due fourth_col col" style="padding-top: 30px;">
-                        ` + (payProductDto.sel_price * payProductDto.pdt_qty).toLocaleString() + ` 원
-                    </div>
-                    <div class="coupon_used fifth_col col" style="padding-top: 30px;">
-                         배송 준비
-                    </div>
-                </div>`;
-                $('#product-log').append(product);
-            })
+            $('#email').val(result.user_email);
+            $('#name').val(result.user_nm);
+            $('#telno').val(result.telno);
         },
         error: function () {
             alert('error');

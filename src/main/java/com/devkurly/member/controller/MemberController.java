@@ -114,8 +114,8 @@ public class MemberController {
     @PostMapping("/info")
     public String modifyMember(MemberUpdateRequestDto updateRequest, Model model, HttpSession session) {
         String prvPwd = updateRequest.getPwd();
-        MemberUpdateResponseDto updateResponse = memberService.modifyMember(updateRequest);
         MemberMainResponseDto memberResponse = memberService.signIn(new MemberSignInRequestDto(updateRequest.getUser_email(), prvPwd));
+        MemberUpdateResponseDto updateResponse = memberService.modifyMember(updateRequest);
         session.setAttribute("memberResponse", memberResponse);
         model.addAttribute("updateResponse", updateResponse);
         return "redirect:/members/info";
