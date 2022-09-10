@@ -4,7 +4,6 @@ import com.devkurly.address.domain.AddressDto;
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
-import com.devkurly.member.domain.Member;
 import com.devkurly.member.dto.*;
 import com.devkurly.member.exception.SignInException;
 import com.devkurly.member.service.MemberService;
