@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:mysql://db-8-29.c5mzabztmn4b.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@lsw119nas.synology.me" uuid="8aed9798-5061-4cd2-b90e-0be0b6485b70">
+    <data-source source="LOCAL" name="@lsw119nas.synology.me" uuid="e1d82437-1dad-4163-8f28-920f7b687671">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>

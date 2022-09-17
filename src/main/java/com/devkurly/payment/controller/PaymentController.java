@@ -70,8 +70,10 @@ public class PaymentController {
         }
         List<OrderResponseDto> orderResponseDto = orderService.viewOrderProduct(ord_id);
         for (OrderResponseDto responseDto : orderResponseDto) {
-            Cart cart = new Cart();
-            cart.updateCart(user_id, responseDto.getPdt_id());
+            Cart cart = Cart.builder()
+                    .user_id(user_id)
+                    .pdt_id(responseDto.getPdt_id())
+                    .build();
             cartService.removeOneCart(cart);
         }
         return "redirect:/payments/" + ord_id;
@@ -97,9 +99,4 @@ public class PaymentController {
         model.addAttribute("date", date);
         return "/payment/paymentLog";
     }
-
-//    @GetMapping("/logs/{ord_id}")
-//    public String viewPaymentLog(@PathVariable Integer ord_id) {
-//
-//    }
 }

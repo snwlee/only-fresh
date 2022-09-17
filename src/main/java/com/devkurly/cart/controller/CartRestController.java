@@ -48,8 +48,10 @@ public class CartRestController {
         List<Cart> cartList = new ArrayList<>();
         for (String s : chArr) {
             int pdt_id = Integer.parseInt(s);
-            Cart cart = new Cart();
-            cart.updateCart(id, pdt_id);
+            Cart cart = Cart.builder()
+                    .user_id(id)
+                    .pdt_id(pdt_id)
+                    .build();
             cartList.add(cart);
         }
         cartService.removeCheckedCart(cartList);

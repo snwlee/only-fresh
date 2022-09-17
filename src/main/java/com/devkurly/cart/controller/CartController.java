@@ -51,9 +51,12 @@ public class CartController {
 //    }
 
     @GetMapping("/delete/{ptd_id}")
-    public String removeOneCart(@PathVariable Integer ptd_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, Cart cart, HttpServletResponse response, HttpSession session) {
+    public String removeOneCart(@PathVariable Integer ptd_id, @CookieValue(value = "tempCart", required = false) Cookie tempCart, HttpServletResponse response, HttpSession session) {
         int id = getId(tempCart, response, session);
-        cart.updateCart(id, ptd_id);
+        Cart cart = Cart.builder()
+                .user_id(id)
+                .pdt_id(ptd_id)
+                .build();
         cartService.removeOneCart(cart);
         return "redirect:/carts";
     }
