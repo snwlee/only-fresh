@@ -1,18 +1,34 @@
 $('#member-submit').click(function () {
-    if ($("input:radio[class=checkmark]").is(':checked')) {
-        $('#gender-error').prop('hidden', true);
-    } else {
-        $('#gender-error').prop('hidden', false);
-        alert('성별을 선택해주세요.');
-        return;
-    }
-    if ($('#required-checked').prop('hidden') === false) {
-        $('#form').submit();
-    } else {
-        $('#required-error').prop('hidden', false);
-        alert('필수 약관에 동의해주세요.');
-    }
 
+    if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}(\S)/).test($('#email').val())) {
+        alert('이메일을 정확히 입력해주세요.');
+        return;
+    } else if ((/^(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}(\S)$/).test($('#pwd').val())) {
+        alert('비밀번호를 정확히 입력해주세요.');
+        return;
+    } else if ($('#cpwd').val() === $('#pwd').val()) {
+        alert('동일한 비밀번호를 입력해주세요.');
+        return;
+    } else if ((/[가-힣]{2,5}(\S)/).test($('#name').val())) {
+        alert('유효한 이름을 입력해주세요.');
+        return;
+    } else if ((/^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}(\S)$/).test($('#telno').val())) {
+        alert('유효한 휴대폰 번호를 입력해주세요.');
+        return;
+    } else if ((/^\S*$/).test($('#main_addr'))) {
+        $('#main_addr-error').prop('hidden', false);
+        alert('주소를 입력해주세요.');
+        return;
+    } else if ($("input:radio[class=checkmark]").is(':checked')) {
+        $('#gender-error').prop('hidden', false);
+        alert('성별을 입력해주세요.');
+        return;
+    } else if ($('#required-checked').prop('hidden') === false) {
+        alert('필수 약관에 동의해주세요.');
+        return;
+    } else {
+        $('#form').submit();
+    }
 });
 $('#email').change(function () {
     if ((/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}(\S)/).test($(this).val())) {
