@@ -53,6 +53,13 @@ public class MemberService {
         return new MemberMainResponseDto(member);
     }
 
+    public void findMemberEmail(String email) {
+        Optional.ofNullable(memberMapper.findByEmail(email).getUser_email())
+                .ifPresent((member -> {
+                    throw new DuplicateMemberException("이미 존재하는 회원입니다.", ErrorCode.DUPLICATE_MEMBER_EMAIL);
+                }));
+    }
+
     public MemberMainResponseDto kakaoSignIn(String user_email) {
         Member member = Optional.ofNullable(memberMapper.findByEmail(user_email)).orElseThrow(() -> new SignInException("존재하지 않는 회원 입니다.", ErrorCode.SIGN_IN_FAIL));
         return new MemberMainResponseDto(member);

@@ -120,3 +120,18 @@ $('#selected-unchecked').click(function () {
     $('#selected-checked').prop('hidden', false);
     $('#terms').prop('checked', true);
 });
+
+$('#email-duplicate').click(function () {
+    let email = {'email': $('#email').val()}
+    $.ajax({
+        type: 'GET',
+        url: '/members/duplicate',
+        data: email,
+        success: function () {
+            alert('이미 사용 중인 이메일입니다.');
+        },
+        error: function () {
+            alert('사용 가능한 이메일입니다.');
+        }
+    });
+});
