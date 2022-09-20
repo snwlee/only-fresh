@@ -29,7 +29,7 @@ function execPostCode() {
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             console.log(data.zonecode);
             console.log(fullRoadAddr);
-
+            $('#main_addr-error').prop('hidden', true);
 
             $("[name=city_code]").val(data.zonecode);
             $("[name=main_addr]").val(fullRoadAddr);
