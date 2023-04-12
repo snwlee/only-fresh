@@ -246,7 +246,7 @@
                         <div
                                 id="member-sns"
                                 style="cursor: pointer; font-weight: 500; font-size: 16px; text-align: center; line-height: 50px; margin-top: 30px; display: flex;"
-                                onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=7ab07adcdacec7c4752add19a162ee1b&redirect_uri=http://localhost:8080/members/kakao&response_type=code'"
+                                onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=7ab07adcdacec7c4752add19a162ee1b&redirect_uri=http://43.201.210.55:8080/members/kakao&response_type=code'"
                         >
                             <img
                                     id="kakao-img"
