@@ -56,6 +56,11 @@
 > Tool
 >
 ![stacks-tool](https://user-images.githubusercontent.com/82517133/188274521-d54864b6-21cf-4efa-b64a-9e9a264ca86b.png)
+
+# 🌐 서버 구조도
+
+![server](https://user-images.githubusercontent.com/82517133/232205848-cfa150e4-db99-4cd0-9a1e-5a8f678969ee.jpeg)
+
 # 💡ERD
 ![only-fresh-erd](https://user-images.githubusercontent.com/82517133/189133326-1393cd2e-e3ac-4af2-8c6d-0995ff88e791.png)
 ![only-fresh-erd-title](https://user-images.githubusercontent.com/82517133/189133359-09bd1a65-b201-41a5-883c-d3e2f85e508b.png)
