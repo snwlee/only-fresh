@@ -261,6 +261,8 @@
                             회원가입
                         </div>
                     </div>
+                    <div>시연 이메일: dev@gmail.com</div>
+                    <div>시연 비밀번호: 1q2w3e4r%</div>
                 </div>
             </div>
         </form>
