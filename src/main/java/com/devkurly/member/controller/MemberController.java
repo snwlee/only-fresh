@@ -141,7 +141,6 @@ public class MemberController {
         String access_Token = memberService.getAccessToken(code);
         HashMap<String, Object> userInfo = memberService.getUserInfo(access_Token);
         String email = (String) userInfo.get("email");
-        System.out.println(email);
         try {
             MemberMainResponseDto memberResponse = memberService.kakaoSignIn(email);
             session.setAttribute("memberResponse", memberResponse);

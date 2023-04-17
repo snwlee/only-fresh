@@ -29,7 +29,7 @@ $('#member-submit').click(function () {
         $('#gender-error').prop('hidden', false);
         alert('성별을 입력해주세요.');
         return;
-    } else if ($('#required-checked').prop('hidden') === false) {
+    } else if ($('#required-checked').prop('hidden') === true) {
         alert('필수 약관에 동의해주세요.');
         return;
     } else {

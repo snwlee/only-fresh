@@ -23,6 +23,11 @@ import java.util.Optional;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    public void exceptionCatcher(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/");
+    }
+
     @ExceptionHandler(EmptyCartException.class)
     public void cartCatcher(HttpServletResponse response) throws IOException {
         System.out.println("GlobalExceptionHandler: 장바구니가 비어 있습니다. (redirect)");
