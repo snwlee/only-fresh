@@ -12,6 +12,7 @@ target/
 *.iml
 *.ipr
 .idea/workspace.xml
+.idea/
 ### Eclipse ###
 .apt_generated
 .classpath
