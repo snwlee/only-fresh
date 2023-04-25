@@ -78,9 +78,12 @@
 ### 이선우
 
 > Mission 1 | 장바구니
-- 쿠키 장바구니 구현
+- 비회원에 대한 장바구니 구현
+  - 비로그인시 쿠키로 장바구니 관리 -> 로그인시 DB로 장바구니 전환
+- 장바구니 개수 조절 속도 개선
 
 > Mission 2 | 주문
+- 주문시 상품 재고 확인 후 주문
  
 > Mission 3 | 결제
 - Kakao Pay API
@@ -90,6 +93,7 @@
 
 > Mission 4 | 회원가입
 - Hibernate 유효성 검사
+  - 회원 객체에 대한 FormVaildator 구현
 - Kakao Login API
 
 ### 박채훈
