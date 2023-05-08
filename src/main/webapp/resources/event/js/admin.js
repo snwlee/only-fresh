@@ -27,7 +27,6 @@ let modifyValues = function (result) {
 }
 let addZero = function (value = 1) {
     return value > 9 ? value : "0" + value;
-    ;
 }
 let dateToString = function (ms = 0) {
     let date = new Date(ms);

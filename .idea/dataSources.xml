@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:mariadb://lsw119nas.synology.me:3090</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="only_fresh@pgrrr-springboot-websevice.c5mzabztmn4b.ap-northeast-2.rds.amazonaws.com" uuid="ef0ad668-c396-4298-b22f-0e777bb4124a">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://pgrrr-springboot-websevice.c5mzabztmn4b.ap-northeast-2.rds.amazonaws.com:3306/only_fresh</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
