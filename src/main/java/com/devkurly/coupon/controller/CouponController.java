@@ -20,7 +20,7 @@ public class CouponController {
 
     // C
     @PostMapping("/")
-    public ResponseEntity<String> addEvent(@RequestBody CouponDto couponDto) {
+    public ResponseEntity<String> addCoupon(@RequestBody CouponDto couponDto) {
         try {
             service.insert(couponDto);
             return new ResponseEntity<>("Create Event Successful", HttpStatus.OK);
@@ -70,7 +70,7 @@ public class CouponController {
 
     // U
     @PatchMapping("/")
-    public ResponseEntity<String> updateEvent(@RequestBody CouponDto couponDto) {
+    public ResponseEntity<String> updateCoupon(@RequestBody CouponDto couponDto) {
 
         try {
             int res = service.update(couponDto);
@@ -83,7 +83,7 @@ public class CouponController {
 
     // D
     @DeleteMapping("/{coupn_id}")
-    public ResponseEntity<String> deleteEvent(@PathVariable Integer coupn_id) {
+    public ResponseEntity<String> deleteCoupon(@PathVariable Integer coupn_id) {
         try {
             service.delete(coupn_id);
             return new ResponseEntity<>("Delete Successful", HttpStatus.OK);
