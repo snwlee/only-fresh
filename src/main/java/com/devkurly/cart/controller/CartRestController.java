@@ -2,6 +2,7 @@ package com.devkurly.cart.controller;
 
 import com.devkurly.cart.domain.Cart;
 import com.devkurly.cart.dto.CartProductResponseDto;
+import com.devkurly.cart.dto.CartSaveRequestDto;
 import com.devkurly.cart.service.CartService;
 import com.devkurly.member.dto.MemberMainResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/carts")
+@RequiredArgsConstructor
 public class CartRestController {
 
     private final CartService cartService;
@@ -67,4 +69,16 @@ public class CartRestController {
         }
         return id;
     }
+
+    @PostMapping
+    public void addProductInCart(@PathVariable String memberId, @Valid @RequestBody CartSaveRequestDto requestDto) {
+        if (requestDto.getPdt_qty() < 1) {
+            requestDto.setPdt_qty(1);
+        }
+//        int id = getId(tempCart, response, session);
+//        requestDto.saveCart(id, pdt_id);
+        cartService.checkProductStock(requestDto.toEntity());
+        cartService.addCart(requestDto);
+    }
+
 }

@@ -7,7 +7,9 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class CartSaveRequestDto {
     private Integer user_id;
     private Integer pdt_id;
@@ -33,13 +35,6 @@ public class CartSaveRequestDto {
     public CartSaveRequestDto(Integer user_id, Integer pdt_id) {
         this.user_id = user_id;
         this.pdt_id = pdt_id;
-    }
-
-    @Builder
-    public CartSaveRequestDto(Integer user_id, Integer pdt_id, Integer pdt_qty) {
-        this.user_id = user_id;
-        this.pdt_id = pdt_id;
-        this.pdt_qty = pdt_qty;
     }
 
     public Cart toEntity() {
