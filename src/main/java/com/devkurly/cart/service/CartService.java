@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 
@@ -21,15 +22,8 @@ import java.util.Random;
 @Transactional
 @RequiredArgsConstructor
 public class CartService {
-    private final CartMapper cartMapper;
 
-    /**
-     * temp
-     */
-    @Transactional(readOnly = true)
-    public Cart viewCart(Cart cart) {
-        return cartMapper.findByCart(cart);
-    }
+    private final CartMapper cartMapper;
 
     @Transactional(readOnly = true)
     public List<Cart> viewAllCart(Integer user_id) {
@@ -82,19 +76,20 @@ public class CartService {
     }
 
 
-    public Integer addCart(CartSaveRequestDto requestDto) {
+    public void addCart(CartSaveRequestDto requestDto) {
         try {
             Optional.ofNullable(cartMapper.findByCart(requestDto.toEntity()))
                     .ifPresent((cart -> {
                         throw new DuplicateCartException("이미 장바구니에 제품이 있습니다.", ErrorCode.DUPLICATE_CART_PRODUCT);
                     }));
-            return cartMapper.save(requestDto.toEntity());
+            cartMapper.save(requestDto.toEntity());
+            return;
         } catch (DuplicateCartException e) {
             requestDto.setPdt_qty(cartMapper.findByCart(requestDto.toEntity()).getPdt_qty() + requestDto.getPdt_qty());
         } catch (Exception e) {
             throw new RuntimeException();
         }
-        return cartMapper.update(requestDto.toEntity());
+        cartMapper.update(requestDto.toEntity());
     }
 
     public int getCookieId(Cookie tempCart) {
@@ -107,38 +102,35 @@ public class CartService {
 
     public int getCookieId(Cookie tempCart, HttpServletResponse response) {
         int id;
-        if (Optional.ofNullable(tempCart).isPresent()) {
+        if (tempCart != null) {
             id = Integer.parseInt(tempCart.getValue());
         } else {
             int randomNumber;
             do {
-                Random random = new Random();
-                randomNumber = random.nextInt(1000000);
-                // (예정) 중복 확인 후 재랜덤 결정
+                randomNumber = new Random().nextInt(1000000);
                 try {
-                    Optional.ofNullable(cartMapper.findById(randomNumber))
-                            .ifPresent(cookieNumber -> {
-                                throw new ArithmeticException();
-                            });
+                    cartMapper.findById(randomNumber);
+                } catch (NoSuchElementException ignored) {
                     break;
-                } catch (Exception ignored) {
-
                 }
             } while (true);
+
             Cookie newTempCart = new Cookie("tempCart", Integer.toString(randomNumber));
             newTempCart.setPath("/");
             response.addCookie(newTempCart);
+
             id = Integer.parseInt(newTempCart.getValue());
         }
+
         return id;
     }
 
-    public Integer modifyCart(Cart cart) {
-        return cartMapper.update(cart);
+    public void modifyCart(Cart cart) {
+        cartMapper.update(cart);
     }
 
-    public Integer removeOneCart(Cart cart) {
-        return cartMapper.deleteOne(cart);
+    public void removeOneCart(Cart cart) {
+        cartMapper.deleteOne(cart);
     }
 
     public void removeCheckedCart(List<Cart> cartList) {
@@ -147,8 +139,8 @@ public class CartService {
         }
     }
 
-    public Integer removeCart(Integer user_id) {
-        return cartMapper.delete(user_id);
+    public void removeCart(Integer user_id) {
+        cartMapper.delete(user_id);
     }
 
 

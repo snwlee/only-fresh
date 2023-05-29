@@ -71,12 +71,12 @@ public class CartRestController {
     }
 
     @PostMapping
-    public void addProductInCart(@PathVariable String memberId, @Valid @RequestBody CartSaveRequestDto requestDto) {
+    public void addProductInCart(@CookieValue(value = "tempCart", required = false) Cookie tempCart, @PathVariable String userId, @Valid @RequestBody CartSaveRequestDto requestDto, HttpServletResponse response, HttpSession session) {
         if (requestDto.getPdt_qty() < 1) {
             requestDto.setPdt_qty(1);
         }
-//        int id = getId(tempCart, response, session);
-//        requestDto.saveCart(id, pdt_id);
+        int id = getId(tempCart, response, session);
+        requestDto.saveCart(id, requestDto.getPdt_id());
         cartService.checkProductStock(requestDto.toEntity());
         cartService.addCart(requestDto);
     }

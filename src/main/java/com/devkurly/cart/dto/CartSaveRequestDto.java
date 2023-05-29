@@ -3,7 +3,10 @@ package com.devkurly.cart.dto;
 import com.devkurly.cart.domain.Cart;
 import lombok.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -11,8 +14,15 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class CartSaveRequestDto {
+
+    @NotNull(message = "유저 아이디는 필수 값입니다.")
     private Integer user_id;
+
+    @NotNull(message = "상품 아이디는 필수 값입니다.")
     private Integer pdt_id;
+
+    @NotNull(message = "상품 개수는 필수 값입니다.")
+    @Min(value = 1)
     private Integer pdt_qty;
 
     public CartSaveRequestDto(Cart cart) {

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class OutOfStockRestException extends RuntimeException{
+
     private final ErrorCode errorCode;
 
     public OutOfStockRestException(String message, ErrorCode errorCode) {
