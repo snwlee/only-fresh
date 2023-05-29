@@ -19,8 +19,9 @@ public class CouponController {
     }
 
     // C
+    // 관리자가 쿠폰 추가하기
     @PostMapping("/")
-    public ResponseEntity<String> addEvent(@RequestBody CouponDto couponDto) {
+    public ResponseEntity<String> addCoupon(@RequestBody CouponDto couponDto) {
         try {
             service.insert(couponDto);
             return new ResponseEntity<>("Create Event Successful", HttpStatus.OK);
@@ -31,6 +32,7 @@ public class CouponController {
     }
 
     // R
+    // 쿠폰의 목록 보기
     @GetMapping("/list")
     public ResponseEntity<List<CouponDto>> getCoupons() throws Exception{
         List<CouponDto> list = null;
@@ -43,6 +45,8 @@ public class CouponController {
             return new ResponseEntity<>(list, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // 쿠폰의 id를 통해 쿠폰 조회하기
     @GetMapping("/{coupn_id}")
     public ResponseEntity<CouponDto> getCoupon(@PathVariable Integer coupn_id) {
         CouponDto res = null;
@@ -55,6 +59,8 @@ public class CouponController {
             return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // 특정 유저가 소지한 쿠폰의 목록 조회하기
     @GetMapping("/user/{user_id}")
     public ResponseEntity<List<CouponDto>> getUserCoupons(@PathVariable Integer user_id){
         List<CouponDto> list = null;
@@ -69,8 +75,9 @@ public class CouponController {
     }
 
     // U
-    @PatchMapping("/")
-    public ResponseEntity<String> updateEvent(@RequestBody CouponDto couponDto) {
+    // 특정 쿠폰 수정하기
+    @PatchMapping("/{coupn_id}")
+    public ResponseEntity<String> updateCoupon(@RequestBody CouponDto couponDto) {
 
         try {
             int res = service.update(couponDto);
@@ -82,8 +89,9 @@ public class CouponController {
     }
 
     // D
+    // 특정 쿠폰 삭제하기
     @DeleteMapping("/{coupn_id}")
-    public ResponseEntity<String> deleteEvent(@PathVariable Integer coupn_id) {
+    public ResponseEntity<String> deleteCoupon(@PathVariable Integer coupn_id) {
         try {
             service.delete(coupn_id);
             return new ResponseEntity<>("Delete Successful", HttpStatus.OK);

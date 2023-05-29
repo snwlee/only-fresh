@@ -27,7 +27,6 @@ let modifyValues = function (result) {
 }
 let addZero = function (value = 1) {
     return value > 9 ? value : "0" + value;
-    ;
 }
 let dateToString = function (ms = 0) {
     let date = new Date(ms);
@@ -47,7 +46,7 @@ function bringEventOptions() {
             $(".events").html(toOptionTags(result));
         },
         error: function () {
-            alert("error")
+            alert("get event list error")
         } // 에러가 발생했을 때, 호출될 함수
     }); // $.ajax()
 }
@@ -66,7 +65,7 @@ $(document).ready(function () {
                 alert("delete success");
             },
             error: function () {
-                alert("error")
+                alert("delete button error")
             } // 에러가 발생했을 때, 호출될 함수
         })
     })
@@ -81,7 +80,7 @@ $(document).ready(function () {
                 })
             },
             error: function () {
-                alert("error")
+                alert("select button error")
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
     });
@@ -107,7 +106,7 @@ $(document).ready(function () {
             error: function (res) {
                 if(res.code === 404)
                     // alert(this.error.message());
-                    alert("error")
+                    alert("create button error")
             }, // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
     });
@@ -132,7 +131,7 @@ $(document).ready(function () {
                 alert("update success");
             },
             error: function () {
-                alert("error")
+                alert("update button error")
             },
         });
     })
@@ -147,7 +146,7 @@ $(document).ready(function () {
                 modifyValues(result);
             },
             error: function () {
-                alert("error")
+                alert("events to update error")
             } // 에러가 발생했을 때, 호출될 함수
         }); // $.ajax()
     })

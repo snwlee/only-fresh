@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>OnlyFresh :: 관리자</title>
-    <link rel="icon" href="/only-fresh-favicon.svg" />
-<%--    <link rel="stylesheet" href="/dev_kurly/reset.css" type="text/css">--%>
+    <link rel="icon" href="/only-fresh-favicon.svg"/>
+    <%--    <link rel="stylesheet" href="/dev_kurly/reset.css" type="text/css">--%>
     <style>
         #whole_container {
             width: 100%;
@@ -46,10 +46,12 @@
 
     </div>
     <div id="content_body">
+        <%--        이벤트 목록 조회--%>
         <div class="content">
             <button id="select_button">selectAll</button>
             <div id="select_result"></div>
         </div>
+        <%--        이벤트 생성하기--%>
         <div class="content create_event">
             <h2>이벤트 생성창</h2>
             <p>이름 : <input required maxlength="50" class="create_input" name="nm"></p>
@@ -66,6 +68,7 @@
             <p>할인율<input min="0" max="99" class="create_input" name="ds_rate"></p>
             <input type="submit" id="create_button" class=""></input>
         </div>
+        <%--        이벤트 수정--%>
         <div class="content">
             <h2>수정할 이벤트를 선택해 주세요</h2>
             <p>
@@ -86,6 +89,7 @@
                 <button id="update_button">UPDATE</button>
             </div>
         </div>
+        <%--        이벤트 삭제--%>
         <div class="content">
             <label>삭제할 이벤트를 선택해 주세요</label>
             <p>
