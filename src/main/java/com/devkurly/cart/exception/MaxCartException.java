@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class MaxCartException extends RuntimeException{
+
     private final ErrorCode errorCode;
 
     public MaxCartException(String message, ErrorCode errorCode) {
